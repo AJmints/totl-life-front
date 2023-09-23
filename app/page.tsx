@@ -13,7 +13,7 @@ export default function Home() {
       </div>
       
       <div className='bg-gray-200 p-5 mx-5 mb-5 text-center text-xl rounded-md shadow-lg shadow-gray-600/90'>
-      <p>What is TOTL? It's a life style. What does it stand for?</p>
+      <p>What is TOTL? It&#39;s a life style. What does it stand for?</p>
       <p>&quot;Turtle on the log&quot;</p>
       <p>What does that mean? Follow our insta to follow our story as it unfolds!</p>
       </div>
