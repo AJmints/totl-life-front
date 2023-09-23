@@ -5,7 +5,7 @@ import insta from '../public/icons/insta-logo.png'
 
 export default function Home() {
   return (
-    <main>
+    <main className='mb-20'>
       <h1 className='text-5xl md:text-[5rem] font-bold text-center my-16 bg-gray-200 rounded-md mx-5 p-2 shadow-lg shadow-gray-600/90'>TOTL coming soon</h1>
       
       <div className='flex justify-center mx-5'>
