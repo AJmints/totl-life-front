@@ -2,7 +2,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import totlLogo from '../public/logo/Totl3.png'
 import insta from '../public/icons/insta-logo.png'
-import current from '../public/images/spring-current.jpg'
 
 export default function Home() {
   return (
