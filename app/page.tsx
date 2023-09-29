@@ -26,7 +26,7 @@ export default function Home() {
       </div>
 
       <div className='flex justify-center'> 
-      <Link href="https://www.instagram.com/turtlesonthelog/">
+      <Link href="https://www.instagram.com/totl.life/" target='_blank'>
         <Image
         src={insta}
         alt=''
