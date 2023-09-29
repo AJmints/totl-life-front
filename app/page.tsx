@@ -4,6 +4,8 @@ import totlLogo from '../public/logo/Totl3.png'
 import insta from '../public/icons/insta-logo.png'
 
 export default function Home() {
+
+  
   return (
     <div 
     className='mb-20'
