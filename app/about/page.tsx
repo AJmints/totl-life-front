@@ -9,6 +9,8 @@ export default function AboutAll() {
                 </div><br/>
                 
             </div>
+            
         </div>
+        
     )
 }
