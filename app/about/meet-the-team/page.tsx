@@ -5,7 +5,7 @@ import secretary from "../../../public/images/secretary-of-the-treasury.jpg"
 export default function AboutTeamPage() {
 
     return (
-        <div className="flex">
+        <div className="">
             <div className="flex justify-center">
                 <div className="mx-5">
                     <h1 className="text-center mt-20 bg-gray-100 p-5 rounded-md">Get to know the heart and soul of TOTL.life
