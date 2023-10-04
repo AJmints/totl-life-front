@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       
-      <body className={inter.className}
+      <body id="body" className={inter.className}
       style={{
         backgroundImage: `url(${current.src})`,
         backgroundRepeat: 'no-repeat',

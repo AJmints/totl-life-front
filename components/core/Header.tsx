@@ -13,6 +13,7 @@ export default function Header() {
     const [menuToggle, setMenuToggle] = useState(false)
     const [aboutToggle, setAboutToggle] = useState(false)
     const [aboutTogglePhone, setAboutTogglePhone] = useState(false)
+    
 
     
     return (
@@ -73,8 +74,9 @@ export default function Header() {
 
             <div className={!menuToggle ? "hidden" : "sm:hidden fixed z-10 left-0"}>
                 <div className="w-52 min-h-screen text-xl block bg-gray-300 rounded-md font-light">
-                    <div className="">
+                    <div className="items-center flex">
                         <button className="text-4xl ml-5 mt-3 font-light text-gray-700" onClick={() => setMenuToggle(prev => !prev)}>X</button> 
+                        <Link className="m-3 bg-gray-500 ml-14 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-600/50 duration-500" href="/register">Register</Link>
                     </div>
                     <div className="mt-5">
                     <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/">Vibe</Link>
