@@ -6,19 +6,37 @@ import totlhome from '../../public/logo/totl-home.png'
 import arrow from '../../public/icons/Arrow.png'
 import menuCompressed from '../../public/icons/menu-burger.png'
 import { useState, useCallback, useEffect } from "react"
+import LoginForm from "../login/LoginForm"
 
 export default function Header() {
 
-    const [userLogged, setUserLogged] = useState(true)
+    const [userLogged, setUserLogged] = useState<boolean>(false)
     const [menuToggle, setMenuToggle] = useState(false)
     const [aboutToggle, setAboutToggle] = useState(false)
     const [aboutTogglePhone, setAboutTogglePhone] = useState(false)
+    const [loginToggle, setLoginToggle] = useState(false)
+
+    const check = () => {
+        if (sessionStorage.getItem("userName")) {
+            setUserLogged(true)
+        }
+    }
     
+    useEffect(function () {
+        check()
+    }, [loginToggle])
+
+    const logout = () => {
+        sessionStorage.clear()
+        localStorage.clear()
+        setUserLogged(false)
+    }
 
     
     return (
         <header className="flex bg-gray-700 justify-between xl:justify-around shadow-lg bg-shadow-900/90">
             
+
             <div className="sm:hidden  flex items-center">
                 <Image 
                     src={menuCompressed}
@@ -33,7 +51,7 @@ export default function Header() {
             <Image
             src={totlhome}
             alt=""
-            className="cursor-pointer w-auto sm:ml-10 h-20  hover:bg-gray-600 hover:shadow-lg px-1 m-1 rounded-md duration-300"
+            className="cursor-pointer w-auto sm:ml-10 h-24  hover:bg-gray-600 hover:shadow-lg px-1 m-1 rounded-md duration-300"
             priority={true}
             />
             </Link>
@@ -61,15 +79,31 @@ export default function Header() {
                 </nav>
             </div>
 
-            { !userLogged ?
-            <div>
-                <button>Profile</button>
-                <p>Image of user profile pic</p>
+            { userLogged ?
+            <div className="flex items-center pt-3 pb-2 mx-5 space-x-5">
+                <div>
+                    <button className="cursor-pointer h-20 w-20 bg-gray-300 rounded-full"></button>
+                </div>
+                <div>
+                    <button onClick={() => logout()} className="bg-rose-700 p-2 text-gray-300 shadow-lg shadow-gray-800 rounded-md">Log Out</button>
+                </div>
             </div>
             :
             <div className="items-center flex">
-                <Link className="m-3 bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500" href="/login">Login</Link>
-                <Link className="m-3 hidden sm:block bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500" href="/register">Register</Link>
+                <button onClick={() => setLoginToggle(prev => !prev)} className="m-3 hidden sm:block bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500">Login</button>
+                <Link className="m-3 bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500" href="/login">Register</Link>
+                {loginToggle ? 
+                <div className="absolute top-24 right-0">
+                <LoginForm 
+                setLoginToggle={setLoginToggle}
+                />
+                </div>
+                :
+                <div>
+                
+
+                </div>
+                }
             </div>}
 
             <div className={!menuToggle ? "hidden" : "sm:hidden fixed z-10 left-0"}>
