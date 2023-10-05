@@ -82,7 +82,7 @@ export default function LoginForm() {
                     <input className="rounded-md shadow-md" onChange={handleVerify} placeholder="Verify Pass" type="password" autoComplete="off" name="verifyPassword" id="verifyPassword" required minLength={6} maxLength={40} />
                 </div>
                 {/* If the verify password does not match the previous password, show alert */}
-                {pass.password !== pass.verifyPassword && pass.verifyPassword.length > 6 && <p className="text-red-700 text-lg">Passwords don't match</p>}
+                {pass.password !== pass.verifyPassword && pass.verifyPassword.length > 6 && <p className="text-red-700 text-lg">Passwords don&#39;t match</p>}
 
                 </div>
 
