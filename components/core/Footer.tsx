@@ -132,7 +132,7 @@ export default function Footer() {
             <div className=" border-gray-500 border-t-2">
                 <div>
                     <div className="flex justify-around items-center">
-                        <p className='mt-2 lg:ml-10 text-gray-300'> <span>&copy;</span>2023 Totl.life v.0.3</p>
+                        <p className='mt-2 lg:ml-10 font-light text-gray-300'> <span>&copy;</span>2023 Totl.life v0.0.3</p>
                         <div className="mt-2">
                             <div className="flex justify-center">
                             <Link href="https://www.alexjovestudios.com" target="_blank"><Image src={ajmints} alt='' className='w-12 top-0 sm:w-20 h-auto shadow-lg shadow-gray-900/90 rounded-md bg-gray-800 mx-auto' /></Link>

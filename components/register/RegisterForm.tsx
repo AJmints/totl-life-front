@@ -1,13 +1,37 @@
 'use client'
 
-import SocialLogin from "../login/SocialLogin"
+import { useState } from "react"
+
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export default function LoginForm() {
 
+    const [pass, setPass] = useState({
+        password: "",
+        verifyPassword: "",
+    })
+    const [formError, setFormError] = useState(false)
+    const [message, setMessage] = useState("")
+    const [hideSubmit, setHideSubmit] = useState(false)
+
+    const handleVerify = (event: any) => {    
+        const {name, value} = event.target
+        setPass(prevIn => ({
+            ...prevIn,
+            [name]: value
+        }))
+    }
+
 
     const handlSubmit = async(event: any) => {
         event.preventDefault()
+        setHideSubmit(true)
+
+        if (pass.password !== pass.verifyPassword) {
+            setFormError(true)
+            setHideSubmit(false)
+            return
+        }
 
         const data = {
             userName: String(event.target.userName.value),
@@ -23,43 +47,75 @@ export default function LoginForm() {
             body: JSON.stringify(data),
         })
         const result = await response.json()
-        console.log(result)
+        if (result.response) {
+            setHideSubmit(false)
+            setMessage(result.response)
+        }
 
     }
 
     return (
-        <div className=" bg-gray-400 p-3 mx-4 min-w-min rounded-md shadow-lg block shadow-gray-900">
+        <div className="sm:h-screen">
+        <div className="min-w-min sm:min-w-full bg-gray-400 p-3 mx-4  rounded-md shadow-lg shadow-gray-900">
             
             {/* Traditional Login */}
             <div className="block mx-3 justify-center font-light">
             <form className="block" onSubmit={handlSubmit}>
-                <div>
+                <div className="space-y-2">
                 <h1 className="text-3xl  sm:text-4xl border-b pb-1 border-gray-200 font-extralight mb-4">Register</h1>
                 <div className="font-light ">
-                    <h1 className="text-lg font-extralight sm:text-3xl">UserName: </h1>
-                    <input className="rounded-md shadow-md sm:text-2xl" type="text" autoComplete="on" id="userName" required minLength={3} maxLength={40} />
+                    <h1 className="text-lg font-light">Username: </h1>
+                    <input className="rounded-md shadow-md" placeholder="Username" type="text" autoComplete="on" id="userName" required minLength={3} maxLength={40} />
                 </div>
-                <div className="font-light mt-3">
-                    <h1 className="text-lg font-extralight sm:text-3xl">Email: </h1>
-                    <input className="rounded-md shadow-md sm:text-2xl" type="email" autoComplete="on" id="userEmail" required minLength={3} maxLength={40} />
+                <div className="font-light">
+                    <h1 className="text-lg font-light">Email: </h1>
+                    <input className="rounded-md shadow-md" placeholder="Email" type="email" autoComplete="on" id="userEmail" required minLength={3} maxLength={40} />
                 </div>
 
                 <div className="font-light">
-                    <h1 className="text-lg font-extralight sm:text-3xl">Password: </h1>
-                    <input className="rounded-md shadow-md sm:text-2xl" type="password" autoComplete="off" id="password" required minLength={3} maxLength={40} />
+                    <h1 className="text-lg font-light">Password: </h1>
+                    <input className="rounded-md shadow-md" value={pass.password} onChange={handleVerify} placeholder="Password"  type="password" autoComplete="off" name="password" id="password" required minLength={6} maxLength={40} />
                 </div>
+
+                <div className="font-light">
+                    <h1 className="text-lg font-light">ReEnter Password: </h1>
+                    <input className="rounded-md shadow-md" onChange={handleVerify} placeholder="Verify Pass" type="password" autoComplete="off" name="verifyPassword" id="verifyPassword" required minLength={6} maxLength={40} />
+                </div>
+                {/* If the verify password does not match the previous password, show alert */}
+                {pass.password !== pass.verifyPassword && pass.verifyPassword.length > 6 && <p className="text-red-700 text-lg">Passwords don't match</p>}
+
                 </div>
 
                 <div>
-                <button className="bg-green-700/80 p-2 rounded-md mt-8 shadow-md sm:text-2xl hover:bg-emerald-500/80 duration-300" type="submit">Submit</button>
+                {/* Freeze button while waiting for response */}
+                {hideSubmit ? <p className="bg-green-700/80 p-2 rounded-md mt-8 shadow-md hover:bg-emerald-500/80 duration-300">Sending...</p> : <button className="bg-green-700/80 p-2 rounded-md mt-8 shadow-md hover:bg-emerald-500/80 duration-300" type="submit">Submit</button>}
                 </div>
+                {/* If you try to enter form with invalid information, this alert will trigger */}
+                {formError && 
+                <div className="absolute bg-gray-200 w-44 mt-3 p-3 rounded-md">
+                    <p className="text-red-500 test-sm sm:text-lg">Please correct errors on your form to continue</p>
+                    <div className="flex justify-center mt-2">
+                    <button className=" bg-gray-400 p-1 rounded-md" onClick={() => setFormError(prev => !prev)}>close</button>
+                    </div>
+                </div>
+                }
+                {/* Response from register api is posted */}
+                {message && 
+                <div className="absolute bg-gray-200 w-44 shadow-lg shadow-gray-800 mt-3 p-3 rounded-md">
+                    <p className=" test-sm sm:text-lg">{message}</p>
+                    <div className="flex justify-center mt-2">
+                    <button className=" bg-gray-400 p-1 rounded-md" onClick={() => setMessage("")}>close</button>
+                </div>
+            </div>}
+            
             </form>
             </div>
 
             {/* Social login Option */}
-            <div className="mt-10">
+            {/* <div className="mt-10">
                 <SocialLogin />
-            </div>
+            </div> */}
+        </div>
         </div>
     )
 }
