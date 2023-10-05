@@ -42,7 +42,7 @@ export default function LoginForm(props: any) {
         if (result.token) {
             sessionStorage.setItem("userName", result.userName)
             sessionStorage.setItem("token", result.token)
-            props.setLoginToggle((prev: any) => !prev)
+            // props.setLoginToggle((prev: any) => !prev)
             router.push("/profile")
         }
     }
