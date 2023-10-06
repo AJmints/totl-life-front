@@ -1,5 +1,6 @@
 import UserDetails from "@/components/user-profile/UserDetails"
 
+
 export default function ProfilePage() {
 
     return (

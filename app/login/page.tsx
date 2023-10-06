@@ -1,6 +1,6 @@
 import LoginForm from "@/components/login/LoginForm";
 
-export default function LoginPage(props:any) {
+export default function LoginPage() {
 
     return (
         <div className="h-screen">
