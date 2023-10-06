@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link"
 import { useState } from "react"
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -56,7 +57,7 @@ export default function LoginForm() {
 
     return (
         <div className="sm:h-screen">
-        <div className="min-w-min sm:min-w-full bg-gray-400 p-3 mx-4  rounded-md shadow-lg shadow-gray-900">
+        <div className="min-w-min sm:min-w-full justify-center flex bg-gray-400 p-3 mx-4  rounded-md shadow-lg shadow-gray-900">
             
             {/* Traditional Login */}
             <div className="block mx-3 justify-center font-light">
@@ -107,14 +108,14 @@ export default function LoginForm() {
                     <button className=" bg-gray-400 p-1 rounded-md" onClick={() => setMessage("")}>close</button>
                 </div>
             </div>}
-            
             </form>
+
+            <div className="flex mt-3">
+                <p>Already have an account?</p>
+                <Link className="text-blue-600 border-b-2 border-blue-600 ml-1" href="/login">Login here!</Link>
+            </div>
             </div>
 
-            {/* Social login Option */}
-            {/* <div className="mt-10">
-                <SocialLogin />
-            </div> */}
         </div>
         </div>
     )

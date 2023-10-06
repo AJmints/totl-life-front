@@ -1,11 +1,27 @@
 'use client'
 
 import Link from "next/link"
-import SocialLogin from "./SocialLogin"
+import { useRouter } from "next/navigation"
+import { useState, useEffect } from 'react'
+
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
-export default function LoginForm() {
+export default function LoginForm(props: any) {
+
+    const router = useRouter()
+
+    const redirect = () => {
+        if (localStorage.getItem("userName")) {
+            //redirect to profile
+            // router.push("/profile")
+            // return
+        }
+    }
+
+    useEffect(function () {
+        redirect()
+    }, [])
 
     const handlSubmit = async(event: any) => {
         event.preventDefault()
@@ -24,6 +40,12 @@ export default function LoginForm() {
         })
         const result = await response.json()
         console.log(result)
+        if (result.token) {
+            sessionStorage.setItem("userName", result.userName)
+            sessionStorage.setItem("token", result.token)
+            
+            router.push("/profile")
+        }
     }
 
     return (

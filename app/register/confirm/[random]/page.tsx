@@ -1,5 +1,5 @@
 'use client'
-import Link from "next/link"
+
 import { useEffect, useState } from "react"
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
