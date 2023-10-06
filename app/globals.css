@@ -5,6 +5,35 @@
 body {
   background-color: rgb(111, 209, 111);
 }
+/* Default Background */
+.default-background {
+  background-image: url('../public/images/spring-current.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  width: 100%;
+  height: 100%;
+}
+/* Static Background */
+.static-background {
+  background-image: url('../public/images/spring-current.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  width: 100%;
+  height: 100%;
+}
+/* Parallax Background */
+.parallax-background {
+  background-image: url('../public/images/spring-current.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  width: 100%;
+  height: 100%;
+  background-attachment: fixed; /* This creates a parallax effect */
+}
+
 .fade-in-section {
   opacity: 0;
   transform: translateY(20px); /* Adjust this value as needed */
