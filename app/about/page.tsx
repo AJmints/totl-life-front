@@ -1,6 +1,7 @@
 'use client'
 import React, { useEffect } from 'react';
 import Image from 'next/image';
+import springcurrent from '../../public/images/spring-current.jpg';
 import aboutView from '../../public/images/about-view.jpg';
 import riverView from '../../public/images/river-view.jpg';
 import lifeStyle from '../../public/images/lifestyle.jpg';
@@ -18,7 +19,7 @@ const AboutAll = () => {
       const sections = document.querySelectorAll('.fade-in-section');
       sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
-        const offset = 150; // Adjust this value as needed
+        const offset = -100; // Adjust this value as needed
         const isVisible = rect.top - offset < window.innerHeight;
         if (isVisible) {
           section.classList.add('fade-in');
@@ -35,23 +36,33 @@ const AboutAll = () => {
 
   return (
     <div className="mb-5">
+        {/* <div className="background-section absolute top-0 left-0 z-0 w-full h-full">
+        <Image
+          src={springcurrent}
+          alt=""
+          className="w-full h-full object-cover fixed top-0 left-0 z-0"
+        />
+      </div> */}
       {/* Section 1 */}
       <div className="mx-2 fade-in-section">
         <div className="block fade-in">
           <div className="flex justify-center">
-            <h1 className="text-center mt-5 sm:mt-20 bg-gray-100 p-5 text-2xl rounded-md mx-5">Introduction</h1>
+            <h1 className="text-center mt-5 sm:mt-20 bg-gray-100 p-5 text-2xl rounded-md mx-5">What the heck is TOTL.life??</h1>
           </div>
-          <Image
-            src={aboutView}
-            alt=""
-            className="w-96 h-auto mx-auto mt-5 p-2 rounded-md bg-gray-100"
-          />
-          <div className="flex justify-center">
-            <p className="text-center mt-5 bg-gray-100 p-5 rounded-md mx-5">Welcome to TOTL.life, where 
-                we are a collective striving to engage in Sustainable Stewardship, in Missouri and beyond. 
-                Our mission is rooted in the ethos of responsible and lasting care for our environment, 
-                aiming for a positive impact that resonates far into the future. At TOTL.life, we believe in 
-                doing good with purpose, and our journey towards Sustainable Stewardship starts here.</p>
+        </div>
+        <div className="block fade-in-section">
+            <div className="flex justify-center">
+                <Image
+                    src={aboutView}
+                    alt=""
+                    className="w-96 h-auto mx-auto mt-5 p-2 rounded-md bg-gray-100"
+                />
+                <p className="text-center mt-5 bg-gray-100 p-5 rounded-md mx-5">Welcome to TOTL.life, where 
+                    we are a collective striving to engage in Sustainable Stewardship, in Missouri and beyond. 
+                    Our mission is rooted in the ethos of responsible and lasting care for our environment, 
+                    aiming for a positive impact that resonates far into the future. At TOTL.life, we believe in 
+                    doing good with purpose, and our journey towards Sustainable Stewardship starts here.
+                </p>
           </div>
         </div>
       </div>
