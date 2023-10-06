@@ -16,15 +16,15 @@ const AboutAll = () => {
         }
     
         const handleScroll = () => {
-      const sections = document.querySelectorAll('.fade-in-section');
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const offset = 150; // Adjust this value as needed
-        const isVisible = rect.top - offset < window.innerHeight;
-        if (isVisible) {
-          section.classList.add('fade-in');
-        }
-      });
+            const sections = document.querySelectorAll('.fade-in-section');
+            sections.forEach((section) => {
+                const rect = section.getBoundingClientRect();
+                const offset = 150; // Adjust this value as needed
+                const isVisible = rect.top - offset < window.innerHeight;
+                if (isVisible) {
+                section.classList.add('fade-in');
+                }
+            });
     };
 
     window.addEventListener('scroll', handleScroll);
