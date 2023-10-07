@@ -1,4 +1,4 @@
-import UserDetails from "@/components/user-profile/UserDetails"
+import UserOptions from "@/components/user-profile/UserOptions"
 
 
 export default function ProfilePage() {
@@ -6,7 +6,7 @@ export default function ProfilePage() {
     return (
         <div className="h-screen">
             <div className="m-2">
-            <UserDetails />
+            <UserOptions />
             </div>
         </div>
     )

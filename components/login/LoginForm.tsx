@@ -1,20 +1,28 @@
 'use client'
 
+import { stat } from "fs"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from 'react'
 
-
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
-export const setTokenCookie = (data:any) => {
-     fetch("/api/login", {
+export const setTokenCookie = async(data: any) => {
+     const infoCall = await fetch("/api/login", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ data })
     })
+    const status = await infoCall.json().catch((err) => {
+        console.log(err)
+    })
+    
+    if (status.success) {
+        console.log("success!")
+    }
+
 }
 
 export default function LoginForm() {
@@ -72,7 +80,7 @@ export default function LoginForm() {
     }
 
     return (
-        <div className=" bg-gray-400 mx-2 p-3 block justify-center rounded-md shadow-lg shadow-gray-900">
+        <div className="bg-gray-400 mx-2 p-3 block justify-center rounded-md shadow-lg shadow-gray-900">
             
             {/* Traditional Login */}
             <div className="block mx-3 pb-5 justify-center font-light">
