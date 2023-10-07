@@ -116,7 +116,6 @@ export default function Header() {
                 {loginToggle ? 
                 <div className="absolute top-24 right-0">
                 <LoginForm 
-                setLoginToggle={setLoginToggle}
                 />
                 </div>
                 :
