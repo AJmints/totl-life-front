@@ -2,7 +2,14 @@ Currently working to understand how to set up a Proxy server
 in order to pass JWT from front to back through HTTP Cookies in Headers.
 
 The source I am using is...
+Source: 1
 post: https://maxschmitt.me/posts/next-js-http-only-cookie-auth-tokens
 git example: https://github.com/maximilianschmitt/next-auth
 
 Not sure if I need to use this approach, but looking into it.
+
+Another article about proxy server setup
+Source: 2
+post: https://javascript.plainenglish.io/next-js-secure-authentication-using-http-only-cookie-graphql-or-rest-a4ef94cec9e8
+
+I am taking the approach shown in source 2 for now. I am trying to avoid using axios.

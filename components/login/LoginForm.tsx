@@ -3,26 +3,46 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from 'react'
-// import { useCookies } from 
 
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
-export default function LoginForm(props: any) {
+export const setTokenCookie = (data:any) => {
+     fetch("/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ data })
+    })
+}
+
+export default function LoginForm() {
 
     const router = useRouter()
 
     const redirect = () => {
-        if (localStorage.getItem("userName")) {
-            //redirect to profile
-            // router.push("/profile")
-            // return
+        if (sessionStorage.getItem("userName")) {
+            router.push("/profile")
+            return
         }
     }
 
     useEffect(function () {
         redirect()
     }, [])
+
+    // const proxySpeak = async(data: any) => {
+    //     const response = await fetch("pages/api/login.js", {
+    //         method: 'POST',
+    //         headers: {
+    //             "Content-Type": "application/json"
+    //         },
+    //         body: JSON.stringify(data)
+    //     })
+    //     const status = await response.json()
+    //     console.log(status)
+    // }
 
     const handlSubmit = async(event: any) => {
         event.preventDefault()
@@ -42,9 +62,11 @@ export default function LoginForm(props: any) {
         const result = await response.json()
         console.log(result)
         if (result.token) {
+            /* TODO: Set cookie in a secure way */
             sessionStorage.setItem("userName", result.userName)
             sessionStorage.setItem("token", result.token)
-            
+            // proxySpeak(data)
+            setTokenCookie(result)
             router.push("/profile")
         }
     }
