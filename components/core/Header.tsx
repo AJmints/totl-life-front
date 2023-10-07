@@ -18,7 +18,7 @@ export default function Header() {
     const [aboutToggle, setAboutToggle] = useState(false)
     const [aboutTogglePhone, setAboutTogglePhone] = useState(false)
     const [loginToggle, setLoginToggle] = useState(false)
-    const [userDetailsToggle, setUserDetailsToggle] = useState(true)
+    const [userDetailsToggle, setUserDetailsToggle] = useState(false)
 
     const [routeChange, setRouteChange] = useState("")
     const pathname = usePathname()
@@ -42,11 +42,12 @@ export default function Header() {
         checkLoginStatus()
         detectRoute()
 
-    }, [loginToggle, pathname])
+    }, [loginToggle, pathname, userLogged])
 
     const logout = () => {
         sessionStorage.clear()
-        localStorage.clear()
+        setUserDetailsToggle(false)
+        setLoginToggle(false)
         setUserLogged(false)
     }
 
@@ -88,8 +89,7 @@ export default function Header() {
                         </div>
                             <div 
                                 onMouseOver={() => setAboutToggle(true)} 
-                                onMouseLeave={() => setAboutToggle(false)} 
-                                
+                                onMouseLeave={() => setAboutToggle(false)}
                                 className={aboutToggle ? "absolute block bg-gray-400 z-10 rounded-md py-2 px-3 left-3 shadow-lg shadow-gray-800/90" : "hidden"}
                             >
                             <div className="block min-w-max">
@@ -114,22 +114,22 @@ export default function Header() {
                         onClick={() => setUserDetailsToggle(prev => !prev)}
                     />
                 </div>
-                {userDetailsToggle ? 
+                {/* Open user sidebard from Profile Icon */}
+                {!userDetailsToggle ? 
                 <></>
                 :
                 <div className="fixed z-30 right-0 top-0 ">
-                <div className="shadow-xl shadow-gray-800 relative bg-gray-700 h-screen">
-                <div className="">
-                <Image src={arrow} alt="" onClick={() => setUserDetailsToggle(prev => !prev)} className="cursor-pointer relative z-20 bg-gray-300 p-3 right-14 rounded-md shadow-lg top-20 w-16" />
-                </div>
-                <UserOptions 
-                setUserLogged={setUserLogged}
-                />
-                </div>
+                    <div className="shadow-xl shadow-gray-800 relative bg-gray-700 h-screen">
+                    <div className="">
+                    <Image src={arrow} alt="Close" onClick={() => setUserDetailsToggle(prev => !prev)} className="cursor-pointer relative z-20 bg-gray-300 p-2 right-12 rotate-180 rounded-md hover:shadow-lg drop-shadow-xl top-20 w-14 hover:bg-emerald-500 duration-300 hover:shadow-gray-800/80 hover:rotate-0" />
+                    </div>
+                    <UserOptions 
+                    logout={logout}
+                    />
+                    </div>
                 </div>
                 }     
-                <div className="hidden sm:block">
-                    {/* <button onClick={() => logout()} className="bg-rose-700 p-2 text-gray-300 shadow-lg shadow-gray-800 rounded-md">Log Out</button> */}
+                <div>
                 </div>
             </div>
             :
@@ -138,16 +138,18 @@ export default function Header() {
                 
                 {loginToggle ? 
                 <div className="absolute top-24 z-10 right-0">
-                    <LoginForm />
+                    <LoginForm
+                    setUserLogged={setUserLogged}
+                     />
                 </div>
                 :
                 <>
                 </>
                 }
-                <Link className="m-3 bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500" href="/login">Login</Link>
-                
-            </div>}
+            </div>
+            }
 
+            {/* Open hamburger menu when in phone view */}
             <div className={!menuToggle ? "hidden" : "sm:hidden fixed z-10 left-0"}>
                 <div className="w-52 min-h-screen text-xl block bg-gray-300 rounded-md font-light">
                     <div className="items-center flex">

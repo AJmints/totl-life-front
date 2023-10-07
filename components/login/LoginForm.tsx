@@ -25,7 +25,7 @@ export const setTokenCookie = async(data: any) => {
 
 }
 
-export default function LoginForm() {
+export default function LoginForm(props: any) {
 
     const router = useRouter()
 
@@ -73,6 +73,7 @@ export default function LoginForm() {
             /* TODO: Set cookie in a secure way */
             sessionStorage.setItem("userName", result.userName)
             sessionStorage.setItem("token", result.token)
+            props.setUserLogged(true)
             // proxySpeak(data)
             setTokenCookie(result)
             router.push("/profile")
