@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import RootLayout from '../layout';
 import springcurrent from '../../public/images/spring-current.jpg';
 import aboutView from '../../public/images/about-view.jpg';
 import riverView from '../../public/images/river-view.jpg';
@@ -36,7 +35,6 @@ const AboutAll = () => {
   }, []);
 
   return (
-    <RootLayout backgroundStyle="parallax">
     <div className="mb-5 ">
       {/* Section 1 */}
       <div className="mx-2 fade-in-section">
@@ -146,7 +144,6 @@ const AboutAll = () => {
         </div>
       </div>
     </div>
-    </RootLayout>
   );
 };
 
