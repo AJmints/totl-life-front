@@ -121,7 +121,7 @@ export default function Header() {
                 <div className="fixed z-30 right-0 top-0 ">
                     <div className="shadow-xl shadow-gray-800 relative bg-gray-700 h-screen">
                     <div className="">
-                    <Image src={arrow} alt="Close" onClick={() => setUserDetailsToggle(prev => !prev)} className="cursor-pointer relative z-20 bg-gray-300 p-2 right-12 rotate-180 rounded-md hover:shadow-lg drop-shadow-xl top-20 w-14 hover:bg-emerald-500 duration-300 hover:shadow-gray-800/80 hover:rotate-0" />
+                    <Image src={arrow} alt="Close" onClick={() => setUserDetailsToggle(prev => !prev)} className="cursor-pointer relative z-20 bg-gray-300 p-2 right-8 rotate-180 rounded-md hover:shadow-lg drop-shadow-xl top-20 w-14 hover:bg-emerald-500 duration-300 hover:shadow-gray-800/80 hover:rotate-0" />
                     </div>
                     <UserOptions 
                     logout={logout}

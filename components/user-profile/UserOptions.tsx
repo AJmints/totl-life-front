@@ -37,7 +37,7 @@ export default function UserOptions(props: any) {
             </div>
             </div>
             
-            <div className="bg-gray-600 mt-10 p-2 rounded-md">
+            <div className="bg-gray-600 mt-10 mx-2 p-2 rounded-md">
                 <p className="text-3xl border-b-2 border-gray-400">User Information</p>
                 <h1>UserName: </h1>
                 <h2>Contact: </h2>
