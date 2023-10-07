@@ -65,7 +65,7 @@ const AboutAll = () => {
       <div className="mx-2 fade-in-section">
         <div className="block fade-in">
           <div className="flex justify-center">
-            <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full">Our Current Initiative: River Cleanup 2024</h1>
+            <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full" id='Initiative'>Our Current Initiative: River Cleanup 2024</h1>
           </div>
           <div className="mx-2 fade-in-section">
             <div className="block fade-in">
@@ -95,7 +95,7 @@ const AboutAll = () => {
       <div className="mx-2 fade-in-section">
         <div className="block fade-in">
           <div className="flex justify-center">
-            <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full">The TOTL lifestyle
+            <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full" id='Lifestyle'>The TOTL lifestyle
             </h1>
           </div>
           <div className="mx-2 fade-in-section">
@@ -117,7 +117,7 @@ const AboutAll = () => {
 
       {/* Section 4 */}
       <div className="mx-2 fade-in-section">
-        <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full">Get to know the heart and soul of TOTL.life
+        <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full" id='MeetUs'>Get to know the heart and soul of TOTL.life
         </h1>
         <div className="block fade-in sm:flex justify-around mt-5">
         <div>
