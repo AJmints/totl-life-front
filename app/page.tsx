@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import RootLayout from '../app/layout.tsx';
 import totlLogo from '../public/logo/Totl3.png'
 import insta from '../public/icons/insta-logo.png'
 import discord from '../public/icons/discord-mark-blue.png'
@@ -9,7 +8,6 @@ export default function Home() {
 
   
   return (
-    <RootLayout backgroundStyle="static">
     <div 
     className='mb-20'
     >
@@ -50,6 +48,5 @@ export default function Home() {
       </div>
 
     </div>
-    </RootLayout>
   )
 }
