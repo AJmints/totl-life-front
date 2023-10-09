@@ -18,25 +18,20 @@ export default (req, res) => {
 
         // const { token } = req.body.data.token
         const cookies = new Cookies(req, res)
-        const authToken = cookies.get('auth-token')
+        // const authToken = cookies.get('auth-token')
         const token = req.body.data.token
 
         cookies.set("auth-token", token)
-        
-        res.status(200).json({ success: true })
+        return res.status(200).json({ success: true })
 
         // TODO: This approach is depricated, look for update and update isLogin
         // const pathname = url.parse(req.url).pathname
-        const isLogin = req.url === '/api/login' // should: req.url = pathname
+        // const isLogin = req.url === '/api/login' // should: req.url = pathname
 
         // req.headers.cookies = ''
-        console.log(req.headers.cookie)
+        // console.log(req.headers.cookie)
 
-
-        if (authToken) {
-            console.log("authtoken triggered")
-            req.headers['auth-token'] = authToken
-        }
+        
         // if (isLogin) {
         //     console.log("islogin if statement triggered")
         //     proxy.once('proxyRes', (stream) => {
@@ -44,7 +39,7 @@ export default (req, res) => {
         //     })
         // }
 
-        proxy.once('error', reject)
+        // proxy.once('error', reject)
 
         // proxy.web(req, res, {
         //     target: "",

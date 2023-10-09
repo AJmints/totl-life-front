@@ -6,10 +6,32 @@ import totlhome from '../../public/logo/totl-home.png'
 import picDefault from '../../public/icons/profile-pic.png'
 import arrow from '../../public/icons/Arrow.png'
 import menuCompressed from '../../public/icons/menu-burger.png'
-import { useState, useCallback, useEffect } from "react"
-import { usePathname } from "next/navigation"
+import { useState, useEffect } from "react"
+import { usePathname, useRouter } from "next/navigation"
 import LoginForm from "../login/LoginForm"
-import UserOptions from "../user-profile/UserOptions"
+import UserOptionsConst from "../user-profile/UserOptionsConst"
+
+
+export const serverSideProps = async() => {
+    const infoCall = await fetch("/api/logout")
+   const status = await infoCall.json().catch((err) => {
+       console.log(err)
+   })
+   console.log(status)
+}
+
+export const authCheck = async() => {
+    const infoCall = await fetch("/api/authCheck")
+    const status = await infoCall.json().catch((err) => {
+        console.log(err)
+    })
+    if (status.loggedIn === true) {
+        return true
+    } else {
+        return false
+    }
+}
+
 
 export default function Header() {
 
@@ -22,10 +44,13 @@ export default function Header() {
 
     const [routeChange, setRouteChange] = useState("")
     const pathname = usePathname()
+    const router = useRouter()
 
+    const [userPFP, setUserPFP] = useState(null)
     
     
     useEffect(function () {
+        
         const detectRoute = () => {
             const url = `${pathname}`
             setRouteChange(url)
@@ -34,9 +59,12 @@ export default function Header() {
                 setLoginToggle(false)
             }
         }
-        const checkLoginStatus = () => {
-            if (sessionStorage.getItem("userName")) {
+        const checkLoginStatus = async () => {
+            const logged = await authCheck()
+            if (logged) {
                 setUserLogged(true)
+            } else {
+                setUserLogged(false)
             }
         }
         checkLoginStatus()
@@ -45,10 +73,11 @@ export default function Header() {
     }, [loginToggle, pathname, userLogged])
 
     const logout = () => {
-        sessionStorage.clear()
         setUserDetailsToggle(false)
         setLoginToggle(false)
         setUserLogged(false)
+        serverSideProps()
+        router.push("/")
     }
 
     return (
@@ -107,39 +136,44 @@ export default function Header() {
             { userLogged ?
             <div className="flex items-center pt-3 pb-2 mr-2 sm:mx-5 space-x-5">
                 <div>
+                    {userPFP !== null ? 
+                    <Image 
+                        src={userPFP}
+                        alt=""
+                        width={100}
+                        height={100}
+                        className="cursor-pointer h-14 w-14 sm:h-20 sm:w-20 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
+                        onClick={() => setUserDetailsToggle(prev => !prev)}
+                    />
+                    :
                     <Image 
                         src={picDefault}
                         alt=""
                         className="cursor-pointer h-14 w-14 sm:h-20 sm:w-20 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
                         onClick={() => setUserDetailsToggle(prev => !prev)}
                     />
+                    }
                 </div>
                 {/* Open user sidebard from Profile Icon */}
-                {!userDetailsToggle ? 
-                <></>
-                :
-                <div className="fixed z-30 right-0 top-0 ">
-                    <div className="shadow-xl shadow-gray-800 relative bg-gray-700 h-screen">
-                    <div className="">
-                    <Image src={arrow} alt="Close" onClick={() => setUserDetailsToggle(prev => !prev)} className="cursor-pointer relative z-20 bg-gray-300 p-2 right-8 rotate-180 rounded-md hover:shadow-lg drop-shadow-xl top-20 w-14 hover:bg-emerald-500 duration-300 hover:shadow-gray-800/80 hover:rotate-0" />
-                    </div>
-                    <UserOptions 
+                    <UserOptionsConst
                     logout={logout}
-                    />
-                    </div>
-                </div>
-                }     
+                    userDetailsToggle={userDetailsToggle}
+                    setUserDetailsToggle={setUserDetailsToggle}
+                    userPFP={userPFP}
+                    setUserPFP={setUserPFP}
+                    />   
                 <div>
                 </div>
             </div>
             :
             <div className="items-center flex">
-                <button onClick={() => setLoginToggle(prev => !prev)} className="m-3 hidden sm:block bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500">{loginToggle ? "Close" : "Login"}</button>
+                <button onClick={() => setLoginToggle(prev => !prev)} className="m-3 block bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500">{loginToggle ? "Close" : "Login"}</button>
                 
                 {loginToggle ? 
                 <div className="absolute top-24 z-10 right-0">
                     <LoginForm
                     setUserLogged={setUserLogged}
+                    userLogged={userLogged}
                      />
                 </div>
                 :

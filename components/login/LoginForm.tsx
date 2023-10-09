@@ -1,6 +1,5 @@
 'use client'
 
-import { stat } from "fs"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from 'react'
@@ -18,39 +17,34 @@ export const setTokenCookie = async(data: any) => {
     const status = await infoCall.json().catch((err) => {
         console.log(err)
     })
-    
-    if (status.success) {
-        console.log("success!")
-    }
+}
 
+export const authCheck = async() => {
+    const infoCall = await fetch("/api/authCheck")
+    const status = await infoCall.json().catch((err) => {
+        console.log(err)
+    })
+    if (status.loggedIn) {
+        return true
+    } else {
+        return false
+    }
 }
 
 export default function LoginForm(props: any) {
 
     const router = useRouter()
 
-    const redirect = () => {
-        if (sessionStorage.getItem("userName")) {
-            router.push("/profile")
-            return
+    const redirect = async() => {
+        const what = await authCheck()
+        if (what) {
+            router.push("/forum")
         }
     }
 
     useEffect(function () {
         redirect()
     }, [])
-
-    // const proxySpeak = async(data: any) => {
-    //     const response = await fetch("pages/api/login.js", {
-    //         method: 'POST',
-    //         headers: {
-    //             "Content-Type": "application/json"
-    //         },
-    //         body: JSON.stringify(data)
-    //     })
-    //     const status = await response.json()
-    //     console.log(status)
-    // }
 
     const handlSubmit = async(event: any) => {
         event.preventDefault()
@@ -68,15 +62,11 @@ export default function LoginForm(props: any) {
             body: JSON.stringify(data)
         })
         const result = await response.json()
-        console.log(result)
         if (result.token) {
             /* TODO: Set cookie in a secure way */
-            sessionStorage.setItem("userName", result.userName)
-            sessionStorage.setItem("token", result.token)
             props.setUserLogged(true)
-            // proxySpeak(data)
             setTokenCookie(result)
-            router.push("/profile")
+            router.push("/forum")
         }
     }
 
