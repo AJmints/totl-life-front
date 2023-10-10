@@ -108,13 +108,12 @@ export default function Header() {
             {/* Links tablet/laptop display*/}
             <div className="hidden sm:flex items-center">
                 <nav className="flex ml-10 items-center">
-                    <Link className="items-center flex text-gray-100 ml-5" href="/">Vibe</Link>
-                    <Link className="items-center flex text-gray-100 ml-5" href="/forum">Forums</Link>
+                    <Link className="items-center flex text-gray-100 ml-5" href="/bales">Bales</Link>
                     <Link className="items-center flex text-gray-100 ml-5" href="/dapp">Dapp</Link>
                     <div className="relative inline-block">
                         <div className="flex space-x-1">
                         <Link onMouseOver={() => setAboutToggle(prev => !prev)} onMouseLeave={() => setAboutToggle(prev => !prev)} className="items-center flex text-gray-100 ml-5" href="/about">About</Link>
-                        <Image src={arrow} alt="" className={!aboutToggle ? "cursor-pointer w-6 h-6 -rotate-90 hover:bg-gray-400 bg-gray-500 rounded-md p-1 duration-300" : "cursor-pointer w-6 h-6 rotate-90 hover:bg-gray-400  rounded-md p-1 duration-300"} onClick={() => setAboutToggle(prev => !prev)} />
+                        <Image onMouseLeave={() => setAboutToggle(false)} src={arrow} alt="" className={!aboutToggle ? "cursor-pointer w-6 h-6 -rotate-90 hover:bg-gray-400 bg-gray-500 rounded-md p-1 duration-300" : "cursor-pointer w-6 h-6 rotate-90 hover:bg-gray-400  rounded-md p-1 duration-300"} onClick={() => setAboutToggle(prev => !prev)} />
                         </div>
                             <div 
                                 onMouseOver={() => setAboutToggle(true)} 
@@ -190,8 +189,7 @@ export default function Header() {
                         <button className="text-4xl ml-5 mt-3 font-light text-gray-700" onClick={() => setMenuToggle(prev => !prev)}>X</button> 
                     </div>
                     <div className="mt-5">
-                    <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/">Vibe</Link>
-                    <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/forum">Forums</Link>
+                    <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/bales">Bales</Link>
                     <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/dapp">Dapp</Link>
                     <div className="flex items-center">
                     <Link className="m-2 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/about">About</Link>

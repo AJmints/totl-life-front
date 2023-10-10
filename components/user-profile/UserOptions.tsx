@@ -85,11 +85,12 @@ export default function UserOptions(props: any) {
             </div>
             
             <div className="bg-gray-600 mt-5 mx-2 p-2 rounded-md flex">
-                <p className="text-3xl border-b-2 border-gray-400">{props.userName}</p>
+                <p className="text-3xl border-b-2 text-gray-200 border-gray-400">{props.userName}</p>
             </div>
 
-            <div className="flex mt-10 justify-center">
-                <button onClick={() => props.logout()} className="bg-rose-600/80 duration-300 hover:bg-red-800  p-2  text-gray-300 shadow-lg shadow-gray-800 rounded-md">Log Out</button>
+            <div className="flex mt-10 justify-center space-x-2">
+                <button className="bg-emerald-500 hover:bg-emerald-700/80 duration-300 shadow-lg shadow-gray-800 text-gray-300 p-2 rounded-md">Settings</button>
+                <button onClick={() => props.logout()} className="bg-rose-600/80 duration-300 hover:bg-red-800 p-2 text-gray-300 shadow-lg shadow-gray-800 rounded-md">Log Out</button>
             </div>
             
             </div>

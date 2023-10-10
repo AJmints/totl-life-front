@@ -2,6 +2,18 @@
 
 Welcome to the TOTL README!
 
-## What is totl.life?
+## Welcome to Totl.life
 
-That's a great question. This is a project that will continue to be built upon for the foreseable future. We have some goals and aspirations with this project, but it is first and foremost a project to explore web development, build community, and have fun.
+We have some goals and aspirations with this project, but it is first and foremost a project to explore web development, build community, and have fun.
+
+## TechStack
+
+-NextJS: --v 13.5.2
+-TypeScript
+-TailWind
+
+-Spring Boot
+-Spring Security
+-Java
+
+-MySQL
