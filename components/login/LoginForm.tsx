@@ -38,7 +38,7 @@ export default function LoginForm(props: any) {
     const redirect = async() => {
         const what = await authCheck()
         if (what) {
-            router.push("/bale")
+            router.push("/bales")
         }
     }
 

@@ -27,7 +27,7 @@ export default function Footer() {
             {/* Container for all items above the copyright */}
             <div className='block sm:flex items-center justify-around lg:justify-center xl:space-x-32'>
 
-            {/* AJ Mints logo */}
+            {/* Totl logo */}
             <div className='ml-10 mr-5'>
                 <div className=''>
                 <Image src={totlSrc} alt='' className='w-28 top-0 sm:w-56 h-auto  rounded-md ' />
@@ -40,16 +40,16 @@ export default function Footer() {
                 <hr></hr>
                 <div className='space-y-2 mt-2 text-lg font-light'>
                 <div>
-                <Link className='duration-500 hover:text-yellow-400' href="/">Main</Link>
+                <Link className='duration-500 hover:text-yellow-400' href="/">The River</Link>
                 </div>
                 <div>
-                <Link className='duration-500 hover:text-yellow-400' href="/artwork">ArtWork</Link>
+                <Link className='duration-500 hover:text-yellow-400' href="/bales">Bales</Link>
                 </div>
                 <div>
-                <Link className='duration-500 hover:text-yellow-400' href="/commission">Commissions</Link>
+                {/* <Link className='duration-500 hover:text-yellow-400' href="/commission">Commissions</Link> */}
                 </div>
                 <div>
-                <Link className='duration-500 hover:text-yellow-400' href="/about">Contact</Link>
+                {/* <Link className='duration-500 hover:text-yellow-400' href="/about">Contact</Link> */}
                 </div>
                 </div>
             </div>
@@ -60,10 +60,10 @@ export default function Footer() {
                 <hr></hr>
                 <div className='space-y-2 mt-2 text-lg font-light'>
                 <div>
-                <Link className='duration-500 hover:text-yellow-400' href="/about/artist">The Artist</Link>
+                <Link className='duration-500 hover:text-yellow-400' href="/about">What is Totl</Link>
                 </div>
                 <div>
-                <Link className='duration-500 hover:text-yellow-400' href="/about/webdev">The Web Developer</Link>
+                {/* <Link className='duration-500 hover:text-yellow-400' href="/about/webdev">The Web Developer</Link> */}
                 </div>
                 </div>
 
