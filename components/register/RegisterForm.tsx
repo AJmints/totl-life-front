@@ -47,12 +47,17 @@ export default function LoginForm() {
             },
             body: JSON.stringify(data),
         })
-        const result = await response.json()
+        const result = await response.json().catch((err) => {
+            setHideSubmit(false)
+            setMessage(err.error)
+            return
+        })
         if (result.response) {
             setHideSubmit(false)
             setMessage(result.response)
+            return
         }
-
+        return setHideSubmit(false)
     }
 
     return (

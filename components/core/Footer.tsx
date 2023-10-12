@@ -3,6 +3,8 @@ import Link from "next/link"
 import Image from "next/image"
 import top from '../../public/icons/Arrow.png'
 import ajmints from '../../public/logo/AJmintslogo.png'
+import discord from '../../public/icons/discord-mark-blue.png'
+import instagram from '../../public/icons/insta-logo.png'
 import totlSrc from "../../public/logo/totl-home.png"
 
 export default function Footer() {
@@ -43,7 +45,7 @@ export default function Footer() {
                 <Link className='duration-500 hover:text-yellow-400' href="/">The River</Link>
                 </div>
                 <div>
-                <Link className='duration-500 hover:text-yellow-400' href="/bales">Bales</Link>
+                <Link className='duration-500 hover:text-yellow-400' href="/logs">Logs</Link>
                 </div>
                 <div>
                 {/* <Link className='duration-500 hover:text-yellow-400' href="/commission">Commissions</Link> */}
@@ -67,14 +69,14 @@ export default function Footer() {
                 </div>
                 </div>
 
-                <h1 className='text-2xl font-light mt-4'>Recent Updates</h1>
+                {/* <h1 className='text-2xl font-light mt-4'>Recent Updates</h1>
                 <hr></hr>
                 <div className='space-y-2 mt-2 text-lg font-light'>
                     <Link href={"/"}
                         className='duration-500 hover:text-yellow-400'>
                         Home
                     </Link>
-                </div>
+                </div> */}
             </div>
 
             
@@ -84,9 +86,9 @@ export default function Footer() {
 
                 {/* TODO: turn into absoulte form that pops up over the body of the html doc */}
                 {/* Submit button */}
-                <div className='flex justify-center mb-3'>
+                {/* <div className='flex justify-center mb-3'>
                     <button className='bg-gray-500 drop-shadow-2xl rounded-md text-gray-100 text-center font-light py-2 shadow-lg px-4 hover:bg-yellow-500 duration-500'>Hello</button>
-                </div>
+                </div> */}
 
                 {/* Social buttons */}
                 <div className='text-center mb-2 mt-5'>
@@ -94,23 +96,21 @@ export default function Footer() {
                 </div>
 
                 {/* Buttons */}
-                <div className='flex sm:grid sm:grid-cols-2 lg:flex justify-center space-x-2 sm:space-x-0 sm:gap-2 lg:space-x-2'>
+                <div className='flex sm:grid items-center sm:grid-cols-2 lg:flex justify-center space-x-2 sm:space-x-0 sm:gap-2 lg:space-x-2'>
 
-                <div className='p-2 rounded-lg flex justify-center hover:bg-gray-300 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg'>
-                <Link href="https://www.instagram.com/alex_jove_art/?hl=en" target="_blank">
-                <Image src={top} alt='' className='w-10 md:w-14 h-auto opacity-90' />
-                <h1 className='text-center'>Art</h1>
+                <div className='p-2 py-3 rounded-lg flex justify-center bg-gray-300 hover:bg-gray-100 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg'>
+                <Link href="https://discord.gg/tYkVXkPYbx" target="_blank">
+                <Image src={discord} alt='' className='w-10 md:w-12 h-auto opacity-90' />
                 </Link>
                 </div>
 
-                <div className='p-2 rounded-lg flex justify-center hover:bg-gray-300 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg'>
-                <Link href="https://www.tiktok.com/@aj_mints?lang=en" target="_blank">
-                <Image src={top} alt='' className='w-10 md:w-14 h-auto'/>
-                <h1 className='text-center'>Art</h1>
+                <div className='py-2 px-3 rounded-lg flex justify-center bg-gray-300 hover:bg-gray-100 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg'>
+                <Link href="https://www.instagram.com/totl.life" target="_blank">
+                <Image src={instagram} alt='' className='w-10 md:w-11 h-auto'/>
                 </Link>
                 </div>
                 
-                <div className='p-2 rounded-lg flex justify-center hover:bg-gray-300 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg '>
+                {/* <div className='p-2 rounded-lg flex justify-center hover:bg-gray-300 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg '>
                 <Link href='https://github.com/AJmints' target="_blank">
                 <Image src={top} alt='' className=' w-10 md:w-14 h-auto mx-auto'/>
                 <h1 className='text-center'>Web Dev</h1>
@@ -122,7 +122,7 @@ export default function Footer() {
                 <Image src={top} alt='' className=' w-10 md:w-14 h-auto mx-auto'/>
                 <h1 className='text-center'>Web Dev</h1>
                 </Link>
-                </div>
+                </div> */}
 
                 </div>
             </div>
@@ -135,7 +135,7 @@ export default function Footer() {
                         <p className='mt-2 lg:ml-10 font-light text-gray-300'> <span>&copy;</span>2023 Totl.life v0.0.3</p>
                         <div className="mt-2">
                             <div className="flex justify-center">
-                            <Link href="https://www.alexjovestudios.com" target="_blank"><Image src={ajmints} alt='' className='w-12 top-0 sm:w-20 h-auto shadow-lg shadow-gray-900/90 rounded-md bg-gray-800 mx-auto' /></Link>
+                            <Link href="https://www.alexjovestudios.com" target="_blank"><Image src={ajmints} alt='' className='w-14 top-0 h-auto shadow-lg shadow-gray-900/90 rounded-md bg-gray-800 mx-auto' /></Link>
                             </div>
                         </div>
                     </div>

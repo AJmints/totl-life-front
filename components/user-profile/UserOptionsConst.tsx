@@ -32,12 +32,20 @@ export default function UserOptionsConst(props: any) {
                 await fetch( URL + "/profile/user-pfp/" + USER_ID)
                 .then(response => response.json())
                 .then(data => {
-                    props.setUserPFP('data:image/jpeg;base64,' + data.image)
-                    setUserName(data.userId)
+                    console.log(data)
+                    if (data.pfp === null) {
+                        setUserName(data.userName)
+                        return
+                    } else {
+                        props.setUserPFP('data:image/jpeg;base64,' + data.image)
+                        setUserName(data.userId)
+                    }
                 })
+                
             }
         }
         getPFP()
+        
         
     }, [props.userPFP])
 

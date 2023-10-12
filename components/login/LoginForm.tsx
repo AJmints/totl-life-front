@@ -38,7 +38,7 @@ export default function LoginForm(props: any) {
     const redirect = async() => {
         const what = await authCheck()
         if (what) {
-            router.push("/bales")
+            router.push("/logs")
         }
     }
 
@@ -66,7 +66,7 @@ export default function LoginForm(props: any) {
             /* TODO: Set cookie in a secure way */
             props.setUserLogged(true)
             setTokenCookie(result)
-            router.push("/bales")
+            router.push("/logs")
         }
     }
 

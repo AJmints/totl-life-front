@@ -62,7 +62,7 @@ export default function UserOptions(props: any) {
             <div className="block">
                 
             <div className="text-center">
-                { true ?
+                { props.userPFP !== null ?
                 <Image 
                 src={props.userPFP}
                 alt=""
