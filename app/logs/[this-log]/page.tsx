@@ -1,8 +1,6 @@
-'use client'
+import BalesContainer from "@/components/bales/BalesContainer"
 
-import BalesContainer from "@/components/bales/BalesContainer";
-
-export default function BalesPage() {
+export default function SpecificLogPage() {
 
     return (
         <div className="">

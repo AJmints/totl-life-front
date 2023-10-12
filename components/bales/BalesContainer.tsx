@@ -5,7 +5,7 @@ export default function BalesContainer() {
 
     return (
         <>
-        <div className="space-y-4 my-5 mx-3">
+        <div className="space-y-4 my-5 mx-2">
             <div>
             <BalesOptions/>
             </div>

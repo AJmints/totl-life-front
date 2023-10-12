@@ -1,21 +1,6 @@
 'use client'
 
-export default function NewBalePost() {
-
-    const forumPostMock = {
-        id: 1,
-        parentLog: "Example",
-        userName: "talkingDuck",
-        userPic: "userImg",
-        upCount: 56,
-        downCount: 5,
-        commentCount: 29,
-        saveCount:8,
-        shareCount: 2,
-        saved: false,
-        title: "This is an example of a exciting title that is meant to brief and explain the subject.",
-        preview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisiDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    }
+export default function CreateNewLog() {
 
     const handleSubmit = () => {
 
@@ -52,7 +37,7 @@ export default function NewBalePost() {
                 <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
 
             </form>
-            <button onClick={() => console.log(forumPostMock.preview.length)}>TextButton</button>
+            <button onClick={() => console.log("hi")}>TextButton</button>
         </div>
         </>
     )

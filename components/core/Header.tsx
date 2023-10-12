@@ -183,7 +183,7 @@ export default function Header() {
             }
 
             {/* Open hamburger menu when in phone view */}
-            <div className={!menuToggle ? "hidden" : "sm:hidden fixed z-10 left-0"}>
+            <div className={!menuToggle ? "hidden" : "sm:hidden fixed z-20 left-0"}>
                 <div className="w-52 min-h-screen text-xl block bg-gray-300 rounded-md font-light">
                     <div className="items-center flex">
                         <button className="text-4xl ml-5 mt-3 font-light text-gray-700" onClick={() => setMenuToggle(prev => !prev)}>X</button> 
