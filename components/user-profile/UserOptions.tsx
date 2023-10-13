@@ -19,7 +19,7 @@ export const authCheck = async() => {
    }
 }
 
-const authToken = async() => {
+export const authToken = async() => {
     const res = await fetch('api/headers')
     const check = await res.json().catch((err) => {
         console.log(err)

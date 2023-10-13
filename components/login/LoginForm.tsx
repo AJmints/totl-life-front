@@ -17,6 +17,7 @@ export const setTokenCookie = async(data: any) => {
     const status = await infoCall.json().catch((err) => {
         console.log(err)
     })
+    console.log(status)
 }
 
 export const authCheck = async() => {
@@ -44,6 +45,7 @@ export default function LoginForm(props: any) {
 
     useEffect(function () {
         redirect()
+        authCheck()
     }, [])
 
     const handlSubmit = async(event: any) => {
@@ -64,6 +66,7 @@ export default function LoginForm(props: any) {
         const result = await response.json()
         if (result.token) {
             /* TODO: Set cookie in a secure way */
+            props.setLoginToggle(false)
             props.setUserLogged(true)
             setTokenCookie(result)
             router.push("/logs")

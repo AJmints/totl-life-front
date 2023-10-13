@@ -12,12 +12,8 @@ import LoginForm from "../login/LoginForm"
 import UserOptionsConst from "../user-profile/UserOptionsConst"
 
 
-export const serverSideProps = async() => {
-    const infoCall = await fetch("/api/logout")
-   const status = await infoCall.json().catch((err) => {
-       console.log(err)
-   })
-   console.log(status)
+export const serverSideProps = () => {
+    fetch("/api/logout")
 }
 
 export const authCheck = async() => {
@@ -70,14 +66,19 @@ export default function Header() {
         checkLoginStatus()
         detectRoute()
 
+        return 
+
     }, [loginToggle, pathname, userLogged])
 
     const logout = () => {
+        
+        setUserPFP(null)
         setUserDetailsToggle(false)
         setLoginToggle(false)
         setUserLogged(false)
         serverSideProps()
-        router.push("/")
+        router.refresh()
+        // router.push("/")
     }
 
     return (
@@ -156,6 +157,7 @@ export default function Header() {
                 {/* Open user sidebard from Profile Icon */}
                     <UserOptionsConst
                     logout={logout}
+                    userLogged={userLogged}
                     userDetailsToggle={userDetailsToggle}
                     setUserDetailsToggle={setUserDetailsToggle}
                     userPFP={userPFP}
@@ -171,6 +173,7 @@ export default function Header() {
                 {loginToggle ? 
                 <div className="absolute top-24 z-10 right-0">
                     <LoginForm
+                    setLoginToggle={setLoginToggle}
                     setUserLogged={setUserLogged}
                     userLogged={userLogged}
                      />

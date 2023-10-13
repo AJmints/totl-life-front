@@ -32,7 +32,6 @@ export default function UserOptionsConst(props: any) {
                 await fetch( URL + "/profile/user-pfp/" + USER_ID)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data)
                     if (data.pfp === null) {
                         setUserName(data.userName)
                         return
@@ -43,6 +42,7 @@ export default function UserOptionsConst(props: any) {
                 })
                 
             }
+            USER_ID = ""
         }
         getPFP()
         
