@@ -47,7 +47,7 @@ export default function UserOptionsConst(props: any) {
         getPFP()
         
         
-    }, [props.userPFP])
+    }, [])
 
     return (
         <>

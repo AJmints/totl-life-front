@@ -6,7 +6,7 @@ import share from '../../public/icons/share.png'
 import userImg from '../../public/icons/profile-pic.png'
 import Image from 'next/image'
 
-export default function RecentBales() {
+export default function RecentBales(props: any) {
 
     const forumPostMock = {
         id: 1,

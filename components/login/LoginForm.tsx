@@ -17,7 +17,6 @@ export const setTokenCookie = async(data: any) => {
     const status = await infoCall.json().catch((err) => {
         console.log(err)
     })
-    console.log(status)
 }
 
 export const authCheck = async() => {

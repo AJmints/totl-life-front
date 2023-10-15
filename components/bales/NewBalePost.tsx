@@ -1,6 +1,28 @@
 'use client'
 
-export default function NewBalePost() {
+let USER_ID: string
+const URL = process.env.NEXT_PUBLIC_BACKEND_URL
+let AUTH_TOKEN: string
+
+export const authCheck = async() => {
+    const infoCall = await fetch("/api/authCheck")
+    const status = await infoCall.json().catch((err) => {
+        console.log(err)
+    })
+    if (status.loggedIn) {
+        USER_ID = status.id
+        return status.loggedIn
+    }
+}
+export const token = async() => {
+    const getToken = await fetch("/api/headers")
+    const status = await getToken.json().catch((err) => {
+        console.log(err)
+    })
+    return status
+}
+
+export default function NewBalePost(props:any) {
 
     const forumPostMock = {
         id: 1,
@@ -17,8 +39,31 @@ export default function NewBalePost() {
         preview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisiDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async(e:any) => {
+        e.preventDefault()
 
+        await authCheck()
+
+        const data = {
+            parentLog: props.visitingLog,
+            userId: USER_ID,
+            title: e.target.title.value,
+            body: e.target.body.value
+        }
+        const makeLogRequest = await fetch( URL + "/logs/create-bale", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "Bearer " + await token()
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await makeLogRequest.json().catch((err) => {
+            console.log(err)
+        })
+        console.log(response)
+
+        USER_ID = ""
     }
 
     return (
@@ -52,7 +97,7 @@ export default function NewBalePost() {
                 <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
 
             </form>
-            <button onClick={() => console.log(forumPostMock.preview.length)}>TextButton</button>
+            <button onClick={() => console.log(props.visitingLog)}>TextButton</button>
         </div>
         </>
     )

@@ -45,7 +45,7 @@ export default function Header() {
     const [userPFP, setUserPFP] = useState(null)
     
     
-    useEffect(function () {
+    useEffect(() => {
         
         const detectRoute = () => {
             const url = `${pathname}`
@@ -61,12 +61,11 @@ export default function Header() {
                 setUserLogged(true)
             } else {
                 setUserLogged(false)
+                return
             }
         }
         checkLoginStatus()
         detectRoute()
-
-        return 
 
     }, [loginToggle, pathname, userLogged])
 
@@ -78,7 +77,7 @@ export default function Header() {
         setUserLogged(false)
         serverSideProps()
         router.refresh()
-        // router.push("/")
+        router.push("/")
     }
 
     return (
