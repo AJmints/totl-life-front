@@ -7,7 +7,9 @@ import userImg from '../../public/icons/profile-pic.png'
 import Image from 'next/image'
 
 export default function RecentBales(props: any) {
-
+    
+    const viewBale = props?.mappingBale
+    
     const forumPostMock = {
         id: 1,
         parentLog: "Example",
@@ -25,15 +27,15 @@ export default function RecentBales(props: any) {
 
     return (
         <div className=" justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80">
-            <div className="bg-gray-700/70 sm:w-[70%] h-max p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md">
+            <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md">
                 {/* Main title container */}
-                <div className="bg-gray-100/80 rounded-t-md">
-                    <p className=' text-left ml-3 pt-1 font-normal text-sm'>log: {forumPostMock.parentLog}</p>
-                    <p className="flex text-2xl sm:text-3xl xl:text-4xl xl:font-extralight px-3 font-light py-1">{forumPostMock.title}</p>
+                <div className="bg-gray-100/80 shadow-lg shadow-gray-900 rounded-t-md">
+                    <p className=' text-left ml-3 pt-1 font-normal text-sm'>log: {viewBale.parentLog}</p>
+                    <p className="flex text-2xl justify-center sm:text-3xl xl:text-4xl xl:font-extralight px-3 font-light py-1">{viewBale.title}</p>
                 </div>
                 {/* Preview of comment container */}
-                <div className="bg-gray-300/70 sm:rounded-br-none rounded-b-md text-xs p-1 ">
-                    <p className=' text-sm xl:text-base font-light'>{forumPostMock.preview}</p>
+                <div className="bg-gray-300/70 sm:rounded-br-none rounded-b-md text-xs p-4 ">
+                    <p className=' text-sm xl:text-base text-left font-light'>{viewBale.body}</p>
                 </div>
             </div>
             <div className="bg-gray-700/70 rounded-b-md sm:rounded-r-md sm:rounded-bl-none text-sm   flex items-center sm:block sm:w-[30%] p-0.5">
@@ -41,13 +43,13 @@ export default function RecentBales(props: any) {
                 <div className=" p-4 w-[40%] sm:w-[100%] flex h-[50%] items-center justify-center rounded-bl-md sm:rounded-bl-none sm:rounded-tr-md sm:h-[50%] "> 
                     <div className="">
                         <Image 
-                            src={userImg}
+                            src={'data:image/jpeg;base64,' + viewBale?.userPFP}
                             alt=''
                             width={90}
                             height={90}
                             className='w-16 mx-auto rounded-full'
                         />
-                        <p className='text-gray-300'>user: {forumPostMock.userName}</p>
+                        <p className='text-gray-300'>user: {viewBale.userName}</p>
                     </div>
                 </div>
                 {/* Like and Comment and Option button */}
@@ -58,19 +60,19 @@ export default function RecentBales(props: any) {
                     <Image
                         src={arrow}
                         alt=""
-                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 -rotate-90 ml-1 bg-emerald-500/50 hover:bg-emerald-300/90 duration-200 rounded-full p-1'
+                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 -rotate-90 ml-1 bg-emerald-500/50 hover:bg-emerald-400/90 duration-200 rounded-full p-1'
                     />
                     </div>
                     <Image
                         src={comment}
                         alt=''
-                        className='cursor-pointer hover:-my-1 hover:shadow-lg hover:shadow-gray-600 hover:w-10 w-7 mr-1 hover:p-2 duration-300 rounded-md'
+                        className='cursor-pointer hover:-my-1 hover:shadow-lg hover:shadow-gray-600 hover:bg-gray-300/80 hover:w-10 w-7 mr-1 hover:p-2 duration-300 rounded-md'
                     />
                     <div>
                     <Image
                         src={saveIcon}
                         alt=''
-                        className='cursor-pointer hover:-m-1 hover:shadow-lg hover:p-2 hover:rounded-md duration-300 hover:w-8 hover:mr-1 hover:shadow-gray-600 w-5 mr-3'
+                        className='cursor-pointer hover:-m-1 hover:shadow-lg hover:p-2 hover:rounded-md duration-300 hover:bg-gray-300/80  hover:w-8 hover:mr-1 hover:shadow-gray-600 w-5 mr-3'
                     />
                     </div>
                 </div>
@@ -80,19 +82,19 @@ export default function RecentBales(props: any) {
                     <Image
                         src={arrow}
                         alt=""
-                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 rotate-90 ml-1 hover:bg-emerald-900/80 duration-200 bg-emerald-800/50 rounded-full p-1'
+                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-500 w-8 rotate-90 ml-1  hover:bg-emerald-700/80 duration-200 bg-emerald-900/50 rounded-full p-1'
                     />
                     <p className='font-normal text-xs'>{forumPostMock.downCount}</p>
                     </div>
                     <Image
                         src={share}
                         alt=''
-                        className='cursor-pointer hover:shadow-lg hover:-m-0.5 hover:shadow-gray-600 hover:bg-gray-200/80 w-6 mr-2 hover:w-9 hover:p-1 duration-300 rounded-md'
+                        className='cursor-pointer hover:shadow-lg hover:-m-0.5 hover:shadow-gray-600 hover:bg-gray-400/80 w-6 mr-2 hover:w-9 hover:p-1 duration-300 rounded-md'
                     />
                     <Image
                         src={options}
                         alt=''
-                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 h-8 mr-3 w-auto hover:mr-1 hover:-ml-2 rounded-md duration-300 p-2 hover:px-4 '
+                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 h-8 mr-3 hover:bg-gray-400/80  w-auto hover:mr-1 hover:-ml-2 rounded-md duration-300 p-2 hover:px-4 '
                     />
                 </div>
                 </div>

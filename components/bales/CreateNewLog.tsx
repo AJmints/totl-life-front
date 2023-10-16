@@ -25,7 +25,7 @@ export const token = async() => {
     return status
 }
 
-export default function CreateNewLog() {
+export default function CreateNewLog(props: any) {
 
     useEffect(() => {
         

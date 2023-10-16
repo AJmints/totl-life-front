@@ -61,7 +61,8 @@ export default function NewBalePost(props:any) {
         const response = await makeLogRequest.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
+        // console.log(response)
+        // props.setAllLogsBales(...props.allLogsBales, response)
 
         USER_ID = ""
     }
@@ -80,7 +81,7 @@ export default function NewBalePost(props:any) {
                         placeholder="What do you want to talk about?"
                         id='title' 
                         required 
-                        minLength={20} maxLength={100} 
+                        minLength={10} maxLength={300} 
                     />
                 </div>
                 <div className='w-full flex flex-col my-2'>

@@ -23,6 +23,23 @@ export default function BalesOptions(props: any) {
         if (pathname?.split("/logs/").pop() === '/logs') {
             // Create a most recent list of bales to return to BalesContainer
             setInLog(false)
+            console.log("Is this running?")
+            const topBales = async() => {
+                const request = await fetch( URL + "/logs/most-recent-bales")
+                const response = await request.json().catch((err) => {
+                    console.log(err)
+                })
+                console.log(response)
+                if (response) {
+                    console.log("How about this?")
+                    props.setAllLogsBales(response)
+                    return
+                } else {
+                    props.setAllLogsBales(["error"])
+                    return 
+                }
+            }
+            topBales()
         } else if (pathname?.split("/")[1] === "logs" && pathname?.split("/").length === 3) {
             props.setVisitingLog(pathname?.split("/logs/").pop())
             const allLogBales = async() => {
@@ -32,7 +49,7 @@ export default function BalesOptions(props: any) {
                         console.log(err)
                     })
                     if (response.status) {
-                        console.log(response)
+                        // console.log(response)
                         props.setAllLogsBales(response.allBales)
                         return
                     } else {
@@ -78,12 +95,12 @@ export default function BalesOptions(props: any) {
     return (
         <div>
         {/* Selection Bar: Choose Log, Make new Post, Search/filter */}
-        <div className="py-3 px-2 sm:px-5 rounded-t-md items-center sm:flex space-y-2 sm:space-y-0 justify-between bg-gray-400">
+        <div className="py-3 px-2 sm:px-5 text-gray-200 font-light rounded-md items-center sm:flex space-y-2 sm:space-y-0 justify-between bg-gray-700/90 shadow-lg shadow-gray-800/60">
             {/* create new log button */}
             {   inLog ?
             <>
             <div>
-                <form className='mx-auto mt-1'>
+                <form className='mx-auto text-gray-800 mt-1'>
                     {/* <h1 className=''>Visit a new log</h1> */}
                     <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue="default" onChange={(e) => logSelect(e)} id="logs">
                         <option value="default" disabled>Visit Logs</option>
@@ -115,12 +132,12 @@ export default function BalesOptions(props: any) {
                     </select>
                 </form>
             </div>
-            <div className='text-gray-900 flex items-center font-normal'>
+            <div className='text-gray-900 flex justify-center items-center font-normal'>
                 <div onClick={() => handleCreateLog()} className="rounded-full cursor-pointer duration-300 p-2 hover:bg-emerald-600 shadow-md shadow-gray-700 bg-gray-500 z-10">
                     <Image
                         src={add}
                         alt=''
-                        className={createPost ? 'w-7 h-auto rounded-md duration-200 rotate-45' : 'w-7 duration-200 h-auto rounded-md'}
+                        className={createLog ? 'w-7 h-auto rounded-md duration-200 rotate-45' : 'w-7 duration-200 h-auto rounded-md'}
                     />
                     
                 </div>
@@ -137,13 +154,16 @@ export default function BalesOptions(props: any) {
         { createPost ?
             <NewBalePost 
                 visitingLog={props.visitingLog}
+                setAllLogsBales={props.setAllLogsBales}
             />
             :
             <></>
         }
         {
             createLog ? 
-            <CreateNewLog/>
+            <CreateNewLog
+            setLogsDropDown={props.setLogsDropDown}
+            />
             :
             <></>
         }
