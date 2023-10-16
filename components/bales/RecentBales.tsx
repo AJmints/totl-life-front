@@ -1,3 +1,5 @@
+'use client'
+
 import arrow from '../../public/icons/Arrow.png'
 import comment from '../../public/icons/Comment.png'
 import saveIcon from '../../public/icons/Save.png'
@@ -5,9 +7,12 @@ import options from '../../public/icons/options.png'
 import share from '../../public/icons/share.png'
 import userImg from '../../public/icons/profile-pic.png'
 import Image from 'next/image'
+import { useState } from 'react'
+import CreateNewComment from './CreateNewComment'
 
 export default function RecentBales(props: any) {
     
+    const [quickCommentToggle, setQuickCommentToggle] = useState(false)
     const viewBale = props?.mappingBale
     
     const forumPostMock = {
@@ -26,6 +31,7 @@ export default function RecentBales(props: any) {
     }
 
     return (
+        <>
         <div className=" justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80">
             <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md">
                 {/* Main title container */}
@@ -43,6 +49,7 @@ export default function RecentBales(props: any) {
                 <div className=" p-4 w-[40%] sm:w-[100%] flex h-[50%] items-center justify-center rounded-bl-md sm:rounded-bl-none sm:rounded-tr-md sm:h-[50%] "> 
                     <div className="">
                         <Image 
+                            key={viewBale?.id}
                             src={'data:image/jpeg;base64,' + viewBale?.userPFP}
                             alt=''
                             width={90}
@@ -67,6 +74,7 @@ export default function RecentBales(props: any) {
                         src={comment}
                         alt=''
                         className='cursor-pointer hover:-my-1 hover:shadow-lg hover:shadow-gray-600 hover:bg-gray-300/80 hover:w-10 w-7 mr-1 hover:p-2 duration-300 rounded-md'
+                        onClick={() => setQuickCommentToggle(prev => !prev)}
                     />
                     <div>
                     <Image
@@ -100,5 +108,16 @@ export default function RecentBales(props: any) {
                 </div>
             </div>
         </div>
+
+        {quickCommentToggle ? 
+        <div className='fixed bg-gray-600/80 z-40 left-1/3 right-1/3 top-1/3 bottom-1/3'>
+        <CreateNewComment
+
+        />
+        </div>
+        :
+        <></>}
+
+        </>
     )
 }

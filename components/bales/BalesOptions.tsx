@@ -21,18 +21,19 @@ export default function BalesOptions(props: any) {
 
     useEffect(() => {
         if (pathname?.split("/logs/").pop() === '/logs') {
+            
             // Create a most recent list of bales to return to BalesContainer
             setInLog(false)
-            console.log("Is this running?")
             const topBales = async() => {
+                props.setAllLogsBales([])
                 const request = await fetch( URL + "/logs/most-recent-bales")
                 const response = await request.json().catch((err) => {
                     console.log(err)
                 })
-                console.log(response)
+                // console.log(response)
                 if (response) {
-                    console.log("How about this?")
                     props.setAllLogsBales(response)
+                    // props.setUpdateBales(true)
                     return
                 } else {
                     props.setAllLogsBales(["error"])
@@ -43,6 +44,7 @@ export default function BalesOptions(props: any) {
         } else if (pathname?.split("/")[1] === "logs" && pathname?.split("/").length === 3) {
             props.setVisitingLog(pathname?.split("/logs/").pop())
             const allLogBales = async() => {
+                props.setAllLogsBales([])
                 setInLog(true)
                     const waitLogs = await fetch( URL + "/logs/all-bales-in-log/" + pathname?.split("/logs/").pop())
                     const response = await waitLogs.json().catch((err) => {
@@ -124,7 +126,7 @@ export default function BalesOptions(props: any) {
             :
             <>
             <div>
-                <form className='mx-auto mt-1'>
+                <form className='mx-auto mt-1 text-gray-800'>
                     {/* <h1 className=''>Visit a new log</h1> */}
                     <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue="default" onChange={(e) => logSelect(e)} id="logs">
                         <option value="default" disabled>Visit Logs</option>
@@ -132,7 +134,7 @@ export default function BalesOptions(props: any) {
                     </select>
                 </form>
             </div>
-            <div className='text-gray-900 flex justify-center items-center font-normal'>
+            <div className='text-gray-300 flex justify-center items-center font-normal'>
                 <div onClick={() => handleCreateLog()} className="rounded-full cursor-pointer duration-300 p-2 hover:bg-emerald-600 shadow-md shadow-gray-700 bg-gray-500 z-10">
                     <Image
                         src={add}

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import RecentBales from "./RecentBales"
 import BalesOptions from "./BalesOptions"
+import EmptyBalesSkeleton from "./loading-skeleton/EmptyBalesSkeleton"
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -31,11 +32,17 @@ export default function BalesContainer() {
         if (allLogsBales[0] === "error") {
             console.log("Something went wrong when setting bales")
         } else if (allLogsBales[0] !== "new") {
-            setUpdateBales(true)
+            // if false, show empty bale skeleton, else, show bales
+            if (allLogsBales.length === 0) {
+                setUpdateBales(false)
+            } else {
+                setUpdateBales(true)
+            }
         }
     }, [allLogsBales, updateBales])
 
     const viewBalesInLog = allLogsBales.map((item: any) => {
+        // console.log(updateBales)
         return (
             <RecentBales
                 key={item.id}
@@ -43,8 +50,6 @@ export default function BalesContainer() {
             />
         )
     })
-
-    
 
     return (
         <>
@@ -58,14 +63,16 @@ export default function BalesContainer() {
                 setVisitingLog={setVisitingLog}
             />
             </div>
+
+            {/* Only render our list of bales after bales have been set, otherwise we get mount and unmount key.id issues. */}
             { updateBales ? 
-            <div>
+            <div className="space-y-4 h-screen overflow-y-scroll no-scrollbar">
             {viewBalesInLog}
             </div>
             :
-            <div>
-            {/* {viewBalesInLog} This will cause a key issue, object seems different from other obj*/} 
-            </div>
+            <> 
+            <EmptyBalesSkeleton />
+            </>
             }        
         </div>  
         </>
