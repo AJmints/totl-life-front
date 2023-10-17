@@ -84,7 +84,7 @@ export default function CreateNewLog(props: any) {
                     name='introduction' 
                     required 
                     minLength={40} 
-                    // maximum length 300chars
+                    maxLength={150}
                 />
                 </div>
                 <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>

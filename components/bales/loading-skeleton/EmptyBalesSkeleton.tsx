@@ -11,7 +11,7 @@ export default function EmptyBalesSkeleton() {
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover',
                 backgroundPosition: '50%',
-                backgroundAttachment: 'fixed',
+                // backgroundAttachment: 'fixed',
                 width: '100%',
                 height: '100%',
               }}>

@@ -14,7 +14,7 @@ export default function Footer() {
 
             {/* Fixed bouncing button to return to the top */}
             <div className='relative'>
-                <div className='absolute -bottom-28 sm:bottom-6 md:bottom-8 animate-bounce right-8 sm:right-10'>
+                <div className='absolute -bottom-28 sm:-bottom-14 md:-bottom-20 animate-bounce text-gray-300 font-light right-8 sm:right-10'>
                     <Link href="#top">
                     <Image 
                         src={top} 
@@ -32,7 +32,7 @@ export default function Footer() {
             {/* Totl logo */}
             <div className='ml-10 mr-5'>
                 <div className=''>
-                <Image src={totlSrc} alt='' className='w-28 top-0 sm:w-56 h-auto  rounded-md ' />
+                {/* <Image src={totlSrc} alt='' className='w-28 top-0 sm:w-56 h-auto  rounded-md ' /> */}
                 </div>
             </div>
 

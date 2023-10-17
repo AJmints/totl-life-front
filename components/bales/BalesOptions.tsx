@@ -30,10 +30,9 @@ export default function BalesOptions(props: any) {
                 const response = await request.json().catch((err) => {
                     console.log(err)
                 })
-                // console.log(response)
                 if (response) {
                     props.setAllLogsBales(response)
-                    // props.setUpdateBales(true)
+                    props.setLogName("")
                     return
                 } else {
                     props.setAllLogsBales(["error"])
@@ -42,7 +41,7 @@ export default function BalesOptions(props: any) {
             }
             topBales()
         } else if (pathname?.split("/")[1] === "logs" && pathname?.split("/").length === 3) {
-            props.setVisitingLog(pathname?.split("/logs/").pop())
+            props.setLogName(pathname?.split("/logs/").pop())
             const allLogBales = async() => {
                 props.setAllLogsBales([])
                 setInLog(true)
@@ -51,8 +50,9 @@ export default function BalesOptions(props: any) {
                         console.log(err)
                     })
                     if (response.status) {
-                        // console.log(response)
+                        console.log(response)
                         props.setAllLogsBales(response.allBales)
+                        props.setLogDescription(response.logDescription)
                         return
                     } else {
                         props.setAllLogsBales(["error"])
@@ -122,7 +122,6 @@ export default function BalesOptions(props: any) {
                 <h1 className="flex ml-2 font-normal">Start New Bale</h1>
             </div>
             </>
-            
             :
             <>
             <div>

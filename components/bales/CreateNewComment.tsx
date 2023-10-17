@@ -5,7 +5,7 @@ export default function CreateNewComment () {
     }
 
     return (
-        <>
+        <div className="absolute">
         <div className="bg-gray-700/70 mt-2 px-2 sm:px-5 rounded-md">
         <form className="" onSubmit={handleSubmit}>
                 
@@ -37,6 +37,6 @@ export default function CreateNewComment () {
             </form>
             <button onClick={() => console.log("It's alive!")}>TextButton</button>
         </div>
-        </>
+        </div>
     )
 }

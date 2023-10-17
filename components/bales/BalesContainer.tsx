@@ -8,12 +8,14 @@ import EmptyBalesSkeleton from "./loading-skeleton/EmptyBalesSkeleton"
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 
-export default function BalesContainer() {
+export default function BalesContainer(props: any) {
 
     const [logsDropDown, setLogsDropDown] = useState([])
     const [allLogsBales, setAllLogsBales] = useState<any[]>(["new"])
     const [updateBales, setUpdateBales] = useState(false)
     const [visitingLog, setVisitingLog] = useState('')
+    // const [logDescription, setLogDescription] = useState("")
+    // const [showLogDesc, setShowLogDesc] = useState(false)
 
     useEffect(() => {
         const getLogs = async() => {
@@ -60,9 +62,12 @@ export default function BalesContainer() {
                 setLogsDropDown={setLogsDropDown}
                 setAllLogsBales={setAllLogsBales}
                 visitingLog={visitingLog}
-                setVisitingLog={setVisitingLog}
+                setLogName={props.setLogName}
+                setLogDescription={props.setLogDescription}
             />
             </div>
+
+            
 
             {/* Only render our list of bales after bales have been set, otherwise we get mount and unmount key.id issues. */}
             { updateBales ? 

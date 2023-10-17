@@ -110,13 +110,14 @@ export default function RecentBales(props: any) {
         </div>
 
         {quickCommentToggle ? 
-        <div className='fixed bg-gray-600/80 z-40 left-1/3 right-1/3 top-1/3 bottom-1/3'>
+        <div className='fixed z-40 left-1/3 right-1/3 top-1/3 bottom-1/3'>
         <CreateNewComment
 
         />
         </div>
         :
-        <></>}
+        <></>
+        }
 
         </>
     )
