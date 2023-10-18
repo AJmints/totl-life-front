@@ -20,7 +20,7 @@ export default function RightMenuContainer(props: any) {
             <div className=" px-2 text-gray-200 font-light flex rounded-md items-center space-y-2 sm:space-y-0 justify-center ">
                 <div className="bg-gray-700/90 shadow-lg shadow-gray-800/60 p-3 px-10 rounded-md">
                 {props.logName === "" &&
-                <h1 className="text-sm font-light">You are currently chilling on you home log.</h1>
+                <h1 className="text-sm font-light">You are currently chilling on your home log.</h1>
                 }
                     <div className="flex justify-center items-center">
                     {props.logName !== "" && <h1 className="">log/</h1>}

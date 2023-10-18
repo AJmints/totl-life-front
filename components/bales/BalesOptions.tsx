@@ -50,7 +50,6 @@ export default function BalesOptions(props: any) {
                         console.log(err)
                     })
                     if (response.status) {
-                        console.log(response)
                         props.setAllLogsBales(response.allBales)
                         props.setLogDescription(response.logDescription)
                         return

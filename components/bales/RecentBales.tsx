@@ -12,8 +12,9 @@ import CreateNewComment from './CreateNewComment'
 
 export default function RecentBales(props: any) {
     
-    const [quickCommentToggle, setQuickCommentToggle] = useState(false)
-    const viewBale = props?.mappingBale
+    const [quickCommentToggle, setQuickCommentToggle] = useState<boolean>(false)
+    const [detailView, setDetailView] = useState<boolean>(false)
+    const viewBale = props.mappingBale
     
     const forumPostMock = {
         id: 1,
@@ -33,7 +34,8 @@ export default function RecentBales(props: any) {
     return (
         <>
         <div className=" justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80">
-            <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md">
+            <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md cursor-pointer"
+            onClick={() => setDetailView(prev => !prev)}>
                 {/* Main title container */}
                 <div className="bg-gray-100/80 shadow-lg shadow-gray-900 rounded-t-md">
                     <p className=' text-left ml-3 pt-1 font-normal text-sm'>log: {viewBale.parentLog}</p>
@@ -50,7 +52,7 @@ export default function RecentBales(props: any) {
                     <div className="">
                         <Image 
                             key={viewBale?.id}
-                            src={'data:image/jpeg;base64,' + viewBale?.userPFP}
+                            src={'data:image/jpeg;base64,' + viewBale.userPFP}
                             alt=''
                             width={90}
                             height={90}
@@ -74,7 +76,7 @@ export default function RecentBales(props: any) {
                         src={comment}
                         alt=''
                         className='cursor-pointer hover:-my-1 hover:shadow-lg hover:shadow-gray-600 hover:bg-gray-300/80 hover:w-10 w-7 mr-1 hover:p-2 duration-300 rounded-md'
-                        onClick={() => setQuickCommentToggle(prev => !prev)}
+                        onClick={() => setDetailView(prev => !prev)}
                     />
                     <div>
                     <Image
@@ -109,10 +111,11 @@ export default function RecentBales(props: any) {
             </div>
         </div>
 
-        {quickCommentToggle ? 
-        <div className='fixed z-40 left-1/3 right-1/3 top-1/3 bottom-1/3'>
+        {detailView ? 
+        <div className='fixed z-40 sm:left-[10%] sm:right-[10%] sm:top-[10%] sm:bottom-[10%] left-[2%] right-[2%] top-[8%]'>
         <CreateNewComment
-
+            baleInfo={viewBale}
+            setDetailView={setDetailView}
         />
         </div>
         :
