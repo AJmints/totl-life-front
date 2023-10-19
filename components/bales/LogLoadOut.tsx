@@ -10,7 +10,7 @@ export default function LogLoadOut() {
 
     const [logName, setLogName] = useState<string>("")
     const [logDescription, setLogDescription] = useState<string>("")
-    const [showLogDesc, setShowLogDesc] = useState<boolean>(false)
+    const [showLogDesc, setShowLogDesc] = useState<boolean>(true)
 
     return (
         <div className="">
@@ -30,6 +30,7 @@ export default function LogLoadOut() {
                 <div className="shadow-lg flex-1 text-lg  text-center rounded-lg">
                     <BalesContainer 
                         setLogDescription={setLogDescription}
+                        logName={logName}
                         setLogName={setLogName}
                     />
                 </div>

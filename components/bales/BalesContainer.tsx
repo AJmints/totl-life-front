@@ -61,7 +61,7 @@ export default function BalesContainer(props: any) {
                 logsDropDown={logsDropDown}
                 setLogsDropDown={setLogsDropDown}
                 setAllLogsBales={setAllLogsBales}
-                visitingLog={visitingLog}
+                logName={props.logName}
                 setLogName={props.setLogName}
                 setLogDescription={props.setLogDescription}
             />

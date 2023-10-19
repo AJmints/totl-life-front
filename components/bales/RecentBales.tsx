@@ -7,8 +7,9 @@ import options from '../../public/icons/options.png'
 import share from '../../public/icons/share.png'
 import userImg from '../../public/icons/profile-pic.png'
 import Image from 'next/image'
+import userIcon from '../../public/icons/profile-pic.png'
 import { useState } from 'react'
-import CreateNewComment from './CreateNewComment'
+import ViewBaleComments from './ViewBaleComments'
 
 export default function RecentBales(props: any) {
     
@@ -33,7 +34,7 @@ export default function RecentBales(props: any) {
 
     return (
         <>
-        <div className=" justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80">
+        <div className=" justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80 duration-300">
             <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md cursor-pointer"
             onClick={() => setDetailView(prev => !prev)}>
                 {/* Main title container */}
@@ -50,17 +51,31 @@ export default function RecentBales(props: any) {
                 {/* User Profile Picture container */}
                 <div className=" p-4 w-[40%] sm:w-[100%] flex h-[50%] items-center justify-center rounded-bl-md sm:rounded-bl-none sm:rounded-tr-md sm:h-[50%] "> 
                     <div className="">
+                        {  viewBale.userPFP === "" ? 
+                        <div>
+                        <Image
+                            src={userIcon}
+                            alt=''
+                            width={90}
+                            height={90}
+                            className='w-16 mx-auto rounded-full cursor-pointer'
+                            onClick={() => console.log(viewBale.userPFP)}
+                        /> 
+                        </div>
+                        : 
                         <Image 
                             key={viewBale?.id}
                             src={'data:image/jpeg;base64,' + viewBale.userPFP}
                             alt=''
                             width={90}
                             height={90}
-                            className='w-16 mx-auto rounded-full'
+                            className='w-16 mx-auto rounded-full cursor-pointer'
+                            onClick={() => console.log(viewBale.userPFP)}
                         />
+                        }
                         <p className='text-gray-300'>user: {viewBale.userName}</p>
-                    </div>
-                </div>
+                    </div>   
+                    </div>         
                 {/* Like and Comment and Option button */}
                 <div className='w-[60%] sm:w-[100%] mr-2 block h-[50%]'>
                 <div className="bg-gray-300/70 flex justify-around sm:justify-between items-center py-3 sm:py-0 sm:h-[50%] rounded-t-md sm:rounded-tl-none">
@@ -113,7 +128,7 @@ export default function RecentBales(props: any) {
 
         {detailView ? 
         <div className='fixed z-40 sm:left-[10%] sm:right-[10%] sm:top-[10%] sm:bottom-[10%] left-[2%] right-[2%] top-[8%]'>
-        <CreateNewComment
+        <ViewBaleComments
             baleInfo={viewBale}
             setDetailView={setDetailView}
         />

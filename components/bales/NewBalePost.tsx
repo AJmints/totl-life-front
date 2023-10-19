@@ -45,11 +45,12 @@ export default function NewBalePost(props:any) {
         await authCheck()
 
         const data = {
-            parentLog: props.visitingLog,
+            parentLog: props.logName,
             userId: USER_ID,
             title: e.target.title.value,
             body: e.target.body.value
         }
+        console.log(props.logName)
         const makeLogRequest = await fetch( URL + "/logs/create-bale", {
             method: 'POST',
             headers: {
@@ -61,7 +62,7 @@ export default function NewBalePost(props:any) {
         const response = await makeLogRequest.json().catch((err) => {
             console.log(err)
         })
-        // console.log(response)
+        console.log(response)
         // props.setAllLogsBales(...props.allLogsBales, response)
 
         USER_ID = ""
@@ -98,7 +99,7 @@ export default function NewBalePost(props:any) {
                 <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
 
             </form>
-            <button onClick={() => console.log(props.visitingLog)}>TextButton</button>
+            <button onClick={() => console.log(props.logName)}>TextButton</button>
         </div>
         </>
     )

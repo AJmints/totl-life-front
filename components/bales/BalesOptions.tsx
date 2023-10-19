@@ -42,6 +42,7 @@ export default function BalesOptions(props: any) {
             topBales()
         } else if (pathname?.split("/")[1] === "logs" && pathname?.split("/").length === 3) {
             props.setLogName(pathname?.split("/logs/").pop())
+
             const allLogBales = async() => {
                 props.setAllLogsBales([])
                 setInLog(true)
@@ -153,8 +154,8 @@ export default function BalesOptions(props: any) {
         <div>
         { createPost ?
             <NewBalePost 
-                visitingLog={props.visitingLog}
                 setAllLogsBales={props.setAllLogsBales}
+                logName={props.logName}
             />
             :
             <></>
