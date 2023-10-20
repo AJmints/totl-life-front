@@ -22,8 +22,8 @@ export default function RecentBales(props: any) {
         parentLog: "Example",
         userName: "talkingDuck",
         userPic: userImg,
-        upCount: 56,
-        downCount: 5,
+        upCount: 0,
+        downCount: 0,
         commentCount: 29,
         saveCount:8,
         shareCount: 2,
@@ -38,12 +38,12 @@ export default function RecentBales(props: any) {
             <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md cursor-pointer"
             onClick={() => setDetailView(prev => !prev)}>
                 {/* Main title container */}
-                <div className="bg-gray-100/80 shadow-lg shadow-gray-900 rounded-t-md">
+                <div className="bg-gray-100/80 shadow-lg shadow-gray-900 pb-5 rounded-t-md">
                     <p className=' text-left ml-3 pt-1 font-normal text-sm'>log: {viewBale.parentLog}</p>
                     <p className="flex text-2xl justify-center sm:text-3xl xl:text-4xl xl:font-extralight px-3 font-light py-1">{viewBale.title}</p>
                 </div>
                 {/* Preview of comment container */}
-                <div className="bg-gray-300/70 sm:rounded-br-none rounded-b-md text-xs p-4 ">
+                <div className="bg-gray-300/70 sm:rounded-br-none pb-5 pt-5 rounded-b-md text-xs p-4 ">
                     <p className=' text-sm xl:text-base text-left font-light'>{viewBale.body}</p>
                 </div>
             </div>
@@ -85,14 +85,18 @@ export default function RecentBales(props: any) {
                         src={arrow}
                         alt=""
                         className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 -rotate-90 ml-1 bg-emerald-500/50 hover:bg-emerald-400/90 duration-200 rounded-full p-1'
+                        onClick={() => console.log(viewBale)}
                     />
                     </div>
+                    <div className=''>
+                    <p className='font-normal text-xs mb-1'>{viewBale.commentCount}</p>
                     <Image
                         src={comment}
                         alt=''
-                        className='cursor-pointer hover:-my-1 hover:shadow-lg hover:shadow-gray-600 hover:bg-gray-300/80 hover:w-10 w-7 mr-1 hover:p-2 duration-300 rounded-md'
+                        className='cursor-pointer mx-auto hover:-my-1 hover:shadow-lg hover:shadow-gray-600 hover:bg-gray-300/80 hover:w-10 w-7 mr-1 hover:p-2 duration-300 rounded-md'
                         onClick={() => setDetailView(prev => !prev)}
                     />
+                    </div>
                     <div>
                     <Image
                         src={saveIcon}

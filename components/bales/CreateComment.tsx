@@ -1,5 +1,5 @@
 import Image from "next/image"
-import arrow from '../public/icons/Arrow.png'
+import arrow from '../../public/icons/Arrow.png'
 import { useState } from 'react'
 
 let USER_ID: string
@@ -70,8 +70,12 @@ export default function CreateComment(props: any) {
                 minLength={10} maxLength={600} 
             />
             </div>
-            <div className="flex justify-around">
+            
             <div>
+            <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
+            </div>
+
+            <div className="mt-3">
             <Image 
             src={arrow}
             alt=""
@@ -79,10 +83,7 @@ export default function CreateComment(props: any) {
             onClick={() => setWriteComment(prev => !prev)}
             />
             </div>
-            <div>
-            <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
-            </div>
-            </div>
+            
         </form>
         <div className="mt-3">
        

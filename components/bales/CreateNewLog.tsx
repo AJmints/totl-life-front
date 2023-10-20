@@ -1,11 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
-let AUTH_TOKEN: string
-
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
     const status = await infoCall.json().catch((err) => {
@@ -27,6 +25,9 @@ export const token = async() => {
 
 export default function CreateNewLog(props: any) {
 
+    const [errorResponse, setErrorResponse] = useState("")
+    const [showError, setShowError] = useState(false)
+
     useEffect(() => {
         
     }, [])
@@ -34,6 +35,7 @@ export default function CreateNewLog(props: any) {
     const handleSubmit = async(e: any) => {
         e.preventDefault()
 
+        setShowError(false)
         const id = await authCheck()
 
         const data = {
@@ -41,8 +43,6 @@ export default function CreateNewLog(props: any) {
             logName: e.target.logName.value,
             introduction: e.target.introduction.value,
         }
-        // console.log(await token())
-        USER_ID = ""
 
         const makeLogRequest = await fetch( URL + "/logs/create-log", {
             method: 'POST',
@@ -52,15 +52,25 @@ export default function CreateNewLog(props: any) {
             },
             body: JSON.stringify(data)
         })
+        USER_ID = ""
         const response = await makeLogRequest.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
+        if (response.logName === e.target.logName.value) {
+            e.target.logName.value = ""
+            e.target.introduction.value = ""
+            props.setLogsDropDown((prev: any) => [...prev, response.logName.toLowerCase()])
+            props.setCreateLog(false)
+            return
+        } else if (response.status === "taken"){
+            setShowError(true)
+            setErrorResponse(response.response)
+        }
     }
 
     return (
         <>
-        <div className="bg-gray-700/70 mt-2 px-2 sm:px-5 rounded-md">
+        <div className="bg-gray-700/70 mt-2 pb-2 px-2 sm:px-5 rounded-md">
         <form className="" onSubmit={handleSubmit}>
                 
                 <div className='w-full flex flex-col'>
@@ -84,13 +94,14 @@ export default function CreateNewLog(props: any) {
                     name='introduction' 
                     required 
                     minLength={40} 
-                    maxLength={150}
+                    maxLength={500}
                 />
                 </div>
+                <div className='flex justify-center'>
+                { showError ? <p className='bg-red-500 text-gray-200 cursor-pointer p-1 rounded-md mb-2 hover:bg-red-600 duration-300' onClick={() => setShowError(prev => !prev)}>{errorResponse}</p> : <></>}
+                </div>
                 <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
-
             </form>
-            <button onClick={() => console.log("hi")}>TextButton</button>
         </div>
         </>
     )

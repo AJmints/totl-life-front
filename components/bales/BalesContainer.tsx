@@ -13,13 +13,12 @@ export default function BalesContainer(props: any) {
     const [logsDropDown, setLogsDropDown] = useState([])
     const [allLogsBales, setAllLogsBales] = useState<any[]>(["new"])
     const [updateBales, setUpdateBales] = useState(false)
-    const [visitingLog, setVisitingLog] = useState('')
-    // const [logDescription, setLogDescription] = useState("")
-    // const [showLogDesc, setShowLogDesc] = useState(false)
+    const [baleIndex, setBaleIndex] = useState<number>(0)
+    const [baleNav, setBaleNav] = useState<number>(0)
 
     useEffect(() => {
         const getLogs = async() => {
-            const waitLogs = await fetch( URL + "/logs/all-logs-for-drop-down")
+            const waitLogs = await fetch( URL + "/logs/all-logs-for-drop-down" )
             const response = await waitLogs.json().catch((err) => {
                 console.log(err)
             })
@@ -43,8 +42,9 @@ export default function BalesContainer(props: any) {
         }
     }, [allLogsBales, updateBales])
 
-    const viewBalesInLog = allLogsBales.map((item: any) => {
-        // console.log(updateBales)
+    const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {
+        return b.id - a.id
+    }).map((item: any) => {
         return (
             <RecentBales
                 key={item.id}
@@ -52,6 +52,30 @@ export default function BalesContainer(props: any) {
             />
         )
     })
+
+
+    const balePageNav = (baleNav: number) => {
+
+        const pageNum = Math.ceil(baleNav / 10)
+        const arr = []
+        let num = 1
+        for(let i = 0; i < pageNum; i++) {
+            arr.push(num)
+            num++
+        }
+        return arr.map(item => {
+            return (
+                <div 
+                    onClick={() => setBaleIndex(item - 1)} 
+                    key={item}
+                    className={ baleIndex + 1 === item ? "bg-emerald-300 mx-1 rounded-md px-2 cursor-pointer hover:bg-emerald-500 duration-300" : "bg-gray-500 mx-1 rounded-md px-2 cursor-pointer hover:bg-emerald-500 duration-300"}    
+                >
+                    <p>{item}</p>
+                </div>
+            )
+        })
+    }
+
 
     return (
         <>
@@ -61,9 +85,13 @@ export default function BalesContainer(props: any) {
                 logsDropDown={logsDropDown}
                 setLogsDropDown={setLogsDropDown}
                 setAllLogsBales={setAllLogsBales}
+                allLogsBales={allLogsBales}
                 logName={props.logName}
                 setLogName={props.setLogName}
                 setLogDescription={props.setLogDescription}
+                baleIndex={baleIndex}
+                setBaleNav={setBaleNav}
+                baleNav={baleNav}
             />
             </div>
 
@@ -72,6 +100,12 @@ export default function BalesContainer(props: any) {
             {/* Only render our list of bales after bales have been set, otherwise we get mount and unmount key.id issues. */}
             { updateBales ? 
             <div className="space-y-4 h-screen overflow-y-scroll no-scrollbar">
+            <div className="bg-gray-600/80 py-2 rounded-md justify-center flex">
+                <div className="flex">
+                    <p>Page:</p>
+                    {balePageNav(baleNav)}
+                </div>
+            </div>
             {viewBalesInLog}
             </div>
             :

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import ViewComments from "./ViewComments"
-import CreateComment from "../CreateComment"
+import CreateComment from "./CreateComment"
 import userIcon from '../../public/icons/profile-pic.png'
 
 export default function ViewBaleComments (props: any) {

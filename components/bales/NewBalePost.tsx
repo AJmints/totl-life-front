@@ -2,7 +2,6 @@
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
-let AUTH_TOKEN: string
 
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
@@ -62,16 +61,19 @@ export default function NewBalePost(props:any) {
         const response = await makeLogRequest.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
-        // props.setAllLogsBales(...props.allLogsBales, response)
-
+        if (e.target.title.value === response.title) {
+        e.target.title.value = ""
+        e.target.body.value = ""
+        props.setAllLogsBales([...props.allLogsBales, response])
+        props.setCreatePost(false)
+        }
         USER_ID = ""
     }
 
     return (
         <>
         <div className="bg-gray-700/70 mt-2 px-2 sm:px-5 rounded-md">
-        <form className="" onSubmit={handleSubmit}>
+        <form className="pb-2" onSubmit={handleSubmit}>
                 
                 <div className='w-full flex flex-col'>
                     <label className="text-gray-200 font-light" htmlFor='title'>Title</label>
@@ -82,7 +84,7 @@ export default function NewBalePost(props:any) {
                         placeholder="What do you want to talk about?"
                         id='title' 
                         required 
-                        minLength={10} maxLength={300} 
+                        minLength={10} maxLength={150} 
                     />
                 </div>
                 <div className='w-full flex flex-col my-2'>
@@ -99,7 +101,6 @@ export default function NewBalePost(props:any) {
                 <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
 
             </form>
-            <button onClick={() => console.log(props.logName)}>TextButton</button>
         </div>
         </>
     )

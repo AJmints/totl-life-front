@@ -26,12 +26,15 @@ export default function BalesOptions(props: any) {
             setInLog(false)
             const topBales = async() => {
                 props.setAllLogsBales([])
-                const request = await fetch( URL + "/logs/most-recent-bales")
+                const request = await fetch( URL + "/logs/most-recent-bales/" + props.baleIndex )
                 const response = await request.json().catch((err) => {
                     console.log(err)
                 })
                 if (response) {
-                    props.setAllLogsBales(response)
+                    if (props.baleNav !== response.total) {
+                        props.setBaleNav(response.total)
+                    }
+                    props.setAllLogsBales(response.baleList)
                     props.setLogName("")
                     return
                 } else {
@@ -46,11 +49,15 @@ export default function BalesOptions(props: any) {
             const allLogBales = async() => {
                 props.setAllLogsBales([])
                 setInLog(true)
-                    const waitLogs = await fetch( URL + "/logs/all-bales-in-log/" + pathname?.split("/logs/").pop())
+                    const waitLogs = await fetch( URL + "/logs/all-bales-in-log/" + pathname?.split("/logs/").pop() + "/" + props.baleIndex)
                     const response = await waitLogs.json().catch((err) => {
                         console.log(err)
                     })
                     if (response.status) {
+                        if (props.baleNav !== response.total) {
+                            props.setBaleNav(response.total)
+                        }
+                        console.log(response)
                         props.setAllLogsBales(response.allBales)
                         props.setLogDescription(response.logDescription)
                         return
@@ -62,7 +69,7 @@ export default function BalesOptions(props: any) {
             allLogBales()
         }
         // Account can only own a max of 3 logs, and can own more after submitting a request.
-    }, [])
+    }, [props.baleIndex])
 
     
 
@@ -88,7 +95,15 @@ export default function BalesOptions(props: any) {
         setCreateLog(prev => !prev)
     }
 
-    const logDropDownOptions = props.logsDropDown.map((item: any) => {
+    const logDropDownOptions = props.logsDropDown.sort((a:any, b:any) => {
+        if (a < b) {
+            return -1
+        }
+        if (a > b) {
+            return 1
+        }
+        return 0
+    }).map((item: any) => {
         return (
             <option key={item} value={item}>{item}</option>
         )
@@ -156,6 +171,8 @@ export default function BalesOptions(props: any) {
             <NewBalePost 
                 setAllLogsBales={props.setAllLogsBales}
                 logName={props.logName}
+                allLogsBales={props.allLogsBales}
+                setCreatePost={setCreatePost}
             />
             :
             <></>
@@ -164,6 +181,7 @@ export default function BalesOptions(props: any) {
             createLog ? 
             <CreateNewLog
             setLogsDropDown={props.setLogsDropDown}
+            setCreateLog={setCreateLog}
             />
             :
             <></>
