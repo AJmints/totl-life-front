@@ -31,6 +31,7 @@ export default function BalesOptions(props: any) {
                     console.log(err)
                 })
                 if (response) {
+                    // console.log(response)
                     if (props.baleNav !== response.total) {
                         props.setBaleNav(response.total)
                     }
@@ -57,7 +58,6 @@ export default function BalesOptions(props: any) {
                         if (props.baleNav !== response.total) {
                             props.setBaleNav(response.total)
                         }
-                        console.log(response)
                         props.setAllLogsBales(response.allBales)
                         props.setLogDescription(response.logDescription)
                         return

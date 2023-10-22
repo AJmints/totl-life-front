@@ -1,5 +1,3 @@
-'use client'
-
 import arrow from '../../public/icons/Arrow.png'
 import comment from '../../public/icons/Comment.png'
 import saveIcon from '../../public/icons/Save.png'
@@ -11,11 +9,125 @@ import userIcon from '../../public/icons/profile-pic.png'
 import { useState } from 'react'
 import ViewBaleComments from './ViewBaleComments'
 
+let USER_ID: string
+const URL = process.env.NEXT_PUBLIC_BACKEND_URL
+export const authCheck = async() => {
+    const infoCall = await fetch("/api/authCheck")
+    const status = await infoCall.json().catch((err) => {
+        console.log(err)
+    })
+    if (status.loggedIn) {
+        USER_ID = status.id
+        return status.loggedIn
+    }
+}
+export const token = async() => {
+    const getToken = await fetch("/api/headers")
+    const status = await getToken.json().catch((err) => {
+        console.log(err)
+    })
+    return status
+}
+
 export default function RecentBales(props: any) {
-    
+    const viewBale = props.mappingBale
     const [quickCommentToggle, setQuickCommentToggle] = useState<boolean>(false)
     const [detailView, setDetailView] = useState<boolean>(false)
-    const viewBale = props.mappingBale
+    const [upCount, setUpCount] = useState<number>(viewBale.upVoteCount)
+    const [downCount, setDownCount] = useState<number>(viewBale.downVoteCount)
+
+    const userViewOptions = () => {
+        console.log("View this users information and link to their profile")
+    }
+
+    const upVote = async() => {
+        const userPresent = await authCheck()
+        if (!userPresent) {
+            console.log("Not logged in")
+            return
+        }
+
+        const data = {
+            userId: USER_ID,
+            baleId: viewBale.id
+        }
+
+        const postUpVote = await fetch( URL + "/logs/upvote-post", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "Bearer " + await token()
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await postUpVote.json().catch((err) => {
+            USER_ID = ""
+            console.log(err)
+        })
+        if (response.status === "success") {
+            if (response.response === "inc") {
+                setUpCount(prev => prev + 1)
+            } else if (response.response === "dec") {
+                setUpCount(prev => prev -1)
+            } else if (response.response === "inc-dec") {
+                setUpCount(prev => prev + 1)
+                setDownCount(prev => prev - 1)
+            }
+            USER_ID = ""
+            return
+        }
+        USER_ID = ""
+
+    }
+
+    const downVote = async() => {
+        const userPresent = await authCheck()
+        if (!userPresent) {
+            console.log("Not logged in")
+            return
+        }
+        const data = {
+            userId: USER_ID,
+            baleId: viewBale.id
+        }
+        const postUpVote = await fetch( URL + "/logs/downvote-post", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "Bearer " + await token()
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await postUpVote.json().catch((err) => {
+            USER_ID = ""
+            console.log(err)
+        })
+        if (response.status === "success") {
+            if (response.response === "inc") {
+                setDownCount(prev => prev + 1)
+            } else if (response.response === "dec") {
+                setDownCount(prev => prev -1)
+            } else if (response.response === "inc-dec") {
+                setDownCount(prev => prev + 1)
+                setUpCount(prev => prev - 1)
+            }
+            USER_ID = ""
+            return
+        }
+        USER_ID = ""
+    }
+
+    const addFavorite = async() => {
+        console.log("add to favorite")
+    }
+
+    const shareBale = async() => {
+        console.log("share details")
+    }
+
+    const baleMenuOption = () => {
+        console.log("menu options")
+    }
     
     const forumPostMock = {
         id: 1,
@@ -59,7 +171,7 @@ export default function RecentBales(props: any) {
                             width={90}
                             height={90}
                             className='w-16 mx-auto rounded-full cursor-pointer'
-                            onClick={() => console.log(viewBale.userPFP)}
+                            onClick={() => userViewOptions()}
                         /> 
                         </div>
                         : 
@@ -70,7 +182,7 @@ export default function RecentBales(props: any) {
                             width={90}
                             height={90}
                             className='w-16 mx-auto rounded-full cursor-pointer'
-                            onClick={() => console.log(viewBale.userPFP)}
+                            onClick={() => userViewOptions()}
                         />
                         }
                         <p className='text-gray-300'>user: {viewBale.userName}</p>
@@ -80,12 +192,12 @@ export default function RecentBales(props: any) {
                 <div className='w-[60%] sm:w-[100%] mr-2 block h-[50%]'>
                 <div className="bg-gray-300/70 flex justify-around sm:justify-between items-center py-3 sm:py-0 sm:h-[50%] rounded-t-md sm:rounded-tl-none">
                     <div className=' items-center'>
-                    <p className='font-normal text-xs'>{forumPostMock.upCount}</p>
+                    <p className='font-normal text-xs'>{upCount}</p>
                     <Image
                         src={arrow}
                         alt=""
                         className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 -rotate-90 ml-1 bg-emerald-500/50 hover:bg-emerald-400/90 duration-200 rounded-full p-1'
-                        onClick={() => console.log(viewBale)}
+                        onClick={() => upVote()}
                     />
                     </div>
                     <div className=''>
@@ -97,11 +209,13 @@ export default function RecentBales(props: any) {
                         onClick={() => setDetailView(prev => !prev)}
                     />
                     </div>
-                    <div>
+                    <div className='block'>
+                    <p className='font-normal mr-3 text-xs mb-1'>{viewBale.saveCount}</p>
                     <Image
                         src={saveIcon}
                         alt=''
                         className='cursor-pointer hover:-m-1 hover:shadow-lg hover:p-2 hover:rounded-md duration-300 hover:bg-gray-300/80  hover:w-8 hover:mr-1 hover:shadow-gray-600 w-5 mr-3'
+                        onClick={() => addFavorite()}
                     />
                     </div>
                 </div>
@@ -112,18 +226,21 @@ export default function RecentBales(props: any) {
                         src={arrow}
                         alt=""
                         className='cursor-pointer hover:shadow-lg hover:shadow-gray-500 w-8 rotate-90 ml-1  hover:bg-emerald-700/80 duration-200 bg-emerald-900/50 rounded-full p-1'
+                        onClick={() => downVote()}
                     />
-                    <p className='font-normal text-xs'>{forumPostMock.downCount}</p>
+                    <p className='font-normal text-xs'>{downCount}</p>
                     </div>
                     <Image
                         src={share}
                         alt=''
                         className='cursor-pointer hover:shadow-lg hover:-m-0.5 hover:shadow-gray-600 hover:bg-gray-400/80 w-6 mr-2 hover:w-9 hover:p-1 duration-300 rounded-md'
+                        onClick={() => shareBale()}
                     />
                     <Image
                         src={options}
                         alt=''
                         className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 h-8 mr-3 hover:bg-gray-400/80  w-auto hover:mr-1 hover:-ml-2 rounded-md duration-300 p-2 hover:px-4 '
+                        onClick={() => baleMenuOption()}
                     />
                 </div>
                 </div>
