@@ -39,8 +39,19 @@ const AboutAll = () => {
       {/* Section 1 */}
       <div className="mx-2 fade-in-section">
         <div className="block fade-in">
-          <div className="flex justify-center">
-          <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full">What the heck is TOTL.life??</h1>
+          <div className="block mx-auto">
+          <div className='bg-gray-700/80 text-gray-200 mt-5 rounded-md'>
+          <h1 className="text-3xl sm:text-7xl p-5 text-center font-serif">
+          What the heck is...</h1>
+          </div>
+          <div>
+          <h1 className='mt-5 text-[55px] sm:text-[8rem] md:text-[10rem] lg:text-[13rem] xl:text-[17rem] font-serif mx-5 lg:mx-10 xl:mx-20 text-gray-100 border-b-2 border-gray-300 duration-300'>Totl.Life?</h1>
+          </div>
+          <div className='flex justify-center'>
+            <div className='bg-gray-700/90 mt-5 p-3 rounded-md text-gray-300'>
+            <h1>Scroll to learn more...</h1>
+            </div>
+          </div>
           </div>
         </div>
         <div className="block fade-in-section">
@@ -48,9 +59,9 @@ const AboutAll = () => {
               <Image
                   src={aboutView}
                   alt=""
-                  className="w-96 mt-5 p-2 rounded-md bg-gray-100 h-auto mx-auto"
+                  className="w-96 mt-5 p-2 rounded-md bg-gray-300 h-auto mx-auto"
               />
-              <p className="text-center mt-5 bg-gray-100 p-5 rounded-md mx-2 sm:mx-5">
+              <p className="text-center mt-5 bg-gray-700/80 text-gray-300 p-5 rounded-md mx-2 sm:mx-5">
               Welcome to TOTL.life, where 
                     we are a collective striving to engage in Sustainable Stewardship, in Missouri and beyond. 
                     Our mission is rooted in the ethos of responsible and lasting care for our environment, 
@@ -62,15 +73,21 @@ const AboutAll = () => {
       </div>
 
       {/* Section 2 */}
-      <div className="mx-2 fade-in-section">
+      <div className="mx-2 mt-24 fade-in-section">
         <div className="block fade-in">
-          <div className="flex justify-center">
-            <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full" id='Initiative'>Our Current Initiative: River Cleanup 2024</h1>
+          <div className="mt-10">
+            <div className='flex justify-center bg-gray-700/80 rounded-md'>
+            <h1 className="text-left mx-2 sm:mx-10 font-serif text-gray-200 text-2xl md:text-5xl lg:text-7xl p-3 w-full" id='Initiative'>
+              Our Current Initiative:</h1>
+            </div>
+            <div>
+              <h1 className='text-5xl sm:text-6xl md:text-[5rem] lg:text-[7rem] xl:text-[8rem] text-gray-100 font-serif text-right mx-10 border-b-2'> River Cleanup 2024</h1>
+            </div>
           </div>
           <div className="mx-2 fade-in-section">
             <div className="block fade-in">
-                <div className="grid grid-cols-1 sm:grid-cols-2 items-center">
-                  <p className="text-center mt-5 bg-gray-100 p-5 rounded-md mx-2 sm:mx-5">
+                <div className="grid grid-cols-1 mt-5 sm:grid-cols-2 items-center">
+                  <p className="text-center mt-5 bg-gray-700/80 text-gray-300 p-5 rounded-md mx-2 sm:mx-5">
                   River Cleanup 2024, 
                     embodies our philosophy of &#39;We don&#39;t do much, but when we do, it is to help.&#39; 
                     Join us as we roll up our sleeves and work together to protect and restore our local rivers. 
@@ -83,7 +100,7 @@ const AboutAll = () => {
                   <Image
                       src={riverView}
                       alt=""
-                      className="w-96 mt-5 p-2 rounded-md bg-gray-100 h-auto mx-auto"
+                      className="w-96 mt-5 p-2 rounded-md bg-gray-300 h-auto mx-auto"
                   />
                 </div>
             </div>
@@ -92,10 +109,10 @@ const AboutAll = () => {
       </div>
 
       {/* Section 3 */}
-      <div className="mx-2 fade-in-section">
+      <div className="mx-2 mt-16 fade-in-section">
         <div className="block fade-in">
-          <div className="flex justify-center">
-            <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full" id='Lifestyle'>The TOTL lifestyle
+          <div className="flex justify-center mb-10">
+            <h1 className="text-center mt-5 sm:mt-10 text-7xl md:text-[7rem] lg:text-[10rem] text-gray-100 font-serif p-5 w-full lg:mx-10 border-b-2" id='Lifestyle'>The TOTL lifestyle
             </h1>
           </div>
           <div className="mx-2 fade-in-section">
@@ -104,9 +121,9 @@ const AboutAll = () => {
                     <Image
                         src={lifeStyle}
                         alt=""
-                        className="w-96 mt-5 p-2 rounded-md bg-gray-100 h-auto mx-auto"
+                        className="w-96 mt-5 p-2 rounded-md bg-gray-300 h-auto mx-auto"
                     />
-                    <p className="text-center mt-5 bg-gray-100 p-5 rounded-md mx-2 sm:mx-5">
+                    <p className="text-center mt-5 bg-gray-700/80 text-gray-300 p-5 rounded-md mx-2 sm:mx-5">
                         At TOTL.life, our lifestyle is defined by Sustainable Stewardship. We embrace a mindful approach to living, making choices that contribute to the well-being of our planet. Sustainable Stewardship, to us, means carefully managing and nurturing the resources we&#39;ve been entrusted with. As TOTLers, we understand the profound impact of our actions, and we strive to lead by example.
                     </p>
                 </div>
@@ -116,25 +133,27 @@ const AboutAll = () => {
       </div>
 
       {/* Section 4 */}
-      <div className="mx-2 fade-in-section">
-        <h1 className="text-center mt-5 sm:mt-10 text-2xl bg-gray-100 p-5 rounded-md w-full" id='MeetUs'>Get to know the heart and soul of TOTL.life
+      <div className="mx-2 mt-20 fade-in-section">
+        <div>
+        <h1 className="text-center mt-5 sm:mt-10 font-serif text-gray-100 text-5xl sm:text-7xl  w-full border-b-2" id='MeetUs'>Get to know the heart and soul of TOTL.life
         </h1>
+        </div>
         <div className="block fade-in sm:flex justify-around mt-5">
         <div>
                     <Image src={viceroy} alt="" className="w-52 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
-                    <p className="bg-gray-100 p-2 rounded-md text-lg text-center mt-2">Alex</p>
+                    <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Alex</p>
                     </div>
                     <div>
                     <Image src={secretary} alt="" className="w-52 mt-2 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
-                    <p className="bg-gray-100 p-2 rounded-md text-lg text-center mt-2">Iley</p>
+                    <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Iley</p>
                     </div>
                     </div>
 
-                    <div className="text-center my-5 space-y-2 bg-gray-100 p-5 rounded-md">
+                    <div className="text-center text-gray-300 my-20 space-y-6 bg-gray-700/80 p-5 rounded-md">
                     <p>Our incredible team of TOTLers. 
                     We&#39;re not just a collective; we&#39;re a *Bale,* a close-knit community united by a 
                     shared commitment to Sustainable Stewardship.</p>
-                    <p className="text-2xl">Alex, the Viceroy (he/him):</p>
+                    <p className="text-2xl font-serif border-b-[1px]">Alex, the Viceroy (he/him):</p>
                     <p>Alex was raised in Missouri, and always had a strong love for nature. Growing up, he
                     had exposure to many of the beautiful local, city, state, and national parks that MO 
                     has to offer. He also got to visit some of the parks in the South Eastern part of the US. 
@@ -143,7 +162,7 @@ const AboutAll = () => {
                     Totl.life website! We believe in the power of organizing and working towards a common 
                     goal, and hope you do too! 
                     </p>
-                    <p className="text-2xl">Iley, the Secretary of Treasury (he/him):</p>
+                    <p className="text-2xl font-serif border-b-[1px]">Iley, the Secretary of Treasury (he/him):</p>
                     <p>Iley is a native of Missouri and Oklahoma, where the rivers and lakes of the Midwest became the backdrop to many of
                     his childhood summers. Infused with a love for the outdoors from a young age, Iley felt a calling to ensure that the
                     pristine beauty he enjoyed would be preserved for future generations.
