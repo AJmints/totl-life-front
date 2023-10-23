@@ -1,4 +1,5 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -20,19 +21,47 @@ export const token = async() => {
     return status
 }
 
-const LogFollowList = () => {
+const LogFollowList = (props: any) => {
 
-    useEffect(() => {
-        const retrieveLogList = async() => {
-            // const askForList = await fetch( URL + "/logs" )
-            console.log("set up backend.")
-        } 
-        retrieveLogList()
-    }, [])
+    // const [joinedLogs, setJoinedLogs] = useState<string[]>([])
+
+    // useEffect(() => {
+    //     const retrieveLogList = async() => {
+    //         if (!await authCheck()) {
+    //             console.log("")
+    //         }
+    //         const askForList = await fetch( URL + "/logs/user-logs/" + USER_ID + "/" + props.logName )
+    //         const response = await askForList.json().catch((err) => {
+    //             console.log(err)
+    //         })
+    //         if (response.status) {
+    //             // setJoinedLogs(response.logNames)
+    //         }
+    //         if (response.status === "present") {
+    //             props.setFollowing((prev: boolean) => !prev)
+    //         } else if (response.status === "absent") {
+    //             props.setFollowing(false)
+    //         }
+    //     } 
+
+
+    //     if (props.logName !== "") {
+    //     retrieveLogList()
+    //     }
+    // }, [props.logName])
 
     return (
-        <div>
-            <p>List of followed logs</p>
+        <div className='bg-gray-700/90 p-4 rounded-md w-72 mx-2'>
+            <h1 className='text-gray-300 text-2xl border-b-[1px] mb-2'>Following</h1>
+            {props.joinedLogs.map((item: string) => {
+                return (
+                    <div  key={item}>
+                    <Link 
+                    href={"/logs/" + item} 
+                    className='text-gray-300 text-sm text-left hover:text-emerald-500 duration-300'>log/{item}</Link>
+                    </div>
+                )
+            })}
         </div>
     )
 }

@@ -45,7 +45,6 @@ export default function BalesContainer(props: any) {
     const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {
         return b.id - a.id
     }).map((item: any) => {
-        // console.log(item)
         return (
             <RecentBales
                 key={item.id}
