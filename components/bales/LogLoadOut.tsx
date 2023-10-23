@@ -11,6 +11,7 @@ export default function LogLoadOut() {
     const [logName, setLogName] = useState<string>("")
     const [logDescription, setLogDescription] = useState<string>("")
     const [showLogDesc, setShowLogDesc] = useState<boolean>(true)
+    const [allLogNames, setAllLogNames] = useState([])
 
     return (
         <div className="">
@@ -23,6 +24,7 @@ export default function LogLoadOut() {
                             logName={logName}
                             logDescription={logDescription}
                             setShowLogDesc={setShowLogDesc}
+                            allLogNames={allLogNames}
                         />
                     </div>
                 </div>
@@ -31,7 +33,9 @@ export default function LogLoadOut() {
                     <BalesContainer 
                         setLogDescription={setLogDescription}
                         logName={logName}
+                        logDescription={logDescription}
                         setLogName={setLogName}
+                        setAllLogNames={setAllLogNames}
                     />
                 </div>
 
@@ -42,6 +46,7 @@ export default function LogLoadOut() {
                             logName={logName}
                             logDescription={logDescription}
                             setShowLogDesc={setShowLogDesc}
+                            
                         />
                     </div>
                 </div>

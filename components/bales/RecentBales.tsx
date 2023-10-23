@@ -31,7 +31,7 @@ export const token = async() => {
 
 export default function RecentBales(props: any) {
     const viewBale = props.mappingBale
-    const [quickCommentToggle, setQuickCommentToggle] = useState<boolean>(false)
+    // const [quickCommentToggle, setQuickCommentToggle] = useState<boolean>(false)
     const [detailView, setDetailView] = useState<boolean>(false)
     const [upCount, setUpCount] = useState<number>(viewBale.upVoteCount)
     const [downCount, setDownCount] = useState<number>(viewBale.downVoteCount)
@@ -214,7 +214,7 @@ export default function RecentBales(props: any) {
                     <Image
                         src={saveIcon}
                         alt=''
-                        className='cursor-pointer hover:-m-1 hover:shadow-lg hover:p-2 hover:rounded-md duration-300 hover:bg-gray-300/80  hover:w-8 hover:mr-1 hover:shadow-gray-600 w-5 mr-3'
+                        className='cursor-pointer hover:-m-1 hover:shadow-lg hover:p-2 hover:rounded-md duration-300 hover:bg-red-500/80  hover:w-8 hover:mr-1 hover:shadow-gray-600 w-5 mr-3'
                         onClick={() => addFavorite()}
                     />
                     </div>
@@ -233,13 +233,13 @@ export default function RecentBales(props: any) {
                     <Image
                         src={share}
                         alt=''
-                        className='cursor-pointer hover:shadow-lg hover:-m-0.5 hover:shadow-gray-600 hover:bg-gray-400/80 w-6 mr-2 hover:w-9 hover:p-1 duration-300 rounded-md'
+                        className='cursor-pointer hover:shadow-lg hover:-m-0.5 hover:shadow-gray-600 hover:bg-red-500/80 w-6 mr-2 hover:w-9 hover:p-1 duration-300 rounded-md'
                         onClick={() => shareBale()}
                     />
                     <Image
                         src={options}
                         alt=''
-                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 h-8 mr-3 hover:bg-gray-400/80  w-auto hover:mr-1 hover:-ml-2 rounded-md duration-300 p-2 hover:px-4 '
+                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 h-8 mr-3 hover:bg-red-500/80  w-auto hover:mr-1 hover:-ml-2 rounded-md duration-300 p-2 hover:px-4 '
                         onClick={() => baleMenuOption()}
                     />
                 </div>

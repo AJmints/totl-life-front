@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react'
 import Link from 'next/link'
 
 let USER_ID: string

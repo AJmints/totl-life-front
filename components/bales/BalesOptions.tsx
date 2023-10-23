@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from "next/navigation"
 import add from '../../public/icons/add-white.png'
+import hamMenu from '../../public/icons/menu-burger.png'
 import Image from 'next/image'
 import NewBalePost from "./NewBalePost"
 import CreateNewLog from './CreateNewLog'
+import RightMenuContainer from './right-container/RightMenuContainer'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -14,6 +16,8 @@ export default function BalesOptions(props: any) {
     const [inLog, setInLog] = useState(false)
     const [createPost, setCreatePost] = useState(false)
     const [createLog, setCreateLog] = useState(false)
+    const [showLogDesc, setShowLogDesc] = useState<boolean>(true)
+    const [sideMenu, setSideMenu] = useState<boolean>(false)
     
 
     const pathname = usePathname()
@@ -126,15 +130,29 @@ export default function BalesOptions(props: any) {
                 </form>
             </div>
             {/* Add new post button */}
+            <div className='flex justify-around'>
             <div className="flex justify-center items-center">
                 <div onClick={() => handleCreatePost()} className="rounded-full cursor-pointer duration-300 p-2 hover:bg-emerald-600 shadow-md shadow-gray-700 bg-gray-500 z-10">
                     <Image
                         src={add}
-                        alt=''
+                        alt='Add new bale'
                         className={createPost ? 'w-7 h-auto rounded-md duration-200 rotate-45' : 'w-7 duration-200 h-auto rounded-md'}
                     />
                 </div>
-                <h1 className="flex ml-2 font-normal">Start New Bale</h1>
+                <h1 className="flex ml-2 font-normal text-sm ">Start New Bale</h1>
+            </div>
+
+            <div className='flex sm:hidden'>
+            <Image
+                    src={hamMenu}
+                    alt=''
+                    width={40}
+                    height={40}
+                    className='bg-gray-500 rounded-md p-1 cursor-pointer hover:bg-gray-300 duration-300'
+                    onClick={() => setSideMenu(prev => !prev)}
+                />
+            </div>
+            
             </div>
             </>
             :
@@ -148,6 +166,7 @@ export default function BalesOptions(props: any) {
                     </select>
                 </form>
             </div>
+            <div className='flex justify-around'>
             <div className='text-gray-300 flex justify-center items-center font-normal'>
                 <div onClick={() => handleCreateLog()} className="rounded-full cursor-pointer duration-300 p-2 hover:bg-emerald-600 shadow-md shadow-gray-700 bg-gray-500 z-10">
                     <Image
@@ -157,12 +176,65 @@ export default function BalesOptions(props: any) {
                     />
                     
                 </div>
-                <h1 className="flex ml-2 font-normal">Find a New Log</h1>
+                <h1 className="flex ml-2 font-normal text-sm">Find a New Log</h1>
+            </div>
+
+            <div className='flex sm:hidden'>
+            <Image
+                    src={hamMenu}
+                    alt=''
+                    width={40}
+                    height={40}
+                    className='bg-gray-500 rounded-md p-1 cursor-pointer hover:bg-gray-300 duration-300'
+                    onClick={() => setSideMenu(prev => !prev)}
+                />
+            </div>
+
             </div>
             
             </>
             }
-            <p>search/filter</p>
+
+            <div>
+                {/* Search visible lg+, else, right menu toggle  */}
+                <div className='hidden lg:block'>
+                <p>search/filter</p>
+                <p className='text-sm'>Under construction</p>
+                </div>
+
+                <div className='hidden sm:flex lg:hidden'>
+                <Image
+                        src={hamMenu}
+                        alt=''
+                        width={40}
+                        height={40}
+                        className='bg-gray-500 rounded-md p-1 cursor-pointer hover:bg-gray-300 duration-300'
+                        onClick={() => setSideMenu(prev => !prev)}
+                    />
+                </div>
+
+                <div>
+                    <div className={sideMenu ? 'fixed top-0 rounded-l-md bg-gray-500 h-screen z-20 right-0' : "hidden"}>
+                        <div className='mt-5'>
+                        <div className='mb-3'>
+                            <button className='bg-gray-400 shadow-lg shadow-gray-800/50 hover:bg-emerald-500 duration-500 text-gray-900 p-1 rounded-md' onClick={() => setSideMenu(prev => !prev)}>Close</button>
+                        </div>
+                        <div className='bg-gray-700/90 mb-4 rounded-md p-2 mx-2'>
+                        <p>search/filter</p>
+                        <p className='text-sm'>Under construction</p>
+                        </div>
+                        <RightMenuContainer 
+                            showLogDesc={showLogDesc}
+                            logName={props.logName}
+                            logDescription={props.logDescription}
+                            setShowLogDesc={setShowLogDesc}
+                        />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        
         </div>
 
         {/* Write a new post */}

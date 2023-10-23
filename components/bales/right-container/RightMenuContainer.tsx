@@ -31,6 +31,7 @@ export default function RightMenuContainer(props: any) {
     const pathname = usePathname()
 
     useEffect(() => {
+        
         const retrieveLogList = async() => {
             if (!await authCheck()) {
                 console.log("")
@@ -54,7 +55,10 @@ export default function RightMenuContainer(props: any) {
                 setFollowing(false)
             }
         }
+
+
         retrieveLogList()
+    
     }, [])
 
     const followLog = async(log: string) => {

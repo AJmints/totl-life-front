@@ -24,6 +24,7 @@ export default function BalesContainer(props: any) {
             })
             if (response.status == "success") {
                 // console.log(response.logNames)
+                props.setAllLogNames(response.logNames)
                 return setLogsDropDown(response.logNames)
             } else {
                 console.log("Get Log names issue in BalesContainer.tsx")
@@ -92,6 +93,7 @@ export default function BalesContainer(props: any) {
                 baleIndex={baleIndex}
                 setBaleNav={setBaleNav}
                 baleNav={baleNav}
+                logDescription={props.logDescription}
             />
             </div>
 
