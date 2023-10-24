@@ -7,6 +7,9 @@ const LandingBase = (props: any) => {
     return (
         <div className='mt-10'>
             <div>
+                <h1 className='text-center text-3xl font-bold text-yellow-400 bg-gray-700/80 mb-5'>Totl release is right around the corner...</h1>
+            </div>
+            <div>
                 <div className="mx-5 text-center">
                 <h1 className="text-2xl sm:text-4xl xl:text-6xl font-serif text-gray-100">Welcome to</h1>
                 <h1 className="text-[4rem] sm:text-[7rem] lg:text-[10rem] xl:text-[13rem] font-serif text-gray-100 border-b-2">Totl.Life</h1>
