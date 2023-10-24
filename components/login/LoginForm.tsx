@@ -101,7 +101,7 @@ export default function LoginForm(props: any) {
             </form>
             </div>
 
-            { message ? <p>Login isn't active yet... release coming soon.</p> : <></>}
+            { message ? <p>Login is not active yet... release coming soon.</p> : <></>}
 
             <div className="block sm:flex mt-3 font-light">
             <h2>Are you new here?</h2>
