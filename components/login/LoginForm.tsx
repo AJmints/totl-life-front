@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -33,22 +33,30 @@ export const authCheck = async() => {
 
 export default function LoginForm(props: any) {
 
+    const [message, setMessage] = useState(false)
+
     const router = useRouter()
 
     const redirect = async() => {
-        const what = await authCheck()
-        if (what) {
+        const userPresent = await authCheck()
+        if (userPresent) {
             router.push("/logs")
         }
     }
 
     useEffect(function () {
         redirect()
-        authCheck()
     }, [])
 
     const handlSubmit = async(event: any) => {
         event.preventDefault()
+
+        setMessage(false)
+
+        if (!await authCheck()) {
+            setMessage(true)
+            return
+        }
 
         const data = {
             userEmail: String(event.target.userEmail.value),
@@ -92,6 +100,8 @@ export default function LoginForm(props: any) {
                 <button className="bg-green-700/80 p-2 rounded-md mt-3 shadow-md hover:bg-emerald-500/80 duration-300" type="submit">Submit</button>
             </form>
             </div>
+
+            { message ? <p>Login isn't active yet... release coming soon.</p> : <></>}
 
             <div className="block sm:flex mt-3 font-light">
             <h2>Are you new here?</h2>

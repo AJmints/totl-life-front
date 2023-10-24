@@ -107,7 +107,7 @@ export default function Header() {
 
             {/* Links tablet/laptop display*/}
             <div className="hidden sm:flex items-center">
-                <nav className="flex ml-10 items-center">
+                <nav className="flex  items-center">
                     <Link className="items-center flex text-gray-100 ml-5" href="/">The River</Link>
                     <Link className="items-center flex text-gray-100 ml-5" href="/logs">Logs</Link>
                     {/* <Link className="items-center flex text-gray-100 ml-5" href="/dapp">Dapp</Link> */}

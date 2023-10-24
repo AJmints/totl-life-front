@@ -5,6 +5,18 @@ import { useState } from "react"
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
+export const authCheck = async() => {
+    const infoCall = await fetch("/api/authCheck")
+    const status = await infoCall.json().catch((err) => {
+        console.log(err)
+    })
+    if (status.loggedIn) {
+        return true
+    } else {
+        return false
+    }
+}
+
 export default function LoginForm() {
 
     const [pass, setPass] = useState({
@@ -27,6 +39,13 @@ export default function LoginForm() {
     const handlSubmit = async(event: any) => {
         event.preventDefault()
         setHideSubmit(true)
+
+        setMessage("")
+        if (!await authCheck()) {
+            setMessage("Register is currently disabled before launch... Please wait...")
+            return
+        }
+
 
         if (pass.password !== pass.verifyPassword) {
             setFormError(true)
@@ -92,6 +111,10 @@ export default function LoginForm() {
 
                 </div>
 
+                {/* Remove this and uncomment lines below when ready for launch */}
+                {message && <p className=" test-sm sm:text-lg">{message}</p>}
+                
+                
                 <div>
                 {/* Freeze button while waiting for response */}
                 {hideSubmit ? <p className="bg-green-700/80 p-2 rounded-md mt-8 shadow-md hover:bg-emerald-500/80 duration-300">Sending...</p> : <button className="bg-green-700/80 p-2 rounded-md mt-8 shadow-md hover:bg-emerald-500/80 duration-300" type="submit">Submit</button>}
@@ -106,13 +129,15 @@ export default function LoginForm() {
                 </div>
                 }
                 {/* Response from register api is posted */}
-                {message && 
-                <div className="absolute bg-gray-200 w-44 shadow-lg shadow-gray-800 mt-3 p-3 rounded-md">
-                    <p className=" test-sm sm:text-lg">{message}</p>
-                    <div className="flex justify-center mt-2">
-                    <button className=" bg-gray-400 p-1 rounded-md" onClick={() => setMessage("")}>close</button>
-                </div>
-            </div>}
+                {
+            //     message && 
+            //     <div className="absolute bg-gray-200 w-44 shadow-lg shadow-gray-800 mt-3 p-3 rounded-md">
+            //         <p className=" test-sm sm:text-lg">{message}</p>
+            //         <div className="flex justify-center mt-2">
+            //         <button className=" bg-gray-400 p-1 rounded-md" onClick={() => setMessage("")}>close</button>
+            //     </div>
+            // </div>
+            }
             </form>
 
             <div className="flex mt-3">
