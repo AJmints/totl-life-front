@@ -5,17 +5,17 @@ import { useState } from "react"
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
-// export const authCheck = async() => {
-//     const infoCall = await fetch("/api/authCheck")
-//     const status = await infoCall.json().catch((err) => {
-//         console.log(err)
-//     })
-//     if (status.loggedIn) {
-//         return true
-//     } else {
-//         return false
-//     }
-// }
+export const authCheck = async() => {
+    const infoCall = await fetch("/api/authCheck")
+    const status = await infoCall.json().catch((err) => {
+        console.log(err)
+    })
+    if (status.loggedIn) {
+        return true
+    } else {
+        return false
+    }
+}
 
 export default function LoginForm() {
 
