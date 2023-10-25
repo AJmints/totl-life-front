@@ -1,7 +1,6 @@
 'use client'
 import React, { useEffect } from 'react';
 import Image from 'next/image';
-import springcurrent from '../../public/images/spring-current.jpg';
 import aboutView from '../../public/images/about-view.jpg';
 import riverView from '../../public/images/river-view.jpg';
 import lifeStyle from '../../public/images/lifestyle.jpg';

@@ -1,6 +1,12 @@
+'use client'
+
 import LoginForm from "@/components/login/LoginForm";
+import { useState } from 'react'
 
 export default function LoginPage() {
+
+    const [userLogged, setUserLogged] = useState<boolean>(false)
+    const [loginToggle, setLoginToggle] = useState(false)
 
     return (
         <div className="h-screen">
@@ -11,7 +17,11 @@ export default function LoginPage() {
                     </div>
                 </div>
                 <div className="flex justify-center"> 
-                    <LoginForm/>
+                    <LoginForm
+                    setLoginToggle={setLoginToggle}
+                    setUserLogged={setUserLogged}
+                    userLogged={userLogged}
+                    />
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ const LandingBase = (props: any) => {
                     <h1 className='text-7xl font-serif text-center text-gray-300'>POV</h1>
                     <p className='md:text-2xl text-center text-gray-300'>You are a turtle and you are floating down a river. <br/><br/></p>
                     <p className='md:text-2xl text-gray-300'>
-                    While you are floating down the river, you see a log. This log looks easy to climb on and the sun is hitting it just right. There are some other turtles on this log, and they look friendly. You have joined this bale of turtles on a log and enjoy silly conversation before you decide to go on your way.</p><br/>
+                    While you are floating down the river, you see a log. This log looks easy to climb on and the sun is hitting it just right. There are some other turtles on this log, and they look friendly. You have joined this bale of turtles on a log and enjoy a little conversation before you decide to go on your way.</p><br/>
                     <p className='text-center md:text-2xl text-gray-300'>
                     Totl = Turtle on the log</p>
                 </div>
@@ -75,7 +75,7 @@ const LandingBase = (props: any) => {
                     <div className='bg-gray-700/80 p-3 rounded-md text-gray-300 text-base sm:text-xl xl:w-[35rem] xl:mx-auto'>
                     <h1 className='text-4xl border-b-[1px] font-serif mb-3'>What are logs?</h1>
                     <p>Logs are the forums of Totl.life</p><br/>
-                    <p>We take inspiration from the reddit format, were logs are equivalent to subreddits. Since we are all turtles, we need a log.</p>
+                    <p>We take inspiration from the reddit format, where logs are equivalent to subreddits. Since we are all turtles, we need a log.</p>
                     </div>
                     <div className='bg-gray-700/80 p-3 rounded-md text-gray-300 text-base sm:text-xl xl:w-[35rem] xl:mx-auto'>
                     <h1 className='text-4xl border-b-[1px] font-serif mb-3'>What are bales?</h1>
