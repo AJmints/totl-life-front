@@ -40,11 +40,11 @@ export default function LoginForm() {
         event.preventDefault()
         setHideSubmit(true)
 
-        setMessage("")
-        if (!await authCheck()) {
-            setMessage("Register is currently disabled before launch... Please wait...")
-            return
-        }
+        // setMessage("")
+        // if (!await authCheck()) {
+        //     setMessage("Register is currently disabled before launch... Please wait...")
+        //     return
+        // }
 
 
         if (pass.password !== pass.verifyPassword) {

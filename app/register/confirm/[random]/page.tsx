@@ -8,10 +8,10 @@ export default function ConfirmEmail({params}: {
     params: {random: string}
 }) {
 
-    const [response, setResponse] = useState("")
-    const [verifying, setVerifying] = useState(true)
-    const [showLink, setShowLink] = useState(false)
-    const [resend, setResend] = useState(false)
+    const [response, setResponse] = useState<string>("")
+    const [verifying, setVerifying] = useState<boolean>(true)
+    const [showLink, setShowLink] = useState<boolean>(false)
+    const [resend, setResend] = useState<boolean>(false)
 
     const checkConfirmationToken = async() => {
         const tokenId: string = params.random
@@ -38,10 +38,13 @@ export default function ConfirmEmail({params}: {
             // Set up a link/POST to send information back about an error that happened to try and fix it.
             return;
         }
-        
+
+        const res1 = "You're account is already verified"
+        const res2 = "Email verified successfully!"
+        const res3 = "Email sent successfully! Please check your email and follow the link to verify your account."
         setResponse(data.response)
         setVerifying(false)
-        if (data.response === "You're account is already verified" || data.response === "Email verified successfully!" || data.response === "Email sent successfully! Please check your email and follow the link to verify your account.") {
+        if (data.response === res1 || data.response === res2 || data.response === res3) {
             return
         } else {
             setShowLink(true)

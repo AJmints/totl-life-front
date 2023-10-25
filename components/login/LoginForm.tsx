@@ -51,12 +51,12 @@ export default function LoginForm(props: any) {
     const handlSubmit = async(event: any) => {
         event.preventDefault()
 
-        setMessage(false)
+        // setMessage(false)
 
-        if (!await authCheck()) {
-            setMessage(true)
-            return
-        }
+        // if (!await authCheck()) {
+        //     setMessage(true)
+        //     return
+        // }
 
         const data = {
             userEmail: String(event.target.userEmail.value),

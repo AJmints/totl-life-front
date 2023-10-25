@@ -7,6 +7,11 @@ import current from '../public/images/spring-current.jpg'
 
 const inter = Inter({ subsets: ['latin'] })
 
+type Props = {
+  params: { id: string }
+  searchParams: { [key: string]: string | string[] | undefined}
+}
+
 export const metadata: Metadata = {
   title: 'TOTL Life',
   description: 'Totl Life is coming',

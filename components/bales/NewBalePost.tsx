@@ -90,12 +90,12 @@ export default function NewBalePost(props:any) {
                 <div className='w-full flex flex-col my-2'>
                 <label className="text-gray-200 font-light" htmlFor='body'>Body</label>
                 <textarea 
-                    className="rounded-md font-normal" 
+                    className="rounded-md font-normal"
                     rows={4} 
-                    placeholder="Give us some context!" 
+                    placeholder="Give us some context!"
                     name='body' 
                     required 
-                    minLength={10} maxLength={600} 
+                    minLength={10} maxLength={600}
                 />
                 </div>
                 <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>

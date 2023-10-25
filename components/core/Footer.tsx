@@ -10,16 +10,16 @@ import totlSrc from "../../public/logo/totl-home.png"
 export default function Footer() {
 
     return (
-        <footer id="bottom" className="block justify-center py-3 bg-gray-700 shadow-lg shadow-gray-900/90">
+        <footer id="bottom" className="block justify-center py-3 bg-gray-700 shadow-lg text-gray-400 text-center shadow-gray-900/90">
 
             {/* Fixed bouncing button to return to the top */}
             <div className='relative'>
-                <div className='absolute -bottom-28 sm:-bottom-14 md:-bottom-20 animate-bounce text-gray-300 font-light right-8 sm:right-10'>
+                <div className='absolute -bottom-4 sm:-bottom-3 md:bottom-3 animate-bounce text-gray-300 font-light right-8 sm:right-10'>
                     <Link href="#top">
                     <Image 
                         src={top} 
                         alt='' 
-                        className='w-14 -rotate-90 duration-200 bg-emerald-500/60 hover:bg-emerald-700/90 md:bg-emerald-500/90 p-3 shadow-2xl shadow-gray-800 rounded-full h-auto' 
+                        className='w-14 -rotate-90 duration-200 bg-emerald-500/80 hover:bg-emerald-700/90 md:bg-emerald-500/90 p-3 shadow-2xl shadow-gray-800 rounded-full h-auto' 
                     />
                     <p className='text-center text-sm mt-1'>Top</p>
                     </Link>
@@ -27,68 +27,48 @@ export default function Footer() {
             </div>
 
             {/* Container for all items above the copyright */}
-            <div className='block sm:flex items-center justify-around lg:justify-center xl:space-x-32'>
-
-            {/* Totl logo */}
-            <div className='ml-10 mr-5'>
-                <div className=''>
-                {/* <Image src={totlSrc} alt='' className='w-28 top-0 sm:w-56 h-auto  rounded-md ' /> */}
-                </div>
-            </div>
+            <div className='block mt-5 sm:flex items-center justify-around lg:justify-center xl:space-x-32'>
 
             {/* Check out section of links */}
             <div className='mx-10 mb-4'>
-                <h1 className='text-2xl font-light'>Check out</h1>
+                <h1 className='text-4xl text-gray-300 font-light font-serif'>Return home</h1>
                 <hr></hr>
                 <div className='space-y-2 mt-2 text-lg font-light'>
                 <div>
                 <Link className='duration-500 hover:text-yellow-400' href="/">The River</Link>
                 </div>
+                </div>
+            </div>
+
+            {/* Check out section of links */}
+            <div className='mx-10 mb-4'>
+                <h1 className='text-4xl text-gray-300 font-light font-serif'>Check out</h1>
+                <hr></hr>
+                <div className='space-y-2 mt-2 text-lg font-light'>
                 <div>
                 <Link className='duration-500 hover:text-yellow-400' href="/logs">Logs</Link>
-                </div>
-                <div>
-                {/* <Link className='duration-500 hover:text-yellow-400' href="/commission">Commissions</Link> */}
-                </div>
-                <div>
-                {/* <Link className='duration-500 hover:text-yellow-400' href="/about">Contact</Link> */}
                 </div>
                 </div>
             </div>
 
             {/* Quick links to artist and web dev */}
             <div className='mx-10 mb-4'>
-                <h1 className='text-2xl font-light'>About</h1>
+                <h1 className='text-4xl text-gray-300 font-light font-serif'>About</h1>
                 <hr></hr>
                 <div className='space-y-2 mt-2 text-lg font-light'>
                 <div>
                 <Link className='duration-500 hover:text-yellow-400' href="/about">What is Totl</Link>
                 </div>
                 <div>
-                {/* <Link className='duration-500 hover:text-yellow-400' href="/about/webdev">The Web Developer</Link> */}
+                <Link className='duration-500 hover:text-yellow-400' href="/dapp">DevNotes</Link>
                 </div>
                 </div>
-
-                {/* <h1 className='text-2xl font-light mt-4'>Recent Updates</h1>
-                <hr></hr>
-                <div className='space-y-2 mt-2 text-lg font-light'>
-                    <Link href={"/"}
-                        className='duration-500 hover:text-yellow-400'>
-                        Home
-                    </Link>
-                </div> */}
             </div>
 
             
            
             {/* Socials */}
-            <div className='block justify-center py-8 sm:py-3 space-x-2'>
-
-                {/* TODO: turn into absoulte form that pops up over the body of the html doc */}
-                {/* Submit button */}
-                {/* <div className='flex justify-center mb-3'>
-                    <button className='bg-gray-500 drop-shadow-2xl rounded-md text-gray-100 text-center font-light py-2 shadow-lg px-4 hover:bg-yellow-500 duration-500'>Hello</button>
-                </div> */}
+            <div className='py-8 sm:py-3 mx-10'>
 
                 {/* Social buttons */}
                 <div className='text-center mb-2 mt-5'>
@@ -109,20 +89,6 @@ export default function Footer() {
                 <Image src={instagram} alt='' className='w-10 md:w-11 h-auto'/>
                 </Link>
                 </div>
-                
-                {/* <div className='p-2 rounded-lg flex justify-center hover:bg-gray-300 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg '>
-                <Link href='https://github.com/AJmints' target="_blank">
-                <Image src={top} alt='' className=' w-10 md:w-14 h-auto mx-auto'/>
-                <h1 className='text-center'>Web Dev</h1>
-                </Link>
-                </div>
-
-                <div className='p-2 rounded-lg flex justify-center hover:bg-gray-300 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg'>
-                <Link href='https://www.linkedin.com/in/alexjovecode/' target="_blank">
-                <Image src={top} alt='' className=' w-10 md:w-14 h-auto mx-auto'/>
-                <h1 className='text-center'>Web Dev</h1>
-                </Link>
-                </div> */}
 
                 </div>
             </div>
@@ -132,7 +98,7 @@ export default function Footer() {
             <div className=" border-gray-500 border-t-2">
                 <div>
                     <div className="flex justify-around items-center">
-                        <p className='mt-2 lg:ml-10 font-light text-gray-300'> <span>&copy;</span>2023 Totl.life v0.0.3</p>
+                        <p className='mt-2 lg:ml-10 font-light text-gray-300'> <span>&copy;</span>2023 Totl.life v0.0.1</p>
                         <div className="mt-2">
                             <div className="flex justify-center">
                             <Link href="https://www.alexjovestudios.com" target="_blank"><Image src={ajmints} alt='' className='w-14 top-0 h-auto shadow-lg shadow-gray-900/90 rounded-md bg-gray-800 mx-auto' /></Link>

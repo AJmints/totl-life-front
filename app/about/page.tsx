@@ -156,8 +156,7 @@ const AboutAll = () => {
                     <p className="text-2xl font-serif border-b-[1px]">Alex, the Viceroy (he/him):</p>
                     <p>Alex was raised in Missouri, and always had a strong love for nature. Growing up, he
                     had exposure to many of the beautiful local, city, state, and national parks that MO 
-                    has to offer. He also got to visit some of the parks in the South Eastern part of the US. 
-                    His love for nature sparked a desire to get more involved in preserving the natural 
+                    has to offer. His love for nature sparked a desire to get more involved in preserving the natural 
                     beauty that we have left. That is what sparked the desire for Alex and Iley to create the 
                     Totl.life website! We believe in the power of organizing and working towards a common 
                     goal, and hope you do too! 
