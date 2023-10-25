@@ -5,7 +5,7 @@ import top from '../../public/icons/Arrow.png'
 import ajmints from '../../public/logo/AJmintslogo.png'
 import discord from '../../public/icons/discord-mark-blue.png'
 import instagram from '../../public/icons/insta-logo.png'
-import totlSrc from "../../public/logo/totl-home.png"
+import git from '../../public/icons/github-mark.png'
 
 export default function Footer() {
 
@@ -87,6 +87,16 @@ export default function Footer() {
                 <div className='py-2 px-3 rounded-lg flex justify-center bg-gray-300 hover:bg-gray-100 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg'>
                 <Link href="https://www.instagram.com/totl.life" target="_blank">
                 <Image src={instagram} alt='' className='w-10 md:w-11 h-auto'/>
+                </Link>
+                </div>
+
+                <div className='py-2 px-3 rounded-lg flex justify-center bg-gray-300 hover:bg-gray-100 hover:shadow-gray-500/80 transition-shadow-600 duration-500 hover:shadow-lg'>
+                <Link href="https://github.com/AJmints" target='_blank'>
+                    <Image
+                    src={git}
+                    alt=''
+                    className='w-10 md:w-11 h-auto'
+                    />
                 </Link>
                 </div>
 

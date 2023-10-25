@@ -46,7 +46,6 @@ export default function LogLoadOut() {
                             logName={logName}
                             logDescription={logDescription}
                             setShowLogDesc={setShowLogDesc}
-                            
                         />
                     </div>
                 </div>

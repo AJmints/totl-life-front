@@ -23,18 +23,18 @@ export default function BalesContainer(props: any) {
                 console.log(err)
             })
             if (response.status == "success") {
-                // console.log(response.logNames)
                 props.setAllLogNames(response.logNames)
                 return setLogsDropDown(response.logNames)
             } else {
                 console.log("Get Log names issue in BalesContainer.tsx")
             }
         }
-        getLogs()
+        if (allLogsBales.length <= 0) {
+            getLogs()
+        }
         if (allLogsBales[0] === "error") {
             console.log("Something went wrong when setting bales")
         } else if (allLogsBales[0] !== "new") {
-            // if false, show empty bale skeleton, else, show bales
             if (allLogsBales.length === 0) {
                 setUpdateBales(false)
             } else {
@@ -46,7 +46,6 @@ export default function BalesContainer(props: any) {
     const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {
         return b.id - a.id
     }).map((item: any) => {
-        console.log(item)
         return (
             <RecentBales
                 key={item.id}

@@ -40,13 +40,6 @@ export default function LoginForm() {
         event.preventDefault()
         setHideSubmit(true)
 
-        // setMessage("")
-        // if (!await authCheck()) {
-        //     setMessage("Register is currently disabled before launch... Please wait...")
-        //     return
-        // }
-
-
         if (pass.password !== pass.verifyPassword) {
             setFormError(true)
             setHideSubmit(false)
@@ -81,10 +74,10 @@ export default function LoginForm() {
 
     return (
         <div className="sm:h-screen">
-        <div className="min-w-min sm:min-w-full justify-center flex bg-gray-400 p-3 mx-4  rounded-md shadow-lg shadow-gray-900">
+        <div className="min-w-sm sm:min-w-sm max-w-sm bg-gray-400 p-3 mx-4  rounded-md shadow-lg shadow-gray-900">
             
             {/* Traditional Login */}
-            <div className="block mx-3 justify-center font-light">
+            <div className="block mx-3 justify-center font-light sm:w-80">
             <form className="block" onSubmit={handlSubmit}>
                 <div className="space-y-2">
                 <h1 className="text-3xl  sm:text-4xl border-b pb-1 border-gray-200 font-extralight mb-4">Register</h1>
@@ -111,13 +104,18 @@ export default function LoginForm() {
 
                 </div>
 
+                 {/* Response from register api is posted */}
                 {/* Remove this and uncomment lines below when ready for launch */}
-                {message && <p className=" test-sm sm:text-lg">{message}</p>}
-                
-                
+                {message && <p className="mt-4 test-sm">{message}</p>}
+
                 <div>
                 {/* Freeze button while waiting for response */}
-                {hideSubmit ? <p className="bg-green-700/80 p-2 rounded-md mt-8 shadow-md hover:bg-emerald-500/80 duration-300">Sending...</p> : <button className="bg-green-700/80 p-2 rounded-md mt-8 shadow-md hover:bg-emerald-500/80 duration-300" type="submit">Submit</button>}
+                {hideSubmit ? 
+                <div className="flex">
+                <p className="bg-green-700/80 p-2 rounded-md mt-3 shadow-md hover:bg-emerald-500/80 duration-300">Registering...</p>
+                </div> 
+                : 
+                <button className="bg-green-700/80 p-2 rounded-md mt-8 shadow-md hover:bg-emerald-500/80 duration-300" type="submit">Submit</button>}
                 </div>
                 {/* If you try to enter form with invalid information, this alert will trigger */}
                 {formError && 
@@ -147,6 +145,7 @@ export default function LoginForm() {
             </div>
 
         </div>
+       
         </div>
     )
 }

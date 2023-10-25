@@ -1,14 +1,15 @@
 import river from '../../public/images/tutlelog.jpg'
 import Image from 'next/image'
 import Link from 'next/link'
+import git from '../../public/icons/github-mark.png'
 
 const LandingBase = (props: any) => {
 
     return (
         <div className='mt-10'>
-            <div>
+            {/* <div>
                 <h1 className='text-center text-3xl font-bold text-yellow-400 bg-gray-700/80 mb-5'>Totl release is right around the corner...</h1>
-            </div>
+            </div> */}
             <div>
                 <div className="mx-5 text-center">
                 <h1 className="text-2xl sm:text-4xl xl:text-6xl font-serif text-gray-100">Welcome to</h1>
@@ -53,6 +54,15 @@ const LandingBase = (props: any) => {
                     src={props.discord}
                     alt=''
                     className='w-12 bg-gray-100 px-1 py-2 rounded-md my-2 h-auto shadow-lg shadow-gray-800/90 hover:w-16 hover:my-0 duration-300'
+                    />
+                </Link>
+                </div>
+                <div>
+                <Link href="https://github.com/AJmints" target='_blank'>
+                    <Image
+                    src={git}
+                    alt=''
+                    className='w-12 bg-gray-100 px-1 py-1 rounded-md my-2 h-auto shadow-lg shadow-gray-800/90 hover:w-16 hover:my-0 duration-300'
                     />
                 </Link>
                 </div>

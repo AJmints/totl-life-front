@@ -1,5 +1,7 @@
 'use client'
 
+import { useState } from "react"
+
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -23,25 +25,16 @@ export const token = async() => {
 
 export default function NewBalePost(props:any) {
 
-    const forumPostMock = {
-        id: 1,
-        parentLog: "Example",
-        userName: "talkingDuck",
-        userPic: "userImg",
-        upCount: 56,
-        downCount: 5,
-        commentCount: 29,
-        saveCount:8,
-        shareCount: 2,
-        saved: false,
-        title: "This is an example of a exciting title that is meant to brief and explain the subject.",
-        preview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisiDuis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-    }
+    const [submitting, setSubmitting] = useState(false)
 
     const handleSubmit = async(e:any) => {
         e.preventDefault()
 
-        await authCheck()
+        setSubmitting(true)
+        if (!await authCheck()) {
+            console.log("issue")
+            return
+        }
 
         const data = {
             parentLog: props.logName,
@@ -60,12 +53,14 @@ export default function NewBalePost(props:any) {
         })
         const response = await makeLogRequest.json().catch((err) => {
             console.log(err)
+            setSubmitting(false)
         })
         if (e.target.title.value === response.title) {
         e.target.title.value = ""
         e.target.body.value = ""
         props.setAllLogsBales([...props.allLogsBales, response])
         props.setCreatePost(false)
+        setSubmitting(false)
         }
         USER_ID = ""
     }
@@ -98,8 +93,13 @@ export default function NewBalePost(props:any) {
                     minLength={10} maxLength={600}
                 />
                 </div>
+                { submitting ?
+                <div className='flex justify-center'>
+                    <p className="px-2 font-normal text-gray-800 bg-emerald-700 duration-300 rounded-md">Posting...</p>
+                </div>
+                :
                 <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
-
+                }
             </form>
         </div>
         </>

@@ -1,6 +1,7 @@
 import Image from "next/image"
 import arrow from '../../../public/icons/Arrow.png'
 import LogFollowList from "./LogFollowList"
+import Link from "next/link"
 import { useEffect, useState } from 'react'
 import { usePathname } from "next/navigation"
 
@@ -55,14 +56,13 @@ export default function RightMenuContainer(props: any) {
                 setFollowing(false)
             }
         }
-
-
         retrieveLogList()
     
     }, [])
 
     const followLog = async(log: string) => {
         if (!await authCheck()) {
+            // TODO
             console.log("logout")
         }
 
@@ -136,6 +136,7 @@ export default function RightMenuContainer(props: any) {
                 </div>
                 }
                 </div>
+                
             </div>
             }
 
@@ -149,6 +150,15 @@ export default function RightMenuContainer(props: any) {
                 joinedLogs={joinedLogs}
                 />
                 </div>
+            </div>
+
+            <div className="xl:hidden max-w-sm mx-4 mt-5 bg-gray-700/90 text-gray-300 p-4 rounded-md">
+            <h1 className='text-2xl border-b-[1px] mx-2'>Coming updates to Totl.Life</h1>
+            <ul className='mt-3 text-base space-y-2 mx-4'>
+            <div>
+               <Link className='text-blue-300 border-b-[1px] border-blue-300' href={"/dapp"} target='_blank'>-View change list</Link>
+            </div>
+         </ul>
             </div>            
             
         </div>

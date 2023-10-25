@@ -26,11 +26,16 @@ export const token = async() => {
 export default function CreateComment(props: any) {
 
     const [writeComment, setWriteComment] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
 
     const handleSubmit = async(e: any) => {
         e.preventDefault()
 
-        await authCheck()
+        setSubmitting(true)
+        if (!await authCheck()) {
+            console.log("issue")
+            return
+        }
 
         const data = {
             user: USER_ID,
@@ -46,9 +51,15 @@ export default function CreateComment(props: any) {
             body: JSON.stringify(data)
         })
         const response = await makeCommentRequest.json().catch((err) => {
+            setSubmitting(false)
             console.log(err)
         })
-        console.log(response)
+        if (response.comment === e.target.comment.value) {
+            setSubmitting(false)
+            e.target.comment.value = ""
+
+        }
+        
 
         USER_ID = "";
     }
@@ -67,12 +78,18 @@ export default function CreateComment(props: any) {
                 placeholder="Give us some context!" 
                 name='comment' 
                 required 
-                minLength={10} maxLength={600} 
+                minLength={3} maxLength={600} 
             />
             </div>
             
             <div>
+            { submitting ? 
+            <div className='flex justify-center'>
+            <p className="px-2 font-normal text-gray-800 bg-emerald-700 duration-300 rounded-md">Posting...</p>
+            </div>
+            :
             <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
+            }   
             </div>
 
             <div className="mt-3">

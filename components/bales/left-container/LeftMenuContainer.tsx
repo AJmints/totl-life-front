@@ -21,6 +21,15 @@ export default function LeftMenuContainer(props: any) {
         </div>
         </div>
 
+        <div className='bg-gray-700/90 mx-2 rounded-md mt-4 py-4 text-gray-300'>
+         <h1 className='text-2xl border-b-[1px] mx-2'>Coming updates to Totl.Life</h1>
+         <ul className='mt-3 text-base space-y-2 mx-4'>
+            <div>
+               <Link className='text-blue-300 border-b-[1px] border-blue-300' href={"/dapp"} target='_blank'>-View change list</Link>
+            </div>
+         </ul>
+        </div>
+
         </div>
         </div>
      )

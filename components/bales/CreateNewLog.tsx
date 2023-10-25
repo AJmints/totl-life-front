@@ -27,6 +27,7 @@ export default function CreateNewLog(props: any) {
 
     const [errorResponse, setErrorResponse] = useState("")
     const [showError, setShowError] = useState(false)
+    const [submitting, setSubmitting] = useState(false)
 
     useEffect(() => {
         
@@ -35,8 +36,12 @@ export default function CreateNewLog(props: any) {
     const handleSubmit = async(e: any) => {
         e.preventDefault()
 
+        setSubmitting(true)
         setShowError(false)
-        const id = await authCheck()
+        if (!await authCheck()) {
+            console.log("issue")
+            return
+        }
 
         const data = {
             user: USER_ID,
@@ -61,9 +66,11 @@ export default function CreateNewLog(props: any) {
             e.target.introduction.value = ""
             props.setLogsDropDown((prev: any) => [...prev, response.logName.toLowerCase()])
             props.setCreateLog(false)
+            setSubmitting(false)
             return
         } else if (response.status === "taken"){
             setShowError(true)
+            setSubmitting(false)
             setErrorResponse(response.response)
         }
     }
@@ -76,7 +83,7 @@ export default function CreateNewLog(props: any) {
                 <div className='w-full flex flex-col'>
                     <label className="text-gray-200 font-light" htmlFor='logName'>Log Name</label>
                     <input 
-                        className="rounded-md font-normal" 
+                        className="rounded-md font-normal w-72 mx-auto" 
                         type='text' 
                         autoComplete='off' 
                         placeholder="What is the name of this log?"
@@ -100,7 +107,13 @@ export default function CreateNewLog(props: any) {
                 <div className='flex justify-center'>
                 { showError ? <p className='bg-red-500 text-gray-200 cursor-pointer p-1 rounded-md mb-2 hover:bg-red-600 duration-300' onClick={() => setShowError(prev => !prev)}>{errorResponse}</p> : <></>}
                 </div>
-                <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
+                { submitting ? 
+                <div className='flex justify-center'>
+                    <p className="px-2 font-normal text-gray-800 bg-emerald-700 duration-300 rounded-md">Submitting...</p>
+                </div>
+                :
+                <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-500 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
+                }
             </form>
         </div>
         </>

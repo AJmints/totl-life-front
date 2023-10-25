@@ -33,7 +33,9 @@ export const authCheck = async() => {
 
 export default function LoginForm(props: any) {
 
-    const [message, setMessage] = useState(false)
+    const [message, setMessage] = useState<boolean>(false)
+    const [readMessage, setReadMessage] = useState<string>("")
+    const [loading, setLoading] = useState<boolean>(false)
 
     const router = useRouter()
 
@@ -51,12 +53,11 @@ export default function LoginForm(props: any) {
     const handlSubmit = async(event: any) => {
         event.preventDefault()
 
-        // setMessage(false)
-
-        // if (!await authCheck()) {
-        //     setMessage(true)
-        //     return
-        // }
+        setLoading(true)
+        if (message) {
+            setMessage(false)
+            setReadMessage("")
+        }
 
         const data = {
             userEmail: String(event.target.userEmail.value),
@@ -71,12 +72,19 @@ export default function LoginForm(props: any) {
             body: JSON.stringify(data)
         })
         const result = await response.json()
+        if (result.status === "failed") {
+            setLoading(false)
+            setMessage(true)
+            setReadMessage(result.response)
+            return
+        }
         if (result.token) {
-            /* TODO: Set cookie in a secure way */
+            setLoading(false)
             props.setLoginToggle(false)
             props.setUserLogged(true)
             setTokenCookie(result)
             router.push("/logs")
+            return
         }
     }
 
@@ -97,11 +105,18 @@ export default function LoginForm(props: any) {
                         <input className="rounded-md shadow-md" type="password" autoComplete="off" id="password" required minLength={3} maxLength={40} />
                     </div>
                 </div>
+                {
+                loading ? 
+                <div className="flex">
+                <p className="bg-green-700/80 p-2 rounded-md mt-3 shadow-md hover:bg-emerald-500/80 duration-300">Verifying...</p>
+                </div>
+                :                    
                 <button className="bg-green-700/80 p-2 rounded-md mt-3 shadow-md hover:bg-emerald-500/80 duration-300" type="submit">Submit</button>
+                }
             </form>
             </div>
 
-            { message ? <p>Login is not active yet... release coming soon.</p> : <></>}
+            { message ? <p className="text-red-500">{readMessage}</p> : <></>}
 
             <div className="block sm:flex mt-3 font-light">
             <h2>Are you new here?</h2>
