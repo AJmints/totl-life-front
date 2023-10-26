@@ -71,7 +71,11 @@ export default function LoginForm(props: any) {
             },
             body: JSON.stringify(data)
         })
-        const result = await response.json()
+        const result = await response.json().catch((err) => {
+            console.log(err)
+            setLoading(false)
+            setReadMessage("Something went wrong, please try again.")
+        })
         if (result.status === "failed") {
             setLoading(false)
             setMessage(true)

@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react'
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
-let AUTH_TOKEN: string
 
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
@@ -30,6 +29,9 @@ export const authToken = async() => {
 
 export default function UserOptions(props: any) {
 
+    const [pfpMessage, setPfpMessage] = useState<string>("")
+    const [pfpBool, setPfpBool] = useState<boolean>(false)
+
     useEffect(() => {
         authCheck()
     }, [])
@@ -37,11 +39,16 @@ export default function UserOptions(props: any) {
     const updateImage = async(e: any) => {
         e.preventDefault()
 
+        setPfpBool(false)
+        setPfpMessage("")
+
         if (e.target.files === undefined || e.target.files === null || !e.target.files) {
             // Let user know something went wrong
             return
         } else if (e.target.files[0].size > 1024000) {
             // Let user know image is too large
+            setPfpBool(true)
+            setPfpMessage("Image is too large, select a 1mb file or less")
             return
         }
 
@@ -81,11 +88,20 @@ export default function UserOptions(props: any) {
                 <input id="imgUpload" type="file" accept="image/*" style={{ display: 'none'}} onChange={updateImage}  />
                 <label className="cursor-pointer shadow-lg shadow-gray-800 p-1 rounded-md mx-auto bg-emerald-500 hover:bg-emerald-300 duration-500" htmlFor="imgUpload">Change PFP</label>
                 </form>
+                { pfpBool ? 
+                <p className=" w-44 text-red-500 mt-2">{pfpMessage}</p>
+                :
+                <></>}
             </div>
             </div>
             
-            <div className="bg-gray-600 mt-5 mx-2 p-2 rounded-md flex">
+            <div className="bg-gray-600 mt-5 grid grid-cols-1 text-center p-2 rounded-md">
+                <p className="text-gray-300">user:</p>
                 <p className="text-3xl border-b-2 text-gray-200 border-gray-400">{props.userName}</p>
+            </div>
+
+            <div className="w-36 mx-auto mt-3 p-2 rounded-md bg-gray-600 text-gray-300 text-center">
+                <p className="">Each user can only have 3 logs</p>
             </div>
 
             <div className="flex mt-10 justify-center space-x-2">

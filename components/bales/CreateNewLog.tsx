@@ -61,6 +61,7 @@ export default function CreateNewLog(props: any) {
         const response = await makeLogRequest.json().catch((err) => {
             console.log(err)
         })
+        console.log(response)
         if (response.logName === e.target.logName.value) {
             e.target.logName.value = ""
             e.target.introduction.value = ""
@@ -69,6 +70,10 @@ export default function CreateNewLog(props: any) {
             setSubmitting(false)
             return
         } else if (response.status === "taken"){
+            setShowError(true)
+            setSubmitting(false)
+            setErrorResponse(response.response)
+        } else if (response.status === "max") {
             setShowError(true)
             setSubmitting(false)
             setErrorResponse(response.response)

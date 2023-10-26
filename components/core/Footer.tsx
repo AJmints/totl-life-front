@@ -10,7 +10,7 @@ import git from '../../public/icons/github-mark.png'
 export default function Footer() {
 
     return (
-        <footer id="bottom" className="block justify-center py-3 bg-gray-700 shadow-lg text-gray-400 text-center shadow-gray-900/90">
+        <footer id="bottom" className="block justify-center pb-3 pt-3 sm:pt-0 bg-gray-700 shadow-lg text-gray-400 text-center shadow-gray-900/90">
 
             {/* Fixed bouncing button to return to the top */}
             <div className='relative'>
@@ -101,6 +101,13 @@ export default function Footer() {
                 </div>
 
                 </div>
+
+                {/* Contact us info */}
+                <div className="mt-5">
+                    <h1>Contact us:</h1>
+                    <h1>totl.lyfe@gmail.com</h1>
+                </div>
+
             </div>
             </div>
 
