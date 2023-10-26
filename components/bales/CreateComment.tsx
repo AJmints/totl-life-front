@@ -54,10 +54,11 @@ export default function CreateComment(props: any) {
             setSubmitting(false)
             console.log(err)
         })
+        console.log(response)
         if (response.comment === e.target.comment.value) {
             setSubmitting(false)
             e.target.comment.value = ""
-
+            props.setFetchResponse([...props.fetchResponse, response])
         }
         
 

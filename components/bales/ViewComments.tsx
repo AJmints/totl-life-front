@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import userIcon from '../../public/icons/profile-pic.png'
 
@@ -7,28 +7,28 @@ const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export default function ViewComments(props: any) {
 
+    
+    const [loading, setLoading] = useState<boolean>(false)
+
     useEffect(() => {
         const getComments = async() => {
+            setLoading(true)
             const getRequest = await fetch( URL + "/logs/get-bale-comments/" + props.baleId )
             const response= await getRequest.json().catch((err) => {
                 console.log(err)
             })
+            setLoading(false)
             props.setFetchResponse(response)
             return
         }
-        if (props.fetchResponse.length === 0) {
         getComments()
-        }
-        console.log(props)
-
     }, []) 
 
     const displayComments = props.fetchResponse.map((comment: any) => {
-        console.log(comment)
         return (
             <div className='my-3 flex items-center' key={comment.id}>
                 <div className='mr-4'>
-                {  comment.userPFP === "" ? 
+                {  comment?.userPFP === "" ? 
                     <div>
                     <Image
                         src={userIcon}
@@ -36,7 +36,7 @@ export default function ViewComments(props: any) {
                         width={50}
                         height={50}
                         className='rounded-full mx-auto'
-                        onClick={() => console.log(props.userPFP)}
+                        onClick={() => console.log("default pfp")}
                     /> 
                     </div>
                     :
@@ -60,15 +60,23 @@ export default function ViewComments(props: any) {
 
     return (
         <div>
-        { props.fetchResponse.length === 0 ? 
-        <div className='flex justify-center'>
-            <h1 className='bg-gray-300 p-3 mt-5 rounded-md'>There are no comments in this Bale yet...</h1>
-        </div>
-        :
-        <div>
-        {displayComments}
-        </div>
-        }
+            { loading ? 
+            <div className='flex justify-center'>
+                <h1 className='bg-gray-300 p-3 mt-5 rounded-md'>Loading Comments...</h1>
+            </div>
+            :
+            <>
+            { props.fetchResponse.length === 0 ? 
+            <div className='flex justify-center'>
+                <h1 className='bg-gray-300 p-3 mt-5 rounded-md'>There are no comments in this Bale yet...</h1>
+            </div>
+            :
+            <div>
+            {displayComments}
+            </div>
+            }
+            </>
+            }
         </div>
     )
 }

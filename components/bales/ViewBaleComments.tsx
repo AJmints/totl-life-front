@@ -64,6 +64,8 @@ export default function ViewBaleComments (props: any) {
         <div className="bg-gray-700/70 mt-2 pb-2 px-2 sm:px-5 rounded-md">
             <CreateComment 
             baleId={viewBale.id}
+            setFetchResponse={setFetchResponse}
+            fetchResponse={fetchResponse}
             />
         </div>
 
