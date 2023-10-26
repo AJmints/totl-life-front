@@ -16,6 +16,7 @@ export default function ViewBaleComments (props: any) {
     
     return (
         <div className="absolute p-2 shadow-lg shadow-gray-800/70 bg-gray-800 rounded-md">
+        
         <div className="pb-4">
         <button onClick={() => props.setDetailView((prev: boolean) => !prev)} className="bg-gray-500 rounded-md px-1 hover:bg-emerald-600 duration-300 hover:px-3 hover:-mx-3 text-gray-300 hover:text-gray-800">Close</button>
         </div>

@@ -147,11 +147,13 @@ export default function RecentBales(props: any) {
     return (
         <>
         <div className=" justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80 duration-300">
+            
+            {/* Text boxes of forum post title and body */}
             <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md cursor-pointer"
             onClick={() => setDetailView(prev => !prev)}>
                 {/* Main title container */}
                 <div className="bg-gray-100/80 shadow-lg shadow-gray-900 pb-5 rounded-t-md">
-                    <p className=' text-left ml-3 pt-1 font-normal text-sm'>log: {viewBale.parentLog}</p>
+                    <p className=' text-left ml-3 pt-1 font-normal text-sm'>log/{viewBale.parentLog}</p>
                     <p className="flex text-2xl justify-center sm:text-3xl xl:text-4xl xl:font-extralight px-3 font-light py-1">{viewBale.title}</p>
                 </div>
                 {/* Preview of comment container */}
@@ -159,6 +161,8 @@ export default function RecentBales(props: any) {
                     <p className=' text-sm xl:text-base text-left font-light'>{viewBale.body}</p>
                 </div>
             </div>
+            
+            {/* User information, upvote, downvote, comment, save, share, and menu option container. */}
             <div className="bg-gray-700/70 rounded-b-md sm:rounded-r-md sm:rounded-bl-none text-sm   flex items-center sm:block sm:w-[30%] p-0.5">
                 {/* User Profile Picture container */}
                 <div className=" p-4 w-[40%] sm:w-[100%] flex h-[50%] items-center justify-center rounded-bl-md sm:rounded-bl-none sm:rounded-tr-md sm:h-[50%] "> 
@@ -185,7 +189,7 @@ export default function RecentBales(props: any) {
                             onClick={() => userViewOptions()}
                         />
                         }
-                        <p className='text-gray-300'>user: {viewBale.userName}</p>
+                        <p className='text-gray-300'>user/{viewBale.userName}</p>
                     </div>   
                     </div>         
                 {/* Like and Comment and Option button */}
@@ -245,8 +249,10 @@ export default function RecentBales(props: any) {
                 </div>
                 </div>
             </div>
+
         </div>
 
+        {/* View the selected posts comments and main post text */}
         {detailView ? 
         <div className='fixed z-40 sm:left-[10%] sm:right-[10%] sm:top-[10%] sm:bottom-[10%] left-[2%] right-[2%] top-[8%]'>
         <ViewBaleComments
