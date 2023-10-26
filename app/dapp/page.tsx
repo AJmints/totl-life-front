@@ -19,6 +19,7 @@ export default function DappPage() {
                 <li>-Ability to click off a mobile menu and have the menu close</li>
                 <li>-Have user settings active</li>
                 <li>-Set up UPDATE, DELETE (CRUD) abilities on forum posts and user account stuff</li>
+                <li>-Real and nice loading screens</li>
                 </ul>
             </div>
 
