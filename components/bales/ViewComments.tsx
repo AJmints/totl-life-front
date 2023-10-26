@@ -13,7 +13,6 @@ export default function ViewComments(props: any) {
             const response= await getRequest.json().catch((err) => {
                 console.log(err)
             })
-            console.log(response)
             props.setFetchResponse(response)
             return
         }

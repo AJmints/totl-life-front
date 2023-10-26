@@ -50,9 +50,8 @@ export default function DappPage() {
                 </div>
 
                 <p>First, I want to apologize for the sinful amount of divs and :any that were used for the start of this project. Also the amount of useState drilling I have done all over the forum components. I am in the process of cleaning them up.</p><br/>
-                <p>I am working on creating a list for anyone to jump into pick up various tasks to work on the project. There is an open invitation for anyone to contribute to this project, just reach out to us using the email address totl.lyfe@gmail.com or my personal email alexjmints@gmail.com. Totl is being built to be the best forum it can possibly be, with dreams to become something more. But if this is a project that is a nice portfolio piece for myself and others, then it is still a win in my book.</p><br/>
-                <p>This project is very open ended and can become anything. For now, we are starting off as a forum, but depending on the other ideas and talent that come onto this project, we can turn into something greater!</p><br/>
-                <p>Task list pending...</p>
+                <p>There is an open invitation for anyone to contribute to this project, just reach out to us using the email address totl.lyfe@gmail.com or my personal email alexjmints@gmail.com. Totl is aiming to be built to be the best forum it can possibly be, with dreams to become something more. But if this is a project that is a nice portfolio piece for myself and others, then it is still a win in my book.</p><br/>
+                <p>This project is very open ended and can become anything. For now, we are starting off as a forum, but depending on the other ideas and talent that come onto this project, we can turn into something greater! If you have an idea that you think would bring value to the project, share it, we'll let you know if it fits with our project, then build it, and we would happily incorporate it!</p>
             </div>
         </div>
          
