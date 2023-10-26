@@ -101,7 +101,7 @@ export default function UserOptions(props: any) {
             </div>
 
             <div className="w-36 mx-auto mt-3 p-2 rounded-md bg-gray-600 text-gray-300 text-center">
-                <p className="">Each user can only have 3 logs</p>
+                <p className="">Each user can only have 3 logs. This will change in the future.</p>
             </div>
 
             <div className="flex mt-10 justify-center space-x-2">
