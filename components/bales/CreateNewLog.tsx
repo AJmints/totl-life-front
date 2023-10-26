@@ -61,7 +61,6 @@ export default function CreateNewLog(props: any) {
         const response = await makeLogRequest.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
         if (response.logName === e.target.logName.value) {
             e.target.logName.value = ""
             e.target.introduction.value = ""
