@@ -5,7 +5,7 @@ import Image from 'next/image'
 export default function DappPage() {
 
     return (
-        <div className=" mb-10 mx-2 lg:h-screen">
+        <div className=" mb-10 mx-2">
         <div className="flex flex-wrap">
             
             <div className="max-w-sm mx-auto mt-10 bg-gray-700/90 text-gray-300 p-4 rounded-md">
