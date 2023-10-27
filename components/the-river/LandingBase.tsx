@@ -20,7 +20,7 @@ const LandingBase = (props: any) => {
                     <Image
                     src={river}
                     alt=''
-                    className='w-72 sm:w-[27rem] h-auto rounded-md shadow-lg'
+                    className='w-72 sm:w-[24rem] h-auto rounded-md shadow-lg'
                     />
                 </div>
                 </div>
