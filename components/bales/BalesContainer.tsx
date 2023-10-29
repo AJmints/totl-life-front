@@ -39,15 +39,16 @@ export default function BalesContainer(props: any) {
             getLogs()
         }
         
-        if (allLogsBales[0] === "error") {
-            console.log("Something went wrong when setting bales")
-        } else if (allLogsBales[0] !== "new") {
-            if (allLogsBales.length === 0) {
-                setUpdateBales(false)
-            } else {
-                setUpdateBales(true)
-            }
-        }
+        // if (allLogsBales[0] === "error") {
+        //     console.log("Something went wrong when setting bales")
+        // } else 
+        // if (allLogsBales[0] !== "new") {
+        //     if (allLogsBales.length === 0) {
+        //         setUpdateBales(false)
+        //     } else {
+        //         setUpdateBales(true)
+        //     }
+        // }
     }, [allLogsBales, updateBales])
 
     const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {
@@ -101,6 +102,7 @@ export default function BalesContainer(props: any) {
                 setBaleNav={setBaleNav}
                 baleNav={baleNav}
                 logDescription={props.logDescription}
+                setUpdateBales={setUpdateBales}
             />
             </div>
 

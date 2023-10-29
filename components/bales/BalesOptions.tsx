@@ -30,6 +30,7 @@ export default function BalesOptions(props: any) {
             setInLog(false)
             const topBales = async() => {
                 props.setAllLogsBales([])
+                props.setUpdateBales(true)
                 const request = await fetch( URL + "/logs/most-recent-bales/" + props.baleIndex )
                 const response = await request.json().catch((err) => {
                     console.log(err)
@@ -41,6 +42,11 @@ export default function BalesOptions(props: any) {
                     }
                     props.setAllLogsBales(response.baleList)
                     props.setLogName("")
+                    if (response.baleList.length === 0) {
+                        props.setUpdateBales(false)
+                    } else {
+                        props.setUpdateBales(true)
+                    } 
                     return
                 } else {
                     props.setAllLogsBales(["error"])
@@ -53,17 +59,24 @@ export default function BalesOptions(props: any) {
 
             const allLogBales = async() => {
                 props.setAllLogsBales([])
+                props.setUpdateBales(true)
                 setInLog(true)
                     const waitLogs = await fetch( URL + "/logs/all-bales-in-log/" + pathname?.split("/logs/").pop() + "/" + props.baleIndex)
                     const response = await waitLogs.json().catch((err) => {
                         console.log(err)
                     })
+                    
                     if (response.status) {
                         if (props.baleNav !== response.total) {
                             props.setBaleNav(response.total)
                         }
                         props.setAllLogsBales(response.allBales)
                         props.setLogDescription(response.logDescription)
+                        if (response.allBales.length === 0) {
+                            props.setUpdateBales(false)
+                        } else {
+                            props.setUpdateBales(true)
+                        }                        
                         return
                     } else {
                         props.setAllLogsBales(["error"])
