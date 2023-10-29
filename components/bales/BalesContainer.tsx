@@ -39,13 +39,13 @@ export default function BalesContainer(props: any) {
         // if (allLogsBales[0] === "error") {
         //     console.log("Something went wrong when setting bales")
         // } else 
-        // if (allLogsBales[0] !== "new") {
-        //     if (allLogsBales.length === 0) {
-        //         setUpdateBales(false)
-        //     } else {
-        //         setUpdateBales(true)
-        //     }
-        // }
+        if (allLogsBales[0] !== "new") {
+            if (allLogsBales.length === 0) {
+                setUpdateBales(false)
+            } else {
+                setUpdateBales(true)
+            }
+        }
         
     }, [allLogsBales, updateBales])
 

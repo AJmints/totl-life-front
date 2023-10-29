@@ -3,7 +3,6 @@ import comment from '../../public/icons/Comment.png'
 import saveIcon from '../../public/icons/Save.png'
 import options from '../../public/icons/options.png'
 import share from '../../public/icons/share.png'
-import userImg from '../../public/icons/profile-pic.png'
 import Image from 'next/image'
 import userIcon from '../../public/icons/profile-pic.png'
 import { useState } from 'react'
@@ -131,7 +130,8 @@ export default function RecentBales(props: any) {
 
     return (
         <>
-        <div className=" justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80 duration-300">
+        <div className=" justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80 duration-300"
+        placeholder='blur'>
             
             {/* Text boxes of forum post title and body */}
             <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md cursor-pointer"

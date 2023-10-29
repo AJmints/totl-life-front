@@ -26,8 +26,6 @@ export default function BalesOptions(props: any) {
     useEffect(() => {
         props.setLoading(true)
         if (pathname?.split("/logs/").pop() === '/logs') {
-            
-            // Create a most recent list of bales to return to BalesContainer
             setInLog(false)
             const topBales = async() => {
                 props.setAllLogsBales([])
@@ -37,7 +35,6 @@ export default function BalesOptions(props: any) {
                     console.log(err)
                 })
                 if (response) {
-                    // console.log(response)
                     if (props.baleNav !== response.total) {
                         props.setBaleNav(response.total)
                     }
