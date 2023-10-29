@@ -7,9 +7,7 @@ const LandingBase = (props: any) => {
 
     return (
         <div className='mt-10'>
-            {/* <div>
-                <h1 className='text-center text-3xl font-bold text-yellow-400 bg-gray-700/80 mb-5'>Totl release is right around the corner...</h1>
-            </div> */}
+            
             <div>
                 <div className="mx-5 text-center">
                 <h1 className="text-2xl sm:text-4xl xl:text-6xl font-serif text-gray-100">Welcome to</h1>
@@ -67,6 +65,15 @@ const LandingBase = (props: any) => {
                 </Link>
                 </div>
             </div>
+            </div>
+
+            <div className='flex justify-center mt-5'>
+                <div>
+                <h1 className='text-center text-3xl font-serif text-gray-300  px-2 rounded-md shadow-md shadow-gray-900/70 bg-gray-700/80 mb-2'>Jump into the forums!</h1>
+                <div className='flex justify-center'>
+                <Link className='mx-auto text-3xl font-bold text-yellow-400 bg-emerald-700/80 py-1 px-2 rounded-md shadow-md shadow-gray-900/70 hover:bg-emerald-500 duration-300 hover:text-yellow-200' href={"/logs"}>Visit Logs</Link>
+                </div>
+                </div>
             </div>
 
             <div className='mt-10'>

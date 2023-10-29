@@ -4,12 +4,14 @@ import { useEffect, useState } from "react"
 import RecentBales from "./RecentBales"
 import BalesOptions from "./BalesOptions"
 import EmptyBalesSkeleton from "./loading-skeleton/EmptyBalesSkeleton"
+import LoadingBalesSkeleton from "./loading-skeleton/LoadingBalesSkeleton copy"
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 
 export default function BalesContainer(props: any) {
 
+    const [loading, setLoading] = useState(false)
     const [logsDropDown, setLogsDropDown] = useState([])
     const [allLogsBales, setAllLogsBales] = useState<any[]>(["new"])
     const [updateBales, setUpdateBales] = useState(false)
@@ -17,6 +19,7 @@ export default function BalesContainer(props: any) {
     const [baleNav, setBaleNav] = useState<number>(0)
 
     useEffect(() => {
+        setLoading(true)
         const getLogs = async() => {
             const waitLogs = await fetch( URL + "/logs/all-logs-for-drop-down" )
             const response = await waitLogs.json().catch((err) => {
@@ -41,6 +44,7 @@ export default function BalesContainer(props: any) {
                 setUpdateBales(true)
             }
         }
+        setLoading(false)
     }, [allLogsBales, updateBales])
 
     const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {
@@ -100,6 +104,12 @@ export default function BalesContainer(props: any) {
             
 
             {/* Only render our list of bales after bales have been set, otherwise we get mount and unmount key.id issues. */}
+            { loading ? 
+            <>
+            <LoadingBalesSkeleton />
+            </>
+            :
+            <>
             { updateBales ? 
             <div className="space-y-4 h-screen overflow-y-scroll no-scrollbar">
             <div className="bg-gray-600/80 py-2 rounded-md justify-center flex">
@@ -113,6 +123,8 @@ export default function BalesContainer(props: any) {
             :
             <> 
             <EmptyBalesSkeleton />
+            </>
+            }
             </>
             }        
         </div>  
