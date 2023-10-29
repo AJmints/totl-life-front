@@ -19,22 +19,26 @@ export default function BalesContainer(props: any) {
     const [baleNav, setBaleNav] = useState<number>(0)
 
     useEffect(() => {
-        setLoading(true)
         const getLogs = async() => {
+            setLoading(true)
             const waitLogs = await fetch( URL + "/logs/all-logs-for-drop-down" )
             const response = await waitLogs.json().catch((err) => {
                 console.log(err)
             })
             if (response.status == "success") {
+                setLoading(false)
                 props.setAllLogNames(response.logNames)
                 return setLogsDropDown(response.logNames)
             } else {
+                setLoading(false)
                 console.log("Get Log names issue in BalesContainer.tsx")
             }
         }
+
         if (allLogsBales.length <= 0) {
             getLogs()
         }
+        
         if (allLogsBales[0] === "error") {
             console.log("Something went wrong when setting bales")
         } else if (allLogsBales[0] !== "new") {
@@ -44,7 +48,6 @@ export default function BalesContainer(props: any) {
                 setUpdateBales(true)
             }
         }
-        setLoading(false)
     }, [allLogsBales, updateBales])
 
     const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {
