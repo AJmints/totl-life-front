@@ -24,6 +24,7 @@ export default function BalesOptions(props: any) {
     const router = useRouter()
 
     useEffect(() => {
+        props.setLoading(true)
         if (pathname?.split("/logs/").pop() === '/logs') {
             
             // Create a most recent list of bales to return to BalesContainer
@@ -44,8 +45,10 @@ export default function BalesOptions(props: any) {
                     props.setLogName("")
                     if (response.baleList.length === 0) {
                         props.setUpdateBales(false)
+                        props.setLoading(false)
                     } else {
                         props.setUpdateBales(true)
+                        props.setLoading(false)
                     } 
                     return
                 } else {
@@ -74,8 +77,10 @@ export default function BalesOptions(props: any) {
                         props.setLogDescription(response.logDescription)
                         if (response.allBales.length === 0) {
                             props.setUpdateBales(false)
+                            props.setLoading(false)
                         } else {
                             props.setUpdateBales(true)
+                            props.setLoading(false)
                         }                        
                         return
                     } else {
@@ -85,7 +90,6 @@ export default function BalesOptions(props: any) {
             }
             allLogBales()
         }
-        // Account can only own a max of 3 logs, and can own more after submitting a request.
     }, [props.baleIndex])
 
     

@@ -20,7 +20,6 @@ export default function BalesContainer(props: any) {
 
     useEffect(() => {
         const getLogs = async() => {
-            setLoading(true)
             const waitLogs = await fetch( URL + "/logs/all-logs-for-drop-down" )
             const response = await waitLogs.json().catch((err) => {
                 console.log(err)
@@ -30,7 +29,6 @@ export default function BalesContainer(props: any) {
                 props.setAllLogNames(response.logNames)
                 return setLogsDropDown(response.logNames)
             } else {
-                setLoading(false)
                 console.log("Get Log names issue in BalesContainer.tsx")
             }
         }
@@ -38,7 +36,6 @@ export default function BalesContainer(props: any) {
         if (allLogsBales.length <= 0) {
             getLogs()
         }
-        
         // if (allLogsBales[0] === "error") {
         //     console.log("Something went wrong when setting bales")
         // } else 
@@ -49,6 +46,7 @@ export default function BalesContainer(props: any) {
         //         setUpdateBales(true)
         //     }
         // }
+        
     }, [allLogsBales, updateBales])
 
     const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {
@@ -103,6 +101,7 @@ export default function BalesContainer(props: any) {
                 baleNav={baleNav}
                 logDescription={props.logDescription}
                 setUpdateBales={setUpdateBales}
+                setLoading={setLoading}
             />
             </div>
 
