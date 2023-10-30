@@ -37,17 +37,12 @@ export default function BalesContainer(props: any) {
             getLogs()
         }
         
-        if (allLogsBales[0] !== "new") {
+        if (!loading) {
             if (allLogsBales.length === 0) {
                 setUpdateBales(false)
-                setLoading(false)
             } else if (allLogsBales.length > 0) {
                 setUpdateBales(true)
-                setLoading(false)
             }
-        } else if (allLogsBales[0] === "new") {
-            console.log("true is triggering...")
-            setLoading(true)
         }
         
     }, [allLogsBales, updateBales])

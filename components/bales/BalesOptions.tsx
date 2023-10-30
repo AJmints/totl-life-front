@@ -24,7 +24,7 @@ export default function BalesOptions(props: any) {
     const router = useRouter()
 
     useEffect(() => {
-        // props.setLoading(true)
+        props.setLoading(true)
         if (pathname?.split("/logs/").pop() === '/logs') {
             setInLog(false)
             const topBales = async() => {
@@ -45,7 +45,7 @@ export default function BalesOptions(props: any) {
                     // } else {
                     //     props.setUpdateBales(true)
                     // } 
-                    // props.setLoading(true)
+                    props.setLoading(false)
                     return
                 } else {
                     props.setAllLogsBales(["error"])
@@ -76,7 +76,7 @@ export default function BalesOptions(props: any) {
                         // } else {
                         //     props.setUpdateBales(true)
                         // }        
-                        // props.setLoading(true)                
+                        props.setLoading(false)                
                         return
                     } else {
                         props.setAllLogsBales(["error"])
