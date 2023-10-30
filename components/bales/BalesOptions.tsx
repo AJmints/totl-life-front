@@ -24,7 +24,7 @@ export default function BalesOptions(props: any) {
     const router = useRouter()
 
     useEffect(() => {
-        props.setLoading(true)
+        // props.setLoading(true)
         if (pathname?.split("/logs/").pop() === '/logs') {
             setInLog(false)
             const topBales = async() => {
@@ -40,13 +40,12 @@ export default function BalesOptions(props: any) {
                     }
                     props.setAllLogsBales(response.baleList)
                     props.setLogName("")
-                    if (response.baleList.length === 0) {
-                        props.setUpdateBales(false)
-                        props.setLoading(false)
-                    } else {
-                        props.setUpdateBales(true)
-                        props.setLoading(false)
-                    } 
+                    // if (response.baleList.length === 0) {
+                    //     props.setUpdateBales(false)
+                    // } else {
+                    //     props.setUpdateBales(true)
+                    // } 
+                    // props.setLoading(true)
                     return
                 } else {
                     props.setAllLogsBales(["error"])
@@ -72,13 +71,12 @@ export default function BalesOptions(props: any) {
                         }
                         props.setAllLogsBales(response.allBales)
                         props.setLogDescription(response.logDescription)
-                        if (response.allBales.length === 0) {
-                            props.setUpdateBales(false)
-                            props.setLoading(false)
-                        } else {
-                            props.setUpdateBales(true)
-                            props.setLoading(false)
-                        }                        
+                        // if (response.allBales.length === 0) {
+                        //     props.setUpdateBales(false)
+                        // } else {
+                        //     props.setUpdateBales(true)
+                        // }        
+                        // props.setLoading(true)                
                         return
                     } else {
                         props.setAllLogsBales(["error"])

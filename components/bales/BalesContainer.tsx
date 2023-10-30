@@ -32,19 +32,22 @@ export default function BalesContainer(props: any) {
                 console.log("Get Log names issue in BalesContainer.tsx")
             }
         }
-
+        
         if (allLogsBales.length <= 0) {
             getLogs()
         }
-        // if (allLogsBales[0] === "error") {
-        //     console.log("Something went wrong when setting bales")
-        // } else 
+        
         if (allLogsBales[0] !== "new") {
             if (allLogsBales.length === 0) {
                 setUpdateBales(false)
-            } else {
+                setLoading(false)
+            } else if (allLogsBales.length > 0) {
                 setUpdateBales(true)
+                setLoading(false)
             }
+        } else if (allLogsBales[0] === "new") {
+            console.log("true is triggering...")
+            setLoading(true)
         }
         
     }, [allLogsBales, updateBales])
