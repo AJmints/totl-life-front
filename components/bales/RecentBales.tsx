@@ -30,7 +30,6 @@ export const token = async() => {
 
 export default function RecentBales(props: any) {
     const viewBale = props.mappingBale
-    // const [quickCommentToggle, setQuickCommentToggle] = useState<boolean>(false)
     const [detailView, setDetailView] = useState<boolean>(false)
     const [upCount, setUpCount] = useState<number>(viewBale.upVoteCount)
     const [downCount, setDownCount] = useState<number>(viewBale.downVoteCount)

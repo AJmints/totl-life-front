@@ -14,7 +14,7 @@ export default function LogLoadOut() {
     const [allLogNames, setAllLogNames] = useState([])
 
     return (
-        <div className="">
+        <div className="mb-10">
             <div className="flex justify-around">
                 
             <div className="hidden my-5 ml-2 lg:flex shadow-xl text-lg text-center rounded-lg">

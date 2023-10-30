@@ -36,14 +36,22 @@ export default function BalesContainer(props: any) {
         if (allLogsBales.length <= 0) {
             getLogs()
         }
-        
-        if (!loading) {
+
+        if (allLogsBales[0] !== "new") {
             if (allLogsBales.length === 0) {
                 setUpdateBales(false)
             } else if (allLogsBales.length > 0) {
                 setUpdateBales(true)
             }
         }
+        
+        // if (!loading) {
+        //     if (allLogsBales.length === 0) {
+        //         setUpdateBales(false)
+        //     } else if (allLogsBales.length > 0) {
+        //         setUpdateBales(true)
+        //     }
+        // }
         
     }, [allLogsBales, updateBales])
 
