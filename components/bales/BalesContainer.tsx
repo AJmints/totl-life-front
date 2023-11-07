@@ -45,14 +45,6 @@ export default function BalesContainer(props: any) {
             }
         }
         
-        // if (!loading) {
-        //     if (allLogsBales.length === 0) {
-        //         setUpdateBales(false)
-        //     } else if (allLogsBales.length > 0) {
-        //         setUpdateBales(true)
-        //     }
-        // }
-        
     }, [allLogsBales, updateBales])
 
     const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {

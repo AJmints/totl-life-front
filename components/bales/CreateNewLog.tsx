@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 
 let USER_ID: string
-const URL = process.env.NEXT_PUBLIC_BACKEND_URL
+const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
     const status = await infoCall.json().catch((err) => {
@@ -30,7 +30,7 @@ export default function CreateNewLog(props: any) {
     const [submitting, setSubmitting] = useState(false)
 
     useEffect(() => {
-        
+        console.log(props)
     }, [])
 
     const handleSubmit = async(e: any) => {
@@ -49,7 +49,7 @@ export default function CreateNewLog(props: any) {
             introduction: e.target.introduction.value,
         }
 
-        const makeLogRequest = await fetch( URL + "/logs/create-log", {
+        const makeLogRequest: Response = await fetch( URL + "/logs/create-log", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -61,6 +61,7 @@ export default function CreateNewLog(props: any) {
         const response = await makeLogRequest.json().catch((err) => {
             console.log(err)
         })
+        console.log(response)
         if (response.logName === e.target.logName.value) {
             e.target.logName.value = ""
             e.target.introduction.value = ""

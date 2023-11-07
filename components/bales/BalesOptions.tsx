@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import { usePathname, useRouter } from "next/navigation"
 import add from '../../public/icons/add-white.png'
 import hamMenu from '../../public/icons/menu-burger.png'
@@ -8,20 +8,62 @@ import Image from 'next/image'
 import NewBalePost from "./NewBalePost"
 import CreateNewLog from './CreateNewLog'
 import RightMenuContainer from './right-container/RightMenuContainer'
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
-export default function BalesOptions(props: any) {
+interface BalesOptionsProps {
+    allLogsBales: string[],
+    baleIndex: number,
+    baleNav: number,
+    logDescription: string,
+    logName: string,
+    logsDropDown: string[],
+    setAllLogsBales: Function,
+    setBaleNav: Function,
+    setLoading: Function,
+    setLogDescription: Function,
+    setLogName: Function,
+    setLogsDropDown: Function,
+    setUpdateBales: Function,
+}
 
-    const [inLog, setInLog] = useState(false)
-    const [createPost, setCreatePost] = useState(false)
-    const [createLog, setCreateLog] = useState(false)
+interface BaleEntity {
+    body: string,
+    commentCount: number,
+    downVoteCount: number,
+    id: number,
+    parentLog: string,
+    saveCount: number,
+    title: string,
+    upVoteCount: number,
+    userName: string,
+    userPFP: string,
+}
+
+interface TopBalesResponse {
+    baleList: BaleEntity[],
+    total: number,
+}
+
+interface AllLogBalesResponse {
+    allBales: BaleEntity[],
+    logDescription: string,
+    status: string, 
+    total: number,
+}
+
+export default function BalesOptions(props: BalesOptionsProps) {
+
+    const [inLog, setInLog] = useState<boolean>(false)
+    const [createPost, setCreatePost] = useState<boolean>(false)
+    const [createLog, setCreateLog] = useState<boolean>(false)
     const [showLogDesc, setShowLogDesc] = useState<boolean>(true)
     const [sideMenu, setSideMenu] = useState<boolean>(false)
     
 
-    const pathname = usePathname()
-    const router = useRouter()
+    const pathname: string | null = usePathname()
+    const router: AppRouterInstance = useRouter()
 
     useEffect(() => {
         props.setLoading(true)
@@ -30,8 +72,8 @@ export default function BalesOptions(props: any) {
             const topBales = async() => {
                 props.setAllLogsBales([])
                 props.setUpdateBales(true)
-                const request = await fetch( URL + "/logs/most-recent-bales/" + props.baleIndex )
-                const response = await request.json().catch((err) => {
+                const request: Response = await fetch( URL + "/logs/most-recent-bales/" + props.baleIndex )
+                const response: TopBalesResponse  = await request.json().catch((err: Error) => {
                     console.log(err)
                 })
                 if (response) {
@@ -40,11 +82,6 @@ export default function BalesOptions(props: any) {
                     }
                     props.setAllLogsBales(response.baleList)
                     props.setLogName("")
-                    // if (response.baleList.length === 0) {
-                    //     props.setUpdateBales(false)
-                    // } else {
-                    //     props.setUpdateBales(true)
-                    // } 
                     props.setLoading(false)
                     return
                 } else {
@@ -60,22 +97,16 @@ export default function BalesOptions(props: any) {
                 props.setAllLogsBales([])
                 props.setUpdateBales(true)
                 setInLog(true)
-                    const waitLogs = await fetch( URL + "/logs/all-bales-in-log/" + pathname?.split("/logs/").pop() + "/" + props.baleIndex)
-                    const response = await waitLogs.json().catch((err) => {
+                    const waitLogs: Response = await fetch( URL + "/logs/all-bales-in-log/" + pathname?.split("/logs/").pop() + "/" + props.baleIndex)
+                    const response: AllLogBalesResponse = await waitLogs.json().catch((err: Error) => {
                         console.log(err)
                     })
-                    
                     if (response.status) {
                         if (props.baleNav !== response.total) {
                             props.setBaleNav(response.total)
                         }
                         props.setAllLogsBales(response.allBales)
                         props.setLogDescription(response.logDescription)
-                        // if (response.allBales.length === 0) {
-                        //     props.setUpdateBales(false)
-                        // } else {
-                        //     props.setUpdateBales(true)
-                        // }        
                         props.setLoading(false)                
                         return
                     } else {
@@ -89,7 +120,7 @@ export default function BalesOptions(props: any) {
 
     
 
-    const logSelect = (event: any) => {
+    const logSelect = (event: ChangeEvent<HTMLInputElement>) => {
         router.push("/logs/" + event.target.value)
     }
 
@@ -135,7 +166,7 @@ export default function BalesOptions(props: any) {
             <div>
                 <form className='mx-auto text-gray-800 mt-1'>
                     {/* <h1 className=''>Visit a new log</h1> */}
-                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue="default" onChange={(e) => logSelect(e)} id="logs">
+                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue="default" onChange={(event: ChangeEvent<HTMLInputElement> | any) => logSelect(event)} id="logs">
                         <option value="default" disabled>Visit Logs</option>
                         {logDropDownOptions}
                     </select>
@@ -172,7 +203,7 @@ export default function BalesOptions(props: any) {
             <div>
                 <form className='mx-auto mt-1 text-gray-800'>
                     {/* <h1 className=''>Visit a new log</h1> */}
-                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue="default" onChange={(e) => logSelect(e)} id="logs">
+                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue="default" onChange={(event: ChangeEvent<HTMLInputElement> | any) => logSelect(event)} id="logs">
                         <option value="default" disabled>Visit Logs</option>
                         {logDropDownOptions}
                     </select>

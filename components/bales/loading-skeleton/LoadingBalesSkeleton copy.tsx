@@ -2,7 +2,6 @@ import waiting from '../../../public/images/waiting-for-more.jpg'
 
 export default function LoadingBalesSkeleton() {
 
-
     return (
         <div className="h-screen w-auto flex justify-center">
             <div className=" bg-gray-500 rounded-md"

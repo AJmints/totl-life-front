@@ -3,10 +3,10 @@ import arrow from '../../public/icons/Arrow.png'
 import { useState } from 'react'
 
 let USER_ID: string
-const URL = process.env.NEXT_PUBLIC_BACKEND_URL
+const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export const authCheck = async() => {
-    const infoCall = await fetch("/api/authCheck")
+    const infoCall: Response = await fetch("/api/authCheck")
     const status = await infoCall.json().catch((err) => {
         console.log(err)
     })
@@ -16,17 +16,31 @@ export const authCheck = async() => {
     }
 }
 export const token = async() => {
-    const getToken = await fetch("/api/headers")
+    const getToken: Response = await fetch("/api/headers")
     const status = await getToken.json().catch((err) => {
         console.log(err)
     })
     return status
 }
 
-export default function CreateComment(props: any) {
+type CommentType = {
+    comment: string,
+    id: number,
+    parentBaleId: number,
+    userName: string,
+    userPFP: any,
+}
 
-    const [writeComment, setWriteComment] = useState(false)
-    const [submitting, setSubmitting] = useState(false)
+type CreateCommentProps = {
+    baleId: number,
+    fetchResponse: CommentType[],
+    setFetchResponse: Function,
+}
+
+export default function CreateComment(props: CreateCommentProps) {
+
+    const [writeComment, setWriteComment] = useState<boolean>(false)
+    const [submitting, setSubmitting] = useState<boolean>(false)
 
     const handleSubmit = async(e: any) => {
         e.preventDefault()
@@ -37,12 +51,12 @@ export default function CreateComment(props: any) {
             return
         }
 
-        const data = {
+        const data: Object = {
             user: USER_ID,
             comment: e.target.comment.value,
             baleId: props.baleId,
         }
-        const makeCommentRequest = await fetch( URL + "/logs/create-comment", {
+        const makeCommentRequest: Response = await fetch( URL + "/logs/create-comment", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -50,11 +64,10 @@ export default function CreateComment(props: any) {
             },
             body: JSON.stringify(data)
         })
-        const response = await makeCommentRequest.json().catch((err) => {
+        const response: CommentType = await makeCommentRequest.json().catch((err) => {
             setSubmitting(false)
             console.log(err)
         })
-        console.log(response)
         if (response.comment === e.target.comment.value) {
             setSubmitting(false)
             e.target.comment.value = ""

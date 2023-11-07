@@ -20,10 +20,6 @@ export default function LogLoadOut() {
             <div className="hidden my-5 ml-2 lg:flex shadow-xl text-lg text-center rounded-lg">
                     <div className="pt-2 rounded-md bg-gray-500/90">
                     <LeftMenuContainer
-                            showLogDesc={showLogDesc}
-                            logName={logName}
-                            logDescription={logDescription}
-                            setShowLogDesc={setShowLogDesc}
                             allLogNames={allLogNames}
                         />
                     </div>

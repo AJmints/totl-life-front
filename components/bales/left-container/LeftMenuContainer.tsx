@@ -1,6 +1,10 @@
 import Link from 'next/link'
 
-export default function LeftMenuContainer(props: any) {
+interface LeftMenuContainerProps {
+   allLogNames: string[]
+}
+
+export default function LeftMenuContainer(props: LeftMenuContainerProps) {
      return (
         <div>
         <div className="hidden xl:block xl:max-w-xs">
@@ -11,7 +15,7 @@ export default function LeftMenuContainer(props: any) {
          <div className='bg-gray-700/90 mx-2 rounded-md py-4 text-gray-300'>
          <h1 className='text-2xl border-b-[1px] mx-2'>Visit Logs</h1>
          <div className='mt-3 text-base space-y-2'>
-         {props.allLogNames.map((item:any) => {
+         {props.allLogNames.map((item:string) => {
          return (
             <div key={item}>
             <Link href={"/logs/" + item} className='hover:text-emerald-500 duration-300'>log/{item}</Link>

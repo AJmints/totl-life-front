@@ -5,8 +5,9 @@ import Link from "next/link"
 import { useEffect, useState } from 'react'
 import { usePathname } from "next/navigation"
 
+
 let USER_ID: string
-const URL = process.env.NEXT_PUBLIC_BACKEND_URL
+const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
     const status = await infoCall.json().catch((err) => {
@@ -25,37 +26,54 @@ export const token = async() => {
     return status
 }
 
-export default function RightMenuContainer(props: any) {
+interface RightMenuContainerProps {
+    logDescription: string,
+    logName: string,
+    setShowLogDesc: Function,
+    showLogDesc: boolean
+}
 
-    const [following, setFollowing] = useState(false)
+interface RetrieveLogListResponse {
+    status: string,
+    logNames: string[],
+}
+
+interface FollowLogResponse {
+    status: string,
+    response: string,
+}
+
+export default function RightMenuContainer(props: RightMenuContainerProps) {
+
+    const [following, setFollowing] = useState<boolean>(false)
     const [joinedLogs, setJoinedLogs] = useState<string[]>([])
-    const pathname = usePathname()
+    const pathname: string | null = usePathname()
 
     useEffect(() => {
-        
         const retrieveLogList = async() => {
             if (!await authCheck()) {
                 console.log("")
             }
-            const routeCheck = pathname?.split("/logs/").pop()
-            let askForList: any
+            const routeCheck: string | undefined = pathname?.split("/logs/").pop()
+            let askForList: Response
             if ( routeCheck === "/logs" ) {
                 askForList = await fetch( URL + "/logs/user-logs/" + USER_ID + "/" + undefined )
             } else {
                 askForList = await fetch( URL + "/logs/user-logs/" + USER_ID + "/" + routeCheck )
             }
-            const response = await askForList.json().catch((err:any) => {
+            const response: RetrieveLogListResponse = await askForList.json().catch((err: Error) => {
                 console.log(err)
             })
-            if (response.status !== joinedLogs) {
-                setJoinedLogs(response.logNames)
-            }
+            
+            setJoinedLogs(response.logNames)
+            
             if (response.status === "present") {
                 setFollowing(true)
             } else if (response.status === "absent") {
                 setFollowing(false)
             }
         }
+
         retrieveLogList()
     
     }, [])
@@ -66,12 +84,12 @@ export default function RightMenuContainer(props: any) {
             console.log("logout")
         }
 
-        const data = {
+        const data: Object = {
             userId: USER_ID,
             logName: log,
         }
 
-        const requestFollow = await fetch( URL + "/logs/add-log-follow", {
+        const requestFollow: Response = await fetch( URL + "/logs/add-log-follow", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -79,10 +97,10 @@ export default function RightMenuContainer(props: any) {
             },
             body: JSON.stringify(data)
         })
-        const response = await requestFollow.json().catch((err) => {
+        const response: FollowLogResponse  = await requestFollow.json().catch((err: Error) => {
             console.log(err)
         })
-        console.log(response)
+        
         if (response.status === "follow") {
             setFollowing(true)
         } else if (response.status === "unfollow") {
@@ -144,9 +162,7 @@ export default function RightMenuContainer(props: any) {
 
             <div className="flex items-baseline space-x-2 justify-center">
                 <div className="">
-                <LogFollowList 
-                logName={props.logName}
-                setFollowing={setFollowing}
+                <LogFollowList
                 joinedLogs={joinedLogs}
                 />
                 </div>
