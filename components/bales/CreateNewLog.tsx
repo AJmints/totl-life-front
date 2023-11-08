@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 let USER_ID: string
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 export const authCheck = async() => {
-    const infoCall = await fetch("/api/authCheck")
+    const infoCall: Response = await fetch("/api/authCheck")
     const status = await infoCall.json().catch((err) => {
         console.log(err)
     })
@@ -16,18 +16,30 @@ export const authCheck = async() => {
 }
 
 export const token = async() => {
-    const getToken = await fetch("/api/headers")
+    const getToken: Response = await fetch("/api/headers")
     const status = await getToken.json().catch((err) => {
         console.log(err)
     })
     return status
 }
 
-export default function CreateNewLog(props: any) {
+type ResponseCreateNewLog = {
+    status?: "max" | "taken"
+    response?: string,
+    user?: number,
+    logName?: string,
+    introduction?: string,
+}
+type CreateNewLogProps = {
+    setCreateLog: Function,
+    setLogsDropDown: Function,
+}
 
-    const [errorResponse, setErrorResponse] = useState("")
-    const [showError, setShowError] = useState(false)
-    const [submitting, setSubmitting] = useState(false)
+export default function CreateNewLog(props: CreateNewLogProps) {
+
+    const [errorResponse, setErrorResponse] = useState<string>("")
+    const [showError, setShowError] = useState<boolean>(false)
+    const [submitting, setSubmitting] = useState<boolean>(false)
 
     useEffect(() => {
         console.log(props)
@@ -43,7 +55,7 @@ export default function CreateNewLog(props: any) {
             return
         }
 
-        const data = {
+        const data: Object = {
             user: USER_ID,
             logName: e.target.logName.value,
             introduction: e.target.introduction.value,
@@ -58,25 +70,24 @@ export default function CreateNewLog(props: any) {
             body: JSON.stringify(data)
         })
         USER_ID = ""
-        const response = await makeLogRequest.json().catch((err) => {
+        const response: ResponseCreateNewLog = await makeLogRequest.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
         if (response.logName === e.target.logName.value) {
             e.target.logName.value = ""
             e.target.introduction.value = ""
-            props.setLogsDropDown((prev: any) => [...prev, response.logName.toLowerCase()])
+            props.setLogsDropDown((prev: string[]) => [...prev, response.logName!.toLowerCase()])
             props.setCreateLog(false)
             setSubmitting(false)
             return
         } else if (response.status === "taken"){
             setShowError(true)
             setSubmitting(false)
-            setErrorResponse(response.response)
+            setErrorResponse(response.response!)
         } else if (response.status === "max") {
             setShowError(true)
             setSubmitting(false)
-            setErrorResponse(response.response)
+            setErrorResponse(response.response!)
         }
     }
 

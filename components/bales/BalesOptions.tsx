@@ -13,7 +13,7 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 interface BalesOptionsProps {
-    allLogsBales: string[],
+    allLogsBales: any[],
     baleIndex: number,
     baleNav: number,
     logDescription: string,

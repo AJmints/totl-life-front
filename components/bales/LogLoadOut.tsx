@@ -11,7 +11,7 @@ export default function LogLoadOut() {
     const [logName, setLogName] = useState<string>("")
     const [logDescription, setLogDescription] = useState<string>("")
     const [showLogDesc, setShowLogDesc] = useState<boolean>(true)
-    const [allLogNames, setAllLogNames] = useState([])
+    const [allLogNames, setAllLogNames] = useState<string[]>([])
 
     return (
         <div className="mb-10">

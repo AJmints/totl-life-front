@@ -3,10 +3,10 @@
 import { useState } from "react"
 
 let USER_ID: string
-const URL = process.env.NEXT_PUBLIC_BACKEND_URL
+const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export const authCheck = async() => {
-    const infoCall = await fetch("/api/authCheck")
+    const infoCall: Response = await fetch("/api/authCheck")
     const status = await infoCall.json().catch((err) => {
         console.log(err)
     })
@@ -16,16 +16,36 @@ export const authCheck = async() => {
     }
 }
 export const token = async() => {
-    const getToken = await fetch("/api/headers")
+    const getToken: Response = await fetch("/api/headers")
     const status = await getToken.json().catch((err) => {
         console.log(err)
     })
     return status
 }
 
-export default function NewBalePost(props:any) {
+type AllLogsBales = {
+    body: string,
+    commentCount: number,
+    downVoteCount: number,
+    id: number,
+    parentLog: string,
+    saveCount: number,
+    title: string,
+    upVoteCount: number,
+    userName: string,
+    userPFP: any,
+}
 
-    const [submitting, setSubmitting] = useState(false)
+type NewBalePostProps = {
+    logName: string,
+    allLogsBales: AllLogsBales[],
+    setAllLogsBales: Function,
+    setCreatePost: Function,
+}
+
+export default function NewBalePost(props: NewBalePostProps) {
+
+    const [submitting, setSubmitting] = useState<boolean>(false)
 
     const handleSubmit = async(e:any) => {
         e.preventDefault()
@@ -36,13 +56,13 @@ export default function NewBalePost(props:any) {
             return
         }
 
-        const data = {
+        const data: Object = {
             parentLog: props.logName,
             userId: USER_ID,
             title: e.target.title.value,
             body: e.target.body.value
         }
-        console.log(props.logName)
+        
         const makeLogRequest = await fetch( URL + "/logs/create-bale", {
             method: 'POST',
             headers: {
@@ -51,7 +71,7 @@ export default function NewBalePost(props:any) {
             },
             body: JSON.stringify(data)
         })
-        const response = await makeLogRequest.json().catch((err) => {
+        const response: AllLogsBales = await makeLogRequest.json().catch((err) => {
             console.log(err)
             setSubmitting(false)
         })

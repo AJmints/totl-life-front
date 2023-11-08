@@ -32,17 +32,17 @@ export const authCheck = async() => {
 export default function Header() {
 
     const [userLogged, setUserLogged] = useState<boolean>(false)
-    const [menuToggle, setMenuToggle] = useState(false)
-    const [aboutToggle, setAboutToggle] = useState(false)
-    const [aboutTogglePhone, setAboutTogglePhone] = useState(false)
-    const [loginToggle, setLoginToggle] = useState(false)
-    const [userDetailsToggle, setUserDetailsToggle] = useState(false)
+    const [menuToggle, setMenuToggle] = useState<boolean>(false)
+    const [aboutToggle, setAboutToggle] = useState<boolean>(false)
+    const [aboutTogglePhone, setAboutTogglePhone] = useState<boolean>(false)
+    const [loginToggle, setLoginToggle] = useState<boolean>(false)
+    const [userDetailsToggle, setUserDetailsToggle] = useState<boolean>(false)
 
-    const [routeChange, setRouteChange] = useState("")
+    const [routeChange, setRouteChange] = useState<string>("")
     const pathname = usePathname()
     const router = useRouter()
 
-    const [userPFP, setUserPFP] = useState(null)
+    const [userPFP, setUserPFP] = useState<any>(null)
     
     
     useEffect(() => {

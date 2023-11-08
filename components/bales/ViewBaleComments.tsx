@@ -4,14 +4,36 @@ import ViewComments from "./ViewComments"
 import CreateComment from "./CreateComment"
 import userIcon from '../../public/icons/profile-pic.png'
 
-export default function ViewBaleComments (props: any) {
-    const viewBale = props.baleInfo
-    const [showComments, setShowComments] = useState(false)
-    const [fetchResponse, setFetchResponse] = useState<any[]>([])
+type CommentInfo = {
+    comment: string,
+    id: number,
+    parentBaleId: number,
+    userName: string,
+    userPFP: any,
+}
 
-    useEffect(() => {
-        // console.log(props.baleInfo)
-    }, [])
+type BaleInfo = {
+    body: string,
+    commentCount: number,
+    downVoteCount: number,
+    id: number,
+    parentLog: string,
+    saveCount: number,
+    title: string,
+    upVoteCount: number,
+    userName: string,
+    userPFP: any,
+}
+
+type ViewBaleCommentsProps = {
+    baleInfo: BaleInfo,
+    setDetailView: Function,
+}
+
+export default function ViewBaleComments (props: ViewBaleCommentsProps) {
+    const viewBale: BaleInfo = props.baleInfo
+    const [showComments, setShowComments] = useState(false)
+    const [fetchResponse, setFetchResponse] = useState<CommentInfo[]>([])
 
     
     return (

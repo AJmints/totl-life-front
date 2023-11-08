@@ -28,8 +28,28 @@ export const token = async() => {
     return status
 }
 
-export default function RecentBales(props: any) {
-    const viewBale = props.mappingBale
+type ResponseUpDownVote = {
+    status: "success" | "failed"
+    response: "inc" | "dec" | "inc-dec" | "This bale does not exist."
+}
+type BaleDetails = {
+    body: string,
+    commentCount: number,
+    downVoteCount: number,
+    id: number,
+    parentLog: string,
+    saveCount: number,
+    title: string,
+    upVoteCount: number,
+    userName: string,
+    userPFP: any,
+}
+type RecentBalesProps = {
+    mappingBale: BaleDetails
+}
+
+export default function RecentBales(props: RecentBalesProps) {
+    const viewBale: BaleDetails = props.mappingBale
     const [detailView, setDetailView] = useState<boolean>(false)
     const [upCount, setUpCount] = useState<number>(viewBale.upVoteCount)
     const [downCount, setDownCount] = useState<number>(viewBale.downVoteCount)
@@ -45,12 +65,12 @@ export default function RecentBales(props: any) {
             return
         }
 
-        const data = {
+        const data: Object = {
             userId: USER_ID,
             baleId: viewBale.id
         }
 
-        const postUpVote = await fetch( URL + "/logs/upvote-post", {
+        const postUpVote: Response = await fetch( URL + "/logs/upvote-post", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -58,23 +78,25 @@ export default function RecentBales(props: any) {
             },
             body: JSON.stringify(data)
         })
-        const response = await postUpVote.json().catch((err) => {
+        const response: ResponseUpDownVote = await postUpVote.json().catch((err) => {
             USER_ID = ""
             console.log(err)
         })
-        if (response.status === "success") {
-            if (response.response === "inc") {
+        switch (response.response) {
+            case "inc":
                 setUpCount(prev => prev + 1)
-            } else if (response.response === "dec") {
+                break
+            case "dec":
                 setUpCount(prev => prev -1)
-            } else if (response.response === "inc-dec") {
+                break
+            case "inc-dec":
                 setUpCount(prev => prev + 1)
                 setDownCount(prev => prev - 1)
-            }
-            USER_ID = ""
-            return
+                break
+            case "This bale does not exist.":
+                break
         }
-        USER_ID = ""
+        return
 
     }
 
@@ -88,7 +110,7 @@ export default function RecentBales(props: any) {
             userId: USER_ID,
             baleId: viewBale.id
         }
-        const postUpVote = await fetch( URL + "/logs/downvote-post", {
+        const postUpVote: Response = await fetch( URL + "/logs/downvote-post", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -96,27 +118,29 @@ export default function RecentBales(props: any) {
             },
             body: JSON.stringify(data)
         })
-        const response = await postUpVote.json().catch((err) => {
-            USER_ID = ""
+        USER_ID = ""
+        const response: ResponseUpDownVote = await postUpVote.json().catch((err) => {
             console.log(err)
         })
-        if (response.status === "success") {
-            if (response.response === "inc") {
+        switch (response.response) {
+            case "inc":
                 setDownCount(prev => prev + 1)
-            } else if (response.response === "dec") {
+                break
+            case "dec":
                 setDownCount(prev => prev -1)
-            } else if (response.response === "inc-dec") {
+                break
+            case "inc-dec":
                 setDownCount(prev => prev + 1)
                 setUpCount(prev => prev - 1)
-            }
-            USER_ID = ""
-            return
+                break
+            case "This bale does not exist.":
+                break
         }
-        USER_ID = ""
+        return
     }
 
     const addFavorite = async() => {
-        console.log("add to favorite")
+        console.log("add favorites")
     }
 
     const shareBale = async() => {

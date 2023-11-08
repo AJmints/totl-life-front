@@ -3,18 +3,32 @@ import Image from 'next/image'
 import userIcon from '../../public/icons/profile-pic.png'
 
 
-const URL = process.env.NEXT_PUBLIC_BACKEND_URL
+const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
-export default function ViewComments(props: any) {
+type CommentInfoResponse = {
+    comment: string,
+    id: number,
+    parentBaleId: number,
+    userName: string,
+    userPFP: any,
+}
 
-    
+type ViewCommentsProps = {
+    baleId: number,
+    fetchResponse: CommentInfoResponse[],
+    setFetchResponse: Function,
+    userPFP: any,
+}
+
+export default function ViewComments(props: ViewCommentsProps) {
+
     const [loading, setLoading] = useState<boolean>(false)
 
     useEffect(() => {
         const getComments = async() => {
             setLoading(true)
             const getRequest = await fetch( URL + "/logs/get-bale-comments/" + props.baleId )
-            const response= await getRequest.json().catch((err) => {
+            const response: CommentInfoResponse[] = await getRequest.json().catch((err) => {
                 console.log(err)
             })
             setLoading(false)
