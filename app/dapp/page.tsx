@@ -13,7 +13,7 @@ export default function DappPage() {
                 <ul className='mt-3 text-base space-y-2'>
                 <li className='text-xl font-bold '>Logs-Forums / User Profile</li>
                 <li>-Save favorite bales for easy access</li>
-                <li>-Share Bales you enjoy with a quick link</li>
+                <li>-Share  Bales you enjoy with a quick link</li>
                 <li>-User Profile Pages</li>
                 <li>-Search Bar and Filter options</li>
                 <li>-Better Bale (Forum Post) display</li>
