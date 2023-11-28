@@ -51,9 +51,10 @@ export default function CreateNewLog(props: CreateNewLogProps) {
             return
         }
 
+        const logNameHandle: string = e.target.logName.value.replace(/ /g, "_")
         const data: Object = {
             user: USER_ID,
-            logName: e.target.logName.value.replace(/ /g, "_"),
+            logName: logNameHandle,
             introduction: e.target.introduction.value,
         }
 
@@ -69,7 +70,7 @@ export default function CreateNewLog(props: CreateNewLogProps) {
         const response: ResponseCreateNewLog = await makeLogRequest.json().catch((err) => {
             console.log(err)
         })
-        if (response.logName === e.target.logName.value) {
+        if (response.logName === logNameHandle) {
             e.target.logName.value = ""
             e.target.introduction.value = ""
             props.setLogsDropDown((prev: string[]) => [...prev, response.logName!.toLowerCase()])
