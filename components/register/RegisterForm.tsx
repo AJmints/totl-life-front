@@ -47,7 +47,7 @@ export default function LoginForm() {
         }
 
         const data = {
-            userName: String(event.target.userName.value),
+            userName: String(event.target.userName.value.replace(/ /g, "_")),
             userEmail: String(event.target.userEmail.value),
             password: String(event.target.password.value),
         }
