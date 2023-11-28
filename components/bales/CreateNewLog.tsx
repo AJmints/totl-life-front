@@ -41,9 +41,9 @@ export default function CreateNewLog(props: CreateNewLogProps) {
     const [showError, setShowError] = useState<boolean>(false)
     const [submitting, setSubmitting] = useState<boolean>(false)
 
-    useEffect(() => {
-        console.log(props)
-    }, [])
+    // useEffect(() => {
+    //     // console.log(props)
+    // }, [])
 
     const handleSubmit = async(e: any) => {
         e.preventDefault()
