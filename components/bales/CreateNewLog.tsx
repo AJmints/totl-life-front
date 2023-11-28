@@ -57,7 +57,7 @@ export default function CreateNewLog(props: CreateNewLogProps) {
 
         const data: Object = {
             user: USER_ID,
-            logName: e.target.logName.value,
+            logName: e.target.logName.value.replace(/ /g, "_"),
             introduction: e.target.introduction.value,
         }
 
