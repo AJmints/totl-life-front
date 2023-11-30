@@ -89,6 +89,10 @@ export default function NewBalePost(props: NewBalePostProps) {
         <>
         <div className="bg-gray-700/70 mt-2 px-2 sm:px-5 rounded-md">
         <form className="pb-2" onSubmit={handleSubmit}>
+
+                <div className='text-gray-300 flex text-sm justify-center'>
+                    <p className='bg-gray-600/90 mt-2 rounded-md px-3'>You are creating a New Bale (New Bale = new post)</p>
+                </div>
                 
                 <div className='w-full flex flex-col'>
                     <label className="text-gray-200 font-light" htmlFor='title'>Title</label>
