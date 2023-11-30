@@ -92,19 +92,28 @@ export default function CreateNewLog(props: CreateNewLogProps) {
         <>
         <div className="bg-gray-700/70 mt-2 pb-2 px-2 sm:px-5 rounded-md">
         <form className="" onSubmit={handleSubmit}>
-                
-                <div className='w-full flex flex-col'>
+
+                <div className='w-full'>
                     <label className="text-gray-200 font-light" htmlFor='logName'>Log Name</label>
+                    <div>
                     <input 
-                        className="rounded-md font-normal w-72 mx-auto" 
-                        type='text' 
-                        autoComplete='off' 
+                        className="rounded-md font-normal w-72"
+                        type='text'
+                        autoComplete='off'
                         placeholder="What is the name of this log?"
                         id='logName' 
                         required 
                         minLength={3} maxLength={15} 
                     />
+                    </div>
                 </div>
+
+
+                <div className='text-gray-300 flex text-sm justify-center'>
+                    <p className='bg-gray-600/90 mt-2 rounded-md px-3'>You are creating a New Log (New Log = new subreddit)</p>
+                </div>
+                
+
                 <div className='w-full flex flex-col my-2'>
                 <label className="text-gray-200 font-light" htmlFor='introduction'>Introduction</label>
                 <textarea 
