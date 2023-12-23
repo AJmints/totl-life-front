@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import NewPostContainer from './containers/newpost-lognav/NewPostContainer'
 
 const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
@@ -33,10 +34,20 @@ const RiverPageStructure = () => {
 
     return (
         <>
-            {checkUser ? 
-            <p>present</p> 
-            : 
-            <p>not present</p>}
+        <div>
+
+            {/* Central container to create post and view all posts */}
+            <div>
+            {/* Create new post option */}
+            <NewPostContainer 
+            checkUser={checkUser}
+            />
+
+            {/* View all bales on river, or specific log */}
+            </div>
+
+
+        </div>
         </>
     )
 }

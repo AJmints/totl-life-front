@@ -94,12 +94,12 @@ export default function Header() {
             </div>
             
             {/* Logo */}
-            <div className="sm:ml-10">
+            <div className="sm:ml-10 flex items-center">
             <Link href="/">
             <Image
             src={totlhome}
             alt=""
-            className="cursor-pointer w-auto flex h-20 sm:h-24 hover:bg-gray-600 hover:shadow-lg px-1 rounded-md duration-300"
+            className="cursor-pointer w-auto h-14 sm:h-14 hover:bg-gray-600 hover:shadow-lg px-1 rounded-md duration-300"
             priority={true}
             />
             </Link>
@@ -142,14 +142,14 @@ export default function Header() {
                         alt=""
                         width={100}
                         height={100}
-                        className="cursor-pointer h-14 w-14 sm:h-20 sm:w-20 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
+                        className="cursor-pointer h-12 w-12 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
                         onClick={() => setUserDetailsToggle(prev => !prev)}
                     />
                     :
                     <Image 
                         src={picDefault}
                         alt=""
-                        className="cursor-pointer h-14 w-14 sm:h-20 sm:w-20 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
+                        className="cursor-pointer h-12 w-12 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
                         onClick={() => setUserDetailsToggle(prev => !prev)}
                     />
                     }
