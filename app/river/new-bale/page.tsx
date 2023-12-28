@@ -1,4 +1,4 @@
-import CreateNewBaleForm from "@/components/river-forums/containers/newpost-lognav/create-new-bale-components/CreateNewBaleForm"
+import CreateNewBaleForm from "@/components/river-forums/containers/createnewbale/CreateNewBaleForm"
 
 const NewBale = () => {
 

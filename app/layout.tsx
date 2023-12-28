@@ -37,10 +37,10 @@ export default function RootLayout({
         height: '100%',
       }}
       >
-        <div className='bg-gray-800/50 max-h-screen'>
+        <div className='bg-gray-800/50'>
         <Header />
         {children}
-        {/* <Footer /> */}
+        <Footer />
         <Analytics />
         </div>
       </body>
