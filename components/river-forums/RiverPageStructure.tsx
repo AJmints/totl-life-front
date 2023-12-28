@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import NewPostContainer from './containers/newpost-lognav/NewPostContainer'
+import NewPostContainer from './containers/NewPostContainer'
 
 const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")

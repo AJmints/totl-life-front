@@ -171,7 +171,7 @@ export default function RecentBales(props: RecentBalesProps) {
             </div>
             
             {/* User information, upvote, downvote, comment, save, share, and menu option container. */}
-            <div className="bg-gray-700/70 rounded-b-md sm:rounded-r-md sm:rounded-bl-none text-sm   flex items-center sm:block sm:w-[30%] p-0.5">
+            <div className="bg-gray-700/70 rounded-b-md sm:rounded-r-md sm:rounded-bl-none text-sm flex items-center sm:block sm:w-[30%] p-0.5">
                 {/* User Profile Picture container */}
                 <div className=" p-4 w-[40%] sm:w-[100%] flex h-[50%] items-center justify-center rounded-bl-md sm:rounded-bl-none sm:rounded-tr-md sm:h-[50%] "> 
                     <div className="">
@@ -203,8 +203,8 @@ export default function RecentBales(props: RecentBalesProps) {
                 {/* Like and Comment and Option button */}
                 <div className='w-[60%] sm:w-[100%] mr-2 block h-[50%]'>
                 <div className="bg-gray-300/70 flex justify-around sm:justify-between items-center py-3 sm:py-0 sm:h-[50%] rounded-t-md sm:rounded-tl-none">
-                    <div className=' items-center'>
-                    <p className='font-normal text-xs'>{upCount}</p>
+                    <div className=' items-center pt-1 pb-2'>
+                    <p className='font-normal text-center text-xs'>{upCount}</p>
                     <Image
                         src={arrow}
                         alt=""
@@ -212,7 +212,7 @@ export default function RecentBales(props: RecentBalesProps) {
                         onClick={() => upVote()}
                     />
                     </div>
-                    <div className=''>
+                    <div className='text-center pt-1 pb-2'>
                     <p className='font-normal text-xs mb-1'>{viewBale.commentCount}</p>
                     <Image
                         src={comment}
@@ -221,7 +221,7 @@ export default function RecentBales(props: RecentBalesProps) {
                         onClick={() => setDetailView(prev => !prev)}
                     />
                     </div>
-                    <div className='block'>
+                    <div className='text-center pt-1 pb-2'>
                     <p className='font-normal mr-3 text-xs mb-1'>{viewBale.saveCount}</p>
                     <Image
                         src={saveIcon}
