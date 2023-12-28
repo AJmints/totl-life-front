@@ -37,6 +37,7 @@ export default function Header() {
     const [aboutTogglePhone, setAboutTogglePhone] = useState<boolean>(false)
     const [loginToggle, setLoginToggle] = useState<boolean>(false)
     const [userDetailsToggle, setUserDetailsToggle] = useState<boolean>(false)
+    const [selectLog, setSelectLog] = useState<string[]>([])
 
     const [routeChange, setRouteChange] = useState<string>("")
     const pathname = usePathname()
@@ -64,6 +65,16 @@ export default function Header() {
                 return
             }
         }
+        const getAllLogs = async () => {
+            const request = await fetch("http://localhost:8080/logs/all-logs-for-drop-down")
+            const response = await request.json().catch(err => {
+                console.log(err)
+            })
+            if(response.status === "success") {
+                setSelectLog(response.logNames)
+            }
+        }
+        getAllLogs()
         checkLoginStatus()
         detectRoute()
 
@@ -78,6 +89,24 @@ export default function Header() {
         serverSideProps()
         router.refresh()
         router.push("/")
+    }
+
+    const logDropDownOptions = selectLog.sort((a:any, b:any) => {
+        if (a < b) {
+            return -1
+        }
+        if (a > b) {
+            return 1
+        }
+        return 0
+    }).map((item: any) => {
+        return (
+            <option key={item} value={item}>{item}</option>
+        )
+    })
+
+    const logSelect = (event: any) => {
+        router.push("/river/" + event.target.value)
     }
 
     return (
@@ -103,6 +132,17 @@ export default function Header() {
             priority={true}
             />
             </Link>
+            </div>
+
+            {/* Select Log drop-down menu when screen not in phone view*/}
+            <div className="items-center sm:flex hidden">
+                <form className='mx-auto text-gray-800 mt-1'>
+                    {/* <h1 className=''>Visit a new log</h1> */}
+                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue="default" onChange={(event) => logSelect(event)} id="logs">
+                        <option value="default" disabled>Logs</option>
+                        {logDropDownOptions}
+                    </select>
+                </form>
             </div>
 
             {/* Links tablet/laptop display*/}
@@ -191,6 +231,17 @@ export default function Header() {
                     <div className="items-center flex">
                         <button className="text-4xl ml-5 mt-3 font-light text-gray-700" onClick={() => setMenuToggle(prev => !prev)}>X</button> 
                     </div>
+
+                    <div className="items-center flex bg-gray-400 rounded-md p-1 m-2">
+                        <form className='mx-auto text-gray-800 my-1'>
+                            <h1 className=''>Visit a new log</h1>
+                            <select className='rounded-md mx-auto shadow-md p-1 text-sm bg-gray-200' defaultValue="default" onChange={(event) => logSelect(event)} id="logs">
+                                <option className="" value="default" disabled>Select Log</option>
+                                {logDropDownOptions}
+                            </select>
+                        </form>
+                    </div>
+
                     <div className="mt-5">
                     <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/">The River</Link>
                     <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/logs">Logs</Link>

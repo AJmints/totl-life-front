@@ -31,20 +31,24 @@ const CreateNewBale = () => {
     const router: AppRouterInstance = useRouter()
 
     useEffect(() => {
-        console.log(pathname)
+        // console.log(pathname)
     }, []) 
 
     const handleNewPostRedirect = () => {
         router.push("/river/new-bale")
-    
     }
 
     
 
     return (
         <>
-        <div>
-            <div className='w-full flex space-x-2'>
+        <div className='flex justify-between items-center bg-gray-500 rounded-md p-3'>
+
+            <div className='ml-5'>
+                <button className='bg-green-500 p-1 rounded-md'>LeftMenu</button>
+            </div>
+
+            <div className=''>
                     <label className="text-gray-200 font-light">Create Bale:</label>
                     <input 
                         className="rounded-md font-normal" 
@@ -56,7 +60,12 @@ const CreateNewBale = () => {
                         minLength={10} maxLength={150} 
                         onClick={() => handleNewPostRedirect()}
                     />
-                </div>
+            </div>
+
+            <div className='mr-5'>
+                <button className='bg-green-500 p-1 rounded-md'>RightMenu</button>
+            </div>
+
         </div>
         
         </>

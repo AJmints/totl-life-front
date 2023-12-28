@@ -1,12 +1,13 @@
-import NewBalePost from "@/components/bales/NewBalePost"
 import CreateNewBale from "./create-new-bale-components/CreateNewBale"
+import BaleDisplay from "../baledisplay/BaleDisplay"
 
 const NewPostContainer = (props: any) => {
 
     return (
         <>
-        <div className="p-4 bg-gray-600 rounded-md mx-5">
+        <div className="space-y-4 m-4 ">
             <CreateNewBale />
+            <BaleDisplay />
         </div>
         </>
     )
