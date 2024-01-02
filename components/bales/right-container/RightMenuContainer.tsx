@@ -113,7 +113,8 @@ export default function RightMenuContainer(props: RightMenuContainerProps) {
      return (
         <div>
         <div className=" max-w-xs">
-            {props.logDescription != "" && props.showLogDesc ?
+            {props.logDescription != "" && props.showLogDesc 
+            ?
             <div className="py-3 px-2 mx-2 sm:px-5 text-gray-200 font-light rounded-md items-center space-y-2 sm:space-y-0 justify-between bg-gray-700/90 shadow-lg shadow-gray-800/60">
                 <h1>log/{props.logName}</h1>
                 <div className="pt-2">
