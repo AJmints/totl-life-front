@@ -3,6 +3,7 @@
 import RecentBales from '@/components/bales/RecentBales'
 import EmptyBalesSkeleton from '@/components/bales/loading-skeleton/EmptyBalesSkeleton'
 import { useState, useEffect } from 'react'
+// import { useLogDescription } from '@/app/context/LogDescriptionProvidertest'
 import { usePathname, useRouter } from "next/navigation"
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -10,6 +11,8 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const BaleDisplay = () => {
+
+    // const { desc, setDesc } = useLogDescription()
 
     const [loading, setLoading] = useState(false)
     const [baleIndex, setBaleIndex] = useState<number>(0)
@@ -43,7 +46,8 @@ const BaleDisplay = () => {
                 return 
             }
         }
-        topBales()
+        // topBales()
+        baleListMethod()
 
         if (allLogsBales[0] !== "new") {
             if (allLogsBales.length === 0) {
@@ -53,7 +57,72 @@ const BaleDisplay = () => {
             }
         }
         
-    }, [])
+    }, [baleIndex])
+
+
+    
+
+
+    const allLogBales = async() => {
+        setAllLogsBales([])
+        setUpdateBales(true)
+        // setInLog(true)
+            const waitLogs: Response = await fetch( URL + "/logs/all-bales-in-log/" + pathname?.split("/river/").pop() + "/" + baleIndex)
+            const response: any = await waitLogs.json().catch((err: Error) => {
+                console.log(err)
+            })
+            console.log(response)
+            if (response.status) {
+                if (baleNav !== response.total) {
+                    setBaleNav(response.total)
+                }
+                setAllLogsBales(response.allBales)
+                // props.setLogDescription(response.logDescription)
+                setLoading(false)                
+                return
+            } else {
+                // props.setAllLogsBales(["error"])
+                return 
+            }
+    }
+
+    const topBales = async() => {
+        setAllLogsBales([])
+        setUpdateBales(true)
+        const request: Response = await fetch( URL + "/logs/most-recent-bales/" + baleIndex )
+        const response: any  = await request.json().catch((err: Error) => {
+            console.log(err)
+        })
+        console.log(response)
+        if (response) {
+            if (baleNav !== response.total) {
+                setBaleNav(response.total)
+            }
+            setAllLogsBales(response.baleList)
+            // props.setLogName("")
+
+            /* use context figuring outing */
+            // setDesc(response.logDescription)
+            setLoading(false)
+            return
+        } else {
+            // props.setAllLogsBales(["error"])
+            return 
+        }
+    }
+
+    const baleListMethod = () => {
+        if (pathname?.split("/river/").pop() === '/river') {
+            topBales()
+        } else if (pathname?.split("/")[1] === "river" && pathname?.split("/").length === 3) {
+            // setLogName(pathname?.split("/logs/").pop())
+            console.log("Pathname: " + pathname?.split("/river/").pop())
+            allLogBales()
+        }
+    }
+
+
+
 
     const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {
         return b.id - a.id
@@ -108,5 +177,6 @@ const BaleDisplay = () => {
         </>
     )
 }
+
 
 export default BaleDisplay

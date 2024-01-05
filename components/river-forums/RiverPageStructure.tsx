@@ -1,36 +1,6 @@
-'use client'
-
-import { useState, useEffect } from 'react'
 import NewPostContainer from './containers/NewPostContainer'
 
-const authCheck = async() => {
-    const infoCall = await fetch("/api/authCheck")
-    const status = await infoCall.json().catch((err) => {
-        console.log(err)
-    })
-    if (status.loggedIn) {
-        return true
-    } else {
-        return false
-    }
-}
-
-const RiverPageStructure = () => {
-
-    const [checkUser, setCheckUser] = useState<boolean>(false)
-
-
-    useEffect(() => {
-        const userPresent = async() => {
-            if (!await authCheck()) {
-                setCheckUser(false)
-                return
-            }
-            setCheckUser(true)
-            return
-        }
-        userPresent()
-    }, [])
+const RiverPageStructure = async () => {
 
     return (
         <>
@@ -40,7 +10,6 @@ const RiverPageStructure = () => {
             <div>
             {/* Create new post option */}
             <NewPostContainer 
-            checkUser={checkUser}
             />
 
             {/* View all bales on river, or specific log */}

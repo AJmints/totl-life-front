@@ -1,11 +1,20 @@
+'use client'
+
 import CreateNewBale from "./createnewbale/CreateNewBale"
 import BaleDisplay from "./baledisplay/BaleDisplay"
-import AboutLogContainer from "./rightmenu-aboutlog/AboutLogContainter"
+import RightMenuContainer from "./rightmenu-container/RightMenuContainer"
+import { useState, useEffect } from 'react'
 
-const NewPostContainer = (props: any) => {
+const NewPostContainer = () => {
+
+    useEffect(() => {
+
+        
+    }, [])
+
 
     return (
-        <div className="flex">
+        <div className="block sm:flex">
 
             <div className="space-y-4 m-4 ">
                 <CreateNewBale />
@@ -13,7 +22,7 @@ const NewPostContainer = (props: any) => {
             </div>
 
             <div className="mt-4 mr-4">
-                <AboutLogContainer />
+                <RightMenuContainer />
             </div>
 
         </div>

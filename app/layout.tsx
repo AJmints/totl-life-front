@@ -39,7 +39,7 @@ export default function RootLayout({
       >
         <div className='bg-gray-800/50'>
         <Header />
-        {children}
+          {children}
         <Footer />
         <Analytics />
         </div>

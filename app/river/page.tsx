@@ -1,10 +1,17 @@
-import RiverPageStructure from "@/components/river-forums/RiverPageStructure"
+'use client'
 
-const River = () => {
+import RiverPageStructure from "@/components/river-forums/RiverPageStructure"
+// import { LogDescriptionProvider } from "../context/LogDescriptionProvidertest"
+
+const River = ({ children }: any) => {
 
     return (
         <div>
-            <RiverPageStructure />
+            {/* <LogDescriptionProvider>
+                {children} */}
+                <RiverPageStructure />
+            {/* </LogDescriptionProvider> */}
+            
         </div>
     )
 }

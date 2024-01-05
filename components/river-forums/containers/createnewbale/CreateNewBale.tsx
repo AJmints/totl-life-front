@@ -3,6 +3,9 @@
 import { useState, useEffect } from 'react'
 import { usePathname, useRouter } from "next/navigation"
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import rightMenu from "../../../../public/icons/menu-burger.png"
+import Image from 'next/image'
+import RightMenuContainer from '../rightmenu-container/RightMenuContainer'
 
 let USER_ID: string
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -63,7 +66,8 @@ const CreateNewBale = () => {
             </div>
 
             <div className='mr-5'>
-                <button className='bg-green-500 p-1 rounded-md'>RightMenu</button>
+                {/* <RightMenuContainer /> */}
+                <p className='p-1 bg-green-500 rounded-md'>RightMenu</p>
             </div>
 
         </div>
