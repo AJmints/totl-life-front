@@ -3,7 +3,7 @@
 import RecentBales from '@/components/bales/RecentBales'
 import EmptyBalesSkeleton from '@/components/bales/loading-skeleton/EmptyBalesSkeleton'
 import { useState, useEffect } from 'react'
-// import { useLogDescription } from '@/app/context/LogDescriptionProvidertest'
+import { useLogDescription } from '@/app/context/LogDescriptionProvidertest'
 import { usePathname, useRouter } from "next/navigation"
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -12,7 +12,7 @@ const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const BaleDisplay = () => {
 
-    // const { desc, setDesc } = useLogDescription()
+    const { desc, setDesc } = useLogDescription()
 
     const [loading, setLoading] = useState(false)
     const [baleIndex, setBaleIndex] = useState<number>(0)
@@ -25,28 +25,6 @@ const BaleDisplay = () => {
 
     useEffect(() => {
 
-        const topBales = async() => {
-            setAllLogsBales([])
-            setUpdateBales(true)
-            const request: Response = await fetch( URL + "/logs/most-recent-bales/" + 1 )
-            const response  = await request.json().catch((err: Error) => {
-                console.log(err)
-            })
-            // console.log(response)
-            if (response) {
-                if (baleNav !== response.total) {
-                    setBaleNav(response.total)
-                }
-                setAllLogsBales(response.baleList)
-                // setLogName("")
-                setLoading(false)
-                return
-            } else {
-                setAllLogsBales(["error"])
-                return 
-            }
-        }
-        // topBales()
         baleListMethod()
 
         if (allLogsBales[0] !== "new") {
@@ -59,10 +37,6 @@ const BaleDisplay = () => {
         
     }, [baleIndex])
 
-
-    
-
-
     const allLogBales = async() => {
         setAllLogsBales([])
         setUpdateBales(true)
@@ -71,17 +45,17 @@ const BaleDisplay = () => {
             const response: any = await waitLogs.json().catch((err: Error) => {
                 console.log(err)
             })
-            console.log(response)
             if (response.status) {
                 if (baleNav !== response.total) {
                     setBaleNav(response.total)
                 }
                 setAllLogsBales(response.allBales)
+                setDesc(response.logDescription)
                 // props.setLogDescription(response.logDescription)
                 setLoading(false)                
                 return
             } else {
-                // props.setAllLogsBales(["error"])
+                setAllLogsBales(["error"])
                 return 
             }
     }
@@ -99,10 +73,9 @@ const BaleDisplay = () => {
                 setBaleNav(response.total)
             }
             setAllLogsBales(response.baleList)
-            // props.setLogName("")
+            setDesc("You are chilling on your home log")
 
-            /* use context figuring outing */
-            // setDesc(response.logDescription)
+            
             setLoading(false)
             return
         } else {
@@ -116,7 +89,7 @@ const BaleDisplay = () => {
             topBales()
         } else if (pathname?.split("/")[1] === "river" && pathname?.split("/").length === 3) {
             // setLogName(pathname?.split("/logs/").pop())
-            console.log("Pathname: " + pathname?.split("/river/").pop())
+            // console.log("Pathname: " + pathname?.split("/river/").pop())
             allLogBales()
         }
     }

@@ -1,16 +1,27 @@
 'use client'
 
 import AboutLogContainer from "./aboutlog-container/AboutLogContainter"
+import { useState } from "react"
+import FollowingLogs from "./log-following-container/FollowingLogs"
 
 const RightMenuContainer = () => {
 
-    // const [openMenu, setOpenMenu] = useState<boolean>(false)
+    const [following, setFollowing] = useState<boolean>(false)
 
     return (
-        <div>
-            <div>
-            <AboutLogContainer />
+        <div className="bg-gray-800/90  rounded-md p-1">
+
+            <div className="space-y-2">
+            <AboutLogContainer 
+            following={following}
+            setFollowing={setFollowing}
+            />
+
+            <FollowingLogs 
+            setFollowing={setFollowing}
+            />
             </div>
+
         </div>
     )
 }

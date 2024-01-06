@@ -4,14 +4,10 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Footer from '@/components/core/Footer'
 import current from '../public/images/spring-current.jpg'
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from '@vercel/analytics/react'
+import { LogDescriptionProvider } from './context/LogDescriptionProvidertest'
 
 const inter = Inter({ subsets: ['latin'] })
-
-type Props = {
-  params: { id: string }
-  searchParams: { [key: string]: string | string[] | undefined}
-}
 
 export const metadata: Metadata = {
   title: 'TOTL Life',
@@ -37,12 +33,16 @@ export default function RootLayout({
         height: '100%',
       }}
       >
-        <div className='bg-gray-800/50'>
-        <Header />
-          {children}
-        <Footer />
-        <Analytics />
-        </div>
+        <LogDescriptionProvider>
+
+          <div className='bg-gray-800/50'>
+          <Header />
+            {children}
+          <Footer />
+          <Analytics />
+          </div>
+          
+        </LogDescriptionProvider>
       </body>
       
     </html>

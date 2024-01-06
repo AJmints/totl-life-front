@@ -1,15 +1,23 @@
 'use client'
 
-import { createContext, useContext, useState } from 'react'
+import { createContext, useContext, Dispatch, SetStateAction, useState } from 'react'
 
-const LogDescription = createContext({})
+interface ContextProps {
+    desc: string,
+    setDesc: Dispatch<SetStateAction<string>>
+}
 
-export const LogDescriptionProvider = ({ logDesc }: any) => {
-    const [ desc, setDesc ] = useState<string>("Provider")
+const LogDescription = createContext<ContextProps>({
+    desc: "",
+    setDesc: () => "",
+})
+
+export const LogDescriptionProvider = ({ children }: any) => {
+    const [ desc, setDesc ] = useState("")
 
     return (
         <LogDescription.Provider value={{ desc, setDesc }}>
-            {logDesc}
+            {children}
         </LogDescription.Provider>
     )
 }

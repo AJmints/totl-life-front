@@ -10,7 +10,10 @@ import { useState, useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import LoginForm from "../login/LoginForm"
 import UserOptionsConst from "../user-profile/UserOptionsConst"
+import LogSelect from "./header-parts/LogSelect"
 
+
+const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export const serverSideProps = () => {
     fetch("/api/logout")
@@ -28,7 +31,6 @@ export const authCheck = async() => {
     }
 }
 
-
 export default function Header() {
 
     const [userLogged, setUserLogged] = useState<boolean>(false)
@@ -38,8 +40,9 @@ export default function Header() {
     const [loginToggle, setLoginToggle] = useState<boolean>(false)
     const [userDetailsToggle, setUserDetailsToggle] = useState<boolean>(false)
     const [selectLog, setSelectLog] = useState<string[]>([])
+    const [activeLog, setActiveLog] = useState<string>("Logs")
 
-    const [routeChange, setRouteChange] = useState<string>("")
+    const [routeChange, setRouteChange] = useState<any>("")
     const pathname = usePathname()
     const router = useRouter()
 
@@ -65,20 +68,12 @@ export default function Header() {
                 return
             }
         }
-        const getAllLogs = async () => {
-            const request = await fetch("http://localhost:8080/logs/all-logs-for-drop-down")
-            const response = await request.json().catch(err => {
-                console.log(err)
-            })
-            if(response.status === "success") {
-                setSelectLog(response.logNames)
-            }
-        }
-        getAllLogs()
+        
+        
         checkLoginStatus()
-        detectRoute()
-
-    }, [loginToggle, pathname, userLogged])
+        // detectRoute()
+        
+    }, [loginToggle, userLogged, selectLog])
 
     const logout = () => {
         
@@ -91,23 +86,11 @@ export default function Header() {
         router.push("/")
     }
 
-    const logDropDownOptions = selectLog.sort((a:any, b:any) => {
-        if (a < b) {
-            return -1
-        }
-        if (a > b) {
-            return 1
-        }
-        return 0
-    }).map((item: any) => {
-        return (
-            <option key={item} value={item}>{item}</option>
-        )
-    })
+    
 
-    const logSelect = (event: any) => {
-        router.push("/river/" + event.target.value)
-    }
+    
+
+    
 
     return (
         <header className="flex bg-gray-700 justify-between xl:justify-around shadow-lg bg-shadow-900/90">
@@ -135,14 +118,11 @@ export default function Header() {
             </div>
 
             {/* Select Log drop-down menu when screen not in phone view*/}
-            <div className="items-center sm:flex hidden">
-                <form className='mx-auto text-gray-800 mt-1'>
-                    {/* <h1 className=''>Visit a new log</h1> */}
-                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue="default" onChange={(event) => logSelect(event)} id="logs">
-                        <option value="default" disabled>Logs</option>
-                        {logDropDownOptions}
-                    </select>
-                </form>
+            <div className="hidden sm:flex">
+                <LogSelect 
+                selectLog={selectLog}
+                setSelectLog={setSelectLog}
+                />
             </div>
 
             {/* Links tablet/laptop display*/}
@@ -232,14 +212,11 @@ export default function Header() {
                         <button className="text-4xl ml-5 mt-3 font-light text-gray-700" onClick={() => setMenuToggle(prev => !prev)}>X</button> 
                     </div>
 
-                    <div className="items-center flex bg-gray-400 rounded-md p-1 m-2">
-                        <form className='mx-auto text-gray-800 my-1'>
-                            <h1 className=''>Visit a new log</h1>
-                            <select className='rounded-md mx-auto shadow-md p-1 text-sm bg-gray-200' defaultValue="default" onChange={(event) => logSelect(event)} id="logs">
-                                <option className="" value="default" disabled>Select Log</option>
-                                {logDropDownOptions}
-                            </select>
-                        </form>
+                    <div>
+                        <LogSelect
+                        selectLog={selectLog}
+                        setSelectLog={setSelectLog}
+                        />
                     </div>
 
                     <div className="mt-5">

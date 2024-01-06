@@ -42,7 +42,7 @@ export default function LoginForm(props: any) {
     const redirect = async() => {
         const userPresent = await authCheck()
         if (userPresent) {
-            router.push("/logs")
+            router.push("/river")
         }
     }
 
@@ -87,7 +87,7 @@ export default function LoginForm(props: any) {
             props.setLoginToggle(false)
             props.setUserLogged(true)
             setTokenCookie(result)
-            router.push("/logs")
+            router.push("/river")
             return
         }
     }
