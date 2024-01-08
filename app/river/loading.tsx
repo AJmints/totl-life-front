@@ -1,4 +1,4 @@
-import LoadingBalesSkeleton from "@/components/bales/loading-skeleton/LoadingBalesSkeleton copy"
+import LoadingBalesSkeleton from "@/components/loading/LoadingBalesSkeleton"
 
 const Loading = () => {
     return (

@@ -26,6 +26,7 @@ export default function LogLoadOut() {
                 </div>
                 
                 <div className="shadow-lg flex-1 text-lg  text-center rounded-lg">
+                    <p className='text-2xl text-gray-100 bg-gray-700 p-2 rounded-md m-4'>The totl.life/logs route is being phased out. Please head over to totl.life/river for the forums!</p>
                     <BalesContainer 
                         setLogDescription={setLogDescription}
                         logName={logName}

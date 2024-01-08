@@ -1,6 +1,6 @@
 'use client'
 
-import LogLoadOut from "@/components/bales/LogLoadOut";
+import LogLoadOut from "@/components/bales-depreciated/LogLoadOut";
 import LoadingPage from "@/components/loading/Loading";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";

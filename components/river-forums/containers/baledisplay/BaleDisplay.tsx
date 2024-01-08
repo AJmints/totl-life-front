@@ -1,7 +1,7 @@
 'use client'
 
-import RecentBales from '@/components/bales/RecentBales'
-import EmptyBalesSkeleton from '@/components/bales/loading-skeleton/EmptyBalesSkeleton'
+import RecentBales from './balepost-container/RecentBales'
+import EmptyBalesSkeleton from '@/components/bales-depreciated/loading-skeleton/EmptyBalesSkeleton'
 import { useState, useEffect } from 'react'
 import { useLogDescription } from '@/app/context/LogDescriptionProvidertest'
 import { usePathname, useRouter } from "next/navigation"
