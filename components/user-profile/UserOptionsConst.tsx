@@ -27,7 +27,7 @@ export default function UserOptionsConst(props: any) {
     
 
     useEffect(() => {
-        console.log(props)
+        // console.log(props)
 
         const getPFP = async() => {
             const present = await authCheck()

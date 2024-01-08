@@ -3,9 +3,9 @@ import CreateNewBaleForm from "@/components/river-forums/containers/createnewbal
 const NewBale = () => {
 
     return (
-        <>
+        <div className="h-screen">
             <CreateNewBaleForm />
-        </>
+        </div>
     )
 }
 

@@ -5,7 +5,7 @@ import BaleDisplay from "./baledisplay/BaleDisplay"
 import RightMenuContainer from "./rightmenu-container/RightMenuContainer"
 import { useState, useEffect } from 'react'
 
-const NewPostContainer = () => {
+const RiverContainer = () => {
 
     useEffect(() => {
 
@@ -29,4 +29,4 @@ const NewPostContainer = () => {
     )
 }
 
-export default NewPostContainer
+export default RiverContainer

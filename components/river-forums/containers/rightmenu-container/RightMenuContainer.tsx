@@ -9,7 +9,7 @@ const RightMenuContainer = () => {
     const [following, setFollowing] = useState<boolean>(false)
 
     return (
-        <div className="bg-gray-800/90  rounded-md p-1">
+        <div className="bg-gray-800/90 hidden lg:flex rounded-md p-1">
 
             <div className="space-y-2">
             <AboutLogContainer 

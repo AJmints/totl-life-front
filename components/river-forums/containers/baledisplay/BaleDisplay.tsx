@@ -12,84 +12,69 @@ const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const BaleDisplay = () => {
 
-    const { desc, setDesc } = useLogDescription()
+    const { setOnLog, setDesc } = useLogDescription()
 
-    const [loading, setLoading] = useState(false)
     const [baleIndex, setBaleIndex] = useState<number>(0)
     const [updateBales, setUpdateBales] = useState(false)
     const [baleNav, setBaleNav] = useState<number>(0)
-    const [allLogsBales, setAllLogsBales] = useState<any[]>(["new"])
+    const [allLogsBales, setAllLogsBales] = useState<any[]>([])
 
     const pathname: string | null = usePathname()
     const router: AppRouterInstance = useRouter()
 
     useEffect(() => {
-
-        baleListMethod()
-
-        if (allLogsBales[0] !== "new") {
-            if (allLogsBales.length === 0) {
-                setUpdateBales(false)
-            } else if (allLogsBales.length > 0) {
-                setUpdateBales(true)
-            }
-        }
-        
+        baleListMethod()        
     }, [baleIndex])
 
     const allLogBales = async() => {
-        setAllLogsBales([])
-        setUpdateBales(true)
-        // setInLog(true)
-            const waitLogs: Response = await fetch( URL + "/logs/all-bales-in-log/" + pathname?.split("/river/").pop() + "/" + baleIndex)
-            const response: any = await waitLogs.json().catch((err: Error) => {
-                console.log(err)
-            })
-            if (response.status) {
-                if (baleNav !== response.total) {
-                    setBaleNav(response.total)
-                }
-                setAllLogsBales(response.allBales)
-                setDesc(response.logDescription)
-                // props.setLogDescription(response.logDescription)
-                setLoading(false)                
-                return
-            } else {
-                setAllLogsBales(["error"])
-                return 
+
+        const waitLogs: Response = await fetch( URL + "/logs/all-bales-in-log/" + pathname?.split("/river/").pop() + "/" + baleIndex)
+        const response: any = await waitLogs.json().catch((err: Error) => {
+            console.log(err)
+        })
+        console.log(response)
+        if (response.status) {
+            if (baleNav !== response.total) {
+                setBaleNav(response.total)
             }
+            if (response.total === 0) {
+                setUpdateBales(false)
+            } else { 
+                setUpdateBales(true)
+            }
+            setAllLogsBales(response.allBales)
+            setDesc(response.logDescription)            
+            return
+        } else {
+            setAllLogsBales(["error"])
+            return 
+        }
     }
 
     const topBales = async() => {
-        setAllLogsBales([])
-        setUpdateBales(true)
         const request: Response = await fetch( URL + "/logs/most-recent-bales/" + baleIndex )
         const response: any  = await request.json().catch((err: Error) => {
             console.log(err)
         })
-        console.log(response)
-        if (response) {
+        if (response.total > 0) {
             if (baleNav !== response.total) {
                 setBaleNav(response.total)
             }
+            setUpdateBales(true)
             setAllLogsBales(response.baleList)
             setDesc("You are chilling on your home log")
-
-            
-            setLoading(false)
             return
         } else {
-            // props.setAllLogsBales(["error"])
             return 
         }
     }
 
     const baleListMethod = () => {
         if (pathname?.split("/river/").pop() === '/river') {
+            setOnLog("Home")
             topBales()
         } else if (pathname?.split("/")[1] === "river" && pathname?.split("/").length === 3) {
-            // setLogName(pathname?.split("/logs/").pop())
-            // console.log("Pathname: " + pathname?.split("/river/").pop())
+            setOnLog(pathname?.split("/river/").pop()?.toString()!)
             allLogBales()
         }
     }
@@ -133,7 +118,7 @@ const BaleDisplay = () => {
     return (
         <>
             { updateBales ? 
-            <div className="space-y-4 h-screen overflow-y-scroll no-scrollbar">
+            <div className="space-y-4">
             <div className="bg-gray-600/80 py-2 rounded-md justify-center flex">
                 <div className="flex">
                     <p>Page:</p>
@@ -141,6 +126,12 @@ const BaleDisplay = () => {
                 </div>
             </div>
             {viewBalesInLog}
+            <div className="bg-gray-600/80 py-2 rounded-md justify-center flex">
+                <div className="flex">
+                    <p>Page:</p>
+                    {balePageNav(baleNav)}
+                </div>
+            </div>
             </div>
             :
             <> 

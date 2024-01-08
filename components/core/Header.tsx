@@ -128,8 +128,8 @@ export default function Header() {
             {/* Links tablet/laptop display*/}
             <div className="hidden sm:flex items-center">
                 <nav className="flex  items-center">
-                    <Link className="items-center flex text-gray-100 ml-5" href="/">The River</Link>
-                    <Link className="items-center flex text-gray-100 ml-5" href="/logs">Logs</Link>
+                    <Link className="items-center flex text-gray-100 ml-5" href="/river">River</Link>
+                    {/* <Link className="items-center flex text-gray-100 ml-5" href="/logs">Logs</Link> */}
                     {/* <Link className="items-center flex text-gray-100 ml-5" href="/dapp">Dapp</Link> */}
                     <div className="relative inline-block">
                         <div className="flex space-x-1">
@@ -220,8 +220,8 @@ export default function Header() {
                     </div>
 
                     <div className="mt-5">
-                    <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/">The River</Link>
-                    <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/logs">Logs</Link>
+                    <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/river">River</Link>
+                    {/* <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/logs">Logs</Link> */}
                     {/* <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/dapp">Dapp</Link> */}
                     <div className="flex items-center">
                     <Link className="m-2 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/about">About</Link>

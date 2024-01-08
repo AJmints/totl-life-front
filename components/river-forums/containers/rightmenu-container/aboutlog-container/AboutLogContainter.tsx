@@ -85,15 +85,20 @@ const AboutLogContainer = (props: any) => {
 
     return (
         <>
-             <div className="py-3 px-2 mx-2 sm:px-5 text-gray-200 font-light rounded-md items-center space-y-2 sm:space-y-0 justify-between bg-gray-700/90 shadow-lg shadow-gray-800/60">
-                <h1>log/{logName}</h1>
+             <div className="py-3 px-2 mx-2 sm:w-72 sm:px-5 text-gray-200 font-light rounded-md items-center space-y-2 sm:space-y-0 justify-between bg-gray-700/90 shadow-lg shadow-gray-800/60">
+                <h1>log/{logName === "/river" ? "home" : logName}</h1>
                 <div className="pt-2">
-                <button 
+                    { logName === "/river" ? 
+                    <></>
+                    :
+                    <button 
                         className="bg-gray-400 hover:bg-emerald-500 duration-300 p-1 rounded-md text-gray-800"
-                        onClick={() => followLog(logName!)}>{props.following ? "Joined" : "Follow"}</button>
+                        onClick={() => followLog(logName!)}>{props.following ? "Joined" : "Follow"}
+                    </button>
+                    }
                 </div>
                 { showLogDesc ? 
-                <p className="text-left text-sm font-extralight pt-5">{desc}</p>
+                <p className="text-left text-sm font-extralight py-3">{desc}</p>
                 :
                 <></>
                 }

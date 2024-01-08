@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useLogDescription } from '@/app/context/LogDescriptionProvidertest'
 
 let USER_ID: string
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -26,14 +27,21 @@ export const token = async() => {
 
 const CreateNewBaleForm = () => {
 
+    const { onLog } = useLogDescription()  // Don't use useContext, use the param in the URL
     const [submitting, setSubmitting] = useState<boolean>(false)
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
+        
+        if (!await authCheck()) {
+            // TODO
+            console.log("logout")
+        }
+
         setSubmitting(true)
 
         const data: Object = {
-            parentLog: "bug_report",
+            parentLog: onLog,
             userId: USER_ID,
             title: e.target.title.value,
             body: e.target.body.value,
@@ -62,11 +70,11 @@ const CreateNewBaleForm = () => {
     }
 
     return (
-        <div>
+        <div className='bg-gray-600/90 p-5 rounded-md m-10'>
             <form onSubmit={handleSubmit}>
 
                 <div className='text-gray-300 flex text-sm justify-center'>
-                    <p className='bg-gray-600/90 mt-2 rounded-md px-3'>You are creating a New Bale (New Bale = new post)</p>
+                    <p className='bg-gray-600/90 mt-2 rounded-md px-3' onClick={() => console.log(onLog)}>You are creating a New Bale (New Bale = new post)</p>
                 </div>
 
                 {/* Title for post */}

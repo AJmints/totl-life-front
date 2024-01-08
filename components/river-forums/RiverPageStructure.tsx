@@ -1,4 +1,4 @@
-import NewPostContainer from './containers/NewPostContainer'
+import RiverContainer from './containers/RiverContainer'
 
 const RiverPageStructure = async () => {
 
@@ -9,7 +9,7 @@ const RiverPageStructure = async () => {
             {/* Central container to create post and view all posts */}
             <div>
             {/* Create new post option */}
-            <NewPostContainer 
+            <RiverContainer 
             />
 
             {/* View all bales on river, or specific log */}

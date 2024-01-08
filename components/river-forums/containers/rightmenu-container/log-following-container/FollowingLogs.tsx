@@ -65,7 +65,7 @@ const FollowingLogs = (props: any) => {
 
     return (
         <>
-        <div className='bg-gray-700/90 mx-auto p-4 rounded-md w-72'>
+        <div className='bg-gray-700/90 mx-auto p-4 rounded-md sm:w-72'>
             <h1 className='text-gray-300 text-2xl border-b-[1px] mb-2'>Following</h1>
             {joinedLogs.map((item: string) => {
                 return (

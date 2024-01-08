@@ -2,11 +2,14 @@
 
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect} from 'react'
+import { useLogDescription } from "@/app/context/LogDescriptionProvidertest"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 
 const LogSelect = (props: any) => {
+
+    const { onLog } = useLogDescription()
 
     const [selectLog, setSelectLog] = useState<string[]>([])
     const [activeLog, setActiveLog] = useState<string>("Logs")
@@ -65,8 +68,8 @@ const LogSelect = (props: any) => {
             <div className="items-center sm:flex hidden">
                 <form className='mx-auto text-gray-800 mt-1'>
                     {/* <h1 className=''>Visit a new log</h1> */}
-                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={activeLog} onChange={(event) => logSelect(event)} id="logs">
-                        <option value={activeLog} disabled>{activeLog}</option>
+                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={onLog} onChange={(event) => logSelect(event)} id="defaultlog">
+                        <option value={onLog} disabled>{onLog}</option>
                         {logDropDownOptions}
                     </select>
                 </form>
@@ -75,7 +78,7 @@ const LogSelect = (props: any) => {
             <div className="items-center flex sm:hidden bg-gray-400 rounded-md p-1 m-2">
                         <form className='mx-auto text-gray-800 my-1'>
                             <h1 className=''>Visit a new log</h1>
-                            <select className='rounded-md mx-auto shadow-md p-1 text-sm bg-gray-200' defaultValue="default" onChange={(event) => logSelect(event)} id="logs">
+                            <select className='rounded-md mx-auto shadow-md p-1 text-sm bg-gray-200' defaultValue="default" onChange={(event) => logSelect(event)} id="mobilelog">
                                 <option className="" value="default" disabled>Select Log</option>
                                 {logDropDownOptions}
                             </select>
