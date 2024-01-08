@@ -50,14 +50,17 @@ const CreateNewBale = (props: any) => {
 
     return (
         <>
-        <div className='flex justify-center items-center bg-gray-500 rounded-md p-3'>
+        <div className='flex justify-center items-center bg-gray-700/90 rounded-md p-3'>
 
             {/* <div className='ml-5'>
                 <button className='bg-green-500 p-1 rounded-md'>LeftMenu</button>
             </div> */}
 
-            <div className=''>
+            <div className='flex sm:space-x-4'>
+                <div>
                     <label className="text-gray-200 font-light">Create Bale:</label>
+                </div>
+                <div>
                     <input 
                         className="rounded-md font-normal" 
                         type='text' 
@@ -68,6 +71,7 @@ const CreateNewBale = (props: any) => {
                         minLength={10} maxLength={150} 
                         onClick={() => router.push("/river/new-bale" + path)}
                     />
+                </div>
             </div>
 
             {/* <div className='mr-5'>
