@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from "react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import Link from "next/link"
 
 let USER_ID: string
@@ -30,16 +30,24 @@ const FollowingLogs = (props: any) => {
     const [joinedLogs, setJoinedLogs] = useState<string[]>([])
 
     const pathname: string | null = usePathname()
+    const router = useRouter()
 
     useEffect(() => {
-        retrieveLogList()
+        const authFirstCheck = async() => {
+            if (!await authCheck()) {
+                router.push("/login")
+            }  else {
+                retrieveLogList()
+            }
+        }
+        authFirstCheck()
+        
+        
     }, [])
 
     const retrieveLogList = async() => {
 
-        if (!await authCheck()) {
-            console.log("")
-        }
+        
 
         const routeCheck: string | undefined = pathname?.split("/river/").pop()
         let askForList: Response

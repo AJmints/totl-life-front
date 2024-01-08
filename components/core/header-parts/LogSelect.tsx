@@ -9,12 +9,9 @@ const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const LogSelect = (props: any) => {
 
-    const { onLog } = useLogDescription()
+    const { setLogList } = useLogDescription()
+    const [activeLog, setActiveLog] = useState<string>("Visit Log")
 
-    const [selectLog, setSelectLog] = useState<string[]>([])
-    const [activeLog, setActiveLog] = useState<string>("Logs")
-
-    const [routeChange, setRouteChange] = useState<any>("")
     const pathname = usePathname()
     const router = useRouter()
 
@@ -27,12 +24,12 @@ const LogSelect = (props: any) => {
             })
             if(response.status === "success") {
                 props.setSelectLog(response.logNames)
+                setLogList(response.logNames)
             }
         }
         const setActiveHeaderLog = () => {
             const activeLogInRiver: any = pathname?.split("/river/").pop()
-            
-            if (!selectLog.includes(activeLogInRiver)) {
+            if (!activeLog.includes(activeLogInRiver)) {
                 setActiveLog("Visit Log")
             } else {
                 setActiveLog(activeLogInRiver)
@@ -68,8 +65,8 @@ const LogSelect = (props: any) => {
             <div className="items-center sm:flex hidden">
                 <form className='mx-auto text-gray-800 mt-1'>
                     {/* <h1 className=''>Visit a new log</h1> */}
-                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={onLog} onChange={(event) => logSelect(event)} id="defaultlog">
-                        <option value={onLog} disabled>{onLog}</option>
+                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={activeLog} onChange={(event) => logSelect(event)} id="defaultlog">
+                        <option value={activeLog} disabled>{activeLog}</option>
                         {logDropDownOptions}
                     </select>
                 </form>

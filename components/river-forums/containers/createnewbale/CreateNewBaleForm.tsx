@@ -1,7 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLogDescription } from '@/app/context/LogDescriptionProvidertest'
+import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 
 let USER_ID: string
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -27,8 +28,27 @@ export const token = async() => {
 
 const CreateNewBaleForm = () => {
 
-    const { onLog } = useLogDescription()  // Don't use useContext, use the param in the URL
+    const { logList } = useLogDescription()
     const [submitting, setSubmitting] = useState<boolean>(false)
+    const [ errorMessage, setErrorMessage] = useState("")
+    const [ currentLog, setCurrentLog ] = useState<string>("Select a log to post to")
+
+    const searchParams = useSearchParams()
+    const router = useRouter()
+
+    useEffect(() => {
+
+        const initialForm = () => {
+            if (searchParams?.get('log') !== null) {
+                setCurrentLog(searchParams?.get('log')!)
+            } else {
+                setCurrentLog("Select a log to post to")
+            }
+        }
+        initialForm()
+
+
+    }, [])
 
     const handleSubmit = async (e: any) => {
         e.preventDefault()
@@ -37,11 +57,21 @@ const CreateNewBaleForm = () => {
             // TODO
             console.log("logout")
         }
+        setErrorMessage("")
+        if (!logList.includes(currentLog)) {
+            setErrorMessage("Select a log to post to")
+            return
+        } else if (Number(USER_ID) > 0) {
+            setErrorMessage("Please log in to post")
+            return
+        }
+
+        
 
         setSubmitting(true)
 
         const data: Object = {
-            parentLog: onLog,
+            parentLog: currentLog,
             userId: USER_ID,
             title: e.target.title.value,
             body: e.target.body.value,
@@ -62,19 +92,38 @@ const CreateNewBaleForm = () => {
         if (e.target.title.value === response.title) {
         e.target.title.value = ""
         e.target.body.value = ""
-        // props.setAllLogsBales([...props.allLogsBales, response])
-        // props.setCreatePost(false)
         setSubmitting(false)
         }
         USER_ID = ""
+        router.push("/river/" + currentLog)
     }
+
+    const logDropDownOptions = logList.sort((a:any, b:any) => {
+        if (a < b) {
+            return -1
+        }
+        if (a > b) {
+            return 1
+        }
+        return 0
+    }).map((item: any) => {
+        return (
+            <option key={item} value={item}>{item}</option>
+        )
+    })
 
     return (
         <div className='bg-gray-600/90 p-5 rounded-md m-10'>
             <form onSubmit={handleSubmit}>
 
-                <div className='text-gray-300 flex text-sm justify-center'>
-                    <p className='bg-gray-600/90 mt-2 rounded-md px-3' onClick={() => console.log(onLog)}>You are creating a New Bale (New Bale = new post)</p>
+                <div className="sm:flex sm:space-x-2 items-center">
+                    <h1 className="text-gray-200 font-light">Posting to:</h1>
+                    <div className='text-gray-800 mt-1'>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={currentLog} onChange={(event) => setCurrentLog(event.target.value)} id="defaultlog">
+                            <option value={currentLog} disabled>{currentLog}</option>
+                            {logDropDownOptions}
+                        </select>
+                    </div>
                 </div>
 
                 {/* Title for post */}
@@ -103,6 +152,14 @@ const CreateNewBaleForm = () => {
                     minLength={10} maxLength={600}
                 />
                 </div>
+
+                { errorMessage === "" ? 
+                    <div></div>
+                :
+                    <div>
+                        <p className="text-red-500 font-light">{errorMessage}</p>
+                    </div>
+                }
 
                 { submitting ?
                 <div className='flex justify-center'>

@@ -4,24 +4,24 @@ import { createContext, useContext, Dispatch, SetStateAction, useState } from 'r
 
 interface ContextProps {
     desc: string,
-    setDesc: Dispatch<SetStateAction<string>>,
-    onLog: string,
-    setOnLog: Dispatch<SetStateAction<string>>,
+    setDesc: Dispatch<SetStateAction<string>>, 
+    logList: string[],
+    setLogList: Dispatch<SetStateAction<any>>,
 }
 
 const LogDescription = createContext<ContextProps>({
     desc: "",
     setDesc: () => "",
-    onLog: "",
-    setOnLog: () => ""
+    logList: [],
+    setLogList: () => []
 })
 
 export const LogDescriptionProvider = ({ children }: any) => {
     const [ desc, setDesc ] = useState("")
-    const [onLog, setOnLog] = useState("")
+    const [ logList, setLogList ] = useState([])
 
     return (
-        <LogDescription.Provider value={{ desc, setDesc, onLog, setOnLog }}>
+        <LogDescription.Provider value={{ desc, setDesc, logList, setLogList }}>
             {children}
         </LogDescription.Provider>
     )

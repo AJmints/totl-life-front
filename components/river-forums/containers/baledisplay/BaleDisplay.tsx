@@ -12,7 +12,7 @@ const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const BaleDisplay = () => {
 
-    const { setOnLog, setDesc } = useLogDescription()
+    const { setDesc } = useLogDescription()
 
     const [baleIndex, setBaleIndex] = useState<number>(0)
     const [updateBales, setUpdateBales] = useState(false)
@@ -32,7 +32,6 @@ const BaleDisplay = () => {
         const response: any = await waitLogs.json().catch((err: Error) => {
             console.log(err)
         })
-        console.log(response)
         if (response.status) {
             if (baleNav !== response.total) {
                 setBaleNav(response.total)
@@ -71,10 +70,8 @@ const BaleDisplay = () => {
 
     const baleListMethod = () => {
         if (pathname?.split("/river/").pop() === '/river') {
-            setOnLog("Home")
             topBales()
         } else if (pathname?.split("/")[1] === "river" && pathname?.split("/").length === 3) {
-            setOnLog(pathname?.split("/river/").pop()?.toString()!)
             allLogBales()
         }
     }

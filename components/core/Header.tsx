@@ -40,7 +40,7 @@ export default function Header() {
     const [loginToggle, setLoginToggle] = useState<boolean>(false)
     const [userDetailsToggle, setUserDetailsToggle] = useState<boolean>(false)
     const [selectLog, setSelectLog] = useState<string[]>([])
-    const [activeLog, setActiveLog] = useState<string>("Logs")
+    const [activeLog, setActiveLog] = useState<string>("Visit Log")
 
     const [routeChange, setRouteChange] = useState<any>("")
     const pathname = usePathname()
@@ -73,7 +73,7 @@ export default function Header() {
         checkLoginStatus()
         // detectRoute()
         
-    }, [loginToggle, userLogged, selectLog])
+    }, [loginToggle, pathname, userLogged])
 
     const logout = () => {
         
