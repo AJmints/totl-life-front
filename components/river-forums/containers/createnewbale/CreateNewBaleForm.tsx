@@ -61,7 +61,7 @@ const CreateNewBaleForm = () => {
         if (!logList.includes(currentLog)) {
             setErrorMessage("Select a log to post to")
             return
-        } else if (Number(USER_ID) > 0) {
+        } else if (Number(USER_ID) <= 0) {
             setErrorMessage("Please log in to post")
             return
         }

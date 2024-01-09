@@ -156,7 +156,7 @@ export default function RecentBales(props: RecentBalesProps) {
 
     return (
         <>
-        <div className=" justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80 duration-300"
+        <div className="hover:shadow-gray-400/60 hover:shadow-md justify-between  block sm:flex rounded-md shadow-lg shadow-gray-800/80 duration-300"
         placeholder='blur'>
             
             {/* Text boxes of forum post title and body */}
@@ -164,7 +164,9 @@ export default function RecentBales(props: RecentBalesProps) {
             onClick={() => setDetailView(prev => !prev)}>
                 {/* Main title container */}
                 <div className="bg-gray-100/80 shadow-lg shadow-gray-900 pb-5 rounded-t-md">
-                    <p className=' text-left ml-3 pt-1 font-normal text-sm cursor-pointer hover:text-green-600 duration-200' onClick={() => router.push("/river/" + viewBale.parentLog)}>log/{viewBale.parentLog}</p>
+                    <div className='flex'>
+                    <p className='text-left ml-3 pt-1 font-normal text-sm cursor-pointer hover:text-green-600 duration-200' onClick={() => router.push("/river/" + viewBale.parentLog)}>log/{viewBale.parentLog}</p>
+                    </div>
                     <p className="flex text-2xl justify-center sm:text-3xl xl:text-4xl xl:font-extralight px-3 font-light py-1">{viewBale.title}</p>
                 </div>
                 {/* Preview of comment container */}

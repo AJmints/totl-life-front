@@ -114,6 +114,7 @@ const BaleDisplay = () => {
 
     return (
         <>
+            <div className='bg-gray-700/80 p-2 rounded-md'>
             { updateBales ? 
             <div className="space-y-4">
             <div className="bg-gray-600/80 py-2 rounded-md justify-center flex">
@@ -135,6 +136,7 @@ const BaleDisplay = () => {
             <EmptyBalesSkeleton />
             </>
             }
+            </div>
         </>
     )
 }
