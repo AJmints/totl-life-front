@@ -41,14 +41,10 @@ const FollowingLogs = (props: any) => {
             }
         }
         authFirstCheck()
-        
-        
     }, [])
 
     const retrieveLogList = async() => {
-
         
-
         const routeCheck: string | undefined = pathname?.split("/river/").pop()
         let askForList: Response
         if ( routeCheck === "/river" ) {

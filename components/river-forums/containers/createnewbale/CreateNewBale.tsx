@@ -57,15 +57,15 @@ const CreateNewBale = (props: any) => {
             </div> */}
 
             <div className='flex sm:space-x-4'>
-                <div>
+                <div className='mr-2'>
                     <label className="text-gray-200 font-light">Create Bale:</label>
                 </div>
-                <div>
+                <div className='flex justify-center'>
                     <input 
-                        className="rounded-md font-normal" 
+                        className="rounded-md font-normal w-36 sm:w-auto" 
                         type='text' 
                         autoComplete='off' 
-                        placeholder="Create a new Bale"
+                        placeholder="Create new Bale"
                         id='title' 
                         required 
                         minLength={10} maxLength={150} 
