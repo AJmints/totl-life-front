@@ -16,7 +16,7 @@ const LogBanner = () => {
 
         const routeCheck: string | undefined = pathname?.split("/river/").pop()
         if (routeCheck === "/river") {
-            setLogName("totl.life")
+            setLogName("home")
         } else {
             setLogName(routeCheck)
         }
@@ -27,20 +27,20 @@ const LogBanner = () => {
         <div className="bg-gray-800/90 lg:hidden min-w-3xl max-w-3xl rounded-md text-gray-200 items-center p-4 block space-y-2 sm:space-y-0 sm:flex justify-center">
             
             <div className="p-2 sm:mr-4 bg-gray-700 font-light rounded-md">
-                {logName === "totl.life" ? 
+                {logName === "home" ? 
                 <div>
-                    <p>Welcome home : {logName}</p>
+                    <p>Viewing: log/{logName}</p>
                 </div>
                 :
                 <div>
-                    <p>Viewing: Log/{logName}</p>
+                    <p>Viewing: log/{logName}</p>
                 </div>}
             </div>
 
             <div className="text-sm font-light">
                 <div className="flex justify-center">
                 
-                {logName === "totl.life" ?
+                {logName === "home" ?
                 <p>{desc}</p>
                 :
                 <div className="flex">

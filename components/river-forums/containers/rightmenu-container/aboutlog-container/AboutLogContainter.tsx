@@ -51,37 +51,37 @@ const AboutLogContainer = (props: any) => {
     }, [])
 
 
-    const followLog = async(log: string) => {
-        if (!await authCheck()) {
-            // TODO
-            console.log("logout")
-        }
+    // const followLog = async(log: string) => {
+    //     if (!await authCheck()) {
+    //         // TODO
+    //         console.log("logout")
+    //     }
 
-        const data: Object = {
-            userId: USER_ID,
-            logName: log,
-        }
+    //     const data: Object = {
+    //         userId: USER_ID,
+    //         logName: log,
+    //     }
 
-        const requestFollow: Response = await fetch( URL + "/logs/add-log-follow", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "Bearer " + await token()
-            },
-            body: JSON.stringify(data)
-        })
-        const response: any  = await requestFollow.json().catch((err: Error) => {
-            console.log(err)
-        })
+    //     const requestFollow: Response = await fetch( URL + "/logs/add-log-follow", {
+    //         method: 'POST',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "auth-token": "Bearer " + await token()
+    //         },
+    //         body: JSON.stringify(data)
+    //     })
+    //     const response: any  = await requestFollow.json().catch((err: Error) => {
+    //         console.log(err)
+    //     })
         
-        if (response.status === "follow") {
-            props.setFollowing(true)
-        } else if (response.status === "unfollow") {
-            props.setFollowing(false)
-        }
-        USER_ID = ""
+    //     if (response.status === "follow") {
+    //         props.setFollowing(true)
+    //     } else if (response.status === "unfollow") {
+    //         props.setFollowing(false)
+    //     }
+    //     USER_ID = ""
 
-    }
+    // }
 
 
     return (
