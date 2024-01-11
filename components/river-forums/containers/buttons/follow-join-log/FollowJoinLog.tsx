@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useRiverContext } from "@/app/context/RiverContextProvider"
+import { usePathname } from "next/navigation"
 
 let USER_ID: string
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -30,9 +31,11 @@ const FollowJoinLog = (props: any) => {
     const [ following, setFollowing ] = useState<boolean>(false)
     const { followingList, setFollowingList } = useRiverContext()
 
+    const pathname = usePathname()
+
 
     useEffect(() => {
-        if (followingList.includes(props.logName)) {
+        if (followingList.includes(pathname?.split("/river/").pop()!)) {
             setFollowing(true)
         } else {
             setFollowing(false)
