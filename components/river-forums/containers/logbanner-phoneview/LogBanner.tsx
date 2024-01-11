@@ -1,13 +1,13 @@
 'use client'
 
-import { useLogDescription } from "@/app/context/LogDescriptionProvidertest"
+import { useRiverContext } from "@/app/context/RiverContextProvider"
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import FollowJoinLog from "../buttons/follow-join-log/FollowJoinLog"
 
 const LogBanner = () => {
 
-    const { desc } = useLogDescription()
+    const { desc } = useRiverContext()
     const [logName, setLogName] = useState<string>()
     const [ displayDesc, setDisplayDesc ] = useState<boolean>(false)
     const pathname: string | null = usePathname()
@@ -43,11 +43,11 @@ const LogBanner = () => {
                 {logName === "totl.life" ?
                 <p>{desc}</p>
                 :
-                <div className="">
+                <div className="flex">
                 <button className="bg-gray-500 mr-2 p-1 rounded-md hover:bg-green-600 duration-200 mb-1" onClick={() => setDisplayDesc(prev => !prev)}>{displayDesc ? "Hide Description" : "Show Description"}</button>
-                {/* <FollowJoinLog 
+                <FollowJoinLog 
                 logName={logName}
-                /> */}
+                />
                 </div>
                 }
                 </div>

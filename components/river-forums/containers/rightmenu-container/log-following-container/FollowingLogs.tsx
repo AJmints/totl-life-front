@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
+import { useRiverContext } from "@/app/context/RiverContextProvider"
 import Link from "next/link"
 
 let USER_ID: string
@@ -27,7 +28,8 @@ export const token = async() => {
 
 const FollowingLogs = (props: any) => {
 
-    const [joinedLogs, setJoinedLogs] = useState<string[]>([])
+    // const [joinedLogs, setJoinedLogs] = useState<string[]>([])
+    const { followingList, setFollowingList } = useRiverContext()
 
     const pathname: string | null = usePathname()
     const router = useRouter()
@@ -37,7 +39,12 @@ const FollowingLogs = (props: any) => {
             if (!await authCheck()) {
                 router.push("/login")
             }  else {
-                retrieveLogList()
+                if (followingList.length > 0) {
+                    console.log("Already retrieved")
+                } else {
+                    console.log("Refresh list")
+                    retrieveLogList()
+                }
             }
         }
         authFirstCheck()
@@ -56,7 +63,8 @@ const FollowingLogs = (props: any) => {
             console.log(err)
         })
         
-        setJoinedLogs(response.logNames)
+        setFollowingList(response.logNames)
+        
         
         if (response.status === "present") {
             props.setFollowing(true)
@@ -71,7 +79,7 @@ const FollowingLogs = (props: any) => {
         <>
         <div className='bg-gray-700/90 mx-auto p-4 rounded-md sm:w-72'>
             <h1 className='text-gray-300 text-2xl border-b-[1px] mb-2'>Following</h1>
-            {joinedLogs.map((item: string) => {
+            {followingList.map((item: string) => {
                 return (
                     <div  key={item}>
                     <Link 

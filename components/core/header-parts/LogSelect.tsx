@@ -2,14 +2,15 @@
 
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect} from 'react'
-import { useLogDescription } from "@/app/context/LogDescriptionProvidertest"
+import { useRiverContext } from "@/app/context/RiverContextProvider"
+
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 
 const LogSelect = (props: any) => {
 
-    const { setLogList } = useLogDescription()
+    const { setLogList } = useRiverContext()
     const [activeLog, setActiveLog] = useState<string>("Visit Log")
 
     const pathname = usePathname()

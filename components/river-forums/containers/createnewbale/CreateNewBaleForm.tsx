@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useLogDescription } from '@/app/context/LogDescriptionProvidertest'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import { useRiverContext } from '@/app/context/RiverContextProvider'
 
 let USER_ID: string
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -28,7 +28,7 @@ export const token = async() => {
 
 const CreateNewBaleForm = () => {
 
-    const { logList } = useLogDescription()
+    const { logList } = useRiverContext()
     const [submitting, setSubmitting] = useState<boolean>(false)
     const [ errorMessage, setErrorMessage] = useState("")
     const [ currentLog, setCurrentLog ] = useState<string>("Select a log to post to")

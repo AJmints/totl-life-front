@@ -3,16 +3,15 @@
 import RecentBales from './balepost-container/RecentBales'
 import EmptyBalesSkeleton from '@/components/bales-depreciated/loading-skeleton/EmptyBalesSkeleton'
 import { useState, useEffect } from 'react'
-import { useLogDescription } from '@/app/context/LogDescriptionProvidertest'
 import { usePathname, useRouter } from "next/navigation"
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
-
+import { useRiverContext } from '@/app/context/RiverContextProvider'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const BaleDisplay = () => {
 
-    const { setDesc } = useLogDescription()
+    const { setDesc } = useRiverContext()
 
     const [baleIndex, setBaleIndex] = useState<number>(0)
     const [updateBales, setUpdateBales] = useState(false)

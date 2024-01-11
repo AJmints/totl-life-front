@@ -3,8 +3,9 @@
 import arrow from '../../../../../public/icons/Arrow.png'
 import { useState, useEffect } from "react"
 import { usePathname } from "next/navigation"
-import { useLogDescription } from "@/app/context/LogDescriptionProvidertest"
+import { useRiverContext } from '@/app/context/RiverContextProvider'
 import Image from 'next/image'
+import FollowJoinLog from '../../buttons/follow-join-log/FollowJoinLog'
 
 
 let USER_ID: string
@@ -35,7 +36,7 @@ interface RetrieveLogListResponse {
 
 const AboutLogContainer = (props: any) => {
 
-    const {desc} = useLogDescription()
+    const {desc} = useRiverContext()
 
     const [following, setFollowing] = useState<boolean>(false)
     const [showLogDesc, setShowLogDesc] = useState<boolean>(true)
@@ -88,13 +89,12 @@ const AboutLogContainer = (props: any) => {
              <div className="py-3 px-2 mx-2 sm:w-72 sm:px-5 text-gray-200 font-light rounded-md items-center space-y-2 sm:space-y-0 justify-between bg-gray-700/90 shadow-lg shadow-gray-800/60">
                 <h1>log/{logName === "/river" ? "home" : logName}</h1>
                 <div className="pt-2">
-                    { logName === "/river" ? 
+                    {logName === "/river" ? 
                     <></>
                     :
-                    <button 
-                        className="bg-gray-400 hover:bg-emerald-500 duration-300 p-1 rounded-md text-gray-800"
-                        onClick={() => followLog(logName!)}>{props.following ? "Joined" : "Follow"}
-                    </button>
+                    <FollowJoinLog 
+                    logName={logName}
+                    />
                     }
                 </div>
                 { showLogDesc ? 

@@ -1,10 +1,11 @@
 'use client'
 
-import UserOptions from "./UserOptions";
+import { useRiverContext } from "@/app/context/RiverContextProvider";
 import arrow from "../../public/icons/Arrow.png"
 import Image from "next/image";
 import { useState, useEffect } from 'react'
 import UserMain from "./UserMain";
+import { usePathname } from "next/navigation";
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -24,6 +25,8 @@ export const authCheck = async() => {
 export default function UserOptionsConst(props: any) {
 
     const [userName, setUserName] = useState("")
+    const { followingList, setFollowingList } = useRiverContext()
+    const pathname = usePathname()
     
 
     useEffect(() => {
@@ -48,7 +51,6 @@ export default function UserOptionsConst(props: any) {
             USER_ID = ""
         }
         getPFP()
-        
         
     }, [props.userPFP, props.userLogged])
 
