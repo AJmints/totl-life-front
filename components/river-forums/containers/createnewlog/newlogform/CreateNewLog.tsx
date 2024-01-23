@@ -1,6 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { useRiverContext } from '@/app/context/RiverContextProvider'
+import { useRouter } from 'next/navigation'
 
 let USER_ID: string
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -35,11 +37,17 @@ type CreateNewLogProps = {
     setLogsDropDown: Function,
 }
 
-export default function CreateNewLog(props: CreateNewLogProps) {
+// TODO: Need reflect the newly created log in the dropdown right away, not working atm. Have to refresh page to reflect.
+
+export default function CreateNewLog() {
 
     const [errorResponse, setErrorResponse] = useState<string>("")
     const [showError, setShowError] = useState<boolean>(false)
     const [submitting, setSubmitting] = useState<boolean>(false)
+
+    const router = useRouter()
+
+    const { setLogList } = useRiverContext()
 
     const handleSubmit = async(e: any) => {
         e.preventDefault()
@@ -73,9 +81,9 @@ export default function CreateNewLog(props: CreateNewLogProps) {
         if (response.logName === logNameHandle) {
             e.target.logName.value = ""
             e.target.introduction.value = ""
-            props.setLogsDropDown((prev: string[]) => [...prev, response.logName!.toLowerCase()])
-            props.setCreateLog(false)
+            setLogList((prev: string[]) => [...prev, response.logName!.toLowerCase()])
             setSubmitting(false)
+            router.push("/river/" + response.logName!.toLowerCase())
             return
         } else if (response.status === "taken"){
             setShowError(true)

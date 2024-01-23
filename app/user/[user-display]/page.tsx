@@ -1,12 +1,11 @@
-import UserOptions from "@/components/user-profile/UserOptions"
-
+import ProfilePageView from "@/components/user-profile/ProfilePageView"
 
 export default function ProfilePage() {
 
     return (
         <div className="h-screen">
             <div className="m-2">
-                <UserOptions />
+                <ProfilePageView />
             </div>
         </div>
     )

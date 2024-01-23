@@ -6,7 +6,7 @@ import add from '../../public/icons/add-white.png'
 import hamMenu from '../../public/icons/menu-burger.png'
 import Image from 'next/image'
 import NewBalePost from "./NewBalePost"
-import CreateNewLog from './CreateNewLog'
+import CreateNewLog from '../river-forums/containers/createnewlog/newlogform/CreateNewLog'
 import RightMenuContainer from './right-container/RightMenuContainer'
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
 
@@ -294,10 +294,11 @@ export default function BalesOptions(props: BalesOptionsProps) {
         }
         {
             createLog ? 
-            <CreateNewLog
-            setLogsDropDown={props.setLogsDropDown}
-            setCreateLog={setCreateLog}
-            />
+            // <CreateNewLog
+            // setLogsDropDown={props.setLogsDropDown}
+            // setCreateLog={setCreateLog}
+            // />
+            <></>
             :
             <></>
         }

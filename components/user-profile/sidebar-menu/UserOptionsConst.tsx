@@ -1,7 +1,7 @@
 'use client'
 
 import { useRiverContext } from "@/app/context/RiverContextProvider";
-import arrow from "../../public/icons/Arrow.png"
+import arrow from "../../../public/icons/Arrow.png"
 import Image from "next/image";
 import { useState, useEffect } from 'react'
 import UserMain from "./UserMain";

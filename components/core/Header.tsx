@@ -9,8 +9,10 @@ import menuCompressed from '../../public/icons/menu-burger.png'
 import { useState, useEffect } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import LoginForm from "../login/LoginForm"
-import UserOptionsConst from "../user-profile/UserOptionsConst"
+import UserOptionsConst from "../user-profile/sidebar-menu/UserOptionsConst"
 import LogSelect from "./header-parts/LogSelect"
+import { useUserContext } from "@/app/context/UserContextProvider"
+import { useRiverContext } from "@/app/context/RiverContextProvider"
 
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -40,12 +42,13 @@ export default function Header() {
     const [loginToggle, setLoginToggle] = useState<boolean>(false)
     const [userDetailsToggle, setUserDetailsToggle] = useState<boolean>(false)
     const [selectLog, setSelectLog] = useState<string[]>([])
-    const [activeLog, setActiveLog] = useState<string>("Visit Log")
 
     const [routeChange, setRouteChange] = useState<any>("")
     const pathname = usePathname()
     const router = useRouter()
 
+    const { userName, setUserName } = useUserContext()
+    const { setFollowingList} = useRiverContext()
     const [userPFP, setUserPFP] = useState<any>(null)
     
     
@@ -82,6 +85,7 @@ export default function Header() {
         setLoginToggle(false)
         setUserLogged(false)
         serverSideProps()
+        setFollowingList([])
         router.refresh()
         router.push("/")
     }

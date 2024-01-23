@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 import current from '../public/images/spring-current.jpg'
 import { Analytics } from '@vercel/analytics/react'
 import { RiverContextProvider } from './context/RiverContextProvider'
+import { UserContextProvider } from './context/UserContextProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -32,16 +33,17 @@ export default function RootLayout({
       <body id="body" className={inter.className}
       
       >
+        <UserContextProvider>
         <RiverContextProvider>
 
           <div className='bg-gray-800/50'>
           <Header />
             {children}
-          {/* <Footer /> */}
           <Analytics />
           </div>
           
         </RiverContextProvider>
+        </UserContextProvider>
       </body>
       
     </html>

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import picDefault from "../../public/icons/profile-pic.png"
+import picDefault from ".././public/icons/profile-pic.png"
 import { useEffect, useState } from 'react'
 
 let USER_ID: string
@@ -31,7 +31,6 @@ export default function UserOptions(props: any) {
 
     const [pfpMessage, setPfpMessage] = useState<string>("")
     const [pfpBool, setPfpBool] = useState<boolean>(false)
-    const [optionsToggle, setOptionsToggle] = useState<boolean>(false)
 
     useEffect(() => {
         authCheck()
@@ -66,18 +65,9 @@ export default function UserOptions(props: any) {
     }
 
     return (
-
         <div className="flex justify-center">
-            {
-            optionsToggle ?
-            // <UserOptions 
-            // props={props}
-            // />
-            <>
-            <p>Create toggle for an options page to change/update the user information</p>
-            </>
-            :
             <div className="block">
+                
             <div className="text-center">
                 { props.userPFP !== null ?
                 <Image 
@@ -94,10 +84,10 @@ export default function UserOptions(props: any) {
                     className="w-32 h-auto mx-auto rounded-full shadow-lg shadow-gray-800"
                 />}
             <div className="mt-3">
-                {/* <form method="POST" encType="multipart/form-data">
+                <form method="POST" encType="multipart/form-data">
                 <input id="imgUpload" type="file" accept="image/*" style={{ display: 'none'}} onChange={updateImage}  />
                 <label className="cursor-pointer shadow-lg shadow-gray-800 p-1 rounded-md mx-auto bg-emerald-500 hover:bg-emerald-300 duration-500" htmlFor="imgUpload">Change PFP</label>
-                </form> */}
+                </form>
                 { pfpBool ? 
                 <p className=" w-44 text-red-500 mt-2">{pfpMessage}</p>
                 :
@@ -117,9 +107,9 @@ export default function UserOptions(props: any) {
             <div className="flex mt-10 justify-center space-x-2">
                 <button className="bg-emerald-500 hover:bg-emerald-700/80 duration-300 shadow-lg shadow-gray-800 text-gray-300 p-2 rounded-md">Settings</button>
                 <button onClick={() => props.logout()} className="bg-rose-600/80 duration-300 hover:bg-red-800 p-2 text-gray-300 shadow-lg shadow-gray-800 rounded-md">Log Out</button>
-            </div>            
             </div>
-            }
+            
+            </div>
         </div>
     )
 }
