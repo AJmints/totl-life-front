@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from 'react'
+import { useUserContext } from "@/app/context/UserContextProvider"
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -37,6 +38,7 @@ export default function LoginForm(props: any) {
     const [readMessage, setReadMessage] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
 
+    const { setUserID, setUserName, setVerified } = useUserContext()
     const router = useRouter()
 
     const redirect = async() => {
@@ -76,18 +78,25 @@ export default function LoginForm(props: any) {
             setLoading(false)
             setReadMessage("Something went wrong, please try again.")
         })
-        if (result.status === "failed") {
-            setLoading(false)
-            setMessage(true)
-            setReadMessage(result.response)
-            return
-        }
-        if (result.token) {
+        console.log(result)
+        if (data.userEmail === result.userEmail) {
             setLoading(false)
             props.setLoginToggle(false)
             props.setUserLogged(true)
             setTokenCookie(result)
+
+            // TODO: Might need to change the methods above in if statment, below are setting the useContext-UserContext
+
+            setUserID(result.id) 
+            setUserName(result.userName)
+            setVerified(result.accountVerified)
             router.push("/river")
+            return
+        }
+        if (result.status === "failed") {
+            setLoading(false)
+            setMessage(true)
+            setReadMessage(result.response)
             return
         }
     }

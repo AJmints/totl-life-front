@@ -57,10 +57,6 @@ export default function RecentBales(props: RecentBalesProps) {
 
     const router = useRouter()
 
-    const userViewOptions = () => {
-        console.log("View this users information and link to their profile")
-    }
-
     const upVote = async() => {
         const userPresent = await authCheck()
         if (!userPresent) {
@@ -188,7 +184,7 @@ export default function RecentBales(props: RecentBalesProps) {
                             width={90}
                             height={90}
                             className='w-16 mx-auto rounded-full cursor-pointer'
-                            onClick={() => userViewOptions()}
+                            onClick={() => router.push("/user/" + viewBale.userName)}
                         /> 
                         </div>
                         : 
@@ -199,7 +195,7 @@ export default function RecentBales(props: RecentBalesProps) {
                             width={90}
                             height={90}
                             className='w-16 mx-auto rounded-full cursor-pointer'
-                            onClick={() => userViewOptions()}
+                            onClick={() => router.push("/user/" + viewBale.userName)}
                         />
                         }
                         <p className='text-gray-300'>user/{viewBale.userName}</p>

@@ -14,7 +14,7 @@ import LogSelect from "./header-parts/LogSelect"
 import { useUserContext } from "@/app/context/UserContextProvider"
 import { useRiverContext } from "@/app/context/RiverContextProvider"
 
-
+let USER_ID: string = ""
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export const serverSideProps = () => {
@@ -27,6 +27,7 @@ export const authCheck = async() => {
         console.log(err)
     })
     if (status.loggedIn === true) {
+        USER_ID = status.id
         return true
     } else {
         return false
@@ -47,36 +48,39 @@ export default function Header() {
     const pathname = usePathname()
     const router = useRouter()
 
-    const { userName, setUserName } = useUserContext()
+    const { setUserID, setUserName, setVerified } = useUserContext()
     const { setFollowingList} = useRiverContext()
     const [userPFP, setUserPFP] = useState<any>(null)
     
     
     useEffect(() => {
-        
-        const detectRoute = () => {
-            const url = `${pathname}`
-            setRouteChange(url)
-            if (routeChange !== url) {
-                setMenuToggle(false)
-                setLoginToggle(false)
-            }
-        }
         const checkLoginStatus = async () => {
             const logged = await authCheck()
             if (logged) {
                 setUserLogged(true)
+                setUserContext()
+                return
             } else {
                 setUserLogged(false)
                 return
             }
         }
+        const setUserContext = async () => {
+            const getUserContext = await fetch( URL + "/profile/userInfo/" + USER_ID)
+            const response = await getUserContext.json().catch(err => {
+                console.log(err)
+            })
+            //TODO: set up backend method to return relevant data.
+            console.log(response)
+            // props.setUserPFP('data:image/jpeg;base64,' + data.pfp.image)
+            USER_ID = ""
+        }
         
+        if (!userLogged) {
+            checkLoginStatus()
+        }
         
-        checkLoginStatus()
-        // detectRoute()
-        
-    }, [loginToggle, pathname, userLogged])
+    }, [userLogged])
 
     const logout = () => {
         
@@ -86,15 +90,12 @@ export default function Header() {
         setUserLogged(false)
         serverSideProps()
         setFollowingList([])
+        setUserID("") 
+        setUserName("")
+        setVerified(false)
         router.refresh()
         router.push("/")
     }
-
-    
-
-    
-
-    
 
     return (
         <header className="flex bg-gray-700 justify-between xl:justify-around shadow-lg bg-shadow-900/90">

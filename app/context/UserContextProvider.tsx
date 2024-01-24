@@ -19,7 +19,7 @@ const UserContext = createContext<ContextProps>({
     userID: "",
     setUserID: () => "",
     verified: false,
-    setVerified: () => false,
+    setVerified: () => null,
     userPFP: "", 
     setUserPFP: () => "",
 })
