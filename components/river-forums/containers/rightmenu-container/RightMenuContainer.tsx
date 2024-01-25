@@ -3,6 +3,7 @@
 import AboutLogContainer from "./aboutlog-container/AboutLogContainter"
 import { useState } from "react"
 import FollowingLogs from "./log-following-container/FollowingLogs"
+import PolicyLogs from "./policylog-container/policylogs"
 
 const RightMenuContainer = () => {
 
@@ -12,6 +13,7 @@ const RightMenuContainer = () => {
         <div className="bg-gray-800/90 hidden lg:flex rounded-md p-1">
 
             <div className="space-y-2">
+
             <AboutLogContainer 
             following={following}
             setFollowing={setFollowing}
@@ -20,8 +22,12 @@ const RightMenuContainer = () => {
             <FollowingLogs 
             setFollowing={setFollowing}
             />
-            </div>
 
+            <PolicyLogs
+            setFollowing={setFollowing}
+            />
+            
+            </div>
         </div>
     )
 }
