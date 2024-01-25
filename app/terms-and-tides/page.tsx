@@ -18,16 +18,16 @@ Terms and Tides: Navigating the River
 <p>You may encounter a raft of randomness floating downstream. Hitch a ride, share a joke, or perform a river dance to join the festivities.</p>
 <br></br>
 <p>3.Rapid Humor Rapids:</p>
-<p>Brace yourself for the rapid-fire delivery of jokes. Laughing too hard may result in uncontrollable snorting, which is perfectly acceptable and encouraged except on Tuesdays, we wouldn't want to wake Larry.</p>
+<p>Brace yourself for the rapid-fire delivery of jokes. Laughing too hard may result in uncontrollable snorting, which is perfectly acceptable and encouraged except on Tuesdays, we wouldn&#39;t want to wake Larry.</p>
 <br></br>
-<p>4. Don't wake Larry:</p>
-<p>Don't wake Larry.</p>
+<p>4. Don&#39;t wake Larry:</p>
+<p>Don&#39;t wake Larry.</p>
 <br></br>
 <p>5.Buoyant Banter Bylaws:</p>
 <p>Engage in buoyant banter at all times. Float with the current of conversation, and beware of eddy-induced awkward silences.</p>
 <br></br>
 <p>6.Flood of Fun Guarantee:</p>
-<p>In the unlikely event of a fun drought, please notify our Water Wit Department. We'll release a flood of humor to restore the jovial atmosphere.</p>
+<p>In the unlikely event of a fun drought, please notify our Water Wit Department. We&#39;ll release a flood of humor to restore the jovial atmosphere.</p>
 <br></br>
 <p>7. Tidal Tickling:</p>
 <p>Tidal tickling sessions may occur unexpectedly. Prepare to be tickled by invisible water nymphs or ticklish trout. Resistance is futile.</p>
