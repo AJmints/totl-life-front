@@ -16,13 +16,13 @@ export default (req, res) => {
                 return res.status(200).json({ loggedIn: true, id: details.sub })
             } else {
                 cookies.set('auth-token')
-                return res.status(200).json({ loggedIn: true })
+                return res.status(200).json({ loggedIn: false })
             }
         } catch (error) {
             if (authToken === undefined || authToken === null) {
-                return res.status(200).json({ loggedIn: true })
+                return res.status(200).json({ loggedIn: false })
             }
-            return res.status(200).json({ loggedIn: true })
+            return res.status(200).json({ loggedIn: false })
         }
     })
 }
