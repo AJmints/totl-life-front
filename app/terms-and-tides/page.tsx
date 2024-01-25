@@ -2,9 +2,9 @@
 
 
 const TermsAndConditions = () => {
-return (<div className="mx-24 bg-gray-700/80 p-3 rounded-md shadow-lg shadow-gray-900/70">
+return (<div className="mx-24 pt-100 bg-gray-700/80 p-3 rounded-md shadow-lg shadow-gray-900/70">
         
-<p className="text-lg text-center font-extrabold">
+<p className="text-lg text-gray-200 text-center">
 Terms and Tides: Navigating the River
 <br></br>
 <br></br>
@@ -36,5 +36,5 @@ Terms and Tides: Navigating the River
 </p>
 
 </div>)
-}
-export default TermsAndConditions
+};
+export default TermsAndConditions;
