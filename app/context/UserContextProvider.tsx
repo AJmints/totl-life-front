@@ -9,8 +9,8 @@ interface ContextProps {
     setUserID: Dispatch<SetStateAction<string>>,
     verified: boolean,
     setVerified: Dispatch<SetStateAction<boolean>>,
-    userPFP: string,
-    setUserPFP: Dispatch<SetStateAction<string>>,
+    userPFP: any,
+    setUserPFP: Dispatch<SetStateAction<any>>,
 }
 
 const UserContext = createContext<ContextProps>({
@@ -21,7 +21,7 @@ const UserContext = createContext<ContextProps>({
     verified: false,
     setVerified: () => null,
     userPFP: "", 
-    setUserPFP: () => "",
+    setUserPFP: () => null,
 })
 
 
@@ -31,7 +31,7 @@ export const UserContextProvider = ({ children }: any) => {
     const [ userName, setUserName ] = useState("")
     const [ userID, setUserID ] = useState("")
     const [ verified, setVerified ] = useState(false)
-    const [ userPFP, setUserPFP ] = useState("")
+    const [ userPFP, setUserPFP ] = useState<any>(null)
 
     return (
         <UserContext.Provider value={{ userName: userName, setUserName: setUserName, userID: userID, setUserID: setUserID, verified: verified, setVerified: setVerified, userPFP: userPFP, setUserPFP: setUserPFP }}>

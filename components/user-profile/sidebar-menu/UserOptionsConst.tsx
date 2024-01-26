@@ -1,15 +1,13 @@
 'use client'
 
-import { useRiverContext } from "@/app/context/RiverContextProvider";
 import arrow from "../../../public/icons/Arrow.png"
 import Image from "next/image";
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import UserMain from "./UserMain";
-import { usePathname } from "next/navigation";
+import { useUserContext } from "@/app/context/UserContextProvider";
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
-let AUTH_TOKEN: string
 
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
@@ -24,35 +22,49 @@ export const authCheck = async() => {
 
 export default function UserOptionsConst(props: any) {
 
-    const [userName, setUserName] = useState("")
-    const { followingList, setFollowingList } = useRiverContext()
-    const pathname = usePathname()
+    const { userID, setUserID, userName, setUserName, setVerified, userPFP, setUserPFP } = useUserContext()
     
 
     useEffect(() => {
-        // console.log(props)
 
-        const getPFP = async() => {
-            const present = await authCheck()
-            if (present) {
-                await fetch( URL + "/profile/user-pfp/" + USER_ID)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.pfp.image === "") {
-                        setUserName(data.userName)
-                        return
-                    } else {
-                        props.setUserPFP('data:image/jpeg;base64,' + data.pfp.image)
-                        setUserName(data.userName)
-                    }
-                })
+        const checkLoginStatus = async () => {
+            const logged = await authCheck()
+            if (logged) {
+                props.setUserLogged(true)
+                if(userID === "") {
+                    setUserContext()
+                }
                 
+                return
+            } else {
+                props.setUserLogged(false)
+                return
+            }
+        }
+
+        const setUserContext = async () => {
+            const getUserContext = await fetch( URL + "/profile/userInfo/" + USER_ID)
+            const response = await getUserContext.json().catch(err => {
+                console.log(err)
+            })
+
+            if (await response.userName) {
+            setUserID(response.userId)
+            setUserName(response.userName)
+            setVerified(response.accountVerified)
+            setUserPFP('data:' + response.pfp.type + ';base64,' + response.pfp.image)
             }
             USER_ID = ""
+            return
         }
-        getPFP()
         
-    }, [props.userPFP, props.userLogged])
+        if (!props.userLogged) {
+            checkLoginStatus()
+            console.log("Check")
+        }
+        
+        
+    }, [props.userLogged])
 
     return (
         <>
@@ -66,8 +78,6 @@ export default function UserOptionsConst(props: any) {
                 </div>
                 <UserMain
                 logout={props.logout}
-                userPFP={props.userPFP}
-                setUserPFP={props.setUserPFP}
                 userName={userName}
                 />
                 </div>

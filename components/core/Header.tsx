@@ -7,7 +7,7 @@ import picDefault from '../../public/icons/profile-pic.png'
 import arrow from '../../public/icons/Arrow.png'
 import menuCompressed from '../../public/icons/menu-burger.png'
 import { useState, useEffect } from "react"
-import { usePathname, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import LoginForm from "../login/LoginForm"
 import UserOptionsConst from "../user-profile/sidebar-menu/UserOptionsConst"
 import LogSelect from "./header-parts/LogSelect"
@@ -43,14 +43,10 @@ export default function Header() {
     const [loginToggle, setLoginToggle] = useState<boolean>(false)
     const [userDetailsToggle, setUserDetailsToggle] = useState<boolean>(false)
     const [selectLog, setSelectLog] = useState<string[]>([])
-
-    const [routeChange, setRouteChange] = useState<any>("")
-    const pathname = usePathname()
     const router = useRouter()
 
-    const { setUserID, setUserName, setVerified } = useUserContext()
+    const { setUserID, setUserName, setVerified, userPFP, setUserPFP } = useUserContext()
     const { setFollowingList} = useRiverContext()
-    const [userPFP, setUserPFP] = useState<any>(null)
     
     
     useEffect(() => {
@@ -60,9 +56,6 @@ export default function Header() {
                 setUserLogged(true)
                 setUserContext()
                 return
-            } else {
-                setUserLogged(false)
-                return
             }
         }
         const setUserContext = async () => {
@@ -70,21 +63,23 @@ export default function Header() {
             const response = await getUserContext.json().catch(err => {
                 console.log(err)
             })
-            //TODO: set up backend method to return relevant data.
-            console.log(response)
-            // props.setUserPFP('data:image/jpeg;base64,' + data.pfp.image)
+            if (await response.userName) {
+            setUserID(response.userId)
+            setUserName(response.userName)
+            setVerified(response.accountVerified)
+            setUserPFP('data:image/jpeg;base64,' + await response.pfp.image)
+            }
+
             USER_ID = ""
+            return
         }
         
-        if (!userLogged) {
-            checkLoginStatus()
-        }
+        checkLoginStatus() // Move 
         
-    }, [userLogged])
+    }, [userLogged, userPFP])
 
     const logout = () => {
         
-        setUserPFP(null)
         setUserDetailsToggle(false)
         setLoginToggle(false)
         setUserLogged(false)
@@ -93,7 +88,7 @@ export default function Header() {
         setUserID("") 
         setUserName("")
         setVerified(false)
-        router.refresh()
+        setUserPFP(null)
         router.push("/")
     }
 
@@ -185,8 +180,7 @@ export default function Header() {
                     userLogged={userLogged}
                     userDetailsToggle={userDetailsToggle}
                     setUserDetailsToggle={setUserDetailsToggle}
-                    userPFP={userPFP}
-                    setUserPFP={setUserPFP}
+                    setUserLogged={setUserLogged}
                     />   
                 <div>
                 </div>
