@@ -23,7 +23,6 @@ export const authToken = async() => {
     const check = await res.json().catch((err) => {
         console.log(err)
     })
-    // console.log(check)
     return check
 }
 

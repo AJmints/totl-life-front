@@ -64,7 +64,7 @@ export default function UserOptionsConst(props: any) {
         }
         
         
-    }, [props.userLogged])
+    }, [props.userLogged, userPFP])
 
     return (
         <>

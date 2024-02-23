@@ -52,10 +52,12 @@ export default function Header() {
     useEffect(() => {
         const checkLoginStatus = async () => {
             const logged = await authCheck()
-            if (logged) {
+            if (await logged) {
                 setUserLogged(true)
                 setUserContext()
                 return
+            } else {
+                setUserLogged(false)
             }
         }
         const setUserContext = async () => {
@@ -67,22 +69,24 @@ export default function Header() {
             setUserID(response.userId)
             setUserName(response.userName)
             setVerified(response.accountVerified)
-            setUserPFP('data:image/jpeg;base64,' + await response.pfp.image)
+            setUserPFP('data:image/jpeg;base64,' + response.pfp.image)
             }
 
             USER_ID = ""
             return
         }
         
-        checkLoginStatus() // Move 
+        checkLoginStatus() 
+        
         
     }, [userLogged, userPFP])
 
     const logout = () => {
         
+        setUserLogged(false)
         setUserDetailsToggle(false)
         setLoginToggle(false)
-        setUserLogged(false)
+        
         serverSideProps()
         setFollowingList([])
         setUserID("") 
@@ -90,6 +94,7 @@ export default function Header() {
         setVerified(false)
         setUserPFP(null)
         router.push("/")
+        
     }
 
     return (
@@ -155,6 +160,14 @@ export default function Header() {
             {/* False: Login or Register */}
             { userLogged ?
             <div className="flex items-center pt-3 pb-2 mr-2 sm:mx-5 space-x-5">
+                {/* <UserProfileButton 
+                setUserID={setUserID}
+                setUserName={setUserName}
+                setVerified={setVerified}
+                setUserPFP={setUserPFP}
+                USER_ID={USER_ID}
+                setUserLogged={setUserLogged}
+                /> */}
                 <div>
                     {userPFP !== null ? 
                     <Image 

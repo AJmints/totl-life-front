@@ -78,7 +78,6 @@ export default function LoginForm(props: any) {
             setLoading(false)
             setReadMessage("Something went wrong, please try again.")
         })
-        console.log(result)
         if (data.userEmail === result.userEmail) {
             setLoading(false)
             props.setLoginToggle(false)
@@ -90,6 +89,7 @@ export default function LoginForm(props: any) {
             setUserID(result.id) 
             setUserName(result.userName)
             setVerified(result.accountVerified)
+            router.refresh()
             router.push("/river")
             return
         }

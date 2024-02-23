@@ -10,8 +10,8 @@ const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const LogSelect = (props: any) => {
 
-    const { setLogList } = useRiverContext()
-    const [activeLog, setActiveLog] = useState<string>("Visit Log")
+    const { setLogList, activeLog, setActiveLog } = useRiverContext()
+    const [active, setActive] = useState<string>("Visit Log")
 
     const pathname = usePathname()
     const router = useRouter()
@@ -23,14 +23,14 @@ const LogSelect = (props: any) => {
             const response = await request.json().catch(err => {
                 console.log(err)
             })
-            if(response.status === "success") {
+            if(await response.status === "success") {
                 props.setSelectLog(response.logNames)
                 setLogList(response.logNames)
             }
         }
-        const setActiveHeaderLog = () => {
+        const setActiveHeaderLog = async () => {
             const activeLogInRiver: any = pathname?.split("/river/").pop()
-            if (!activeLog.includes(activeLogInRiver)) {
+            if (await !props.selectLog.includes(activeLogInRiver)) {
                 setActiveLog("Visit Log")
             } else {
                 setActiveLog(activeLogInRiver)
