@@ -1,12 +1,10 @@
 import RiverContainer from './containers/RiverContainer'
 
-
-
-const RiverPageStructure = async () => {
+const RiverPageStructure = () => {
 
     return (
         <>
-        <div>
+        <div className=''>
             <div>
             <RiverContainer />
             </div>

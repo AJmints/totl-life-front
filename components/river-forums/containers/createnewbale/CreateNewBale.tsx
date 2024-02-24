@@ -1,9 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { usePathname, useRouter, useParams } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
-import Link from 'next/link'
 
 let USER_ID: string
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -52,10 +51,6 @@ const CreateNewBale = (props: any) => {
         <>
         <div className='flex justify-center items-center bg-gray-700/90 rounded-md p-3'>
 
-            {/* <div className='ml-5'>
-                <button className='bg-green-500 p-1 rounded-md'>LeftMenu</button>
-            </div> */}
-
             <div className='flex sm:space-x-4'>
                 <div className='mr-2'>
                     <label className="text-gray-200 font-light">Create Bale:</label>
@@ -73,10 +68,6 @@ const CreateNewBale = (props: any) => {
                     />
                 </div>
             </div>
-
-            {/* <div className='mr-5'>
-                <p className='p-1 bg-green-500 rounded-md'>RightMenu</p>
-            </div> */}
 
         </div>
         

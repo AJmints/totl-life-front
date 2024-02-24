@@ -156,18 +156,21 @@ export default function RecentBales(props: RecentBalesProps) {
         placeholder='blur'>
             
             {/* Text boxes of forum post title and body */}
-            <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md cursor-pointer"
-            onClick={() => setDetailView(prev => !prev)}>
+            <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md">
+                {/* Link to log where post lives */}
+                <div className='flex'>
+                    <p className='text-left font-normal text-sm cursor-pointer my-2 bg-gray-400 p-2 rounded-md hover:bg-emerald-500 duration-200' onClick={() => router.push("/river/" + viewBale.parentLog)}>log/{viewBale.parentLog}</p>
+                </div>
+                {/* Bale text preview */}
+                <div className=' cursor-pointer' onClick={() => router.push("/river/" + viewBale.parentLog + "/" + viewBale.title.split(" ").join("") + "?baleid=" + viewBale.id)}>
                 {/* Main title container */}
-                <div className="bg-gray-100/80 shadow-lg shadow-gray-900 pb-5 rounded-t-md">
-                    <div className='flex'>
-                    <p className='text-left ml-3 pt-1 font-normal text-sm cursor-pointer hover:text-green-600 duration-200' onClick={() => router.push("/river/" + viewBale.parentLog)}>log/{viewBale.parentLog}</p>
-                    </div>
+                <div className="bg-gray-100/80 shadow-lg shadow-gray-900 py-5 rounded-t-md">
                     <p className="flex text-2xl justify-center sm:text-3xl xl:text-4xl xl:font-extralight px-3 font-light py-1">{viewBale.title}</p>
                 </div>
                 {/* Preview of comment container */}
                 <div className="bg-gray-300/70 sm:rounded-br-none pb-5 pt-5 rounded-b-md text-xs p-4 ">
                     <p className=' text-sm xl:text-base text-left font-light'>{viewBale.body}</p>
+                </div>
                 </div>
             </div>
             
@@ -219,7 +222,7 @@ export default function RecentBales(props: RecentBalesProps) {
                         src={comment}
                         alt=''
                         className='cursor-pointer mx-auto hover:-my-1 hover:shadow-lg hover:shadow-gray-600 hover:bg-gray-300/80 hover:w-10 w-7 mr-1 hover:p-2 duration-300 rounded-md'
-                        onClick={() => setDetailView(prev => !prev)}
+                        onClick={() => router.push("/river/" + viewBale.parentLog + "/" + viewBale.title.split(" ").join("") + "?baleid=" + viewBale.id)}
                     />
                     </div>
                     <div className='text-center pt-1 pb-2'>
