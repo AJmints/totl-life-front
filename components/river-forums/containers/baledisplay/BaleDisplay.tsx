@@ -113,7 +113,7 @@ const BaleDisplay = () => {
 
     return (
         <>
-            <div className='bg-gray-700/80 p-2 rounded-md'>
+            <div className='bg-gray-700/80 p-2 rounded-md min-h-screen'>
             { updateBales ? 
             <div className="space-y-4">
             <div className="bg-gray-600/80 py-2 rounded-md justify-center flex">
@@ -122,7 +122,7 @@ const BaleDisplay = () => {
                     {balePageNav(baleNav)}
                 </div>
             </div>
-            {viewBalesInLog}
+                {viewBalesInLog}
             <div className="bg-gray-600/80 py-2 rounded-md justify-center flex">
                 <div className="flex">
                     <p>Page:</p>

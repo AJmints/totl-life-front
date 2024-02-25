@@ -1,4 +1,4 @@
-import BalePostPageViewContainer from "@/components/river-forums/containers/balepostpage-container/BalePostPageView"
+import BalePostPageViewContainer from "@/components/river-forums/containers/bale-pageviewcontainer/BalePostPageViewContainer"
 
 const ViewLogPostPage = () => {
 

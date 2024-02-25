@@ -186,7 +186,7 @@ export default function RecentBales(props: RecentBalesProps) {
                             alt=''
                             width={90}
                             height={90}
-                            className='w-16 mx-auto rounded-full cursor-pointer'
+                            className='w-16 h-16 mx-auto rounded-full cursor-pointer'
                             onClick={() => router.push("/user/" + viewBale.userName)}
                         /> 
                         </div>
@@ -197,11 +197,11 @@ export default function RecentBales(props: RecentBalesProps) {
                             alt=''
                             width={90}
                             height={90}
-                            className='w-16 mx-auto rounded-full cursor-pointer'
+                            className='w-16 h-16 mx-auto rounded-full cursor-pointer'
                             onClick={() => router.push("/user/" + viewBale.userName)}
                         />
                         }
-                        <p className='text-gray-300'>user/{viewBale.userName}</p>
+                        <p className='text-gray-300'>t/{viewBale.userName}</p>
                     </div>   
                     </div>         
                 {/* Like and Comment and Option button */}

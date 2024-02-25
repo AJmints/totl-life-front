@@ -1,9 +1,9 @@
 const ProfilePageView = () => {
 
     return (
-        <>
-        <p>Hello</p>
-        </>
+        <div className="bg-gray-700/80 text-center p-10 font-extralight text-white">
+        <p>User Profile view page is under construction</p>
+        </div>
     )
 }
 
