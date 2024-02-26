@@ -89,7 +89,7 @@ export default function ViewComments(props: any) {
     })
 
     return (
-        <div className='bg-gray-500/50 p-2 rounded-md'>
+        <div className='bg-gray-500/50 p-2 mt-2 rounded-md'>
 
             { loading ? 
             <div className='flex justify-center'>
