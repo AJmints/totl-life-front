@@ -7,11 +7,10 @@ import ViewComments from './view-comments/ViewComments'
 import MainBale from './bale-main/MainBale'
 import SocialActionBarContainer from './social-action-bar/SocialActionBarContainer'
 
-const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
-
 const BalePostPageViewContainer = () => {
-
+    // Refresh feed after submitting a new post
     const [ breaker, setBreaker ] = useState<boolean>(false)
+    // Hides comments while post is loading
     const [ commentLoader, setCommentLoader ] = useState<boolean>(false) 
 
     const searchParams = useSearchParams()

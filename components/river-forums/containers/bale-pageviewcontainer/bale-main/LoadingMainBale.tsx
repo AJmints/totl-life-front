@@ -6,7 +6,9 @@ const LoadingMainBale = () => {
     return (
         <>
             <div className='flex left-0'>
-                <button className='bg-gray-400 p-3 rounded-md hover:bg-emerald-500 duration-300'>Back</button>
+                <div className='bg-gray-400 p-1.5 rounded-md hover:bg-emerald-500 duration-300'>
+                    <div className=" py-3 px-6 bg-gray-600/60 rounded-md animate-pulse"></div>
+                </div>
             </div>
 
             <div className="flex mb-2 justify-between items-center">
