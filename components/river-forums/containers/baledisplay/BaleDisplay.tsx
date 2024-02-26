@@ -1,10 +1,9 @@
 'use client'
 
 import RecentBales from './balepost-container/RecentBales'
-import EmptyBalesSkeleton from '@/components/bales-depreciated/loading-skeleton/EmptyBalesSkeleton'
+import LoadingBalesSkeleton from './LoadingBalesSkeleton'
 import { useState, useEffect } from 'react'
-import { usePathname, useRouter } from "next/navigation"
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+import { usePathname } from "next/navigation"
 import { useRiverContext } from '@/app/context/RiverContextProvider'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -19,7 +18,6 @@ const BaleDisplay = () => {
     const [allLogsBales, setAllLogsBales] = useState<any[]>([])
 
     const pathname: string | null = usePathname()
-    const router: AppRouterInstance = useRouter()
 
     useEffect(() => {
         baleListMethod()        
@@ -132,7 +130,7 @@ const BaleDisplay = () => {
             </div>
             :
             <> 
-            <EmptyBalesSkeleton />
+            <LoadingBalesSkeleton />
             </>
             }
             </div>
