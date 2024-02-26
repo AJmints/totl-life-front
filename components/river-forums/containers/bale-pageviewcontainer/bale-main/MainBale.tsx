@@ -4,10 +4,11 @@ import Image from "next/image"
 import pfpDefault from '../../../../../public/icons/profile-pic.png'
 import { useState, useEffect } from 'react'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
+import LoadingMainBale from "./LoadingMainBale"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
-const MainBale = () => {
+const MainBale = (props: any) => {
 
     const [ baleDetails, setBaleDetails ] = useState<any|null>(null)
 
@@ -33,7 +34,7 @@ const MainBale = () => {
 
             if (await response) {
                 setBaleDetails(response)
-                // setComments(response.comments)
+                props.setCommentLoader(true)
             } else if (await response.status === "failed") {
                 console.log("Post failed due to invalid url param")
             } else {
@@ -47,7 +48,10 @@ const MainBale = () => {
 
     return (
         <>
-
+            { baleDetails === null ? 
+            <LoadingMainBale />
+            :
+            <>
             <div className='flex left-0'>
                 <button className='bg-gray-400 p-3 rounded-md hover:bg-emerald-500 duration-300' onClick={() => router.back()}>Back</button>
             </div>
@@ -77,6 +81,8 @@ const MainBale = () => {
             <div className="bg-gray-400 rounded-b-md flex p-3">
                 <h1 className="text-sm sm:text-lg font-light">{baleDetails?.body}</h1>
             </div>
+            </>
+            }
 
         </>
     )

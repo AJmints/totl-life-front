@@ -1,9 +1,7 @@
 'use client'
 
-import pfpDefault from '../../../../public/icons/profile-pic.png'
-import { useState, useEffect } from 'react'
-import { useSearchParams, usePathname, useRouter } from 'next/navigation'
-import Image from 'next/image'
+import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import CreateComment from './create-comment/CreateComment'
 import ViewComments from './view-comments/ViewComments'
 import MainBale from './bale-main/MainBale'
@@ -14,7 +12,7 @@ const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 const BalePostPageViewContainer = () => {
 
     const [ breaker, setBreaker ] = useState<boolean>(false)
-
+    const [ commentLoader, setCommentLoader ] = useState<boolean>(false) 
 
     const searchParams = useSearchParams()
 
@@ -31,7 +29,9 @@ const BalePostPageViewContainer = () => {
 
                 {/* Main body of post */}
                 <div>
-                    <MainBale />
+                    <MainBale 
+                    setCommentLoader={setCommentLoader}
+                    />
                     <SocialActionBarContainer/>
                 </div>
 
@@ -39,6 +39,7 @@ const BalePostPageViewContainer = () => {
                 <CreateComment 
                 baleId={id}
                 setBreaker={setBreaker}
+                commentLoader={commentLoader}
                 />
                 </div>
 

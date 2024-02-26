@@ -80,33 +80,34 @@ export default function CreateComment(props: any) {
 
     return (
         <div>
-        <form className="" onSubmit={handleSubmit}>
-            <div className='w-full flex flex-col my-2'>
-            <label className="text-gray-200 font-light" htmlFor='comment'>Comment</label>
-            <textarea 
-                className="rounded-md font-normal" 
-                rows={3} 
-                placeholder="Thoughts?" 
-                name='comment' 
-                required 
-                minLength={3} maxLength={600} 
-            />
-            </div>
-            
-            <div>
-            { submitting ? 
-            <div className='flex justify-center'>
-            <p className="px-2 font-normal text-gray-800 bg-emerald-700 duration-300 rounded-md">Posting...</p>
-            </div>
+            { props.commentLoader ? 
+            <form className="" onSubmit={handleSubmit}>
+                <div className='w-full flex flex-col my-2'>
+                <label className="text-gray-200 font-light" htmlFor='comment'>Comment</label>
+                <textarea 
+                    className="rounded-md font-normal" 
+                    rows={3} 
+                    placeholder="Thoughts?" 
+                    name='comment' 
+                    required 
+                    minLength={3} maxLength={600} 
+                />
+                </div>
+                
+                <div>
+                { submitting ? 
+                <div className='flex justify-center'>
+                <p className="px-2 font-normal text-gray-800 bg-emerald-700 duration-300 rounded-md">Posting...</p>
+                </div>
+                :
+                <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
+                }   
+                </div>
+                
+            </form>
             :
-            <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Submit</button>
-            }   
-            </div>
-            
-        </form>
-        <div className="mt-3">
-       
-        </div>
+            <></>
+            }
         </div>
     )
 }
