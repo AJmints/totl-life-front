@@ -8,6 +8,8 @@ import userIcon from '../../../../..//public/icons/profile-pic.png'
 import { useState } from 'react'
 import ViewBaleComments from './balecomment/ViewBaleComments'
 import { useRouter } from 'next/navigation'
+import UpVoteButton from '../../buttons/bale-post-buttons/UpVoteButton'
+import DownCountButton from '../../buttons/bale-post-buttons/DownVoteButton'
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -56,48 +58,6 @@ export default function RecentBales(props: RecentBalesProps) {
     const [downCount, setDownCount] = useState<number>(viewBale.downVoteCount)
 
     const router = useRouter()
-
-    const upVote = async() => {
-        const userPresent = await authCheck()
-        if (!userPresent) {
-            console.log("Not logged in")
-            return
-        }
-
-        const data: Object = {
-            userId: USER_ID,
-            baleId: viewBale.id
-        }
-
-        const postUpVote: Response = await fetch( URL + "/logs/upvote-post", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "Bearer " + await token()
-            },
-            body: JSON.stringify(data)
-        })
-        const response: ResponseUpDownVote = await postUpVote.json().catch((err) => {
-            USER_ID = ""
-            console.log(err)
-        })
-        switch (response.response) {
-            case "inc":
-                setUpCount(prev => prev + 1)
-                break
-            case "dec":
-                setUpCount(prev => prev -1)
-                break
-            case "inc-dec":
-                setUpCount(prev => prev + 1)
-                setDownCount(prev => prev - 1)
-                break
-            case "This bale does not exist.":
-                break
-        }
-        return
-
-    }
 
     const downVote = async() => {
         const userPresent = await authCheck()
@@ -207,15 +167,12 @@ export default function RecentBales(props: RecentBalesProps) {
                 {/* Like and Comment and Option button */}
                 <div className='w-[60%] sm:w-[100%] mr-2 block h-[50%]'>
                 <div className="bg-gray-300/70 flex justify-around sm:justify-between items-center py-3 sm:py-0 sm:h-[50%] rounded-t-md sm:rounded-tl-none">
-                    <div className='text-center pt-1 pb-2'>
-                    <p className='font-normal text-xs'>{upCount}</p>
-                    <Image
-                        src={arrow}
-                        alt=""
-                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 -rotate-90 ml-1 bg-emerald-500/50 hover:bg-emerald-400/90 duration-200 rounded-full p-1'
-                        onClick={() => upVote()}
+                    <UpVoteButton
+                    id={viewBale?.id}
+                    setUpCount={setUpCount}
+                    setDownCount={setDownCount}
+                    upCount={upCount}
                     />
-                    </div>
                     <div className='text-center pt-1 pb-2'>
                     <p className='font-normal text-xs mb-1'>{viewBale.commentCount}</p>
                     <Image
@@ -237,15 +194,12 @@ export default function RecentBales(props: RecentBalesProps) {
                 </div>
                 {/* Dislike and Share and Save button */}
                 <div className="bg-gray-400/70 flex justify-around sm:justify-between items-center rounded-b-md sm:rounded-bl-none py-3 sm:py-0 sm:h-[50%]">
-                    <div className='text-center'>
-                    <Image
-                        src={arrow}
-                        alt=""
-                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-500 w-8 rotate-90 ml-1  hover:bg-emerald-700/80 duration-200 bg-emerald-900/50 rounded-full p-1'
-                        onClick={() => downVote()}
+                    <DownCountButton
+                    id={viewBale.id}
+                    setUpCount={setUpCount}
+                    setDownCount={setDownCount}
+                    downCount={downCount}
                     />
-                    <p className='font-normal text-xs'>{downCount}</p>
-                    </div>
                     <Image
                         src={share}
                         alt=''
