@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import arrow from "../../../../../public/icons/Arrow.png"
+import arrow from "../../../../../../public/icons/Arrow.png"
 import { useState } from "react"
 
 let USER_ID: string
@@ -88,22 +88,25 @@ const DownCountButton = (props: DownVoteProps) => {
 
     return (
         <>
-            <div className='text-center'>
+            <div className='text-center flex items-center'>
+                <div className="">
+                <p className='font-light text-xl mx-2'>{props.downCount}</p>
+                </div>
                 { pauseButton ?
                 <Image
                 src={arrow}
                 alt=""
-                className='cursor-pointer hover:shadow-lg hover:shadow-gray-500 w-8 rotate-90 ml-1  hover:bg-emerald-700/80 duration-200 bg-emerald-900/50 rounded-full p-1'
+                className='cursor-pointer hover:shadow-lg hover:shadow-gray-500 w-8 sm:w-10 rotate-90  hover:bg-emerald-700/80 duration-200 bg-emerald-800/60 rounded-full p-1'
                 />
                 :   
                 <Image
                     src={arrow}
                     alt=""
-                    className='cursor-pointer hover:shadow-lg hover:shadow-gray-500 w-8 rotate-90 ml-1  hover:bg-emerald-700/80 duration-200 bg-emerald-900/50 rounded-full p-1'
+                    className='cursor-pointer hover:shadow-lg hover:shadow-gray-500 w-8 sm:w-10 rotate-90  hover:bg-emerald-700/80 duration-200 bg-emerald-800/60 rounded-full p-1'
                     onClick={() => downVote()}
                 />
                 }
-                <p className='font-normal text-xs'>{props.downCount}</p>
+                
             </div>
         </>
     )

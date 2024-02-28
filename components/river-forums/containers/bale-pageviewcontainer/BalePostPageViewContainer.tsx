@@ -7,11 +7,22 @@ import ViewComments from './view-comments/ViewComments'
 import MainBale from './bale-main/MainBale'
 import SocialActionBarContainer from './social-action-bar/SocialActionBarContainer'
 
+type SocialBarProps = {
+    id: number | null
+    upVote: number[] | null
+    downVote: number[] | null
+}
+
 const BalePostPageViewContainer = () => {
     // Refresh feed after submitting a new post
     const [ breaker, setBreaker ] = useState<boolean>(false)
     // Hides comments while post is loading
-    const [ commentLoader, setCommentLoader ] = useState<boolean>(false) 
+    const [ awaitLoader, setAwaitLoader ] = useState<boolean>(false) 
+    const [ socialInfo, setSocialInfo ] = useState<SocialBarProps>({
+        id: null,
+        upVote: null,
+        downVote: null,
+    })
 
     const searchParams = useSearchParams()
 
@@ -29,16 +40,20 @@ const BalePostPageViewContainer = () => {
                 {/* Main body of post */}
                 <div>
                     <MainBale 
-                    setCommentLoader={setCommentLoader}
+                    setCommentLoader={setAwaitLoader}
+                    setSocialInfo={setSocialInfo}
                     />
-                    <SocialActionBarContainer/>
+                    <SocialActionBarContainer
+                    socialInfo={socialInfo}
+                    socialLoader={awaitLoader}
+                    />
                 </div>
 
                 <div>
                 <CreateComment 
                 baleId={id}
                 setBreaker={setBreaker}
-                commentLoader={commentLoader}
+                commentLoader={awaitLoader}
                 />
                 </div>
 

@@ -8,8 +8,11 @@ import userIcon from '../../../../..//public/icons/profile-pic.png'
 import { useState } from 'react'
 import ViewBaleComments from './balecomment/ViewBaleComments'
 import { useRouter } from 'next/navigation'
-import UpVoteButton from '../../buttons/bale-post-buttons/UpVoteButton'
-import DownCountButton from '../../buttons/bale-post-buttons/DownVoteButton'
+import UpVoteButton from '../../buttons/bale-post-buttons/upvote/UpVoteButton'
+import DownCountButton from '../../buttons/bale-post-buttons/downvote/DownVoteButton'
+import ShareLinkButton from '../../buttons/bale-post-buttons/share/ShareLinkButton'
+import FavoriteSaveButton from '../../buttons/bale-post-buttons/favorite-save/FavoriteSaveButton'
+import BaleEditOptionButton from '../../buttons/bale-post-buttons/edit-options/BaleEditOptionButton'
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -59,52 +62,11 @@ export default function RecentBales(props: RecentBalesProps) {
 
     const router = useRouter()
 
-    const downVote = async() => {
-        const userPresent = await authCheck()
-        if (!userPresent) {
-            console.log("Not logged in")
-            return
-        }
-        const data = {
-            userId: USER_ID,
-            baleId: viewBale.id
-        }
-        const postUpVote: Response = await fetch( URL + "/logs/downvote-post", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "Bearer " + await token()
-            },
-            body: JSON.stringify(data)
-        })
-        USER_ID = ""
-        const response: ResponseUpDownVote = await postUpVote.json().catch((err) => {
-            console.log(err)
-        })
-        switch (response.response) {
-            case "inc":
-                setDownCount(prev => prev + 1)
-                break
-            case "dec":
-                setDownCount(prev => prev -1)
-                break
-            case "inc-dec":
-                setDownCount(prev => prev + 1)
-                setUpCount(prev => prev - 1)
-                break
-            case "This bale does not exist.":
-                break
-        }
-        return
-    }
-
     const addFavorite = async() => {
         console.log("add favorites")
     }
 
-    const shareBale = async() => {
-        console.log("share details")
-    }
+    
 
     const baleMenuOption = () => {
         console.log("menu options")
@@ -173,45 +135,33 @@ export default function RecentBales(props: RecentBalesProps) {
                     setDownCount={setDownCount}
                     upCount={upCount}
                     />
-                    <div className='text-center pt-1 pb-2'>
-                    <p className='font-normal text-xs mb-1'>{viewBale.commentCount}</p>
+
+                    <div className='flex items-center'>
+                    <p className='font-normal text-xs'>{viewBale.commentCount}</p>
                     <Image
                         src={comment}
                         alt=''
-                        className='cursor-pointer mx-auto hover:-my-1 hover:shadow-lg hover:shadow-gray-600 hover:bg-gray-300/80 hover:w-10 w-7 mr-1 hover:p-2 duration-300 rounded-md'
+                        className='cursor-pointer mx-auto hover:shadow-lg hover:shadow-gray-600 hover:bg-gray-300/80 w-11 p-2 duration-300 rounded-md'
                         onClick={() => router.push("/river/" + viewBale.parentLog + "/" + viewBale.title.replace("?", "").split(" ").join("") + "totl?baleid=" + viewBale.id)}
                     />
                     </div>
-                    <div className='text-center pt-1 pb-2'>
-                    <p className='font-normal mr-3 text-xs mb-1'>{viewBale.saveCount}</p>
-                    <Image
-                        src={saveIcon}
-                        alt=''
-                        className='cursor-pointer hover:-m-1 hover:shadow-lg hover:p-2 hover:rounded-md duration-300 hover:bg-red-500/80  hover:w-8 hover:mr-1 hover:shadow-gray-600 w-5 mr-3'
-                        onClick={() => addFavorite()}
-                    />
-                    </div>
+
+                    <FavoriteSaveButton />
                 </div>
                 {/* Dislike and Share and Save button */}
                 <div className="bg-gray-400/70 flex justify-around sm:justify-between items-center rounded-b-md sm:rounded-bl-none py-3 sm:py-0 sm:h-[50%]">
+                    
                     <DownCountButton
                     id={viewBale.id}
                     setUpCount={setUpCount}
                     setDownCount={setDownCount}
                     downCount={downCount}
                     />
-                    <Image
-                        src={share}
-                        alt=''
-                        className='cursor-pointer hover:shadow-lg hover:-m-0.5 hover:shadow-gray-600 hover:bg-red-500/80 w-6 mr-2 hover:w-9 hover:p-1 duration-300 rounded-md'
-                        onClick={() => shareBale()}
-                    />
-                    <Image
-                        src={options}
-                        alt=''
-                        className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 h-8 mr-3 hover:bg-red-500/80  w-auto hover:mr-1 hover:-ml-2 rounded-md duration-300 p-2 hover:px-4 '
-                        onClick={() => baleMenuOption()}
-                    />
+                    
+                    <ShareLinkButton />
+                    
+                    <BaleEditOptionButton />
+
                 </div>
                 </div>
             </div>

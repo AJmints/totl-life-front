@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image"
-import arrow from "../../../../../public/icons/Arrow.png"
+import arrow from "../../../../../../public/icons/Arrow.png"
 import { useState } from "react"
 
 let USER_ID: string
@@ -89,19 +89,19 @@ const UpVoteButton = (props: UpVoteProps) => {
 
     return (
         <>
-            <div className='text-center pt-1 pb-2'>
-                <p className='font-normal text-xs'>{props.upCount}</p>
+            <div className='flex items-center'>
+                <p className='font-light text-xl mx-2'>{props.upCount}</p>
                 {pauseButton ? 
                 <Image
                 src={arrow}
                 alt=""
-                className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 -rotate-90 ml-1 bg-emerald-500/50 hover:bg-emerald-400/90 duration-200 rounded-full p-1'
+                className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 sm:w-10 -rotate-90 bg-emerald-500/50 hover:bg-emerald-400/90 duration-200 rounded-full p-1'
                 />
                 :
                 <Image
                     src={arrow}
                     alt=""
-                    className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 -rotate-90 ml-1 bg-emerald-500/50 hover:bg-emerald-400/90 duration-200 rounded-full p-1'
+                    className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 w-8 sm:w-10 -rotate-90 bg-emerald-500/50 hover:bg-emerald-400/90 duration-200 rounded-full p-1'
                     onClick={() => upVote()}
                 />
                 }

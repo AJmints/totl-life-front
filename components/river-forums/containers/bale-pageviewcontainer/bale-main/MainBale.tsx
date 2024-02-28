@@ -33,6 +33,7 @@ const MainBale = (props: any) => {
             })
 
             if (await response) {
+                props.setSocialInfo({id: response.id, upVote: response.upVoteIds, downVote: response.downVoteIds})
                 setBaleDetails(response)
                 props.setCommentLoader(true)
             } else if (await response.status === "failed") {
