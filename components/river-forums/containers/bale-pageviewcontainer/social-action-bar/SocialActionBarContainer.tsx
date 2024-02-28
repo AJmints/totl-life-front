@@ -1,11 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import UpVoteButton from '../../buttons/bale-post-buttons/upvote/UpVoteButton'
 import DownCountButton from '../../buttons/bale-post-buttons/downvote/DownVoteButton'
 import ShareLinkButton from '../../buttons/bale-post-buttons/share/ShareLinkButton'
 import FavoriteSaveButton from '../../buttons/bale-post-buttons/favorite-save/FavoriteSaveButton'
 import BaleEditOptionButton from '../../buttons/bale-post-buttons/edit-options/BaleEditOptionButton'
+import UpVoteButton from '../../buttons/bale-post-buttons/upvote/UpVoteButton'
 
 const SocialActionBarContainer = (props: any) => {
 
@@ -28,7 +28,7 @@ const SocialActionBarContainer = (props: any) => {
     return (
         <>
         {props.socialLoader ? 
-        <div className="bg-gradient-to-l from-gray-600 to-gray-500 px-2 py-1 rounded-md mt-2 flex justify-around" onClick={() => console.log(upCount)}>
+        <div className="bg-gradient-to-l from-gray-600 to-gray-500 px-2 py-1 rounded-md mt-2 flex justify-around">
             <div className='flex sm:space-x-2'>
             <UpVoteButton
             id={props.socialInfo.id}
