@@ -28,7 +28,7 @@ const SocialActionBarContainer = (props: any) => {
     return (
         <>
         {props.socialLoader ? 
-        <div className="bg-gradient-to-l from-gray-600 to-gray-500 px-2 py-1 rounded-md mt-2 flex justify-around">
+        <div className="bg-gradient-to-l from-gray-600 to-gray-500/70 px-2 py-1 rounded-md mt-2 flex justify-around">
             <div className='flex sm:space-x-2'>
             <UpVoteButton
             id={props.socialInfo.id}

@@ -15,8 +15,6 @@ const RightMenuContainer = () => {
             <div className="space-y-2">
 
             <AboutLogContainer 
-            following={following}
-            setFollowing={setFollowing}
             />
 
             <FollowingLogs 

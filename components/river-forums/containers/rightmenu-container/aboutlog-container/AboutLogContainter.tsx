@@ -34,11 +34,10 @@ interface RetrieveLogListResponse {
     logNames: string[],
 }
 
-const AboutLogContainer = (props: any) => {
+const AboutLogContainer = () => {
 
     const {desc} = useRiverContext()
 
-    const [following, setFollowing] = useState<boolean>(false)
     const [showLogDesc, setShowLogDesc] = useState<boolean>(true)
     const [logName, setLogName] = useState<string>()
     const pathname: string | null = usePathname()
@@ -50,73 +49,40 @@ const AboutLogContainer = (props: any) => {
     
     }, [])
 
-
-    // const followLog = async(log: string) => {
-    //     if (!await authCheck()) {
-    //         // TODO
-    //         console.log("logout")
-    //     }
-
-    //     const data: Object = {
-    //         userId: USER_ID,
-    //         logName: log,
-    //     }
-
-    //     const requestFollow: Response = await fetch( URL + "/logs/add-log-follow", {
-    //         method: 'POST',
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             "auth-token": "Bearer " + await token()
-    //         },
-    //         body: JSON.stringify(data)
-    //     })
-    //     const response: any  = await requestFollow.json().catch((err: Error) => {
-    //         console.log(err)
-    //     })
-        
-    //     if (response.status === "follow") {
-    //         props.setFollowing(true)
-    //     } else if (response.status === "unfollow") {
-    //         props.setFollowing(false)
-    //     }
-    //     USER_ID = ""
-
-    // }
-
-
     return (
-        <>
-             <div className="py-3 px-2 mx-2 sm:w-72 sm:px-5 text-gray-200 font-light rounded-md items-center space-y-2 sm:space-y-0 justify-between bg-gray-700/90 shadow-lg shadow-gray-800/60">
-                <h1>log/{logName === "/river" ? "home" : logName}</h1>
-                <div className="pt-2">
-                    {logName === "/river" ? 
-                    <></>
-                    :
-                    <FollowJoinLog 
-                    logName={logName}
-                    />
-                    }
-                </div>
-                { showLogDesc ? 
-                <p className="text-left text-sm font-extralight py-3">{desc}</p>
-                :
+        <div>
+
+            <div className="py-3 px-2 mx-2 sm:w-72 sm:px-5 text-gray-200 font-light rounded-md items-center space-y-2 sm:space-y-0 justify-between bg-gray-700/90 shadow-lg shadow-gray-800/60">
+            <h1>log/{logName === "/river" ? "home" : logName}</h1>
+            <div className="pt-2">
+                {logName === "/river" ? 
                 <></>
+                :
+                <FollowJoinLog 
+                logName={logName}
+                />
                 }
-                <div className="flex items-center justify-center">
-                <Image 
-                src={arrow}
-                alt=""
-                width={30}
-                className={showLogDesc ? "bg-gray-500 mr-2 cursor-pointer p-1 rounded-md duration-300 -rotate-90" : "bg-gray-500 mr-2 cursor-pointer p-1 rounded-md duration-300 rotate-90"}
-                onClick={() => setShowLogDesc((prev: boolean) => !prev)} />
-                { showLogDesc ? 
-                <p className="text-sm">Hide</p>
-                : 
-                <p className='text-sm'>Show</p>
-                }
-                </div>
             </div>
-        </>
+            { showLogDesc ? 
+            <p className="text-left text-sm font-extralight py-3">{desc}</p>
+            :
+            <></>
+            }
+            <div className="flex items-center justify-center">
+            <Image 
+            src={arrow}
+            alt=""
+            width={30}
+            className={showLogDesc ? "bg-gray-500 mr-2 cursor-pointer p-1 rounded-md duration-300 -rotate-90" : "bg-gray-500 mr-2 cursor-pointer p-1 rounded-md duration-300 rotate-90"}
+            onClick={() => setShowLogDesc((prev: boolean) => !prev)} />
+            { showLogDesc ? 
+            <p className="text-sm">Hide</p>
+            : 
+            <p className='text-sm'>Show</p>
+            }
+            </div>
+        </div>
+        </div>
     )
 }
 

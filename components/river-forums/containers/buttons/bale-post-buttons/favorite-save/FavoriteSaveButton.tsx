@@ -5,11 +5,11 @@ import fav from "../../../../../../public/icons/Save.png"
 const FavoriteSaveButton = () => {
 
     const saveBale = async() => {
-        console.log("share details")
+        console.log("Save details")
     }
 
     return (
-        <div className="text-center pt-1 pb-2 items-center flex">
+        <div className="text-center sm:mr-2 items-center flex">
             <Image
                 src={fav}
                 alt=''
