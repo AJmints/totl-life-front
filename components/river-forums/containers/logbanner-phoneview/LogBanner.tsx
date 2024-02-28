@@ -28,7 +28,7 @@ const LogBanner = () => {
         <div className="flex lg:hidden">
 
             <div className=" mr-2 items-center flex">
-                <button className="bg-gray-500 rounded-md p-3 hover:bg-emerald-500 shadow-lg duration-300" onClick={() => router.back()}>Back</button>
+                <button className="bg-gray-400 rounded-md p-3 hover:bg-emerald-500 shadow-lg duration-300" onClick={() => router.back()}>Back</button>
             </div>
 
             <div className="bg-gray-800/90 rounded-md text-gray-200 items-center p-4 block space-y-2 sm:space-y-0 sm:flex justify-center">            

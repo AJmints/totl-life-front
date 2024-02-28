@@ -20,6 +20,7 @@ const BaleDisplay = () => {
     const pathname: string | null = usePathname()
 
     useEffect(() => {
+        console.log(baleNav)
         baleListMethod()        
     }, [baleIndex])
 
@@ -116,7 +117,7 @@ const BaleDisplay = () => {
             <div className="space-y-4">
             <div className="bg-gray-600/80 py-2 rounded-md justify-center flex">
                 <div className="flex">
-                    <p>Page:</p>
+                    <p onClick={() => console.log(baleNav)}>Page:</p>
                     {balePageNav(baleNav)}
                 </div>
             </div>

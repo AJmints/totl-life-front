@@ -136,13 +136,12 @@ export default function RecentBales(props: RecentBalesProps) {
                     upCount={upCount}
                     />
 
-                    <div className='flex items-center'>
+                    <div className='flex items-center hover:shadow-lg hover:shadow-gray-600 p-2 duration-300 rounded-md cursor-pointer hover:bg-gray-300/80' onClick={() => router.push("/river/" + viewBale.parentLog + "/" + viewBale.title.replace("?", "").split(" ").join("") + "totl?baleid=" + viewBale.id)}>
                     <p className='font-normal text-xs'>{viewBale.commentCount}</p>
                     <Image
                         src={comment}
                         alt=''
-                        className='cursor-pointer mx-auto hover:shadow-lg hover:shadow-gray-600 hover:bg-gray-300/80 w-11 p-2 duration-300 rounded-md'
-                        onClick={() => router.push("/river/" + viewBale.parentLog + "/" + viewBale.title.replace("?", "").split(" ").join("") + "totl?baleid=" + viewBale.id)}
+                        className='mx-1 w-6 sm:w-7'
                     />
                     </div>
 

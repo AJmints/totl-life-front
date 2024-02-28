@@ -98,7 +98,7 @@ export default function Header() {
     }
 
     return (
-        <header className="flex bg-gray-700 justify-between xl:justify-around shadow-lg bg-shadow-900/90">
+        <header id="top" className="flex bg-gray-700 justify-between xl:justify-around shadow-lg bg-shadow-900/90">
             
             {/* Hamburger menu in phone view */}
             <div className="sm:hidden  flex items-center">
