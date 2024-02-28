@@ -40,9 +40,9 @@ const FollowingLogs = (props: any) => {
                 router.push("/login")
             }  else {
                 if (followingList.length > 0) {
-                    console.log("Already retrieved")
+                    // console.log("Already retrieved")
                 } else {
-                    console.log("Refresh list")
+                    // console.log("Refresh list")
                     retrieveLogList()
                 }
             }
