@@ -80,6 +80,7 @@ export default function Header() {
             setLoadingHeader(false)
             return
         }
+        setLoadingHeader(true)
         checkLoginStatus() 
         
     }, [userLogged])
