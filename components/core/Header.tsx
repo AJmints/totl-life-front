@@ -41,6 +41,8 @@ export default function Header() {
     const [aboutToggle, setAboutToggle] = useState<boolean>(false)
     const [aboutTogglePhone, setAboutTogglePhone] = useState<boolean>(false)
     const [loginToggle, setLoginToggle] = useState<boolean>(false)
+    const [pfpTemp, setPfpTemp] = useState<any>(null)
+    const [useTemp, setUseTemp] = useState(false)
     const [userDetailsToggle, setUserDetailsToggle] = useState<boolean>(false)
     const [selectLog, setSelectLog] = useState<string[]>([])
     const router = useRouter()
@@ -53,7 +55,7 @@ export default function Header() {
         const checkLoginStatus = async () => {
             const logged = await authCheck()
             if (await logged) {
-                setUserContext()
+                await setUserContext()
                 return
             } else {
                 setUserLogged(false)
@@ -70,22 +72,25 @@ export default function Header() {
             setVerified(response.accountVerified)
                 if (response.pfp) {
                     setUserPFP('data:image/jpeg;base64,' + response.pfp.image)
+                    // setPfpTemp('data:image/jpeg;base64,' + response.pfp.image)
                 } else {
                     setUserPFP(null)
                 }
             }
+            // await pfpLoaderTemp()
             setUserLogged(true)
-            USER_ID = ""
             return
         }
+        // const pfpLoaderTemp = async () => {
+        //     await userPFP
+        //     setUseTemp(true)
+        // }
         
-        if (!userLogged) {
+        // if (!userLogged) {
             checkLoginStatus() 
-        }
+        // }
         
-        
-        
-    }, [userLogged, userPFP])
+    }, [userLogged])
 
     const logout = async() => {
 
@@ -165,32 +170,27 @@ export default function Header() {
             {/* False: Login or Register */}
             { userLogged ?
             <div className="flex items-center pt-3 pb-2 mr-2 sm:mx-5 space-x-5">
-                {/* <UserProfileButton 
-                setUserID={setUserID}
-                setUserName={setUserName}
-                setVerified={setVerified}
-                setUserPFP={setUserPFP}
-                USER_ID={USER_ID}
-                setUserLogged={setUserLogged}
-                /> */}
                 <div>
-                    {userPFP !== null && userPFP !== "data:image/jpeg;base64" ? 
-                    <Image 
-                        src={userPFP}
+                    {/* { useTemp ? 
+                        <Image 
+                        src={pfpTemp}
                         alt=""
                         width={100}
                         height={100}
                         className="cursor-pointer h-12 w-12 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
                         onClick={() => setUserDetailsToggle(prev => !prev)}
-                    />
-                    :
-                    <Image 
-                        src={picDefault}
+                        />
+                        : */}
+                        <Image 
+                        src={ userPFP === null ? picDefault : userPFP}
                         alt=""
+                        width={100}
+                        height={100}
                         className="cursor-pointer h-12 w-12 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
                         onClick={() => setUserDetailsToggle(prev => !prev)}
-                    />
-                    }
+                        />
+                    {/* // } */}
+                    
                 </div>
                 {/* Open user sidebard from Profile Icon */}
                     <UserOptionsConst
