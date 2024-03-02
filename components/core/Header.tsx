@@ -98,6 +98,7 @@ export default function Header() {
         setUserName("")
         setVerified(false)
         setUserPFP(null)
+        router.push("/")
         
     }
 
