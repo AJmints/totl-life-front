@@ -17,8 +17,8 @@ import { useRiverContext } from "@/app/context/RiverContextProvider"
 let USER_ID: string = ""
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
-export const serverSideProps = () => {
-    fetch("/api/logout")
+export const serverSideProps = async () => {
+    await fetch("/api/logout")
 }
 
 export const authCheck = async() => {
@@ -87,9 +87,9 @@ export default function Header() {
         
     }, [userLogged, userPFP])
 
-    const logout = () => {
+    const logout = async() => {
 
-        serverSideProps()
+        await serverSideProps()
         setUserLogged(false)
         setUserDetailsToggle(false)
         setLoginToggle(false)
@@ -98,7 +98,6 @@ export default function Header() {
         setUserName("")
         setVerified(false)
         setUserPFP(null)
-        router.push("/")
         
     }
 
