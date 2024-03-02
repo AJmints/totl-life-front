@@ -196,6 +196,7 @@ export default function Header() {
                     setLoginToggle={setLoginToggle}
                     setUserLogged={setUserLogged}
                     userLogged={userLogged}
+                    setLoadingHeader={setLoadingHeader}
                      />
                 </div>
                 :
