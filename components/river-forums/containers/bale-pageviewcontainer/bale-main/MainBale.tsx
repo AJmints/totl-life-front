@@ -61,7 +61,7 @@ const MainBale = (props: any) => {
             <p className='text-left font-normal text-sm cursor-pointer my-2 bg-gray-400 p-2 rounded-md hover:bg-emerald-500 duration-200' onClick={() => router.push("/river/" + baleDetails?.parentLog)}>log/{baleDetails?.parentLog}</p>
             <div className="flex justify-center items-center">
                 <Image
-                    src={baleDetails?.userPFP === undefined ? pfpDefault : 'data:image/jpeg;base64,' + baleDetails?.userPFP}
+                    src={baleDetails?.userPFP === null ? pfpDefault : 'data:image/jpeg;base64,' + baleDetails?.userPFP}
                     alt=""
                     width={30}
                     height={30}

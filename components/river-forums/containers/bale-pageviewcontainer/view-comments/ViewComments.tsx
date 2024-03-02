@@ -58,7 +58,7 @@ export default function ViewComments(props: any) {
         return (
             <div className='my-3 flex items-center' key={comment?.id}>
                 <div className='mr-4'>
-                {  comment.userPFP === "" ? 
+                {  comment.userPFP === null ? 
                     <div>
                     <Image
                         src={userIcon}
