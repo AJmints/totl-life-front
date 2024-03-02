@@ -52,6 +52,11 @@ export default function LoginForm(props: any) {
         redirect()
     }, [])
 
+    const registerLink = () => {
+        props.setLoginToggle((prev:boolean) => !prev)
+        router.push("/register")
+    }
+
     const handlSubmit = async(event: any) => {
         event.preventDefault()
 
@@ -133,7 +138,7 @@ export default function LoginForm(props: any) {
 
             <div className="block sm:flex mt-3 font-light">
             <h2>Are you new here?</h2>
-            <Link href="/register" className="text-blue-600 border-b-2 border-blue-600">Create an account!</Link>
+            <button onClick={() => registerLink()} className="text-blue-600 border-b-2 border-blue-600">Create an account!</button>
             </div>
 
             {/* Social login Option */}

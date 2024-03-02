@@ -69,7 +69,11 @@ export default function Header() {
             setUserID(response.userId)
             setUserName(response.userName)
             setVerified(response.accountVerified)
-            setUserPFP('data:image/jpeg;base64,' + response.pfp.image)
+                if (response.pfp) {
+                    setUserPFP('data:image/jpeg;base64,' + response.pfp.image)
+                } else {
+                    setUserPFP(null)
+                }
             }
 
             USER_ID = ""
@@ -169,7 +173,7 @@ export default function Header() {
                 setUserLogged={setUserLogged}
                 /> */}
                 <div>
-                    {userPFP !== null ? 
+                    {userPFP !== null && userPFP !== "data:image/jpeg;base64" ? 
                     <Image 
                         src={userPFP}
                         alt=""
