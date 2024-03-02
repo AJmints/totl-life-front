@@ -49,7 +49,6 @@ export default function LoginForm(props: any) {
     }
 
     useEffect(function () {
-        console.log(pathname)
         redirect()
     }, [])
 
@@ -109,8 +108,6 @@ export default function LoginForm(props: any) {
                 location.reload()
                 return
             }
-            
-            
             
         }
         if (result.status === "failed") {

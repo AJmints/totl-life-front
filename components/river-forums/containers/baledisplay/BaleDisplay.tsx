@@ -1,10 +1,11 @@
 'use client'
 
 import RecentBales from './balepost-container/RecentBales'
-import LoadingBalesSkeleton from './LoadingBalesSkeleton'
+import EmptyBalesSkeleton from './EmptyBalesSkeleton'
 import { useState, useEffect } from 'react'
 import { usePathname } from "next/navigation"
 import { useRiverContext } from '@/app/context/RiverContextProvider'
+import LoadingBales from './LoadingBales'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -20,7 +21,6 @@ const BaleDisplay = () => {
     const pathname: string | null = usePathname()
 
     useEffect(() => {
-        console.log(baleNav)
         baleListMethod()        
     }, [baleIndex])
 
@@ -34,12 +34,13 @@ const BaleDisplay = () => {
             if (baleNav !== response.total) {
                 setBaleNav(response.total)
             }
-            if (response.total === 0) {
-                setUpdateBales(false)
-            } else { 
-                setUpdateBales(true)
-            }
+            // if (response.total === 0) {
+            //     setUpdateBales(false)
+            // } else { 
+                
+            // }
             setAllLogsBales(response.allBales)
+            setUpdateBales(true)
             setDesc(response.logDescription)            
             return
         } else {
@@ -114,10 +115,12 @@ const BaleDisplay = () => {
         <>
             <div className='bg-gray-700/80 p-2 rounded-md min-h-screen'>
             { updateBales ? 
+            <>
+            { allLogsBales.length > 0 ?
             <div className="space-y-4">
             <div className="bg-gray-600/80 py-2 rounded-md justify-center flex">
                 <div className="flex">
-                    <p onClick={() => console.log(baleNav)}>Page:</p>
+                    <p>Page:</p>
                     {balePageNav(baleNav)}
                 </div>
             </div>
@@ -130,8 +133,12 @@ const BaleDisplay = () => {
             </div>
             </div>
             :
+            <EmptyBalesSkeleton />
+            }
+            </>
+            :
             <> 
-            <LoadingBalesSkeleton />
+            <LoadingBales />  
             </>
             }
             </div>

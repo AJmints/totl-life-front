@@ -1,6 +1,6 @@
 import waiting from '../../../../public/images/waiting-for-more.jpg'
 
-const LoadingBalesSkeleton = () => {
+const EmptyBalesSkeleton = () => {
 
     return (
         <div className="h-screen w-auto flex justify-center">
@@ -23,4 +23,4 @@ const LoadingBalesSkeleton = () => {
     )
 }
 
-export default LoadingBalesSkeleton
+export default EmptyBalesSkeleton
