@@ -38,7 +38,7 @@ export default function LoginForm(props: any) {
     const [readMessage, setReadMessage] = useState<string>("")
     const [loading, setLoading] = useState<boolean>(false)
 
-    const { setUserID, setUserName, setVerified } = useUserContext()
+    const { setUserID, setUserName, setVerified, setUserPFP } = useUserContext()
     const router = useRouter()
 
     const redirect = async() => {
@@ -83,6 +83,7 @@ export default function LoginForm(props: any) {
             setLoading(false)
             setReadMessage("Something went wrong, please try again.")
         })
+        console.log(result)
         if (data.userEmail === result.userEmail) {
             setLoading(false)
             props.setLoginToggle(false)
@@ -94,6 +95,12 @@ export default function LoginForm(props: any) {
             setUserID(result.id) 
             setUserName(result.userName)
             setVerified(result.accountVerified)
+                if (result.userPfp) {
+                    setUserPFP('data:image/jpeg;base64,' + result.userPfp)
+                } else {
+                    setUserPFP(null)
+                }
+            
             router.refresh()
             router.push("/river")
             return

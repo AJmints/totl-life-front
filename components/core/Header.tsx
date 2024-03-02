@@ -54,7 +54,7 @@ export default function Header() {
         const checkLoginStatus = async () => {
             const logged = await authCheck()
             if (await logged) {
-                await setUserContext()
+                setUserContext()
                 return
             } else {
                 setUserLogged(false)
@@ -66,7 +66,7 @@ export default function Header() {
             const response = await getUserContext.json().catch(err => {
                 console.log(err)
             })
-            if (await response.userName) {
+            if (response.userName) {
             setUserID(response.userId)
             setUserName(response.userName)
             setVerified(response.accountVerified)
