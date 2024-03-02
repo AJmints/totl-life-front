@@ -19,7 +19,8 @@ export default (req, res) => {
         // const { token } = req.body.data.token
         const cookies = new Cookies(req, res)
         // const authToken = cookies.get('auth-token')
-        const token = req.body.data.token
+        console.log(req.body.data)
+        const token = req.body.data
 
         cookies.set("auth-token", token)
         return res.status(200).json({ success: true })

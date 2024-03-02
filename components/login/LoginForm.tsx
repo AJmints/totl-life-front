@@ -88,7 +88,7 @@ export default function LoginForm(props: any) {
             setLoading(false)
             props.setLoginToggle(false)
             props.setUserLogged(true)
-            setTokenCookie(result)
+            setTokenCookie(result.token)
 
             // TODO: Might need to change the methods above in if statment, below are setting the useContext-UserContext
 
