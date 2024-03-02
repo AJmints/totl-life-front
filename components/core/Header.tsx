@@ -58,6 +58,7 @@ export default function Header() {
                 return
             } else {
                 setUserLogged(false)
+                setLoadingHeader(false)
             }
         }
         const setUserContext = async () => {
@@ -189,7 +190,7 @@ export default function Header() {
                 <button onClick={() => setLoginToggle(prev => !prev)} className="m-3 block bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500">{loginToggle ? "Close" : "Login"}</button>
                 
                 {loginToggle ? 
-                <div className="absolute top-24 z-10 right-0">
+                <div className="absolute top-24 z-10 right-0 xl:right-32">
                     <LoginForm
                     setLoginToggle={setLoginToggle}
                     setUserLogged={setUserLogged}
@@ -202,7 +203,7 @@ export default function Header() {
                 }
             </div>
             :
-            <div className="p-1 animate-pulse my-2 bg-emerald-300 rounded-md">
+            <div className="p-1 animate-pulse my-2 bg-emerald-300 mr-2 rounded-md">
             <button className="block bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500">Loading...</button>
             </div>
             }
