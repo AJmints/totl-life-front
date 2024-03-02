@@ -205,8 +205,10 @@ export default function Header() {
                 }
             </div>
             :
-            <div className="p-1 animate-pulse my-2 bg-emerald-300 mr-2 rounded-md">
-            <button className="block bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500">Loading...</button>
+            <div className=" flex items-center">
+                <div className="p-1 m-3 bg-emerald-300 rounded-md">
+                    <button className="bg-gray-500 flex animate-pulse py-4 px-6 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500"></button>
+                </div>
             </div>
             }
             </>
@@ -228,8 +230,6 @@ export default function Header() {
 
                     <div className="mt-5">
                     <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/river">River</Link>
-                    {/* <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/logs">Logs</Link> */}
-                    {/* <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/dapp">Dapp</Link> */}
                     <div className="flex items-center">
                     <Link className="m-2 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/about">About</Link>
                     <Image src={arrow} alt="" className={aboutTogglePhone ? "cursor-pointer w-6 h-6 -rotate-90 hover:bg-gray-400 rounded-md p-1 duration-300" : "cursor-pointer w-6 h-6 rotate-90 hover:bg-gray-400 rounded-md p-1 duration-300"} onClick={() => setAboutTogglePhone(prev => !prev)} />

@@ -1,7 +1,6 @@
 'use client'
 
-import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from 'react'
 import { useUserContext } from "@/app/context/UserContextProvider"
 
@@ -40,6 +39,7 @@ export default function LoginForm(props: any) {
 
     const { setUserID, setUserName, setVerified, setUserPFP } = useUserContext()
     const router = useRouter()
+    const pathname = usePathname()
 
     const redirect = async() => {
         const userPresent = await authCheck()
@@ -49,6 +49,7 @@ export default function LoginForm(props: any) {
     }
 
     useEffect(function () {
+        console.log(pathname)
         redirect()
     }, [])
 
@@ -89,21 +90,28 @@ export default function LoginForm(props: any) {
             props.setLoginToggle(false)
             props.setUserLogged(true)
             setTokenCookie(result.token)
-
-            // TODO: Might need to change the methods above in if statment, below are setting the useContext-UserContext
-
+            /* Set user Context */
             setUserID(result.id) 
             setUserName(result.userName)
             setVerified(result.accountVerified)
-                if (result.userPfp) {
-                    setUserPFP('data:image/jpeg;base64,' + result.userPfp)
-                } else {
-                    setUserPFP(null)
-                }
-            props.setLoadingHeader(true)
-            router.refresh()
-            router.push("/river")
-            return
+
+            if (result.userPfp) {
+                setUserPFP('data:image/jpeg;base64,' + result.userPfp)
+            } else {
+                setUserPFP(null)
+            }
+
+            if (pathname !== "/login") {
+                props.setLoadingHeader(true)
+                router.push("/river")
+                return
+            } else if (pathname === "/login") {
+                location.reload()
+                return
+            }
+            
+            
+            
         }
         if (result.status === "failed") {
             setLoading(false)
