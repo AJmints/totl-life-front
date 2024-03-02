@@ -100,7 +100,7 @@ export default function LoginForm(props: any) {
                 } else {
                     setUserPFP(null)
                 }
-            // props.setLoadingHeader(true)
+            props.setLoadingHeader(true)
             router.refresh()
             router.push("/river")
             return
