@@ -53,7 +53,8 @@ export default function Header() {
     useEffect(() => {
         const checkLoginStatus = async () => {
             const logged = await authCheck()
-            if (await logged) {
+            console.log(logged)
+            if (logged) {
                 setUserContext()
                 return
             } else {
