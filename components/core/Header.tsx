@@ -41,8 +41,7 @@ export default function Header() {
     const [aboutToggle, setAboutToggle] = useState<boolean>(false)
     const [aboutTogglePhone, setAboutTogglePhone] = useState<boolean>(false)
     const [loginToggle, setLoginToggle] = useState<boolean>(false)
-    const [pfpTemp, setPfpTemp] = useState<any>(null)
-    const [useTemp, setUseTemp] = useState(false)
+    const [loadingHeader, setLoadingHeader] = useState<boolean>(true)
     const [userDetailsToggle, setUserDetailsToggle] = useState<boolean>(false)
     const [selectLog, setSelectLog] = useState<string[]>([])
     const router = useRouter()
@@ -72,23 +71,15 @@ export default function Header() {
             setVerified(response.accountVerified)
                 if (response.pfp) {
                     setUserPFP('data:image/jpeg;base64,' + response.pfp.image)
-                    // setPfpTemp('data:image/jpeg;base64,' + response.pfp.image)
                 } else {
                     setUserPFP(null)
                 }
             }
-            // await pfpLoaderTemp()
             setUserLogged(true)
+            setLoadingHeader(false)
             return
         }
-        // const pfpLoaderTemp = async () => {
-        //     await userPFP
-        //     setUseTemp(true)
-        // }
-        
-        // if (!userLogged) {
-            checkLoginStatus() 
-        // }
+        checkLoginStatus() 
         
     }, [userLogged])
 
@@ -171,26 +162,14 @@ export default function Header() {
             { userLogged ?
             <div className="flex items-center pt-3 pb-2 mr-2 sm:mx-5 space-x-5">
                 <div>
-                    {/* { useTemp ? 
-                        <Image 
-                        src={pfpTemp}
-                        alt=""
-                        width={100}
-                        height={100}
-                        className="cursor-pointer h-12 w-12 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
-                        onClick={() => setUserDetailsToggle(prev => !prev)}
-                        />
-                        : */}
-                        <Image 
-                        src={ userPFP === null ? picDefault : userPFP}
-                        alt=""
-                        width={100}
-                        height={100}
-                        className="cursor-pointer h-12 w-12 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
-                        onClick={() => setUserDetailsToggle(prev => !prev)}
-                        />
-                    {/* // } */}
-                    
+                    <Image 
+                    src={ userPFP === null ? picDefault : userPFP}
+                    alt=""
+                    width={100}
+                    height={100}
+                    className="cursor-pointer h-12 w-12 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
+                    onClick={() => setUserDetailsToggle(prev => !prev)}
+                    />
                 </div>
                 {/* Open user sidebard from Profile Icon */}
                     <UserOptionsConst
@@ -204,6 +183,8 @@ export default function Header() {
                 </div>
             </div>
             :
+            <>
+            {!loadingHeader ? 
             <div className="items-center flex">
                 <button onClick={() => setLoginToggle(prev => !prev)} className="m-3 block bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500">{loginToggle ? "Close" : "Login"}</button>
                 
@@ -220,6 +201,12 @@ export default function Header() {
                 </>
                 }
             </div>
+            :
+            <div className="p-1 animate-pulse my-2 bg-emerald-300 rounded-md">
+            <button className="block bg-gray-500 p-2 rounded-md shadow-lg hover:bg-yellow-500 hover:shadow-gray-800 duration-500">Loading...</button>
+            </div>
+            }
+            </>
             }
 
             {/* Open hamburger menu when in phone view */}
