@@ -53,7 +53,6 @@ export default function Header() {
         const checkLoginStatus = async () => {
             const logged = await authCheck()
             if (await logged) {
-                setUserLogged(true)
                 setUserContext()
                 return
             } else {
@@ -75,23 +74,25 @@ export default function Header() {
                     setUserPFP(null)
                 }
             }
-
+            setUserLogged(true)
             USER_ID = ""
             return
         }
         
-        checkLoginStatus() 
+        if (!userLogged) {
+            checkLoginStatus() 
+        }
+        
         
         
     }, [userLogged, userPFP])
 
     const logout = () => {
-        
+
+        serverSideProps()
         setUserLogged(false)
         setUserDetailsToggle(false)
         setLoginToggle(false)
-        
-        serverSideProps()
         setFollowingList([])
         setUserID("") 
         setUserName("")
