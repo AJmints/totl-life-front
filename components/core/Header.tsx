@@ -80,9 +80,11 @@ export default function Header() {
             setLoadingHeader(false)
             return
         }
-        setLoadingHeader(true)
-        checkLoginStatus() 
         
+        setLoadingHeader(true)
+        if (userLogged) {
+            checkLoginStatus() 
+        }
     }, [userLogged])
 
     const logout = async() => {
