@@ -83,7 +83,7 @@ export default function Header() {
         setLoadingHeader(true)
         checkLoginStatus() 
         
-    }, [userLogged])
+    }, [userLogged, userPFP])
 
     const logout = async() => {
 

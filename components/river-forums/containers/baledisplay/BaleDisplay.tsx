@@ -34,11 +34,6 @@ const BaleDisplay = () => {
             if (baleNav !== response.total) {
                 setBaleNav(response.total)
             }
-            // if (response.total === 0) {
-            //     setUpdateBales(false)
-            // } else { 
-                
-            // }
             setAllLogsBales(response.allBales)
             setUpdateBales(true)
             setDesc(response.logDescription)            
@@ -74,9 +69,6 @@ const BaleDisplay = () => {
             allLogBales()
         }
     }
-
-
-
 
     const viewBalesInLog = allLogsBales.sort((a:any, b:any) => {
         return b.id - a.id

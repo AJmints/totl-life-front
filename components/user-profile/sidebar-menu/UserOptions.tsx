@@ -3,6 +3,7 @@
 import Image from "next/image"
 import picDefault from ".././public/icons/profile-pic.png"
 import { useEffect, useState } from 'react'
+import { useUserContext } from "@/app/context/UserContextProvider"
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -31,6 +32,7 @@ export default function UserOptions(props: any) {
 
     const [pfpMessage, setPfpMessage] = useState<string>("")
     const [pfpBool, setPfpBool] = useState<boolean>(false)
+    const { userPFP, setUserPFP} = useUserContext()
 
     useEffect(() => {
         authCheck()
@@ -59,7 +61,7 @@ export default function UserOptions(props: any) {
             method: "POST",
             body: newImageFormData
         }).then((res) => res.json()).then((data) => {
-            props.setUserPFP('data:image/jpeg;base64,' + data.image)
+            setUserPFP('data:image/jpeg;base64,' + data.image)
         })
         
     }
@@ -71,7 +73,7 @@ export default function UserOptions(props: any) {
             <div className="text-center">
                 { props.userPFP !== null ?
                 <Image 
-                src={props.userPFP}
+                src={userPFP}
                 alt=""
                 width={100}
                 height={100}
