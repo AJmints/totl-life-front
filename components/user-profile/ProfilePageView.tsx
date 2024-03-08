@@ -1,28 +1,30 @@
-import UserPageDetails from "./pageview-containers/user-detail-header/UserPageDetails"
+import BackPackContainer from "./pageview-container/backpack-container/BackPackContainer"
+import UserPageDetails from "./pageview-container/user-detail-header/UserPageDetails"
 
 const ProfilePageView = () => {
 
     return (
-        <div className="bg-gray-700/80 p-10 font-extralight text-white">
+        <div className="bg-gray-700/80 p-10 font-extralight text-white flex justify-center md:justify-between">
         
-        <UserPageDetails />
-        <div className="flex mt-3 space-x-2">
-        <li>Posts</li>
-        <li>Comments</li>
-        <li>Saved</li>
-        <li>BackPack</li>
-        <li>Events</li>
-        </div>
-
-        <div className="mt-5">
-            <p>Right column</p>
-            <li>BackPack Feature</li>
-        </div>
-
-        <div>
+        <div className="hidden lg:block">
             <p>Left Column</p>
             <li>Event Creator</li>
             <li>Market Place</li>
+        </div>
+
+        <div className="">
+            <UserPageDetails />
+            <div className="flex mt-3 space-x-2">
+                <li>Posts</li>
+                <li>Comments</li>
+                <li>Saved</li>
+                <li>BackPack</li>
+                <li>Events</li>
+            </div>
+        </div>
+
+        <div className="hidden md:block">
+            <BackPackContainer />
         </div>
 
         </div>

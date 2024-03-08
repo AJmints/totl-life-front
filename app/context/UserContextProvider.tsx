@@ -24,9 +24,6 @@ const UserContext = createContext<ContextProps>({
     setUserPFP: () => null,
 })
 
-
-// TODO: Set up user usecontext
-
 export const UserContextProvider = ({ children }: any) => {
     const [ userName, setUserName ] = useState("")
     const [ userID, setUserID ] = useState("")

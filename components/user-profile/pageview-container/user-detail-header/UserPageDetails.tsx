@@ -17,11 +17,11 @@ const UserPageDetails = () => {
 
     
     return (
-        <div className="flex">
+        <div>
 
-            <div>
+            <div className="flex justify-between">
                 <div className="bg-gray-400/80 p-3 rounded-md ">
-                    <div className=" flex justify-center">
+                    <div className="flex justify-center">
                         <Image
                         src={userPFP === null ? imgDefault : userPFP}
                         alt=""
@@ -37,8 +37,8 @@ const UserPageDetails = () => {
                 </div>
 
             
-                <div>
-                    <p>Private Message</p>
+                <div className="flex items-end">
+                    <p className="bg-gray-500 p-2 rounded-full">DM</p>
                 </div>
             </div>
 
