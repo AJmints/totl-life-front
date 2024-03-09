@@ -30,9 +30,9 @@ const BalePostPageViewContainer = () => {
 
 
     return (
-        <div className="flex flex-col col-span-1">
+        <div className="flex">
 
-            <div className="block md:max-w-2xl lg:max-w-4xl xl:max-w-7xl mx-auto min-h-screen sm:flex justify-center">
+            <div className="block md:max-w-3xl lg:max-w-4xl xl:max-w-6xl mx-auto min-h-screen sm:flex justify-center">
 
             {/* Main container holding all displayed post information */}
             <div className="p-3 rounded-md bg-gray-700/80 m-1.5 sm:m-4">
@@ -50,11 +50,11 @@ const BalePostPageViewContainer = () => {
                 </div>
 
                 <div>
-                <CreateComment 
-                baleId={id}
-                setBreaker={setBreaker}
-                commentLoader={awaitLoader}
-                />
+                    <CreateComment 
+                    baleId={id}
+                    setBreaker={setBreaker}
+                    commentLoader={awaitLoader}
+                    />
                 </div>
 
                 <div>
