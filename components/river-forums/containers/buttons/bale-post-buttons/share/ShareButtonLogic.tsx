@@ -33,11 +33,9 @@ const ShareButtonLogic = (props: ShareButtonLogicProps) => {
     }
 
     return (
-        <div className="absolute flex p-1 bg-gray-300 rounded-md mb-20">
-            <div className="flex">
-                <div className="p-2 flex bg-gray-400 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => copyToClip()}>
-                    <p>{copyNotification ? "Copied!" : "Copy Link to ClipBoard"}</p>
-                </div>
+        <div className="absolute flex p-1 bg-gray-300 mr-5 rounded-md mb-20">
+            <div className="p-2 bg-gray-400 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => copyToClip()}>
+                <p>{copyNotification ? "Copied!" : "Copy Link to ClipBoard"}</p>
             </div>
         </div>
     )
