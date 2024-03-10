@@ -157,7 +157,9 @@ export default function RecentBales(props: RecentBalesProps) {
                     downCount={downCount}
                     />
                     
-                    <ShareLinkButton />
+                    <ShareLinkButton 
+                    shareFromPreview={viewBale.parentLog + "/" + viewBale.title.replace("?", "").split(" ").join("") + "totl?baleid=" + viewBale.id}
+                    />
                     
                     <BaleEditOptionButton />
 

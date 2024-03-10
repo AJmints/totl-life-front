@@ -5,7 +5,7 @@ import ShareButtonLogic from "./bale-post-buttons/share/ShareButtonLogic"
 const ButtonNotificationContainer = (props: any) => {
 
     return (
-        <div className="absolute p-5 bg-gray-300 rounded-md mb-20" onClick={() => console.log(props)}>
+        <div className="absolute p-1 bg-gray-300 rounded-md mb-20">
             {
             props.buttonType === "Option" ?
             <EditOptionsLogic /> 
@@ -15,12 +15,6 @@ const ButtonNotificationContainer = (props: any) => {
             {
             props.buttonType === "Favorite" ?
             <FavoriteSaveLogic /> 
-            :
-            <></>
-            }
-            {
-            props.buttonType === "Share" ?
-            <ShareButtonLogic /> 
             :
             <></>
             }

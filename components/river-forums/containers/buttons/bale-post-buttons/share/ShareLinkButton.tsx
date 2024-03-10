@@ -4,15 +4,18 @@ import Image from "next/image"
 import share from "../../../../../../public/icons/share.png"
 import { useState } from "react"
 import ButtonNotificationContainer from "../../ButtonNotificationContainer"
-const ShareLinkButton = () => {
+import ShareButtonLogic from "./ShareButtonLogic"
+
+
+const ShareLinkButton = (props: any) => {
 
     const [ displayOptions, setDisplayOptions ] = useState<boolean>(false)
-
+    
     return (
         <div className="items-center flex" onMouseLeave={() => setDisplayOptions(false)}>
             { displayOptions ?
-            <ButtonNotificationContainer 
-            buttonType={"Share"}
+            <ShareButtonLogic
+            shareFromPreview={props.shareFromPreview}
             />
             :
             <></>
