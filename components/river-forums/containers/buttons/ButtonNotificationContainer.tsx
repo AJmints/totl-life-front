@@ -7,12 +7,6 @@ const ButtonNotificationContainer = (props: any) => {
     return (
         <div className="absolute p-1 bg-gray-300 rounded-md mb-20">
             {
-            props.buttonType === "Option" ?
-            <EditOptionsLogic /> 
-            :
-            <></>
-            }
-            {
             props.buttonType === "Favorite" ?
             <FavoriteSaveLogic /> 
             :
