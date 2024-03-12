@@ -1,13 +1,10 @@
-import arrow from '../../../../../public/icons/Arrow.png'
 import comment from '../../../../../public/icons/Comment.png'
-import saveIcon from '../../../../../public/icons/Save.png'
-import options from '../../../../../public/icons/options.png'
-import share from '../../../../../public/icons/share.png'
 import Image from 'next/image'
 import userIcon from '../../../../..//public/icons/profile-pic.png'
 import { useState } from 'react'
 import ViewBaleComments from './balecomment/ViewBaleComments'
 import { useRouter } from 'next/navigation'
+import { useUserContext } from '@/app/context/UserContextProvider'
 import UpVoteButton from '../../buttons/bale-post-buttons/upvote/UpVoteButton'
 import DownCountButton from '../../buttons/bale-post-buttons/downvote/DownVoteButton'
 import ShareLinkButton from '../../buttons/bale-post-buttons/share/ShareLinkButton'
@@ -60,17 +57,8 @@ export default function RecentBales(props: RecentBalesProps) {
     const [upCount, setUpCount] = useState<number>(viewBale.upVoteCount)
     const [downCount, setDownCount] = useState<number>(viewBale.downVoteCount)
 
+    const { userName } = useUserContext()
     const router = useRouter()
-
-    const addFavorite = async() => {
-        console.log("add favorites")
-    }
-
-    
-
-    const baleMenuOption = () => {
-        console.log("menu options")
-    }
 
     return (
         <>
@@ -161,7 +149,11 @@ export default function RecentBales(props: RecentBalesProps) {
                     shareFromPreview={viewBale.parentLog + "/" + viewBale.title.replace("?", "").split(" ").join("") + "totl?baleid=" + viewBale.id}
                     />
                     
-                    <BaleEditOptionButton />
+                    <BaleEditOptionButton 
+                    baleId={viewBale.id}
+                    redirect={true}
+                    isActive={viewBale.userName === userName}
+                    />
 
                 </div>
                 </div>

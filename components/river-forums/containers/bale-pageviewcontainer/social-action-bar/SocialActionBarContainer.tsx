@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useUserContext } from '@/app/context/UserContextProvider'
 import DownCountButton from '../../buttons/bale-post-buttons/downvote/DownVoteButton'
 import ShareLinkButton from '../../buttons/bale-post-buttons/share/ShareLinkButton'
 import FavoriteSaveButton from '../../buttons/bale-post-buttons/favorite-save/FavoriteSaveButton'
@@ -11,6 +12,8 @@ const SocialActionBarContainer = (props: any) => {
 
     const [upCount, setUpCount] = useState<number | null>(null)
     const [downCount, setDownCount] = useState<number | null>(null)
+
+    const { userName } = useUserContext()
 
     useEffect(() => {
         const setItems = () => {
@@ -45,7 +48,11 @@ const SocialActionBarContainer = (props: any) => {
             </div>
             <ShareLinkButton />
             <FavoriteSaveButton />
-            <BaleEditOptionButton />
+            <BaleEditOptionButton 
+            baleId={props.socialInfo.id}
+            redirect={false}
+            isActive={props.socialInfo.tName === userName}
+            />
         </div>
         :
         <div className="bg-gray-500 p-2 rounded-md mt-2">

@@ -15,11 +15,12 @@ const ProfilePageView = () => {
         <div className="">
             <UserPageDetails />
             <div className="flex mt-3 space-x-2">
+                <li>BackPack</li>
                 <li>Posts</li>
                 <li>Comments</li>
                 <li>Saved</li>
-                <li>BackPack</li>
                 <li>Events</li>
+                <li>Your Communities</li>
             </div>
         </div>
 

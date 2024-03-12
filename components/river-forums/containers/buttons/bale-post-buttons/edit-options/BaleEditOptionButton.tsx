@@ -1,18 +1,18 @@
 import Image from "next/image"
 import options from '../../../../../../public/icons/options.png'
 import { useState, useEffect } from "react"
-import ButtonNotificationContainer from "../../ButtonNotificationContainer"
+import EditOptionsLogic from "./EditOptionsLogic"
 
 
-const BaleEditOptionButton = () => {
+const BaleEditOptionButton = (props: any) => {
 
     const [ displayOptions, setDisplayOptions ] = useState<boolean>(false)
 
     return (
         <div className="flex items-center" onMouseLeave={() => setDisplayOptions(false)}>
             { displayOptions ?
-            <ButtonNotificationContainer 
-            buttonType={"Option"}
+            <EditOptionsLogic
+            optionReact={props}
             />
             :
             <></>
