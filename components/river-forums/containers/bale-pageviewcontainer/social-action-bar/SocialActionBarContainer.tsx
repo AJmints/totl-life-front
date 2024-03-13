@@ -12,6 +12,7 @@ const SocialActionBarContainer = (props: any) => {
 
     const [upCount, setUpCount] = useState<number | null>(null)
     const [downCount, setDownCount] = useState<number | null>(null)
+    
 
     const { userName } = useUserContext()
 
@@ -27,6 +28,24 @@ const SocialActionBarContainer = (props: any) => {
             setItems()
         }
     }, [props.socialLoader])
+
+    const editThisPost = async(event: any) => {
+        event.preventDefault()
+
+        const data = {
+            place: event
+        }
+        const editBale = await fetch(URL + "/logs/baleEdit/" + props.optionReact.baleId, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await editBale.json().catch((err) => {
+            console.log(err)
+        })
+    }
 
     return (
         <>
@@ -47,11 +66,14 @@ const SocialActionBarContainer = (props: any) => {
             />
             </div>
             <ShareLinkButton />
+            
             <FavoriteSaveButton />
+
             <BaleEditOptionButton 
             baleId={props.socialInfo.id}
             redirect={false}
             isActive={props.socialInfo.tName === userName}
+            setBaleEditToggle={props.setBaleEditToggle}
             />
         </div>
         :

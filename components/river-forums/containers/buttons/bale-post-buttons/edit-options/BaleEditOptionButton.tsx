@@ -10,13 +10,16 @@ const BaleEditOptionButton = (props: any) => {
 
     return (
         <div className="flex items-center" onMouseLeave={() => setDisplayOptions(false)}>
+            
             { displayOptions ?
             <EditOptionsLogic
             optionReact={props}
+            setDisplayOptions={setDisplayOptions}
             />
             :
             <></>
             }
+
             <Image
                 src={options}
                 alt=''

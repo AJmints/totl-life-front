@@ -19,6 +19,7 @@ const BalePostPageViewContainer = () => {
     const [ breaker, setBreaker ] = useState<boolean>(false)
     // Hides comments while post is loading
     const [ awaitLoader, setAwaitLoader ] = useState<boolean>(false) 
+    const [baleEditToggle, setBaleEditToggle] = useState<boolean>(false)
     const [ socialInfo, setSocialInfo ] = useState<SocialBarProps>({
         id: null,
         upVote: null,
@@ -44,10 +45,12 @@ const BalePostPageViewContainer = () => {
                     <MainBale 
                     setCommentLoader={setAwaitLoader}
                     setSocialInfo={setSocialInfo}
+                    setBaleEditToggle={setBaleEditToggle}
                     />
                     <SocialActionBarContainer
                     socialInfo={socialInfo}
                     socialLoader={awaitLoader}
+                    setBaleEditToggle={setBaleEditToggle}
                     />
                 </div>
 

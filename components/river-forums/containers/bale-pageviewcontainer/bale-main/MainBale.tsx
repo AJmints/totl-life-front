@@ -20,7 +20,10 @@ const MainBale = (props: any) => {
         const getBale = async() => {
 
             const id: string | null | undefined = searchParams?.get('baleid')
+            const editLog: string | null | undefined = searchParams?.get('1edit')
             const log: string | undefined = pathname?.split("/river/").pop()?.split("/").shift()
+
+            //TODO: Create Form to edit post title or body in new component and use it in this component.
 
             if (id === null || id === undefined || id === "") {
                 console.log("create error message if url has been tampered with")
@@ -40,6 +43,10 @@ const MainBale = (props: any) => {
                 console.log("Post failed due to invalid url param")
             } else {
                 console.log("Error, please try again later.")
+            }
+
+            if (editLog === "true") {
+                props.setBaleEditToggle(true)
             }
 
         }

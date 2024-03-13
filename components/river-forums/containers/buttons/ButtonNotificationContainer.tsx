@@ -1,6 +1,4 @@
-import EditOptionsLogic from "./bale-post-buttons/edit-options/EditOptionsLogic"
 import FavoriteSaveLogic from "./bale-post-buttons/favorite-save/FavoriteSaveLogic"
-import ShareButtonLogic from "./bale-post-buttons/share/ShareButtonLogic"
 
 const ButtonNotificationContainer = (props: any) => {
 
