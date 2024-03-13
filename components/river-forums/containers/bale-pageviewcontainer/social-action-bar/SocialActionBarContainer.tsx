@@ -29,24 +29,6 @@ const SocialActionBarContainer = (props: any) => {
         }
     }, [props.socialLoader])
 
-    const editThisPost = async(event: any) => {
-        event.preventDefault()
-
-        const data = {
-            place: event
-        }
-        const editBale = await fetch(URL + "/logs/baleEdit/" + props.optionReact.baleId, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        })
-        const response = await editBale.json().catch((err) => {
-            console.log(err)
-        })
-    }
-
     return (
         <>
         {props.socialLoader ? 
