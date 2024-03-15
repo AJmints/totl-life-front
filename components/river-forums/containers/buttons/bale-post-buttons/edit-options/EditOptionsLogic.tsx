@@ -6,9 +6,11 @@ import { useRouter } from 'next/navigation'
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
 type EditOptionsLogicChildren = {
-    baleId: number, 
+    baleId: number | null,
+    commentId?: number | null, 
     redirect: boolean,
     isActive: boolean,
+    type: "bale" | "comment",
     pageRedirect?: string,
     setBaleEditToggle: Dispatch<SetStateAction<boolean>>
 }
@@ -36,7 +38,7 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
         if (pushOrToggle) {
             router.push(currentUrl + "/" + props.optionReact.pageRedirect + "&1edit=true")
         } else {
-            props.optionReact.setBaleEditToggle(true)
+            props.optionReact.setBaleEditToggle(prev => !prev)
         }
 
     }
@@ -62,22 +64,22 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
     }
 
     return (
-        <div className={props.optionReact.isActive ? "absolute p-1 bg-gradient-to-b from-gray-500 to-gray-400 rounded-md -mb-28 -ml-20 sm:ml-0" 
-                                                    : "absolute p-1 bg-gradient-to-b from-gray-500 to-gray-400 rounded-md -mb-20 -ml-20 sm:ml-0"}>
+        <div className={props.optionReact.isActive ? "absolute p-1 bg-gradient-to-b from-gray-500 to-gray-400 rounded-md -mb-28 -ml-0 sm:ml-0" 
+                                                    : "absolute p-1 bg-gradient-to-b from-gray-500 to-gray-400 rounded-md -mb-20 -ml-0 sm:ml-0"}>
             {
                 props.optionReact.isActive ? 
                 <div className='space-y-2'>
                 <div className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => handleEditReroute(props.optionReact.redirect)}>
-                    <p>Edit (If user)</p>
+                    <p>Edit</p>
                 </div>
                 
                 <div className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => deleteThisPost()}>
-                    <p>Delete (If user)</p>
+                    <p>Delete</p>
                 </div>
                 </div>
                 :
                 <div className=''>
-                <div className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => console.log("Set up reporting form")}>
+                <div className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => console.log(props)}>
                 <p>Report (If viewer)</p>
                 </div>
                 </div>

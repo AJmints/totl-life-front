@@ -5,12 +5,18 @@ import pfpDefault from '../../../../../public/icons/profile-pic.png'
 import { useState, useEffect } from 'react'
 import { useSearchParams, usePathname, useRouter } from 'next/navigation'
 import LoadingMainBale from "./LoadingMainBale"
+import EditBale from "./EditBale"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const MainBale = (props: any) => {
 
     const [ baleDetails, setBaleDetails ] = useState<any|null>(null)
+    const [ titleBody, setTitleBody ] = useState({
+        baleId: "",
+        title: "",
+        body: ""
+    })
 
     const searchParams = useSearchParams()
     const pathname = usePathname()
@@ -38,8 +44,9 @@ const MainBale = (props: any) => {
             if (await response) {
                 props.setSocialInfo({id: response.id, upVote: response.upVoteIds, downVote: response.downVoteIds, tName: response.userName})
                 setBaleDetails(response)
+                setTitleBody({baleId: response.id, title: response.title, body: response.body})
                 props.setCommentLoader(true)
-            } else if (await response.status === "failed") {
+            } else if (response.status === "failed") {
                 console.log("Post failed due to invalid url param")
             } else {
                 console.log("Error, please try again later.")
@@ -53,25 +60,6 @@ const MainBale = (props: any) => {
         getBale()
 
     }, [])
-
-    
-    const editThisPost = async(event: any) => {
-        event.preventDefault()
-
-        const data = {
-            place: event
-        }
-        const editBale = await fetch(URL + "/logs/baleEdit/" + props.optionReact.baleId, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data)
-        })
-        const response = await editBale.json().catch((err) => {
-            console.log(err)
-        })
-    }
 
     return (
         <>
@@ -101,13 +89,27 @@ const MainBale = (props: any) => {
             </div>
             </div>
 
-            <div className="bg-gray-300 rounded-t-md flex p-3">
-                <h1 className="text-lg sm:text-2xl font-light">{baleDetails?.title}</h1>
-            </div>
+            {
+                props.baleEditToggle ? 
+                <>
+                <EditBale 
+                titleBody={titleBody}
+                setBaleEditToggle={props.setBaleEditToggle}
+                />
+                </>
+                :
+                <>
+                <div className="bg-gray-300 rounded-t-md flex p-3">
+                    <h1 className="text-lg sm:text-2xl font-light">{titleBody?.title}</h1>
+                </div>
+                
+                <div className="bg-gray-400 rounded-b-md flex p-3">
+                    <h1 className="text-sm sm:text-lg font-light">{titleBody?.body}</h1>
+                </div>
+                </>
+            }
             
-            <div className="bg-gray-400 rounded-b-md flex p-3">
-                <h1 className="text-sm sm:text-lg font-light">{baleDetails?.body}</h1>
-            </div>
+
             </>
             }
 

@@ -56,6 +56,7 @@ const SocialActionBarContainer = (props: any) => {
             redirect={false}
             isActive={props.socialInfo.tName === userName}
             setBaleEditToggle={props.setBaleEditToggle}
+            type={"bale"}
             />
         </div>
         :

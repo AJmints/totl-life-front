@@ -46,6 +46,7 @@ const BalePostPageViewContainer = () => {
                     setCommentLoader={setAwaitLoader}
                     setSocialInfo={setSocialInfo}
                     setBaleEditToggle={setBaleEditToggle}
+                    baleEditToggle={baleEditToggle}
                     />
                     <SocialActionBarContainer
                     socialInfo={socialInfo}
