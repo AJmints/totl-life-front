@@ -48,9 +48,6 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
         setCurrentUrl(window.location.href)
     }, [])
 
-    /* NEEDS TO HANDLE BALES AND COMMENTS
-    CURRENTLY HANDLES BALES, NEXT COMMENTS */
-
     const handleEditReroute = (pushOrToggle: boolean) => {
 
         if (pushOrToggle) {
@@ -98,8 +95,8 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
     }
 
     return (
-        <div className={props.optionReact.isActive ? "absolute p-1 bg-gradient-to-b from-gray-500 to-gray-400 rounded-md -mb-28 -ml-0 sm:ml-0" 
-                                                    : "absolute p-1 bg-gradient-to-b from-gray-500 to-gray-400 rounded-md -mb-20 -ml-0 sm:ml-0"}>
+        <div className={props.optionReact.isActive ? "absolute p-1 bg-gradient-to-b from-gray-500 to-gray-400 rounded-md -mb-28 -ml-5 sm:ml-0" 
+                                                    : "absolute p-1 bg-gradient-to-b from-gray-500 to-gray-400 rounded-md -mb-20 -ml-5 sm:ml-0"}>
             {
                 props.optionReact.isActive ? 
                 <div className='space-y-2'>
@@ -113,8 +110,8 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
                 </div>
                 :
                 <div className=''>
-                <div className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => console.log(props)}>
-                <p>Report (If viewer)</p>
+                <div className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => console.log("Coming soon")}>
+                <p>Report</p>
                 </div>
                 </div>
             }
