@@ -1,9 +1,26 @@
 'use client'
 
 import { useState, useEffect, Dispatch, SetStateAction } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
+export const authCheck = async() => {
+    const infoCall: Response = await fetch("/api/authCheck")
+    const status = await infoCall.json().catch((err) => {
+        console.log(err)
+    })
+    if (status.loggedIn) {
+        return status.loggedIn
+    }
+}
+export const token = async() => {
+    const getToken: Response = await fetch("/api/headers")
+    const status = await getToken.json().catch((err) => {
+        console.log(err)
+    })
+    return status
+}
 
 type EditOptionsLogicChildren = {
     baleId: number | null,
@@ -25,6 +42,7 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
     const [ currentUrl, setCurrentUrl ] = useState<string>("")
 
     const router = useRouter()
+    const pathname: string | null = usePathname()
 
     useEffect(() => {
         setCurrentUrl(window.location.href)
@@ -47,13 +65,29 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
         if (confirm("Are you sure you want to delete this bale? All comments and history will be deleted")) {
             if (confirm("Just double checking, this will remove it forever. Are you sure?")){
 
+                if (!await authCheck()) {
+                    console.log("issue")
+                    // setSubmitting(false)
+                    return
+                }
+
                 const deleteBale = await fetch(URL + "/logs/deleteBale/" + props.optionReact.baleId, {
-                    method: "DELETE"
+                    method: "DELETE",
+                    headers: {
+                        "auth-token": "Bearer " + await token(),
+                    }
                 })
                 const response = await deleteBale.json().catch((err) => {
                     console.log(err)
                 })
-                console.log(response)
+                if (response.status === "success") {
+                    if (pathname === "/river") {
+                        location.reload()
+                    } else {
+                        router.push("/river")
+                    }
+                }
+                
 
             } else {
                 return 
