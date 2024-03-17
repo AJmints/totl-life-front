@@ -34,6 +34,7 @@ const BaleDisplay = () => {
             if (baleNav !== response.total) {
                 setBaleNav(response.total)
             }
+            console.log(response)
             setAllLogsBales(response.allBales)
             setUpdateBales(true)
             setDesc(response.logDescription)            

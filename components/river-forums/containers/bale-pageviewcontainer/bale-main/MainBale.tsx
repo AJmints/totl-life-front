@@ -42,7 +42,8 @@ const MainBale = (props: any) => {
             })
 
             if (await response) {
-                props.setSocialInfo({id: response.id, upVote: response.upVoteIds, downVote: response.downVoteIds, tName: response.userName})
+                console.log(response)
+                props.setSocialInfo({id: response.id, upVote: response.upVoteIds, downVote: response.downVoteIds, tName: response.userName, edited: response.edited})
                 setBaleDetails(response)
                 setTitleBody({baleId: response.id, title: response.title, body: response.body})
                 props.setCommentLoader(true)
@@ -72,7 +73,10 @@ const MainBale = (props: any) => {
             </div>
 
             <div className="flex mb-2 justify-between items-center">
-            <p className='text-left font-normal text-sm cursor-pointer my-2 bg-gray-400 p-2 rounded-md hover:bg-emerald-500 duration-200' onClick={() => router.push("/river/" + baleDetails?.parentLog)}>log/{baleDetails?.parentLog}</p>
+                <div className="sm:flex items-center sm:space-x-2">
+                    <p className='text-left font-normal text-sm cursor-pointer my-2 bg-gray-400 p-2 rounded-md hover:bg-emerald-500 duration-200' onClick={() => router.push("/river/" + baleDetails?.parentLog)}>log/{baleDetails?.parentLog}</p>
+                    <p className={baleDetails?.edited ? " text-xs text-gray-400" : "hidden"}>[Edited]</p>
+                </div>
             <div className="flex justify-center items-center">
                 <Image
                     src={baleDetails?.userPFP === null ? pfpDefault : 'data:image/jpeg;base64,' + baleDetails?.userPFP}

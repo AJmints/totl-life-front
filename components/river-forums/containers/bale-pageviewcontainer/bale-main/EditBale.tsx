@@ -72,8 +72,6 @@ const EditBale = (props: any) => {
             console.log(err.message)
         })
 
-        console.log(response)
-
         if (response.status === "success") {
             props.setTitleBody({
                 baleId: data.id,

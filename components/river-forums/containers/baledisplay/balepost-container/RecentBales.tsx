@@ -46,6 +46,7 @@ type BaleDetails = {
     upVoteCount: number,
     userName: string,
     userPFP: any,
+    edited: boolean,
 }
 type RecentBalesProps = {
     mappingBale: BaleDetails
@@ -68,8 +69,9 @@ export default function RecentBales(props: RecentBalesProps) {
             {/* Text boxes of forum post title and body */}
             <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md">
                 {/* Link to log where post lives */}
-                <div className='flex'>
+                <div className='flex items-end space-x-2'>
                     <p className='text-left font-normal text-sm cursor-pointer my-2 bg-gray-400 p-2 rounded-md hover:bg-emerald-500 duration-200' onClick={() => router.push("/river/" + viewBale.parentLog)}>log/{viewBale.parentLog}</p>
+                    <p className={viewBale.edited ? " text-xs text-gray-400 mb-2" : "hidden"}>[Edited]</p>
                 </div>
                 {/* Bale text preview */}
                 <div className=' cursor-pointer' onClick={() => router.push("/river/" + viewBale.parentLog + "/" + viewBale.title.replace("?", "").split(" ").join("") + "totl?baleid=" + viewBale.id)}>
