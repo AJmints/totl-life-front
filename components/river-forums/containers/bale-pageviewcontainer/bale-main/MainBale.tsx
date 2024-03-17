@@ -95,6 +95,7 @@ const MainBale = (props: any) => {
                 <EditBale 
                 titleBody={titleBody}
                 setBaleEditToggle={props.setBaleEditToggle}
+                setTitleBody={setTitleBody}
                 />
                 </>
                 :

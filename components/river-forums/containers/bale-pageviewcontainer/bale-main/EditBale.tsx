@@ -22,6 +22,7 @@ export const token = async() => {
 const EditBale = (props: any) => {
 
     const [ submitting, setSubmitting ] = useState<boolean>(false)
+    const [ submitError, setSubmitError ] = useState<string | null>(null)
     const [ storeChanges, setStoreChanges ] = useState({
         title: "",
         body: ""
@@ -70,9 +71,21 @@ const EditBale = (props: any) => {
         const response = await editBale.json().catch((err) => {
             console.log(err.message)
         })
+
         console.log(response)
 
-        setSubmitting(false)
+        if (response.status === "success") {
+            props.setTitleBody({
+                baleId: data.id,
+                title: data.title,
+                body: data.body
+            })
+            props.setBaleEditToggle(false)
+        } else if (response.status === "failed") {
+            setSubmitError("An error occurred, please try again later.")
+            setSubmitting(false)
+        }
+        
     }
 
     const handleBaleDraft = (event: any) => {
@@ -116,7 +129,7 @@ const EditBale = (props: any) => {
                     required 
                     defaultValue={props.titleBody.body}
                     onChange={handleBaleDraft}
-                    minLength={10} maxLength={150} 
+                    minLength={10} maxLength={600} 
                 />
 
                 <div>
@@ -126,6 +139,7 @@ const EditBale = (props: any) => {
                 </div>
                 :
                 <div>
+                    <p className={submitError === null ? " hidden" : "text-red-500"}>{submitError}</p>
                     <button className="p-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 text-gray-200 bg-gray-500 rounded-md">Update</button>
                 </div>
                 
