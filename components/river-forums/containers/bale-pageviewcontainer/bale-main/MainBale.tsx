@@ -42,7 +42,6 @@ const MainBale = (props: any) => {
             })
 
             if (await response) {
-                console.log(response)
                 props.setSocialInfo({id: response.id, upVote: response.upVoteIds, downVote: response.downVoteIds, tName: response.userName, edited: response.edited})
                 setBaleDetails(response)
                 setTitleBody({baleId: response.id, title: response.title, body: response.body})
