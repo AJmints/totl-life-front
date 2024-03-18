@@ -13,6 +13,7 @@ type SocialBarProps = {
     downVote: number[] | null
     tName: string | null
     edited: boolean | null
+    log: string | null
 }
 
 const BalePostPageViewContainer = () => {
@@ -27,6 +28,7 @@ const BalePostPageViewContainer = () => {
         downVote: null,
         tName: null,
         edited: null,
+        log: null,
     })
 
     const searchParams = useSearchParams()

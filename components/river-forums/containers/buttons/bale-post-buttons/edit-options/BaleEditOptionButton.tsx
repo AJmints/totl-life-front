@@ -23,7 +23,7 @@ const BaleEditOptionButton = (props: any) => {
             <Image
                 src={options}
                 alt=''
-                className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 h-10 hover:bg-red-500/80 w-auto rounded-md duration-300 mr-1 px-3 py-2 '
+                className='cursor-pointer hover:shadow-lg hover:shadow-gray-600 h-10 hover:bg-gray-300/60 w-auto rounded-md duration-300 mr-1 px-3 py-2 '
                 onClick={() => setDisplayOptions(prev => !prev)}
             />
         </div>

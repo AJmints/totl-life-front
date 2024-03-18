@@ -2,6 +2,7 @@
 
 import { useState, useEffect, Dispatch, SetStateAction } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
+import ReportButton from '@/components/support/MakeReport/ReportButton'
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -27,7 +28,13 @@ type EditOptionsLogicChildren = {
     commentId?: number | null, 
     redirect: boolean,
     isActive: boolean,
+    postDetails?: {
+        userName: string,
+        baleTitle: string,
+        baleBody: string,
+    }
     type: "bale" | "comment",
+    log: string,
     pageRedirect?: string,
     setBaleEditToggle: Dispatch<SetStateAction<boolean>>
 }
@@ -110,10 +117,14 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
                 </div>
                 :
                 <div className=''>
-                <div className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => console.log("Coming soon")}>
-                <p>Report</p>
+                <ReportButton 
+                postDetails={{
+                        id: props.optionReact.baleId,
+                        type: props.optionReact.type,
+                        log: props.optionReact.log
+                }}/>
                 </div>
-                </div>
+                
             }
             
         </div>

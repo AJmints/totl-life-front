@@ -157,6 +157,7 @@ export default function RecentBales(props: RecentBalesProps) {
                     isActive={viewBale.userName === userName}
                     pageRedirect={viewBale.parentLog + "/" + viewBale.title.replace("?", "").split(" ").join("") + "totl?baleid=" + viewBale.id}
                     type={"bale"}
+                    log={viewBale.parentLog}
                     />
 
                 </div>

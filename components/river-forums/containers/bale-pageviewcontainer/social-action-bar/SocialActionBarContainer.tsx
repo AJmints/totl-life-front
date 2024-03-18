@@ -57,6 +57,7 @@ const SocialActionBarContainer = (props: any) => {
             isActive={props.socialInfo.tName === userName}
             setBaleEditToggle={props.setBaleEditToggle}
             type={"bale"}
+            log={props.socialInfo.log}
             />
         </div>
         :

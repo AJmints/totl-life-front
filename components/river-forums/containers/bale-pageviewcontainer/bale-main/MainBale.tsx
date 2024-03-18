@@ -40,9 +40,9 @@ const MainBale = (props: any) => {
             const response = await makeLogRequest.json().catch((err) => {
                 console.log(err)
             })
-
-            if (await response) {
-                props.setSocialInfo({id: response.id, upVote: response.upVoteIds, downVote: response.downVoteIds, tName: response.userName, edited: response.edited})
+            
+            if (response) {
+                props.setSocialInfo({id: response.id, upVote: response.upVoteIds, downVote: response.downVoteIds, tName: response.userName, edited: response.edited, log: response.parentLog})
                 setBaleDetails(response)
                 setTitleBody({baleId: response.id, title: response.title, body: response.body})
                 props.setCommentLoader(true)
