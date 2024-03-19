@@ -13,7 +13,7 @@ const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const SupportLandingPageComponent = (props: any) => {
 
-    const [ reportType, setReportType ] = useState<"post" | "general" | null>(null) 
+    const [ reportType, setReportType ] = useState<"post" | "general" | null | undefined>() 
     const [ content, setContent ] = useState<any>()
 
     const router = useRouter()
@@ -25,6 +25,10 @@ const SupportLandingPageComponent = (props: any) => {
             const id: string | null | undefined = searchParams?.get('id')
             const type: string | null | undefined = searchParams?.get('type')
             const log: string | null | undefined = searchParams?.get('log')
+            
+            if (reportType === undefined) {
+                setReportType(null)
+            }
 
             if (type === "post") {
                 const makeLogRequest = await fetch( URL + "/logs/get-specific-bale/" + log + "/" + id)
@@ -42,7 +46,6 @@ const SupportLandingPageComponent = (props: any) => {
             }
 
         }
-
         conditions()
 
     }, [])
@@ -69,6 +72,29 @@ const SupportLandingPageComponent = (props: any) => {
             </div>
 
             <div className="bg-gray-500 lg:w-[80%] rounded-b-md lg:rounded-r-md lg:rounded-none lg:my-10 lg:mr-10 p-5">
+
+                {/* Loading */}
+                {
+                    reportType === undefined ? 
+                    <div className="bg-gray-700/70 max-h-min p-5 rounded-md">
+                        <div className="bg-gray-100/80 rounded-md p-5">
+                        <div className=" py-5 rounded-md">
+                            <p className="flex justify-center py-10 px-22 sm:px-24 md:px-32 xl:px-48 rounded-md bg-gray-50 mx-3 animate-pulse"></p>
+                        </div>
+                        <div className="py-5 rounded-md">
+                            <p className="flex justify-center py-10 px-22 sm:px-24 md:px-32 xl:px-48 rounded-md bg-gray-50 mx-3 animate-pulse"></p>
+                        </div>
+                        <div className="py-5 rounded-md">
+                            <p className="flex justify-center py-10 px-22 sm:px-24 md:px-32 xl:px-48 rounded-md bg-gray-50 mx-3 animate-pulse"></p>
+                        </div>
+                        <div className="py-5 rounded-md">
+                            <p className="flex justify-center py-10 px-22 sm:px-24 md:px-32 xl:px-48 rounded-md bg-gray-50 mx-3 animate-pulse"></p>
+                        </div>
+                        </div>
+                    </div>
+                    :
+                    <></>
+                }
 
                 {/* Lingo */}
                 {
@@ -100,7 +126,7 @@ const SupportLandingPageComponent = (props: any) => {
                 {
                     reportType === "post" ?
                     <>
-                    { reportType === null ? 
+                    { content === undefined ? 
                     <LoadingMainBale />
                     :
                     <ReportBale 
