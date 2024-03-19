@@ -5,6 +5,7 @@ import picDefault from "../../../public/icons/profile-pic.png"
 import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation"
 import { useUserContext } from "@/app/context/UserContextProvider"
+import LogsByUserContainer from "./logs-by-user/LogsByUserContainer"
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -31,7 +32,7 @@ export default function UserOptions(props: any) {
     const [ PFPLocal, setPFPLocal ] = useState<any>()
     const [pfpMessage, setPfpMessage] = useState<string>("")
     const [pfpBool, setPfpBool] = useState<boolean>(false)
-    const [newLogAbout, setNewLogAbout] = useState<boolean>(false)
+    
 
     const { userPFP, userName, userID, setUserPFP } = useUserContext()
     const router = useRouter()
@@ -94,7 +95,7 @@ export default function UserOptions(props: any) {
             <div className="mt-3">
                 <form method="POST" encType="multipart/form-data">
                 <input id="imgUpload" type="file" accept="image/*" style={{ display: 'none'}} onChange={updateImage}  />
-                <label className="cursor-pointer shadow-lg shadow-gray-800 p-1 rounded-md mx-auto bg-emerald-500 hover:bg-emerald-300 duration-500" htmlFor="imgUpload">Change PFP</label>
+                <label className="cursor-pointer shadow-lg shadow-gray-800 p-1 text-xs rounded-md mx-auto bg-emerald-500 hover:bg-emerald-300 duration-500" htmlFor="imgUpload">Change PFP</label>
                 </form>
                 { pfpBool ? 
                 <p className=" w-44 text-red-500 mt-2">{pfpMessage}</p>
@@ -103,48 +104,16 @@ export default function UserOptions(props: any) {
             </div>
             </div>
             
-            <div className="bg-gray-600 mt-5 mx-2 grid grid-cols-1 text-center p-2 rounded-md">
-                <p className="text-gray-300">user:</p>
+            <div className="bg-gray-600 mt-3 mx-2 grid grid-cols-1 p-2 rounded-md">
                 <p 
-                    className="text-3xl border-b-2 text-gray-200 cursor-pointer hover:text-green-500 duration-300 border-gray-400"
+                    className="text-xl border-b-2 text-gray-200 cursor-pointer hover:text-green-500 duration-300 border-gray-400"
                     onClick={() => router.push("/user/" + userName)}
                 >
-                    {userName}
+                    t/{userName}
                 </p>
             </div>
 
-            {/* Create a new log container -- TODO: turn into a component */}
-            <div className="bg-gray-800/90 mt-2 w-40 p-2 mx-auto rounded-md">
-
-                <div className="">
-                    <h1 className="text-gray-200 font-semibold text-lg">Your Logs</h1>
-                </div>
-
-                <div className="flex justify-center mt-2">
-                    <button 
-                        className="bg-gray-500 p-1 rounded-md shadow-md hover:bg-emerald-500 hover:text-gray-100 duration-200"
-                        onClick={() => router.push("/river/new-log")}
-                    >Create new log</button>
-                </div>
-
-                <div className="w-36 mx-auto mt-3 p-2 rounded-md bg-gray-600 text-gray-300 text-center">
-                    <p className="">TODO: Dispaly used view logs created by user.</p>
-                </div>
-
-                <div className={newLogAbout ? "" : "flex items-center"}>
-                    {/* <p className="text-gray-200 font-light text-xs mr-1 mt-1">Learn More:</p> */}
-                    {newLogAbout ? 
-                    <>
-                    <p className="text-gray-200 font-light text-xs mt-2 w-32">Build a new community by starting your own log. A log is a forum for other totlers to join and form a bale that can cover any subject you want.</p>
-                    <button className="text-gray-200 font-light text-xs cursor-pointer hover:text-green-500 duration-200" onClick={() => setNewLogAbout(prev => !prev)}>Hide</button>
-                    </>
-                    :
-                    <div className="">
-                    <button className="text-gray-200 font-light text-xs cursor-pointer hover:text-green-500 duration-200" onClick={() => setNewLogAbout(prev => !prev)}>Learn More</button>
-                    </div>
-                    }
-                </div>
-            </div>
+            <LogsByUserContainer />
 
             <div className="flex mt-10 justify-center space-x-2">
                 <button className="bg-emerald-500 hover:bg-emerald-700/80 duration-300 shadow-lg shadow-gray-800 text-gray-300 p-2 rounded-md" onClick={() => router.push("/support")}>Support</button>

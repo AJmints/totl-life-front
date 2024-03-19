@@ -1,7 +1,5 @@
-import LoadingMainBale from "@/components/river-forums/containers/bale-pageviewcontainer/bale-main/LoadingMainBale"
 import Image from "next/image"
 import pfpDefault from '../../../public/icons/profile-pic.png'
-import { useState } from "react"
 import MakeReport from "../MakeReport/MakeReport"
 
 const ReportBale = (props: any) => {
