@@ -25,25 +25,24 @@ const SupportLandingPageComponent = (props: any) => {
             const id: string | null | undefined = searchParams?.get('id')
             const type: string | null | undefined = searchParams?.get('type')
             const log: string | null | undefined = searchParams?.get('log')
-            
-            if (reportType === undefined) {
-                setReportType(null)
-            }
 
             if (type === "post") {
+                setReportType("post")
                 const makeLogRequest = await fetch( URL + "/logs/get-specific-bale/" + log + "/" + id)
                 const response = await makeLogRequest.json().catch((err) => {
                     console.log(err)
                 })
                 if (response) {
-                    setReportType("post")
                     setContent(response)
                 } else if (response.status === "failed") {
                     console.log("Post failed due to invalid url param")
                 } else {
                     console.log("Error, please try again later.")
                 }
+            } else if (reportType === undefined) {
+                setReportType(null)
             }
+
 
         }
         conditions()
