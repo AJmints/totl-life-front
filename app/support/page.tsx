@@ -3,7 +3,7 @@ import SupportLandingPageComponent from "@/components/support/SupportLandingPage
 const SupportPage = () => {
     
     return (
-        <div className="pb-2">
+        <div className="min-h-screen">
         <SupportLandingPageComponent />
         </div>
     )

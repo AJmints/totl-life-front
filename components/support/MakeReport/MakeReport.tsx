@@ -48,7 +48,7 @@ const MakeReport = (props: any) => {
 
         const data = {
             reportingUser: userID,
-            reportedId: props.baleId,
+            reportedId: props.id,
             type: props.type,
             message: event.target.body.value
         }
@@ -90,7 +90,7 @@ const MakeReport = (props: any) => {
 
         <>
         <div className="bg-gray-600 p-4 rounded-md mb-2">
-            <p className="text-gray-100 font-light">Please let us know what the issue is with the above post/comment/user. We will examine and make a decision on how to handle the situation. Thank you for looking out and keeping our community safe!</p>
+            <p className="text-gray-100 font-light">Please let us know what you would like to report. We will examine and make a decision on how to handle the situation. Thank you for looking out and keeping our community safe!</p>
         </div>
         <form className="" onSubmit={makeReportHandler}>
             

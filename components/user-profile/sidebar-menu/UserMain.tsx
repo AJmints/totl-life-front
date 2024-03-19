@@ -147,7 +147,7 @@ export default function UserOptions(props: any) {
             </div>
 
             <div className="flex mt-10 justify-center space-x-2">
-                <button className="bg-emerald-500 hover:bg-emerald-700/80 duration-300 shadow-lg shadow-gray-800 text-gray-300 p-2 rounded-md">Settings</button>
+                <button className="bg-emerald-500 hover:bg-emerald-700/80 duration-300 shadow-lg shadow-gray-800 text-gray-300 p-2 rounded-md" onClick={() => router.push("/support")}>Support</button>
                 <button onClick={() => props.logout()} className="bg-rose-600/80 duration-300 hover:bg-red-800 p-2 text-gray-300 shadow-lg shadow-gray-800 rounded-md">Log Out</button>
             </div>            
             </div>
