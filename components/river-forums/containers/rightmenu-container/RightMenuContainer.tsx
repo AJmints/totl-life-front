@@ -18,7 +18,6 @@ const RightMenuContainer = () => {
             />
 
             <FollowingLogs 
-            setFollowing={setFollowing}
             />
 
             <PolicyLogs
