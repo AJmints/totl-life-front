@@ -5,12 +5,29 @@ import BaleDisplay from "./baledisplay/BaleDisplay"
 import RightMenuContainer from "./rightmenu-container/RightMenuContainer"
 import { useState, useEffect } from 'react'
 import LogBanner from "./logbanner-phoneview/LogBanner"
+import { useRouter } from "next/navigation"
+
+export const authCheck = async() => {
+    const infoCall = await fetch("/api/authCheck")
+    const status = await infoCall.json().catch((err) => {
+        console.log(err)
+    })
+    return status.loggedIn
+}
 
 const RiverContainer = () => {
 
+    const router = useRouter()
+    
     useEffect(() => {
 
+        const check = async() => {
+            if (!await authCheck()) {
+                router.push("/login")
+            }
+        }
         
+        check()
     }, [])
 
 

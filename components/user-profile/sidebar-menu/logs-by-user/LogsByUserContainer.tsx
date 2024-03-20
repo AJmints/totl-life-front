@@ -1,21 +1,22 @@
 import { useRouter } from "next/navigation"
 import { useState } from "react"
+import { useUserContext } from "@/app/context/UserContextProvider"
 
-const LogsByUserContainer = (props: any) => {
+const LogsByUserContainer = () => {
 
     const [newLogAbout, setNewLogAbout] = useState<boolean>(false)
 
+    const { createdLogs } = useUserContext()
+
     const router = useRouter()
 
-    const arr = ["test", "pigs", "more", "amazing", "longnameforfun"]
-
-    const userLogs: any = arr.map((article: any) => (
-        <>
-        <li className='py-1 cursor-pointer hover:bg-emerald-400 duration-500'>
-        <p className='ml-2'>{" Log: " + article}<br/></p>
-        </li>
-        <hr/>
-        </>
+    const userLogs: any = createdLogs.map((article: any) => (
+        <div key={article}>
+            <li className='py-1 cursor-pointer hover:bg-emerald-400 duration-500'>
+                <p className='ml-2'>{" Log: " + article}<br/></p>
+            </li>
+            <hr/>
+        </div>
     ))
 
     return (
@@ -23,14 +24,14 @@ const LogsByUserContainer = (props: any) => {
 
         <div className="">
             <h1 className="text-gray-200 font-semibold text-lg">Your Logs</h1>
+            <p className="text-gray-200 text-xs">You can make {10 - createdLogs.length} more logs</p>
         </div>
 
         <div className='mx-1 mt-2 w-48 bg-gray-100 rounded-md shadow-lg'>
-            <div className='no-scrollbar container h-24 rounded-md overflow-y-scroll bg-gray-300 '>
+            <div className='no-scrollbar container h-20 rounded-md overflow-y-scroll bg-gray-300 '>
             
             <ul>
                 {userLogs}
-                Pending...
             </ul>
 
             </div>

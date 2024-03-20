@@ -12,7 +12,6 @@ import LoginForm from "../login/LoginForm"
 import UserOptionsConst from "../user-profile/sidebar-menu/UserOptionsConst"
 import LogSelect from "./header-parts/LogSelect"
 import { useUserContext } from "@/app/context/UserContextProvider"
-import { useRiverContext } from "@/app/context/RiverContextProvider"
 
 let USER_ID: string = ""
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -46,8 +45,7 @@ export default function Header() {
     const [selectLog, setSelectLog] = useState<string[]>([])
     const router = useRouter()
 
-    const { setUserID, setUserName, setVerified, userPFP, setUserPFP } = useUserContext()
-    const { setFollowingList} = useRiverContext()
+    const { setUserID, setUserName, setVerified, userPFP, setUserPFP, setCreatedLogs, setLogFollowList } = useUserContext()
     
     
     useEffect(() => {
@@ -70,6 +68,8 @@ export default function Header() {
             setUserID(response.userId)
             setUserName(response.userName)
             setVerified(response.accountVerified)
+            setCreatedLogs(response.createdLogs)
+            setLogFollowList(response.logFollowList)
                 if (response.pfp) {
                     setUserPFP('data:image/jpeg;base64,' + response.pfp.image)
                 } else {
@@ -91,7 +91,6 @@ export default function Header() {
         setUserLogged(false)
         setUserDetailsToggle(false)
         setLoginToggle(false)
-        setFollowingList([])
         setUserID("") 
         setUserName("")
         setVerified(false)

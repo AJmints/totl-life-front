@@ -1,3 +1,4 @@
+'use client'
 import RiverContainer from './containers/RiverContainer'
 
 const RiverPageStructure = () => {

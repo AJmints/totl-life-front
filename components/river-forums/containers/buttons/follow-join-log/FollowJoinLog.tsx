@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { useRiverContext } from "@/app/context/RiverContextProvider"
 import { usePathname } from "next/navigation"
+import { useUserContext } from "@/app/context/UserContextProvider"
 
 let USER_ID: string
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -12,10 +13,7 @@ export const authCheck = async() => {
     const status = await infoCall.json().catch((err) => {
         console.log(err)
     })
-    if (status.loggedIn) {
-        USER_ID = status.id
-        return status.loggedIn
-    }
+    return status.loggedIn
 }
 export const token = async() => {
     const getToken = await fetch("/api/headers")
@@ -28,29 +26,17 @@ export const token = async() => {
 const FollowJoinLog = (props: any) => {
 
     const [ loadingFollow, setLoadingFollow ] = useState<boolean>(false)
-    const [ following, setFollowing ] = useState<boolean>(false)
-    const { followingList, setFollowingList } = useRiverContext()
-
-    const pathname = usePathname()
-
-
-    useEffect(() => {
-        if (followingList.includes(pathname?.split("/river/").pop()!)) {
-            setFollowing(true)
-        } else {
-            setFollowing(false)
-        }
-    }, [])
+    const {userID, logFollowList, setLogFollowList} = useUserContext()
 
     const followLog = async(log: string) => {
         if (!await authCheck()) {
-            // TODO
             console.log("logout")
+            return
         }
         setLoadingFollow(true)
 
         const data: Object = {
-            userId: USER_ID,
+            userId: userID,
             logName: log,
         }
 
@@ -65,13 +51,14 @@ const FollowJoinLog = (props: any) => {
         const response: any  = await requestFollow.json().catch((err: Error) => {
             console.log(err)
         })
-        setLoadingFollow(false)
         if (response.status === "follow") {
-            setFollowing(true)
+            setLogFollowList((prevState: string[]) => [...prevState, response.response])
         } else if (response.status === "unfollow") {
-            setFollowing(false)
+            setLogFollowList(logFollowList.filter(function(removeLog) {
+                return removeLog !== response.response
+            }))
         }
-        USER_ID = ""
+        setLoadingFollow(false)
     }
 
     return (
@@ -83,7 +70,7 @@ const FollowJoinLog = (props: any) => {
             :
             <button 
                 className="bg-gray-400 hover:bg-emerald-500 duration-300 p-1 rounded-md text-gray-800"
-                onClick={() => followLog(props.logName!)}>{following ? "Joined" : "Follow"}
+                onClick={() => followLog(props.logName!)}>{logFollowList.includes(props.logName) ? "Joined" : "Follow"}
             </button>
             }
         </div>
