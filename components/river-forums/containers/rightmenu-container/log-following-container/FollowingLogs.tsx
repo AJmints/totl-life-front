@@ -1,13 +1,9 @@
 'use client'
 
-import { useEffect, useState } from "react"
-import { usePathname, useRouter } from "next/navigation"
-import { useRiverContext } from "@/app/context/RiverContextProvider"
 import { useUserContext } from "@/app/context/UserContextProvider"
 import Link from "next/link"
 
 let USER_ID: string
-const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")

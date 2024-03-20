@@ -8,12 +8,18 @@ import { useUserContext } from "@/app/context/UserContextProvider"
 
 const UserPageDetails = () => {
 
-    useEffect(() => {
-        // Need to verify if user that is logged is the same that we are viewing the page, if not, we need to load the other profile being viewed.
-    }, [])
-
     const pathname = usePathname()
     const { userName, userPFP, verified, userID } = useUserContext()
+
+    useEffect(() => {
+        // Need to verify if user that is logged is the same that we are viewing the page, if not, we need to load the other profile being viewed.
+        const getUserInformation = async() => {
+            
+        }
+        getUserInformation
+    }, [])
+
+    
 
     
     return (

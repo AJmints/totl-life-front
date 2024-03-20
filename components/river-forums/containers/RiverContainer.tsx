@@ -6,6 +6,7 @@ import RightMenuContainer from "./rightmenu-container/RightMenuContainer"
 import { useState, useEffect } from 'react'
 import LogBanner from "./logbanner-phoneview/LogBanner"
 import { useRouter } from "next/navigation"
+import LoadingBales from "./baledisplay/LoadingBales"
 
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
@@ -17,6 +18,7 @@ export const authCheck = async() => {
 
 const RiverContainer = () => {
 
+    const [ verify, setVerify ] = useState(false)
     const router = useRouter()
     
     useEffect(() => {
@@ -24,6 +26,8 @@ const RiverContainer = () => {
         const check = async() => {
             if (!await authCheck()) {
                 router.push("/login")
+            } else {
+                setVerify(true)
             }
         }
         
@@ -32,25 +36,37 @@ const RiverContainer = () => {
 
 
     return (
-        <div className="flex flex-col col-span-1">
 
-            <div className="m-4 mb-0 flex justify-center">
-                <LogBanner />
-            </div>
+        <>
+        {
+            verify ? 
+            <div className="flex flex-col col-span-1">
 
-            <div className="block sm:flex justify-center">
-
-                <div className="space-y-4 m-4 sm:mr-0 lg:mr-4 max-w-3xl">
-                    <CreateNewBale />
-                    <BaleDisplay />
+                <div className="m-4 mb-0 flex justify-center">
+                    <LogBanner />
                 </div>
 
-                <div className="mt-4 mr-4 max-w-sm">
-                    <RightMenuContainer />
-                </div>
+                <div className="block sm:flex justify-center">
 
+                    <div className="space-y-4 m-4 sm:mr-0 lg:mr-4 max-w-3xl">
+                        <CreateNewBale />
+                        <BaleDisplay />
+                    </div>
+
+                    <div className="mt-4 mr-4 max-w-sm">
+                        <RightMenuContainer />
+                    </div>
+
+                </div>
             </div>
-        </div>
+            :
+            <div className="flex justify-center">
+            <div className="m-4 sm:mr-0 lg:mr-4 max-w-3xl">
+                <LoadingBales />
+            </div>
+            </div>
+        }
+        </>
     )
 }
 
