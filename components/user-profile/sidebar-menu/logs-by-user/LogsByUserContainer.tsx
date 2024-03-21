@@ -12,7 +12,7 @@ const LogsByUserContainer = () => {
 
     const userLogs: any = createdLogs.map((logName: any) => (
         <div className="" key={logName}>
-            <li className='py-1 cursor-pointer hover:bg-emerald-400 duration-500'>
+            <li onClick={() => router.push("/river/" + logName)} className='py-1 cursor-pointer hover:bg-emerald-400 duration-500'>
                 <p className='ml-2'>{" Log: " + logName}<br/></p>
             </li>
             <hr/>
