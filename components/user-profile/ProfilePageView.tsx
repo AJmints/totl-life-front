@@ -1,8 +1,9 @@
 'use client'
 
+import { useUserContext } from "@/app/context/UserContextProvider"
 import BackPackContainer from "./pageview-container/backpack-container/BackPackContainer"
 import UserPageDetails from "./pageview-container/user-detail-header/UserPageDetails"
-import { useRouter } from "next/navigation"
+import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 
 export const authCheck = async() => {
@@ -16,7 +17,9 @@ export const authCheck = async() => {
 const ProfilePageView = () => {
 
     const [ verify, setVerify ] = useState(false)
+
     const router = useRouter()
+    const pathname = usePathname()
     
     useEffect(() => {
 
@@ -24,12 +27,27 @@ const ProfilePageView = () => {
             if (!await authCheck()) {
                 router.push("/login")
             } else {
-                setVerify(true)
+
+                if (pathname?.split("/user/").pop() === sessionStorage.getItem("userName")) {
+                    userDetails()
+                } else {
+                    otherUserDetails()
+                }
+                
             }
+        }
+
+        const userDetails = async() => {
+            setVerify(true)
+        }
+        const otherUserDetails = async() => {
+            setVerify(true)
         }
         
         check()
     }, [])
+
+
 
     return (
         <>
@@ -65,7 +83,7 @@ const ProfilePageView = () => {
             :
             
             <div>
-                Verifying
+                <p>Make Loading skeleton</p>
             </div>
         }
         </>

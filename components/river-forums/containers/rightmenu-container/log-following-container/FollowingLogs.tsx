@@ -22,14 +22,14 @@ const FollowingLogs = () => {
                 <div className='no-scrollbar container h-28 rounded-md overflow-y-scroll bg-gray-600 '>
                 {logFollowList.map((item: string) => {
                     return (
-                        <>
-                        <div className="py-1 hover:bg-gray-700" key={item}>
+                        <div key={item}>
+                        <div className="py-1 hover:bg-gray-700">
                         <Link 
                         href={"/river/" + item} 
                         className='text-gray-300 text-sm ml-5 text-left hover:text-emerald-500 duration-300'>log/{item}</Link>
                         </div>
                         <hr/>
-                        </>
+                        </div>
                     )
                 })}
                 </div>
