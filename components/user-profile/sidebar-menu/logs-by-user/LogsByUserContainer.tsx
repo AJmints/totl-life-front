@@ -10,10 +10,10 @@ const LogsByUserContainer = () => {
 
     const router = useRouter()
 
-    const userLogs: any = createdLogs.map((article: any) => (
-        <div key={article}>
+    const userLogs: any = createdLogs.map((logName: any) => (
+        <div className="" key={logName}>
             <li className='py-1 cursor-pointer hover:bg-emerald-400 duration-500'>
-                <p className='ml-2'>{" Log: " + article}<br/></p>
+                <p className='ml-2'>{" Log: " + logName}<br/></p>
             </li>
             <hr/>
         </div>
@@ -27,12 +27,17 @@ const LogsByUserContainer = () => {
             <p className="text-gray-200 text-xs">You can make {10 - createdLogs.length} more logs</p>
         </div>
 
-        <div className='mx-1 mt-2 w-48 bg-gray-100 rounded-md shadow-lg'>
-            <div className='no-scrollbar container h-20 rounded-md overflow-y-scroll bg-gray-300 '>
+        <div className='mx-1 mt-2 w-48 bg-gray-300 p-0.5 rounded-md shadow-lg'>
+            <div className='no-scrollbar container h-20 rounded-md overflow-y-scroll bg-gray-500 '>
+            {
+                createdLogs.length === 0 ?
+                <p className="ml-4 mt-2 font-semibold">Create your first log!</p>
+                :
+                <ul>
+                    {userLogs}
+                </ul>
+            }
             
-            <ul>
-                {userLogs}
-            </ul>
 
             </div>
         </div>
