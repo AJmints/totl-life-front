@@ -55,7 +55,12 @@ const ProfilePageView = () => {
                 console.log(err)
             })
             if (response.status !== "failed") {
-                setUserInformation({name: response.userName, id: response.userId, verified: response.accountVerified, userPfp: 'data:image/jpeg;base64,' + response.pfp.image})
+                if (response.pfp?.image === undefined) {
+                    setUserInformation({name: response.userName, id: response.userId, verified: response.accountVerified, userPfp: null})
+                } else {
+                    setUserInformation({name: response.userName, id: response.userId, verified: response.accountVerified, userPfp: 'data:image/jpeg;base64,' + response.pfp.image})
+                }
+                
                 setRelatedLogs({userFollows: response.logFollowList, userCreated: response.createdLogs})
                 setVerify(true)
                 setReleaseHold(true)

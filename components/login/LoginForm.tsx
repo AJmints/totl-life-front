@@ -79,43 +79,47 @@ export default function LoginForm(props: any) {
             body: JSON.stringify(data)
         })
         const result = await response.json().catch((err) => {
-            console.log(err)
             setLoading(false)
             setReadMessage("Something went wrong, please try again.")
         })
-        
-        if (data.userEmail === result.userEmail) {
-            setLoading(false)
-            props.setLoginToggle(false)
-            props.setUserLogged(true)
-            setTokenCookie(result.token)
-            /* Set user Context */
-            setUserID(result.id) 
-            setUserName(result.userName)
-            setVerified(result.accountVerified)
+        try {
+                if (data.userEmail === result.userEmail) {
+                setLoading(false)
+                props.setLoginToggle(false)
+                props.setUserLogged(true)
+                setTokenCookie(result.token)
+                /* Set user Context */
+                setUserID(result.id) 
+                setUserName(result.userName)
+                setVerified(result.accountVerified)
 
-            if (result.userPfp) {
-                setUserPFP('data:image/jpeg;base64,' + result.userPfp)
-            } else {
-                setUserPFP(null)
-            }
+                if (result.userPfp) {
+                    setUserPFP('data:image/jpeg;base64,' + result.userPfp)
+                } else {
+                    setUserPFP(null)
+                }
 
-            if (pathname !== "/login") {
-                props.setLoadingHeader(true)
-                router.push("/river")
-                return
-            } else if (pathname === "/login") {
-                location.reload()
+                if (pathname !== "/login") {
+                    props.setLoadingHeader(true)
+                    router.push("/river")
+                    return
+                } else if (pathname === "/login") {
+                    location.reload()
+                    return
+                }
+                
+            }
+            if (result.status === "failed") {
+                setLoading(false)
+                setMessage(true)
+                setReadMessage(result.response)
                 return
             }
-            
-        }
-        if (result.status === "failed") {
-            setLoading(false)
+        } catch (err) {
+            setReadMessage("There was an error, please try again later.")
             setMessage(true)
-            setReadMessage(result.response)
-            return
         }
+        
     }
 
     return (
@@ -146,7 +150,7 @@ export default function LoginForm(props: any) {
             </form>
             </div>
 
-            { message ? <p className="text-red-500">{readMessage}</p> : <></>}
+            { message ? <p className="bg-red-600/80 p-1 rounded-md">{readMessage}</p> : <></>}
 
             <div className="block sm:flex mt-3 font-light">
             <h2>Are you new here?</h2>
