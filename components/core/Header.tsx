@@ -69,7 +69,6 @@ export default function Header() {
             if (response.userName) {
             setUserID(response.userId)
             setUserName(response.userName)
-            sessionStorage.setItem("userName", response.userName)
             setVerified(response.accountVerified)
             setCreatedLogs(response.createdLogs)
             setLogFollowList(response.logFollowList)

@@ -6,7 +6,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { useUserContext } from "@/app/context/UserContextProvider"
 
-const UserPageDetails = () => {
+const UserCardDetails = (props: any) => {
 
     const pathname = usePathname()
     const { userName, userPFP, verified, userID } = useUserContext()
@@ -21,11 +21,11 @@ const UserPageDetails = () => {
     return (
         <div>
 
-            <div className="flex justify-between">
+            <div className="sm:flex justify-between">
                 <div className="bg-gray-400/80 p-3 rounded-md ">
-                    <div className="flex justify-center">
+                    <div className="sm:flex justify-center">
                         <Image
-                        src={userPFP === null ? imgDefault : userPFP}
+                        src={props.userInformation.userPfp === null ? imgDefault : props.userInformation.userPfp}
                         alt=""
                         height={100}
                         width={100}
@@ -33,10 +33,19 @@ const UserPageDetails = () => {
                         />
                     </div>
                     <div>
-                        <p>t/{userName}</p>
-                        <p>Verified: {verified ? "true" : "false"}</p>
+                        <p>t/{props.userInformation.name}</p>
+                        <p>Verified: {props.userInformation.verified ? "true" : "false"}</p>
                     </div>
                 </div>
+
+                {
+                    props.noUser ? 
+                    <div className="absolute bg-red-700/80 rounded-md p-2 -mt-20 sm:mt-0 text-xl left-[35%] right-[35%] lg:left-[42%] lg:right-[42%]">
+                        <p>User not present, please try again later</p>
+                    </div>
+                    :
+                    <></>
+                }
 
             
                 <div className="flex items-end">
@@ -48,4 +57,4 @@ const UserPageDetails = () => {
     )
 }
 
-export default UserPageDetails
+export default UserCardDetails

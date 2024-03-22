@@ -1,10 +1,13 @@
 'use client'
 
-import { useUserContext } from "@/app/context/UserContextProvider"
+
+import LoadingProfilePage from "./LoadingProfilePage"
 import BackPackContainer from "./pageview-container/backpack-container/BackPackContainer"
-import UserPageDetails from "./pageview-container/user-detail-header/UserPageDetails"
+import UserCardDetails from "./pageview-container/user-detail-header/UserCardDetails"
 import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
+
+const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
@@ -17,6 +20,19 @@ export const authCheck = async() => {
 const ProfilePageView = () => {
 
     const [ verify, setVerify ] = useState(false)
+    const [ releaseHold, setReleaseHold ] = useState(false)
+    const [ noUser, setNoUser ] = useState(false)
+    const [ userInformation, setUserInformation ] = useState<any>({
+        name: "",
+        id: "",
+        verified: false,
+        userPfp: null,
+
+    })
+    const [ relatedLogs, setRelatedLogs ] = useState({
+        userFollows: [],
+        userCreated: []
+    })
 
     const router = useRouter()
     const pathname = usePathname()
@@ -27,21 +43,27 @@ const ProfilePageView = () => {
             if (!await authCheck()) {
                 router.push("/login")
             } else {
-
-                if (pathname?.split("/user/").pop() === sessionStorage.getItem("userName")) {
-                    userDetails()
-                } else {
-                    otherUserDetails()
-                }
-                
+                userDetail()
             }
         }
 
-        const userDetails = async() => {
-            setVerify(true)
-        }
-        const otherUserDetails = async() => {
-            setVerify(true)
+        const userDetail = async() => {
+            const userName = pathname?.split("/user/").pop()
+
+            const getOtherUserDetails = await fetch( URL + "/profile/userInfo/" + userName)
+            const response = await getOtherUserDetails.json().catch((err) => {
+                console.log(err)
+            })
+            if (response.status !== "failed") {
+                setUserInformation({name: response.userName, id: response.userId, verified: response.accountVerified, userPfp: 'data:image/jpeg;base64,' + response.pfp.image})
+                setRelatedLogs({userFollows: response.logFollowList, userCreated: response.createdLogs})
+                setVerify(true)
+                setReleaseHold(true)
+                return
+            } else {
+                setNoUser(true)
+                setVerify(true)
+            }
         }
         
         check()
@@ -63,14 +85,25 @@ const ProfilePageView = () => {
             </div>
 
             <div className="">
-                <UserPageDetails />
-                <div className="flex mt-3 space-x-2">
+                <UserCardDetails 
+                userInformation={userInformation}
+                noUser={noUser}
+                />
+                <div className="sm:flex mt-3 space-x-2">
                     <li>BackPack</li>
                     <li>Posts</li>
                     <li>Comments</li>
                     <li>Saved</li>
                     <li>Events</li>
                     <li>Your Communities</li>
+                </div>
+                <div className="mt-5 p-2 px-5 bg-gray-500 rounded-md space-y-2">
+                    <div className="py-14 bg-gray-300 rounded-md">
+                        <p className="text-gray-700 text-center text-xl">Under Development</p>
+                    </div>
+                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md"></div>
+                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md"></div>
+                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md"></div>
                 </div>
             </div>
 
@@ -82,8 +115,8 @@ const ProfilePageView = () => {
 
             :
             
-            <div>
-                <p>Make Loading skeleton</p>
+            <div className="">
+                <LoadingProfilePage />
             </div>
         }
         </>
