@@ -2,10 +2,12 @@
 
 
 import LoadingProfilePage from "./LoadingProfilePage"
-import BackPackContainer from "./pageview-container/backpack-container/BackPackContainer"
+import BackPackContainer from "./pageview-container/user-tab-history/backpack-container/BackPackContainer"
 import UserCardDetails from "./pageview-container/user-detail-header/UserCardDetails"
 import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
+import TabOptionContainer from "./pageview-container/user-tab-history/TabOptionContainer"
+import LoadingTabOptions from "./pageview-container/user-tab-history/LoadingTabOptions"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -27,7 +29,6 @@ const ProfilePageView = () => {
         id: "",
         verified: false,
         userPfp: null,
-
     })
     const [ relatedLogs, setRelatedLogs ] = useState({
         userFollows: [],
@@ -77,7 +78,7 @@ const ProfilePageView = () => {
 
 
     return (
-        <>
+        <div>
         {
             verify ? 
 
@@ -89,31 +90,32 @@ const ProfilePageView = () => {
                 <li>Market Place</li>
             </div>
 
-            <div className="">
+            <div className="mx-auto">
+                <div>
                 <UserCardDetails 
                 userInformation={userInformation}
                 noUser={noUser}
                 />
-                <div className="sm:flex mt-3 space-x-2">
-                    <li>BackPack</li>
-                    <li>Posts</li>
-                    <li>Comments</li>
-                    <li>Saved</li>
-                    <li>Events</li>
-                    <li>Your Communities</li>
                 </div>
-                <div className="mt-5 p-2 px-5 bg-gray-500 rounded-md space-y-2">
-                    <div className="py-14 bg-gray-300 rounded-md">
-                        <p className="text-gray-700 text-center text-xl">Under Development</p>
+                {
+                    releaseHold ? 
+                    <div>
+                        <TabOptionContainer />
                     </div>
-                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md"></div>
-                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md"></div>
-                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md"></div>
-                </div>
+                    :
+                    <div>
+                        <LoadingTabOptions />
+                    </div>
+
+                }
+                
             </div>
 
-            <div className="hidden md:block">
-                <BackPackContainer />
+            <div className="hidden lg:block">
+                {/* <BackPackContainer 
+                userName={userInformation.name}/> */}
+                <p>Right Column</p>
+                <li>BackPack Feature</li>
             </div>
 
             </div>
@@ -124,7 +126,7 @@ const ProfilePageView = () => {
                 <LoadingProfilePage />
             </div>
         }
-        </>
+        </div>
     )
 }
 
