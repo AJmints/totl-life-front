@@ -8,7 +8,7 @@ const LoadingProfilePage = () => {
         <div className="bg-gray-700/80 p-10 font-extralight text-white flex justify-center md:justify-between">
 
         <div className="hidden sm:block">
-            <p>box</p>
+            <p></p>
         </div>
 
         <div>
@@ -51,7 +51,7 @@ const LoadingProfilePage = () => {
         </div>
         
         <div className="hidden sm:block">
-            <p>Box</p>
+            <p></p>
         </div>
 
         </div>

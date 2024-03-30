@@ -83,12 +83,6 @@ const ProfilePageView = () => {
             verify ? 
 
             <div className="bg-gray-700/80 p-10 font-extralight text-white flex justify-center md:justify-between">
-            
-            <div className="hidden lg:block">
-                <p>Left Column</p>
-                <li>Event Creator</li>
-                <li>Market Place</li>
-            </div>
 
             <div className="mx-auto">
                 <div>
@@ -100,7 +94,10 @@ const ProfilePageView = () => {
                 {
                     releaseHold ? 
                     <div>
-                        <TabOptionContainer />
+                        <TabOptionContainer 
+                        userName={userInformation.name}
+                        />
+                        
                     </div>
                     :
                     <div>
@@ -112,10 +109,11 @@ const ProfilePageView = () => {
             </div>
 
             <div className="hidden lg:block">
-                {/* <BackPackContainer 
-                userName={userInformation.name}/> */}
+                {/*  Have only 2 columns on user page when full screen, otherwise, have toggle between user info and right column actions */}
                 <p>Right Column</p>
                 <li>BackPack Feature</li>
+                <li>Event Creator</li>
+                <li>Market Place</li>
             </div>
 
             </div>
