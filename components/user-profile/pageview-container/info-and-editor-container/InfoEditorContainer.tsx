@@ -9,7 +9,7 @@ const InfoEditorContainer = () => {
             <div className="flex space-x-2 bg-gray-400 rounded-b-none rounded-md p-2">
                 <button className="bg-gray-500 hover:bg-emerald-500 duration-300 p-2 rounded-md">BackPack Editor</button>
                 <button className="bg-gray-500 hover:bg-emerald-500 duration-300 p-2 rounded-md">Events</button>
-                <button className="bg-gray-500 hover:bg-emerald-500 duration-300 p-2 rounded-md">Market Place</button>
+                <button className="bg-gray-500 hover:bg-emerald-500 duration-300 p-2 rounded-md">Gear Market</button>
             </div>
             </div>
             <div className="">

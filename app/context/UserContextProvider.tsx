@@ -2,7 +2,7 @@
 
 import { createContext, useContext, Dispatch, SetStateAction, useState } from 'react'
 
-interface ContextProps {
+type ContextProps = {
     userName: string,
     setUserName: Dispatch<SetStateAction<string>>, 
     userID: string,

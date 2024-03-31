@@ -6,6 +6,7 @@ import riverView from '../../public/images/river-view.jpg';
 import lifeStyle from '../../public/images/lifestyle.jpg';
 import viceroy from '../../public/images/viceroy.jpg';
 import secretary from '../../public/images/secretary-of-the-treasury.jpg';
+import duke from '../../public/images/kick-ass-duke.jpg'
 
 const AboutAll = () => {
   useEffect(() => {
@@ -146,6 +147,10 @@ const AboutAll = () => {
                     <Image src={secretary} alt="" className="w-52 mt-2 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
                     <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Iley</p>
                     </div>
+                    <div>
+                    <Image src={duke} alt="" className="w-52 mt-2 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
+                    <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Matt</p>
+                    </div>
                     </div>
 
                     <div className="text-center text-gray-300 my-20 space-y-6 bg-gray-700/80 p-5 rounded-md">
@@ -165,6 +170,8 @@ const AboutAll = () => {
                     his childhood summers. Infused with a love for the outdoors from a young age, Iley felt a calling to ensure that the
                     pristine beauty he enjoyed would be preserved for future generations.
                     Drawing from his expertise in data analytics and engineering, Iley is driven to document and study the most effective methods for achieving Sustainable Stewardship. His professional background uniquely positions him to contribute valuable insights, aligning his passion for nature with a commitment to strategic environmental conservation.</p>
+                    <p className="text-2xl font-serif border-b-[1px]">Matt, the Kick Ass Duke (he/him):</p>
+                    <p>Matt is a Missouri native. He grew up exploring rivers and creeks as a child and loved when he experienced interactions with the wildlife. He's the navigator group and takes charge organizing events and planning.</p>
         </div>
       </div>
     </div>
