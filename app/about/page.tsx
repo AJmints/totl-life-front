@@ -157,21 +157,33 @@ const AboutAll = () => {
                     <p>Our incredible team of TOTLers. 
                     We&#39;re not just a collective; we&#39;re a *Bale,* a close-knit community united by a 
                     shared commitment to Sustainable Stewardship.</p>
+                    <div>
                     <p className="text-2xl font-serif border-b-[1px]">Alex, the Viceroy (he/him):</p>
-                    <p>Alex was raised in Missouri, and always had a strong love for nature. Growing up, he
-                    had exposure to many of the beautiful local, city, state, and national parks that MO 
-                    has to offer. His love for nature sparked a desire to get more involved in preserving the natural 
-                    beauty that we have left. That is what sparked the desire for Alex and Iley to create the 
-                    Totl.life website! We believe in the power of organizing and working towards a common 
-                    goal, and hope you do too! 
+                    <p className='text-sm font-serif mt-1'>Lead Developer / Project Designer</p>
+                    </div>
+                    <p>Alex is the lead developer of this project, and aspiring programmer. He graduated from the LaunchCode bootcamp 
+                      in 2022 from the Web Developer class. He continues his learning thorugh projects and his current employment. He
+                      was made from star dust to become a human with aspirations to become a turtle forever floating on a river. On a 
+                      trip in the year of 2022, he was floating with his friends on the Current river when the idea of Totl was hatched.
+                      Iley and Alex came up with this idea to start a project that shared their love of nature and the river. Totl is a 
+                      project that aims to be a hub for outdoor people and nature lovers to organize and meet. 
                     </p>
+                    <div>
                     <p className="text-2xl font-serif border-b-[1px]">Iley, the Secretary of Treasury (he/him):</p>
+                    <p className='text-sm font-serif mt-1'>Business Coordinator / Developer</p>
+                    </div>
                     <p>Iley is a native of Missouri and Oklahoma, where the rivers and lakes of the Midwest became the backdrop to many of
                     his childhood summers. Infused with a love for the outdoors from a young age, Iley felt a calling to ensure that the
                     pristine beauty he enjoyed would be preserved for future generations.
-                    Drawing from his expertise in data analytics and engineering, Iley is driven to document and study the most effective methods for achieving Sustainable Stewardship. His professional background uniquely positions him to contribute valuable insights, aligning his passion for nature with a commitment to strategic environmental conservation.</p>
+                    Drawing from his expertise in data analytics and engineering, Iley is driven to document and study the most effective 
+                    methods for achieving Sustainable Stewardship. His professional background uniquely positions him to contribute valuable 
+                    insights, aligning his passion for nature with a commitment to strategic environmental conservation.</p>
+                    <div>
                     <p className="text-2xl font-serif border-b-[1px]">Matt, the Kick Ass Duke (he/him):</p>
-                    <p>Matt is a Missouri native. He grew up exploring rivers and creeks as a child and loved when he experienced interactions with the wildlife. He&#39;s the navigator group and takes charge organizing events and planning.</p>
+                    <p className='text-sm font-serif mt-1'>Project Coordinator</p>
+                    </div>
+                    <p>Matt is a Missouri native. He grew up exploring rivers and creeks as a child and loved when he experienced interactions 
+                      with the wildlife. He&#39;s the navigator group and takes charge organizing events and planning.</p>
         </div>
       </div>
     </div>
