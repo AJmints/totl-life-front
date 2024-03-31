@@ -171,7 +171,7 @@ const AboutAll = () => {
                     pristine beauty he enjoyed would be preserved for future generations.
                     Drawing from his expertise in data analytics and engineering, Iley is driven to document and study the most effective methods for achieving Sustainable Stewardship. His professional background uniquely positions him to contribute valuable insights, aligning his passion for nature with a commitment to strategic environmental conservation.</p>
                     <p className="text-2xl font-serif border-b-[1px]">Matt, the Kick Ass Duke (he/him):</p>
-                    <p>Matt is a Missouri native. He grew up exploring rivers and creeks as a child and loved when he experienced interactions with the wildlife. He's the navigator group and takes charge organizing events and planning.</p>
+                    <p>Matt is a Missouri native. He grew up exploring rivers and creeks as a child and loved when he experienced interactions with the wildlife. He&#39;s the navigator group and takes charge organizing events and planning.</p>
         </div>
       </div>
     </div>
