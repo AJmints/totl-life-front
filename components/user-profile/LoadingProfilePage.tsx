@@ -5,15 +5,10 @@ const LoadingProfilePage = () => {
 
     return (
         <>
-        <div className="bg-gray-700/80 p-10 font-extralight text-white flex justify-center md:justify-between">
 
-        <div className="hidden sm:block">
-            <p></p>
-        </div>
+        <div className="bg-gray-700/80 p-5 px-10 rounded-md">
 
-        <div>
-
-        <div>
+        <div className="">
             <div className="flex justify-between">
                 <div className="bg-gray-400/80 p-3 rounded-md ">
                     <div className="flex justify-center">
@@ -39,21 +34,15 @@ const LoadingProfilePage = () => {
 
         <div className="mt-3">
                 <div className="p-2 px-5 bg-gray-500 rounded-md">
-                    <div className="py-4 px-40 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
+                    <div className="py-4 px-32 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
                 </div>
                 <div className="mt-5 p-2 px-5 bg-gray-500 rounded-md space-y-2">
-                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
-                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
-                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
-                    <div className="py-14 px-40 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
+                    <div className="py-14 px-32 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
+                    <div className="py-14 px-32 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
+                    <div className="py-14 px-32 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
+                    <div className="py-14 px-32 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
                 </div>
             </div>
-        </div>
-        
-        <div className="hidden sm:block">
-            <p></p>
-        </div>
-
         </div>
 
         </>

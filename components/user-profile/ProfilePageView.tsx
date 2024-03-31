@@ -8,6 +8,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import TabOptionContainer from "./pageview-container/user-tab-history/TabOptionContainer"
 import LoadingTabOptions from "./pageview-container/user-tab-history/LoadingTabOptions"
+import InfoEditorContainer from "./pageview-container/info-and-editor-container/InfoEditorContainer"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -82,9 +83,10 @@ const ProfilePageView = () => {
         {
             verify ? 
 
-            <div className="bg-gray-700/80 p-10 font-extralight text-white flex justify-center md:justify-between">
+            <div className="flex justify-center">
+            <div className="bg-gray-700/80 p-10 font-extralight text-white rounded-md flex justify-center gap-5">
 
-            <div className="mx-auto">
+            <div className="">
                 <div>
                 <UserCardDetails 
                 userInformation={userInformation}
@@ -95,7 +97,7 @@ const ProfilePageView = () => {
                     releaseHold ? 
                     <div>
                         <TabOptionContainer 
-                        userName={userInformation.name}
+                        userInformation={userInformation}
                         />
                         
                     </div>
@@ -108,14 +110,11 @@ const ProfilePageView = () => {
                 
             </div>
 
-            <div className="hidden lg:block">
-                {/*  Have only 2 columns on user page when full screen, otherwise, have toggle between user info and right column actions */}
-                <p>Right Column</p>
-                <li>BackPack Feature</li>
-                <li>Event Creator</li>
-                <li>Market Place</li>
+            <div className="hidden xl:block bg-gray-500 p-2 rounded-md">
+                <InfoEditorContainer />
             </div>
 
+            </div>
             </div>
 
             :

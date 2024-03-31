@@ -21,7 +21,7 @@ const UserCardDetails = (props: any) => {
     return (
         <div>
 
-            <div className="sm:flex justify-between">
+            <div className="flex justify-between">
                 <div className="bg-gray-400/80 p-3 rounded-md ">
                     <div className="sm:flex justify-center">
                         <Image
@@ -29,7 +29,7 @@ const UserCardDetails = (props: any) => {
                         alt=""
                         height={100}
                         width={100}
-                        className="h-20 w-20 rounded-full" 
+                        className="h-20 w-20 rounded-full mx-auto" 
                         />
                     </div>
                     <div>

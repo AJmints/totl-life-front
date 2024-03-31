@@ -1,4 +1,4 @@
-const UserBalesContainer = () => {
+const UserLogContainer = () => {
 
     return (
         <>
@@ -9,4 +9,4 @@ const UserBalesContainer = () => {
     )
 }
 
-export default UserBalesContainer
+export default UserLogContainer

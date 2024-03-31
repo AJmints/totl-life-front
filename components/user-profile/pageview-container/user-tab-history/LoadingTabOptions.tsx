@@ -1,7 +1,7 @@
 const LoadingTabOptions = () => {
 
     return (
-        <div className="mt-3">
+        <div className="mt-3 p-5">
                 <div className="p-2 px-5 bg-gray-500 rounded-md">
                     <div className="py-4 px-40 sm:px-64 bg-gray-300 rounded-md animate-pulse"></div>
                 </div>
