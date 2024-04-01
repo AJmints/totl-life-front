@@ -7,7 +7,7 @@ import lifeStyle from '../../public/images/lifestyle.jpg';
 import viceroy from '../../public/images/viceroy.jpg';
 import secretary from '../../public/images/secretary-of-the-treasury.jpg';
 import duke from '../../public/images/kick-ass-duke.jpg'
-import bowler from '../../public/images/IMG_20240331_172020.png'
+import bowler from '../../public/images/archbishop-of-the-sandbar.png'
 
 const AboutAll = () => {
   useEffect(() => {
