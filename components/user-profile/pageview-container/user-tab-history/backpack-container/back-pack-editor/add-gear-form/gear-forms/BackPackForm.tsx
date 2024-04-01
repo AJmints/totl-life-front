@@ -27,7 +27,7 @@ const BackPackForm = () => {
             <div className="">
 
                 <div>
-                    <p>2 images, one of back pack and one of drypack. Sets values auto to category and type. Sets other values that won't be used to their defaults</p>
+                    <p>2 images, one of back pack and one of drypack. Sets values auto to category and type. Sets other values that won&#39;t be used to their defaults</p>
                 </div>
 
                 <div className="sm:flex sm:space-x-2 items-center mb-2">
