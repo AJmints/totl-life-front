@@ -139,8 +139,7 @@ export default function LoginForm() {
             </form>
 
             <div className="flex mt-3">
-                <p>Already have an account?</p>
-                <Link className="text-blue-600 border-b-2 border-blue-600 ml-1" href="/login">Login here!</Link>
+                <p>Already have an account? Click the Login button on the top right</p>
             </div>
             </div>
 

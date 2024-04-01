@@ -1,5 +1,6 @@
 export default [
-    "Pack Type",
+    "Back Pack",
+    "Dry Bag",
     "Tent",
     "Hammock",
     "Sleeping Bag",
@@ -10,7 +11,7 @@ export default [
     "Camp Tools",
     "Camp Clothing",
     "Electronic",
-    "Food Storage",
+    "Food/Drink Storage",
     "Hyrdration",
     "Consumables",
     "Sanitation", 

@@ -2,19 +2,19 @@
 
 import { useState, useEffect } from "react"
 import categoryDropDown from "./data/categoryDropDown"
-import PackTypeForm from "./gear-forms/PackTypeForm"
+import BackPackForm from "./gear-forms/BackPackForm"
 
 const AddGearForm = () => {
 
-    const [ packType, setPackType] = useState(false)
+    const [ backPack, setBackPack] = useState(false)
 
     const handleSelect = (select:any) => {
         console.log(select)
 
-        setPackType(false)
+        setBackPack(false)
 
-        if (select === "PackType") {
-            setPackType(true)
+        if (select === "BackPack") {
+            setBackPack(true)
         }
     }
 
@@ -40,8 +40,8 @@ const AddGearForm = () => {
             </div>
 
             {
-                packType ? 
-                <PackTypeForm />
+                backPack ? 
+                <BackPackForm />
                 :
                 <></>
             }

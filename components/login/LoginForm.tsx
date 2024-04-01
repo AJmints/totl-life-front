@@ -99,14 +99,15 @@ export default function LoginForm(props: any) {
                     setUserPFP(null)
                 }
 
-                if (pathname !== "/login") {
+                // if (pathname !== "/login") {
                     props.setLoadingHeader(true)
                     router.push("/river")
                     return
-                } else if (pathname === "/login") {
-                    location.reload()
-                    return
-                }
+                // } else if (pathname === "/login") {
+                //     location.reload()
+                //     router.push("/river")
+                //     return
+                // }
                 
             }
             if (result.status === "failed") {

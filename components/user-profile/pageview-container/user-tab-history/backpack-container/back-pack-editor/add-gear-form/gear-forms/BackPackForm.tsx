@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-const PackTypeForm = () => {
+const BackPackForm = () => {
 
     const [submitting, setSubmitting] = useState(false)
 
@@ -25,6 +25,11 @@ const PackTypeForm = () => {
         <form onSubmit={handleSubmit}>
             {/* Title for post */}
             <div className="">
+
+                <div>
+                    <p>2 images, one of back pack and one of drypack. Sets values auto to category and type. Sets other values that won't be used to their defaults</p>
+                </div>
+
                 <div className="sm:flex sm:space-x-2 items-center mb-2">
                     <h1 className="text-gray-200 font-light">Brand:</h1>
                     <div className='text-gray-800 mt-1'>
@@ -48,4 +53,4 @@ const PackTypeForm = () => {
     )
 }
 
-export default PackTypeForm
+export default BackPackForm

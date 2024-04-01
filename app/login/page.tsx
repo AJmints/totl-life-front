@@ -17,11 +17,9 @@ export default function LoginPage() {
                     </div>
                 </div>
                 <div className="flex justify-center"> 
-                    <LoginForm
-                    setLoginToggle={setLoginToggle}
-                    setUserLogged={setUserLogged}
-                    userLogged={userLogged}
-                    />
+                    <div className="p-10 rounded-md bg-gray-400 text-2xl font-extralight">
+                        <p>Click the Login Button on the top right of your screen to Login</p>
+                    </div>
                 </div>
             </div>
         </div>
