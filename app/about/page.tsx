@@ -7,6 +7,7 @@ import lifeStyle from '../../public/images/lifestyle.jpg';
 import viceroy from '../../public/images/viceroy.jpg';
 import secretary from '../../public/images/secretary-of-the-treasury.jpg';
 import duke from '../../public/images/kick-ass-duke.jpg'
+import bowler from '../../public/images/IMG_20240331_172020.png'
 
 const AboutAll = () => {
   useEffect(() => {
@@ -133,7 +134,7 @@ const AboutAll = () => {
       </div>
 
       {/* Section 4 */}
-      <div className="mx-2 mt-20 fade-in-section">
+      <div className="mx-2 mt-20 fade-in-section pb-5">
         <div>
         <h1 className="text-center mt-5 sm:mt-10 font-serif text-gray-100 text-5xl sm:text-7xl  w-full border-b-2" id='MeetUs'>Get to know the heart and soul of TOTL.life
         </h1>
@@ -142,16 +143,25 @@ const AboutAll = () => {
         <div>
                     <Image src={viceroy} alt="" className="w-52 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
                     <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Alex</p>
+                    <p className="text-sm font-serif text-gray-200 text-center">Viceroy</p>
                     </div>
                     <div>
                     <Image src={secretary} alt="" className="w-52 mt-2 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
                     <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Iley</p>
+                    <p className="text-sm font-serif text-gray-200 text-center">Secretary of Treasury</p>
                     </div>
                     <div>
                     <Image src={duke} alt="" className="w-52 mt-2 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
                     <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Matt</p>
+                    <p className="text-sm font-serif text-gray-200 text-center">Kick Ass Duke</p>
+                    </div>
+                    <div>
+                    <Image src={bowler} alt="" className="w-52 mt-2 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
+                    <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Alex</p>
+                    <p className="text-sm font-serif text-gray-200 text-center">Archbishop of the Sandbar</p>
                     </div>
                     </div>
+                    
 
                     <div className="text-center text-gray-300 my-20 space-y-6 bg-gray-700/80 p-5 rounded-md">
                     <p>Our incredible team of TOTLers. 
@@ -184,6 +194,10 @@ const AboutAll = () => {
                     </div>
                     <p>Matt is a Missouri native. He grew up exploring rivers and creeks as a child and loved when he experienced interactions 
                       with the wildlife. He&#39;s the navigator group and takes charge organizing events and planning.</p>
+                      <div>
+                    <p className="text-2xl font-serif border-b-[1px]">Alex, Archbishop of the Sandbar (he/him):</p>
+                    <p className='text-sm font-serif mt-1'>Project Coordinator</p>
+                    </div>
         </div>
       </div>
     </div>
