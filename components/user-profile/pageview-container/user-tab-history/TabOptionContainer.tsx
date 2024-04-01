@@ -7,7 +7,7 @@ import LoadingTabOptions from "./LoadingTabOptions"
 import UserCommentContainer from "./user-comment-container/UserCommentContainer"
 import UserLogContainer from "./user-log-container/UserLogContainer"
 import SavedPostContainer from "./saved-post-container/SavedPostContainer"
-import InfoEditorContainer from "../info-and-editor-container/InfoEditorContainer"
+import InfoEditorContainer from "../social-option-container/SocialOptionContainer"
 
 const TabOptionContainer = (props: any) => {
 

@@ -8,7 +8,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import TabOptionContainer from "./pageview-container/user-tab-history/TabOptionContainer"
 import LoadingTabOptions from "./pageview-container/user-tab-history/LoadingTabOptions"
-import InfoEditorContainer from "./pageview-container/info-and-editor-container/InfoEditorContainer"
+import InfoEditorContainer from "./pageview-container/social-option-container/SocialOptionContainer"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -84,7 +84,7 @@ const ProfilePageView = () => {
             verify ? 
 
             <div className="flex justify-center">
-            <div className="bg-gray-700/80 p-10 font-extralight text-white rounded-md flex justify-center gap-5">
+            <div className="bg-gray-700/80 p-2 sm:p-5 font-extralight text-white rounded-md flex justify-center gap-5">
 
             <div className="">
                 <div>
