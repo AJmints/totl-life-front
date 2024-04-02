@@ -60,6 +60,8 @@ const BackPackForm = () => {
             extraInfo: e.target.reservoir.value,
             lendable: e.target.lendable.value
         }
+        setSubmitting(false)
+        return
         
         const createPack = await fetch(URL + "/gear/create-backpack-item", {
             method: 'POST',
@@ -72,7 +74,7 @@ const BackPackForm = () => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
+        // console.log(response)
         setSubmitting(false)
 
     }
