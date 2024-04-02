@@ -11,7 +11,7 @@ const BackPackEditorContainer = () => {
     const [ add, setAdd ] = useState(false)
 
     return (
-        <div className="">
+        <div className=" font-light">
            
             <div className="flex items-center">
                 <div>

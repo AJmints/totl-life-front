@@ -81,7 +81,7 @@ const BackPackContainer = (props: any) => {
 
 
             <div>
-                <div className="p-5  text-gray-800 bg-gray-300 md:w-[40rem] rounded-md mt-2">
+                <div className="p-2 text-gray-800 bg-gray-300 md:w-[40rem] rounded-md mt-2">
 
                 {
                     update ? 
