@@ -119,12 +119,12 @@ const BackPackForm = () => {
             {/* Title for post */}
             <div className="">
 
-                <div className="pt-2">
-                    <h1 className="text-gray-200 text-xl font-medium">Required Info:</h1>
+                <div className="pt-6 flex">
+                    <h1 className="text-gray-200 text-xl px-1 font-medium border-b-[1px]">Required Info:</h1>
                 </div>
 
-                <div className="pt-4">
-                    <h1 className="text-gray-200 text-medium font-medium">Select Pack:</h1>
+                <div className="pt-2">
+                    <h1 className="text-gray-200 text-medium font-light">Select Pack:</h1>
                 </div>
                 <div className="flex items-center gap-2 sm:-mt-2 mb-2 text-lg text-center font-normal">
                     <div className={ back ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
@@ -187,8 +187,8 @@ const BackPackForm = () => {
                     </div>
                 </div>
 
-                <div className="pt-6 pb-2">
-                    <h1 className="text-gray-200 text-xl font-medium">Optional Info:</h1>
+                <div className="pt-8 pb-2 flex">
+                    <h1 className="text-gray-200 text-xl font-medium border-b-[1px]">Optional Info:</h1>
                 </div>
 
                 <div className='pb-2'>
@@ -213,7 +213,7 @@ const BackPackForm = () => {
                     </div>
                 </div>
 
-                <div className="items-center mb-5">
+                <div className="items-center pb-8">
                     <h1 className="text-gray-200 font-light">Would you lend this to a friend if they need?</h1>
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"false"} id="lendable">
