@@ -6,7 +6,7 @@ export default [
     "Sleeping Bag",
     "Sleeping Pad",
     "Tarp",
-    "Food/Drink Storage",
+    "Cooler/Fridge",
     "Camp Kitchen",
     "Camp Furniture",
     "Camp Tools",
