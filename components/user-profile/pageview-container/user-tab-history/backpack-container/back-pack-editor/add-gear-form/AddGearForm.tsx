@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from "react"
 import categoryDropDown from "./data/categoryDropDown"
-import BackPackForm from "./gear-forms/BackPackForm"
+import BackPackForm from "./gear-forms/back-pack-form/BackPackForm"
 
 const AddGearForm = () => {
 
     const [ backPack, setBackPack] = useState(false)
 
     const handleSelect = (select:any) => {
-        console.log(select)
 
         setBackPack(false)
 
@@ -39,12 +38,8 @@ const AddGearForm = () => {
                 </div>
             </div>
             </div>
-            {
-                backPack ? 
-                <BackPackForm />
-                :
-                <></>
-            }
+
+            { backPack && <BackPackForm /> }
 
         </div>
     )

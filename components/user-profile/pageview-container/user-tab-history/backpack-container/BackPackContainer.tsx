@@ -24,6 +24,7 @@ const BackPackContainer = (props: any) => {
                 const response = await createPack.json().catch((err) => {
                     console.log(err)
                 })
+                // console.log(response)
                 if (response.status === "empty") {
                     setPackContents(true)
                 } else {
