@@ -1,5 +1,5 @@
-import GearItemCard from "./gear-item-card/GearItemCard"
 import { useUserContext } from "@/app/context/UserContextProvider"
+import GearItemCard from "./gear-item-card/GearItemCard"
 
 const BackPackViewer = (props: any) => {
 
