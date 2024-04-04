@@ -6,6 +6,7 @@ import backPack from '../../../../../public/icons/backpack.png'
 import Image from "next/image"
 import BackPackViewer from "./back-pack-viewer/BackPackViewer"
 import BackPackEditorContainer from "./back-pack-editor/BackPackEditorContainer"
+import { useBackPackContext } from "@/app/context/BackPackContextProvider"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -14,7 +15,7 @@ const BackPackContainer = (props: any) => {
     const [ packContents, setPackContents ] = useState(false)
     const [ update, setUpdate ] = useState(false)
 
-    const { userName } = useUserContext()
+    const { userName, userGearList } = useUserContext()
 
     useEffect(() => {
         const checkPack = async() => {
@@ -24,12 +25,16 @@ const BackPackContainer = (props: any) => {
                 const response = await createPack.json().catch((err) => {
                     console.log(err)
                 })
-                // console.log(response)
-                if (response.status === "empty") {
+                
+                if (response.status === "success") {
+                    // setUserGearList([...response.allUserGear])
                     setPackContents(true)
-                } else {
-                    setPackContents(false)
+                    return
                 }
+                if (response.status === "empty") {
+                    setPackContents(false)
+                    return
+                } 
             } catch (e: any) {
                 console.log(e.message)
                 return
@@ -37,8 +42,13 @@ const BackPackContainer = (props: any) => {
 
 
         }   
+        // checkPack()
         
-        checkPack()
+        if (userGearList.length > 0) {
+            setPackContents(true)
+        }
+        
+        
     }, [])
 
     return (
@@ -69,7 +79,7 @@ const BackPackContainer = (props: any) => {
                             {
                                 update ?
                                 <div>
-                                    <button onClick={() => setUpdate(prev => !prev)} className="bg-gray-400 rounded-md p-2 hover:bg-emerald-500 duration-300 mt-2">Add Configuration</button>
+                                    <button onClick={() => console.log(userGearList)} className="bg-gray-400 rounded-md p-2 hover:bg-emerald-500 duration-300 mt-2">Add Configuration</button>
                                 </div>
                                 :
                                 <></>

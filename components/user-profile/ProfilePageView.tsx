@@ -9,6 +9,7 @@ import { useEffect, useState } from "react"
 import TabOptionContainer from "./pageview-container/user-tab-history/TabOptionContainer"
 import LoadingTabOptions from "./pageview-container/user-tab-history/LoadingTabOptions"
 import InfoEditorContainer from "./pageview-container/social-option-container/SocialOptionContainer"
+import { useUserContext } from "@/app/context/UserContextProvider"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -38,6 +39,8 @@ const ProfilePageView = () => {
 
     const router = useRouter()
     const pathname = usePathname()
+
+    const { setUserGearList } = useUserContext()
     
     useEffect(() => {
 
@@ -62,7 +65,7 @@ const ProfilePageView = () => {
                 } else {
                     setUserInformation({name: response.userName, id: response.userId, verified: response.accountVerified, userPfp: 'data:image/jpeg;base64,' + response.pfp.image})
                 }
-                
+                setUserGearList([...response.gearItems])
                 setRelatedLogs({userFollows: response.logFollowList, userCreated: response.createdLogs})
                 setVerify(true)
                 setReleaseHold(true)

@@ -29,7 +29,7 @@ const BackPackForm = () => {
         model: "",
         notes: ""
     })
-    const { userID } = useUserContext()
+    const { userID, setUserGearList } = useUserContext()
 
     const handleSubmit = async(e: any) => {
         e.preventDefault()
@@ -80,7 +80,7 @@ const BackPackForm = () => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
+        setUserGearList((prev:any) => [...prev, response.newGear])
         setSubmitting(false)
 
     }

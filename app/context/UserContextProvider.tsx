@@ -12,9 +12,11 @@ type ContextProps = {
     userPFP: any,
     setUserPFP: Dispatch<SetStateAction<any>>,
     logFollowList: string[],
-    setLogFollowList: any,
+    setLogFollowList: Dispatch<SetStateAction<any>>,
     createdLogs: string[],
-    setCreatedLogs: any
+    setCreatedLogs: Dispatch<SetStateAction<any>>,
+    userGearList: any[],
+    setUserGearList: Dispatch<SetStateAction<any>>
 }
 
 const UserContext = createContext<ContextProps>({
@@ -30,6 +32,8 @@ const UserContext = createContext<ContextProps>({
     setLogFollowList: () => [],
     createdLogs: [], 
     setCreatedLogs: () => [],
+    userGearList: [],
+    setUserGearList: () => []
 })
 
 export const UserContextProvider = ({ children }: any) => {
@@ -39,9 +43,10 @@ export const UserContextProvider = ({ children }: any) => {
     const [ userPFP, setUserPFP ] = useState<any>(null)
     const [ logFollowList, setLogFollowList ] = useState([])
     const [ createdLogs, setCreatedLogs ] = useState([])
+    const [ userGearList, setUserGearList ] = useState<any[]>([])
 
     return (
-        <UserContext.Provider value={{ userName: userName, setUserName: setUserName, userID: userID, setUserID: setUserID, verified: verified, setVerified: setVerified, userPFP: userPFP, setUserPFP: setUserPFP, logFollowList: logFollowList, setLogFollowList: setLogFollowList, createdLogs: createdLogs, setCreatedLogs: setCreatedLogs }}>
+        <UserContext.Provider value={{ userName: userName, setUserName: setUserName, userID: userID, setUserID: setUserID, verified: verified, setVerified: setVerified, userPFP: userPFP, setUserPFP: setUserPFP, logFollowList: logFollowList, setLogFollowList: setLogFollowList, createdLogs: createdLogs, setCreatedLogs: setCreatedLogs, userGearList: userGearList, setUserGearList: setUserGearList }}>
             {children}
         </UserContext.Provider>
     )

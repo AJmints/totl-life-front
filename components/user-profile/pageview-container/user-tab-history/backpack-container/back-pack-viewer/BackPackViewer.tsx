@@ -1,10 +1,23 @@
+import GearItemCard from "./gear-item-card/GearItemCard"
+import { useUserContext } from "@/app/context/UserContextProvider"
+
 const BackPackViewer = (props: any) => {
+
+    const { userGearList } = useUserContext()
+
+    const gearListDisplay = userGearList.map((item:any) => {
+
+        return (
+            <div key={item.id}> 
+                <GearItemCard 
+                gearDetails={item}
+                />
+            </div>
+        )
+    })
 
     return (
         <>
-
-            
-
         {props.packContents ? 
             <div>
                 <div className="flex flex-wrap gap-2">
@@ -14,11 +27,13 @@ const BackPackViewer = (props: any) => {
                 </div>
                 <div className="mt-3">
                 <p>Gear Display:</p>
-                <li>No items present</li>
+                    <div className="grid grid-cols-3 gap-2">
+                        {gearListDisplay}
+                    </div>
                 </div>
             </div>
             :
-            <></>
+            <>Loading</>
         } 
 
 
