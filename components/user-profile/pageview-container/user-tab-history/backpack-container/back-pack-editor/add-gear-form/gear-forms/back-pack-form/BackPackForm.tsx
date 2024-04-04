@@ -34,6 +34,8 @@ const BackPackForm = () => {
     const handleSubmit = async(e: any) => {
         e.preventDefault()
 
+        return
+
         setError(false)
         setSubmitting(true)
 
@@ -80,8 +82,13 @@ const BackPackForm = () => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        setUserGearList((prev:any) => [...prev, response.newGear])
-        setSubmitting(false)
+        if (response.status === "success") {
+            setUserGearList((prev:any) => [...prev, response.newGear])
+            setSubmitting(false)
+        } else {
+            setSubmitting(false)
+        }
+        
 
     }
 
