@@ -34,8 +34,6 @@ const BackPackForm = () => {
     const handleSubmit = async(e: any) => {
         e.preventDefault()
 
-        return
-
         setError(false)
         setSubmitting(true)
 
