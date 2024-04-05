@@ -1,12 +1,22 @@
 'use client'
 
 import LoginForm from "@/components/login/LoginForm";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useUserContext } from "../context/UserContextProvider";
+import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
 
     const [userLogged, setUserLogged] = useState<boolean>(false)
     const [loginToggle, setLoginToggle] = useState(false)
+
+    const router = useRouter()
+    const { userName } = useUserContext()
+
+    useEffect(() => {
+        router.push("/river")
+
+    }, [userName.length > 0])
 
     return (
         <div className="h-screen">
