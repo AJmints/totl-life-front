@@ -13,10 +13,9 @@ export default function LoginPage() {
     const router = useRouter()
     const { userName } = useUserContext()
 
-    useEffect(() => {
-        router.push("/river")
-
-    }, [userName.length > 0])
+    // useEffect(() => {
+    //     router.push("/river")
+    // }, [userName.length > 0])
 
     return (
         <div className="h-screen">
