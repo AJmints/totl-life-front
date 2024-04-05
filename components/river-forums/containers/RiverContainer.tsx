@@ -33,7 +33,7 @@ const RiverContainer = () => {
         
         setTimeout(() => {
             check()
-        }, 3000)
+        }, 1000)
         
     }, [])
 
