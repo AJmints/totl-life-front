@@ -2,7 +2,7 @@
 
 
 import LoadingProfilePage from "./LoadingProfilePage"
-import BackPackContainer from "./pageview-container/user-tab-history/backpack-container/BackPackContainer"
+import gearImage from './pageview-container/user-tab-history/backpack-container/data/gear-image'
 import UserCardDetails from "./pageview-container/user-detail-header/UserCardDetails"
 import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -40,7 +40,7 @@ const ProfilePageView = () => {
     const router = useRouter()
     const pathname = usePathname()
 
-    const { setUserGearList } = useUserContext()
+    const { setUserGearList, setPackImages } = useUserContext()
     
     useEffect(() => {
 
@@ -67,6 +67,7 @@ const ProfilePageView = () => {
                 }
                 setUserGearList([...response.gearItems])
                 setRelatedLogs({userFollows: response.logFollowList, userCreated: response.createdLogs})
+                setPackImages(gearImage)
                 setVerify(true)
                 setReleaseHold(true)
                 return

@@ -3,14 +3,17 @@ import GearItemCard from "./gear-item-card/GearItemCard"
 
 const BackPackViewer = (props: any) => {
 
-    const { userGearList } = useUserContext()
+    const { userGearList, packImages } = useUserContext()
 
     const gearListDisplay = userGearList.map((item:any) => {
 
+        const img = packImages.filter(gearVisuals => gearVisuals.category === item.gearItem.category && gearVisuals.type === item.gearItem.type).pop()
+        
         return (
             <div key={item.id}> 
                 <GearItemCard 
                 gearDetails={item}
+                image={img}
                 />
             </div>
         )
@@ -27,7 +30,7 @@ const BackPackViewer = (props: any) => {
                 </div>
                 <div className="mt-3">
                 <p>Gear Display:</p>
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2">
                         {gearListDisplay}
                     </div>
                 </div>

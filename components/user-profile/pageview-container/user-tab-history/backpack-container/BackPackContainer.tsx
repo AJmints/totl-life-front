@@ -6,7 +6,6 @@ import backPack from '../../../../../public/icons/backpack.png'
 import Image from "next/image"
 import BackPackViewer from "./back-pack-viewer/BackPackViewer"
 import BackPackEditorContainer from "./back-pack-editor/BackPackEditorContainer"
-import { useBackPackContext } from "@/app/context/BackPackContextProvider"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -18,31 +17,6 @@ const BackPackContainer = (props: any) => {
     const { userName, userGearList } = useUserContext()
 
     useEffect(() => {
-        const checkPack = async() => {
-
-            try {
-                const createPack = await fetch(URL + "/backpack/get-users-gear-list/" + props.userInformation.id)
-                const response = await createPack.json().catch((err) => {
-                    console.log(err)
-                })
-                
-                if (response.status === "success") {
-                    // setUserGearList([...response.allUserGear])
-                    setPackContents(true)
-                    return
-                }
-                if (response.status === "empty") {
-                    setPackContents(false)
-                    return
-                } 
-            } catch (e: any) {
-                console.log(e.message)
-                return
-            }
-
-
-        }   
-        // checkPack()
         
         if (userGearList.length > 0) {
             setPackContents(true)

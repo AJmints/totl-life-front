@@ -22,7 +22,7 @@ const BackPackEditorContainer = () => {
                     : "w-8 h-auto rounded-full p-1 bg-emerald-600 mx-auto hover:bg-yellow-500 duration-300 cursor-pointer"}
                     onClick={() => setAdd(prev => !prev)}
                 />
-                <h1 className="">{add ? "Cancel" : "Add Gear"}</h1>
+                <h1 className="mb-5">{add ? "Cancel" : "Add Gear"}</h1>
                 </div>
             </div>
 
