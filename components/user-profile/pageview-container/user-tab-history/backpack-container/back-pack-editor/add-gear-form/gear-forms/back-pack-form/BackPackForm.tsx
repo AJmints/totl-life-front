@@ -83,6 +83,21 @@ const BackPackForm = () => {
         if (response.status === "success") {
             setUserGearList((prev:any) => [...prev, response.newGear])
             setSubmitting(false)
+
+                e.target.brand.value = ""
+                e.target.storage.value = 0
+                e.target.model.value = ""
+                e.target.size.value = 0
+                e.target.reservoir.value = ""
+                e.target.lendable.value = ""
+                e.target.lbs.value = 0
+                e.target.oz.value = 0
+                e.target.notes.value = ""
+                e.target.condition.value = ""
+                setBack(false)
+                setDay(false)
+                setHydro(false)
+            
         } else {
             setSubmitting(false)
         }

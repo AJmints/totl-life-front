@@ -40,7 +40,7 @@ const ProfilePageView = () => {
     const router = useRouter()
     const pathname = usePathname()
 
-    const { setUserGearList, setPackImages } = useUserContext()
+    const { userGearList, setUserGearList, setPackImages } = useUserContext()
     
     useEffect(() => {
 
@@ -78,7 +78,7 @@ const ProfilePageView = () => {
         }
         
         check()
-    }, [])
+    }, [userGearList])
 
 
 
