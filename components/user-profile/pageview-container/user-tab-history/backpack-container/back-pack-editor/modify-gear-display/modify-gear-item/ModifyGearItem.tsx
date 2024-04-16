@@ -98,11 +98,11 @@ const ModifyGearItem = (props : any) => {
                 }
 
             <div className="flex justify-around">
-                <div>
+                {/* <div>
                     <button onClick={() => setUpdate(prev => !prev)} className="bg-emerald-500 p-2 rounded-md hover:bg-emerald-700 duration-300">Update</button>
-                </div>
+                </div> */}
                 <div>
-                    <button onClick={() => deleteThisPost()} className=" bg-emerald-800/70 p-2 rounded-md hover:bg-emerald-800 duration-300">Delete</button>
+                    <button onClick={() => deleteThisPost()} className=" bg-emerald-500 p-2 rounded-md hover:bg-emerald-800 duration-300">Delete</button>
                 </div>
             </div>
             </div>

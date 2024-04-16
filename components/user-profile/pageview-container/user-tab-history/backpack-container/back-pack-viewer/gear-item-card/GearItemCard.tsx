@@ -15,7 +15,6 @@ const GearItemCard = (props : any) => {
                 src={props.image.img}
                 alt="Gear Item"
                 className="w-auto h-20 mx-auto rounded-md"
-                onClick={() => console.log(props)}
                 />
             </div>
 
