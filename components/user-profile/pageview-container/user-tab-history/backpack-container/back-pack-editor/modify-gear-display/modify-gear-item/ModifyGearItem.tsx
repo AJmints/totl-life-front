@@ -64,7 +64,7 @@ const ModifyGearItem = (props : any) => {
 
 
     return (
-        <div className="bg-gray-400 rounded-md p-2 w-[10rem]">
+        <div className="bg-gray-400 rounded-md p-2 sm:w-[12rem]">
             
             <div>
                 {

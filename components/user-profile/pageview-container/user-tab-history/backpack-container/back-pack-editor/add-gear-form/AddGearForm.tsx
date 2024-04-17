@@ -3,17 +3,23 @@
 import { useState, useEffect } from "react"
 import categoryDropDown from "./data/categoryDropDown"
 import BackPackForm from "./gear-forms/back-pack-form/BackPackForm"
+import DryBagForm from "./gear-forms/dry-bag-form/DryBagForm"
 
 const AddGearForm = () => {
 
     const [ backPack, setBackPack] = useState(false)
+    const [ dryBag, setDryBag ] = useState(false)
 
     const handleSelect = (select:any) => {
 
         setBackPack(false)
+        setDryBag(false)
 
         if (select === "BackPack") {
             setBackPack(true)
+        }
+        if (select === "DryBag") {
+            setDryBag(true)
         }
     }
 
@@ -40,6 +46,7 @@ const AddGearForm = () => {
             </div>
 
             { backPack && <BackPackForm /> }
+            { dryBag && <DryBagForm />}
 
         </div>
     )

@@ -4,7 +4,7 @@ const GearItemCard = (props : any) => {
 
     return (
         <div className="p-1 hover:bg-emerald-400 duration-300 rounded-md">
-        <div className="bg-gray-400 rounded-md p-2 w-[8rem] sm:w-[12rem]">
+        <div className="bg-gray-400 rounded-md p-2 sm:w-[12rem]">
 
             <div className="flex justify-center mb-2">
                 <h1 className="bg-gray-300 rounded-md px-2 py-1 text-lg font-normal">{props.gearDetails.gearItem.category}</h1>

@@ -43,7 +43,7 @@ const GearInspectorCard = (props: any) => {
                 <p>Lendable: {props.viewSpecificGear.gearItem.lendable ? "Yes" : "No"}</p>
                 <p>Item Condition: {props.viewSpecificGear.gearItem.itemCondition}</p>
                 <p>Owner has {props.viewSpecificGear.gearItem.quantity} of this item.</p>
-                <p>{props.viewSpecificGear.gearItem.additionalDetails !== "" ? "Additional Details: " + props.viewSpecificGear.gearItem.additionalDetails : <></>}</p>
+                <p>{props.viewSpecificGear.gearItem.additionalDetails !== "" ? "User Notes: " + props.viewSpecificGear.gearItem.additionalDetails : <></>}</p>
             </div>
         </div>
         </>

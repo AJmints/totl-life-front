@@ -50,14 +50,14 @@ const BackPackContainer = (props: any) => {
                                 :
                                 <></>
                             }
-                            {
+                            {/* {
                                 update ?
                                 <div>
                                     <button onClick={() => console.log(userGearList)} className="bg-gray-400 rounded-md p-2 hover:bg-emerald-500 duration-300 mt-2">Add Configuration</button>
                                 </div>
                                 :
                                 <></>
-                            }
+                            } */}
                         </div>
                     </div>
 
