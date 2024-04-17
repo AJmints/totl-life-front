@@ -41,12 +41,8 @@ const BackPackViewer = (props: any) => {
             <div>
                 <div className="flex flex-wrap gap-2 font-light">
                     <button className="bg-gray-500 text-gray-200 hover:text-gray-900 hover:bg-emerald-500 duration-200 rounded-md p-2">All Gear</button>
-                    
                     <button className="bg-gray-500 text-gray-200 hover:text-gray-900 hover:bg-emerald-500 duration-200 rounded-md p-1">Floating Pack Config</button>
-                <button className="bg-gray-500 text-gray-200 hover:text-gray-900 hover:bg-emerald-500 duration-200 rounded-md p-1">Hiking Pack Config</button>
-                    {/* Clicking All Gear shows all Gear
-                    Selecting Add New Pack goes to a form to make a backpack config
-                    Selecting Example Config shows all gear that is a part of that configuration + Title changes */}
+                    <button className="bg-gray-500 text-gray-200 hover:text-gray-900 hover:bg-emerald-500 duration-200 rounded-md p-1">Hiking Pack Config</button>
                 </div>
                 
                 { viewToggle ?
