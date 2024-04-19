@@ -27,7 +27,6 @@ const BackPackEditorContainer = () => {
                             alt=""
                             className={add ? "w-8 h-auto rounded-full rotate-45 p-1 bg-red-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer" 
                             : "w-8 h-auto rounded-full p-1 bg-emerald-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer"}
-                            
                         />
                         </div>
                     </div>
@@ -35,21 +34,21 @@ const BackPackEditorContainer = () => {
             </div>
 
             <div className="bg-gray-400 p-1 rounded-md my-2">
-                { packToggle ? 
-                <div className="flex gap-2">
+                { !packToggle ? 
+                <div className="flex gap-2 text-gray-200">
                     <div>
-                    <button onClick={() => setPackToggle(false)} className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Edit Pack Configurations</button>
+                    <button onClick={() => setPackToggle(true)} className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Edit Pack Configurations</button>
                     </div>
                     <div>
-                    <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Add New Pack Configuration</button>
+                    <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Add New Pack Configuration</button>
                     </div>
                 </div>
                 :
-            <div className="md:flex grid grid-cols-2 gap-2 text-gray-100">
-                <button onClick={() => setPackToggle(true)} className="p-1 bg-slate-600 text-gray-200 rounded-md">Go Back</button>
-                <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Hiking Config Example</button>
-                <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Floating Config Example</button>
-            </div>
+                <div className="md:flex grid grid-cols-2 gap-2 text-gray-100">
+                    <button onClick={() => setPackToggle(false)} className="p-1 bg-slate-600 text-gray-200 rounded-md">Go Back</button>
+                    <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Hiking Config Example</button>
+                    <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Floating Config Example</button>
+                </div>
                 }
             </div>
            

@@ -3,166 +3,19 @@
 import dryBag from '../../../../../../../../../public/icons/drybag.png'
 import drySack from '../../../../../../../../../public/icons/drysack.png'
 import duffleSack from '../../../../../../../../../public/icons/packsack.png'
-import dryBagBrands from "../../data/dryBagBrands"
-import { useState } from 'react'
-import { useUserContext } from '@/app/context/UserContextProvider'
-import Image from 'next/image'
+import Image from "next/image"
+import { useState } from "react"
 
-const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
+const TentForm = () => {
 
-export const token = async() => {
-    const getToken: Response = await fetch("/api/headers")
-    const status = await getToken.json().catch((err) => {
-        console.log(err)
-    })
-    return status
-}
-
-const DryBagForm = () => {
-
-    const [ submitting, setSubmitting ] = useState(false)
-    const [ packStraps, setPackStraps ] = useState(false)
-    const [ packSack, setPackSack] = useState(false)
-    const [ noStrap, setNoStrap ] = useState(false)
-    const [ error, setError ] = useState(false)
-    const [ success, setSuccess ] = useState(false)
-    const [ quantity, setQuantity ] = useState<number>(1)
-    const [noteCount, setNoteCount] = useState({
-        model: "",
-        notes: ""
-    })
-
-    const { userID, setUserGearList} = useUserContext()
-
-    const handleSubmit = async(e: any) => {
-        e.preventDefault()
-
-        setError(false)
-        setSubmitting(true)
-        setSuccess(false)
-
-        let packType
-        let hasStraps = "No Straps"
-
-        if (packStraps) {
-            packType = "Dry Pack"
-            hasStraps = "BackPack Straps"
-        }
-        if (noStrap) {
-            packType = "Dry Bag"
-        }
-        if (packSack) {
-            packType = "Dry Duffle"
-        }
-
-        if (packType === undefined || e.target.brand.value === "null" || e.target.storage.value === "null") {
-            setError(true)
-            return
-        }
-        // return console.log(packType)
-
-        const data = {
-            userId: userID,
-            category: "Dry Bag",
-            type: packType,
-            brand: e.target.brand.value,
-            storage: String(e.target.storage.value) + "L", 
-            quantity: quantity,
-            extraInfo: hasStraps,
-            lendable: e.target.lendable.value,
-            additionalDetails: e.target.notes.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' '),
-            itemCondition: e.target.condition.value
-        }
-        
-        const createPack = await fetch(URL + "/gear/create-item", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "Bearer " + await token()
-            },
-            body: JSON.stringify(data)
-        })
-        const response = await createPack.json().catch((err) => {
-            console.log(err)
-        })
-        if (response.status === "success") {
-            setUserGearList((prev:any) => [...prev, response.newGear])
-            setSubmitting(false)
-
-                e.target.brand.value = <option value="null" disabled>Liters</option>
-                e.target.storage.value = "Liters"
-                e.target.lendable.value = "No"
-                e.target.condition.value = "Used"
-                e.target.notes.value=""
-                setPackStraps(false)
-                setPackSack(false)
-                setNoStrap(false)
-                setSuccess(true)
-            
-        } else {
-            setSubmitting(false)
-        }
-    }
-
-    const setPackSelect = (dryBag:string) => {
-
-        setPackStraps(false)
-        setNoStrap(false)
-        setPackSack(false)
-
-        if (dryBag === "strap") {
-            setPackStraps(true)
-        }
-        if (dryBag === "sack") {
-            setPackSack(true)
-        }
-        if (dryBag === "none") {
-            setNoStrap(true)
-        }
- 
-    }
-
-    const packBrandOptions = dryBagBrands.map(option => {
-        return (
-            <option key={option} value={option}>{option}</option>
-        )
-    })
+    const [submitting, setSubmitting] = useState()
+    const [packStraps, setPackStraps] = useState()
+    const [noStrap, setNoStrap] = useState()
+    const [packSack, setPackSack] = useState()
     
-    const capacityOptions = () => {
-        let capacity = [];
-        const maxLiter = 23
-        let liter = 0
+    const handleSubmit = () => {}
 
-        for (let i = 0; i <= maxLiter; i++) {
-            liter = liter + 5
-            capacity.push(<option key={i} value={liter}>{liter}</option>);
-        }
-        return capacity;
-    }
-
-    const itemCount = (operator: string) => {
-
-        if (quantity >= 10 && operator === "plus" || operator === "minus" && quantity <= 1) {
-            return
-        }
-
-        if (operator === "plus") {
-            setQuantity(quantity + 1)
-        } else if (operator === "minus") {
-            setQuantity(quantity - 1)
-        }
-    }
-
-    const handleCount = (event: any) => {
-        const {name, value} = event.target
-
-        setNoteCount(prevTitleBody => {
-            return {
-                ...prevTitleBody,
-                [name]: value
-            }
-        })
-    }
+    const itemCount = (status: any) => {}
 
     return (
         <>
@@ -177,15 +30,13 @@ const DryBagForm = () => {
                 <div className="pt-2">
                     <h1 className="text-gray-200 text-medium font-light">Select Pack Type:</h1>
                 </div>
-                <div>
-                    <p className='text-gray-200 text-xs'>*DryPack = Has BackPack Straps, DryBag = No Straps</p>
-                </div>
                 <div className="flex items-center gap-2 text-lg text-center font-normal p-2 hover:bg-gray-600 duration-200 rounded-md">
                     
                     <div className={ packStraps ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div 
                         className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setPackSelect("strap")}>
+                        // onClick={() => setPackSelect("strap")}
+                        >
                         <Image
                         src={dryBag}
                         alt="back pack"
@@ -197,7 +48,7 @@ const DryBagForm = () => {
 
                     <div className={ noStrap ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setPackSelect("none")}
+                        // onClick={() => setPackSelect("none")}
                         >
                         <Image
                         src={drySack}
@@ -210,7 +61,7 @@ const DryBagForm = () => {
 
                     <div className={ packSack ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setPackSelect("sack")}
+                        // onClick={() => setPackSelect("sack")}
                         >
                         <Image
                         src={duffleSack}
@@ -218,7 +69,7 @@ const DryBagForm = () => {
                         className="w-auto h-20 mx-auto rounded-md"
                         />
                         </div>
-                        <p>DryDuffle</p>
+                        <p>Duffle</p>
                         {/* Make each state hold type and if its a bag or duffle. Store duffle or bag in model */}
                     </div>
                 </div>
@@ -228,7 +79,7 @@ const DryBagForm = () => {
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="brand">
                             <option value="null" disabled>select a brand</option>
-                            {packBrandOptions}
+                            {/* {packBrandOptions} */}
                         </select>
                     </div>
                 </div>
@@ -238,7 +89,7 @@ const DryBagForm = () => {
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="storage">
                             <option value="null" disabled>Liters</option>
-                            {capacityOptions()}
+                            {/* {capacityOptions()} */}
                         </select>
                     </div>
                 </div>
@@ -247,14 +98,16 @@ const DryBagForm = () => {
                     <h1 className="text-gray-200 font-light">How many do you have?</h1>
                     <div className='text-gray-800 mt-1 flex gap-2 font-normal'>
                         <div>
-                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("minus")}>-</p>
+                            <button className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("minus")}>-</button>
                         </div>
                         <div className='p-1 bg-gray-200 rounded-md px-2'>
-                            <p id='quantity'>{String(quantity)}</p>
+                            {/* <p id='quantity'>{String(quantity)}</p> */}
                         </div>
                         <div >
-                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("plus")}>+</p>
+                            <button className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("plus")}>+</button>
                         </div>
+                        
+                           
                     </div>
                 </div>
 
@@ -292,13 +145,12 @@ const DryBagForm = () => {
                     placeholder="Anything about this item you wish to note?"
                     name='notes'
                     minLength={3} maxLength={100}
-                    onChange={handleCount}
+                    // onChange={handleCount}
                 />
-                <p className="text-gray-200">{noteCount.notes.length}/100</p>
+                {/* <p className="text-gray-200">{noteCount.notes.length}/100</p> */}
                 </div>
 
-                {error && <p className="mb-2 text-red-500/90 font-normal text-lg">Make sure you have selected all required information.</p>}
-                {success && <p className="mb-2 text-emerald-500 font-normal text-lg">Item successfully added!</p>}
+                {/* {error && <p className="mb-2 text-red-500/90 font-normal text-lg">Make sure you have selected all required information.</p>} */}
 
                 { submitting ?
                     <div className='flex'>
@@ -313,4 +165,4 @@ const DryBagForm = () => {
     )
 }
 
-export default DryBagForm
+export default TentForm

@@ -21,6 +21,7 @@ export const token = async() => {
 const BackPackForm = () => {
 
     const [submitting, setSubmitting] = useState(false)
+    const [ success, setSuccess ] = useState(false)
     const [back, setBack] = useState(false)
     const [day, setDay] = useState(false)
     const [hydro, setHydro] = useState(false)
@@ -29,6 +30,7 @@ const BackPackForm = () => {
         model: "",
         notes: ""
     })
+    const [ quantity, setQuantity ] = useState<number>(1)
     const { userID, setUserGearList } = useUserContext()
 
     const handleSubmit = async(e: any) => {
@@ -36,6 +38,7 @@ const BackPackForm = () => {
 
         setError(false)
         setSubmitting(true)
+        setSuccess(false)
 
         let packType
 
@@ -62,6 +65,7 @@ const BackPackForm = () => {
             storage: String(e.target.storage.value) + "L", 
             model: e.target.model.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' '),
             size: e.target.size.value,
+            quantity: quantity,
             extraInfo: e.target.reservoir.value,
             lendable: e.target.lendable.value,
             weight: e.target.lbs.value + "." + e.target.oz.value,
@@ -69,7 +73,7 @@ const BackPackForm = () => {
             itemCondition: e.target.condition.value
         }
         
-        const createPack = await fetch(URL + "/gear/create-backpack-item", {
+        const createPack = await fetch(URL + "/gear/create-item", {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",
@@ -94,11 +98,14 @@ const BackPackForm = () => {
                 e.target.oz.value = 0
                 e.target.notes.value = ""
                 e.target.condition.value = ""
+                setQuantity(1)
                 setBack(false)
                 setDay(false)
                 setHydro(false)
+                setSuccess(true)
             
         } else {
+            setError(true)
             setSubmitting(false)
         }
         
@@ -167,6 +174,18 @@ const BackPackForm = () => {
         })
     }
 
+    const itemCount = (operator: string) => {
+
+        if (quantity >= 10 && operator === "plus" || operator === "minus" && quantity <= 1) {
+            return
+        }
+
+        if (operator === "plus") {
+            setQuantity(quantity + 1)
+        } else if (operator === "minus") {
+            setQuantity(quantity - 1)
+        }
+    }
     
 
     return (
@@ -263,6 +282,21 @@ const BackPackForm = () => {
                     <p className="text-gray-200">{noteCount.model.length}/20</p>
                 </div>
 
+                <div className="items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
+                    <h1 className="text-gray-200 font-light">How many do you have?</h1>
+                    <div className='text-gray-800 mt-1 flex gap-2 font-normal'>
+                        <div>
+                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("minus")}>-</p>
+                        </div>
+                        <div className='p-1 bg-gray-200 rounded-md px-2'>
+                            <p id='quantity'>{String(quantity)}</p>
+                        </div>
+                        <div >
+                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("plus")}>+</p>
+                        </div>
+                    </div>
+                </div>
+
                 <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
                     <h1 className="text-gray-200 font-light">Pack Size:</h1>
                     <div className='text-gray-800 '>
@@ -341,6 +375,7 @@ const BackPackForm = () => {
                 </div>
 
                 {error && <p className="mb-2 text-red-500/90 font-normal text-lg">Make sure you have selected all required information.</p>}
+                {success && <p className="mb-2 text-emerald-500 font-normal text-lg">Item successfully added!</p>}
 
                 { submitting ?
                     <div className='flex'>

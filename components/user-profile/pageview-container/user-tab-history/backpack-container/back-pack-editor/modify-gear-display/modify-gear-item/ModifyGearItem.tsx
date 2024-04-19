@@ -46,7 +46,7 @@ const ModifyGearItem = (props : any) => {
                 const response = await deleteBale.json().catch((err) => {
                     console.log(err)
                 })
-                console.log(response)
+                // console.log(response)
                 if (response.status === "success") {
                     const removeItem = userGearList.filter(userGearItem => userGearItem.id !== props.gearDetails.id)
                     props.setUserGearList(removeItem)
@@ -82,7 +82,6 @@ const ModifyGearItem = (props : any) => {
                             src={props.image.img}
                             alt="Gear Item"
                             className="w-auto h-20 mx-auto rounded-md"
-                            onClick={() => console.log(props)}
                             />
                         </div>
 
