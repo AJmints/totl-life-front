@@ -5,7 +5,7 @@ import backpackImg from '../../../../../../../../../public/icons/backpack.png'
 import daypackImg from '../../../../../../../../../public/icons/daypack.png'
 import hydropackImg from '../../../../../../../../../public/icons/hydrationpack.png'
 import Image from "next/image"
-import backPackBrands from "../../data/backPackBrands"
+import backPackBrands from "../../data/brands/backPackBrands"
 import { useUserContext } from "@/app/context/UserContextProvider"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL

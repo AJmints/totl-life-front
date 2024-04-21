@@ -3,7 +3,7 @@
 import dryBag from '../../../../../../../../../public/icons/drybag.png'
 import drySack from '../../../../../../../../../public/icons/drysack.png'
 import duffleSack from '../../../../../../../../../public/icons/packsack.png'
-import dryBagBrands from "../../data/dryBagBrands"
+import dryBagBrands from "../../data/brands/dryBagBrands"
 import { useState } from 'react'
 import { useUserContext } from '@/app/context/UserContextProvider'
 import Image from 'next/image'

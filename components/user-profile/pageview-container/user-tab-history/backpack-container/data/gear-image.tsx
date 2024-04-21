@@ -4,6 +4,8 @@ import hydroPack from '../../../../../../public/icons/hydrationpack.png'
 import dryPack from '../../../../../../public/icons/drybag.png'
 import dryBag from '../../../../../../public/icons/drysack.png'
 import dryDuffle from '../../../../../../public/icons/packsack.png'
+import packTent from '../../../../../../public/icons/packtent.png'
+import campTent from '../../../../../../public/icons/camptent.png'
 
 export default  [
     {
@@ -41,6 +43,18 @@ export default  [
         category: 'Dry Bag',
         type: 'Dry Duffle',
         img: dryDuffle
+    }, 
+    {
+        id: 7,
+        category: 'Tent',
+        type: 'BackPacking',
+        img: packTent
+    }, 
+    {
+        id: 8,
+        category: 'Tent',
+        type: 'Camping',
+        img: campTent
     }, 
 
 ]

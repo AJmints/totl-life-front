@@ -101,12 +101,15 @@ export default function LoginForm(props: any) {
 
                 if (pathname !== "/login") {
                     props.setLoadingHeader(true)
-                    router.push("/river")
-                    return
+                    setTimeout(() => {
+                        router.push("/river") 
+                     }, 800)
+                    
                 } else if (pathname === "/login") {
-                    location.reload()
-                    router.push("/river")
-                    return
+                    setTimeout(() => {
+                       router.push("/river") 
+                    }, 1500)
+                    
                 }
                 
             }
