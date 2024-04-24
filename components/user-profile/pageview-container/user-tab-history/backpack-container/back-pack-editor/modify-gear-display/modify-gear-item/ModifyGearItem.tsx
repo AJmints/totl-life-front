@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { useUserContext } from "@/app/context/UserContextProvider"
 import Image from "next/image"
+import GearItemCard from "../../../back-pack-viewer/gear-item-card/GearItemCard"
 
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -64,46 +65,24 @@ const ModifyGearItem = (props : any) => {
 
 
     return (
-        <div className="bg-gray-400 rounded-md p-2 sm:w-[12rem]">
+        <div className="bg-slate-500 rounded-md p-2">
             
             <div>
-                {
-                    update ? 
-                    "Edit form under construction"
-                    :
-                    <div>
-                        {/* Normal display card */}
-                        <div className="flex justify-center mb-2">
-                            <h1 className="bg-gray-300 rounded-md px-2 py-1 text-lg font-normal">{props.gearDetails.gearItem.category}</h1>
-                        </div>
-
-                        <div className="rounded-md p-1 flex mb-2">
-                            <Image 
-                            src={props.image.img}
-                            alt="Gear Item"
-                            className="w-auto h-20 mx-auto rounded-md"
-                            />
-                        </div>
-
-                        <div className="flex justify-center mb-2 bg-gray-300 rounded-md p-1 text-sm font-light">
-                            <div className="">
-                                <p>Type: {props.gearDetails.gearItem.type}</p>
-                                <p>Brand: {props.gearDetails.gearItem.brand}</p>
-                                <p>Capacity: {props.gearDetails.gearItem.storage}</p>
-                                <p>Lendable: {props.gearDetails.lendable ? "Yes" : "No"}</p>
-                            </div>
-                        </div>
-                    </div>
-                }
-
-            <div className="flex justify-around">
-                {/* <div>
-                    <button onClick={() => setUpdate(prev => !prev)} className="bg-emerald-500 p-2 rounded-md hover:bg-emerald-700 duration-300">Update</button>
-                </div> */}
-                <div>
-                    <button onClick={() => deleteThisPost()} className=" bg-emerald-500 p-2 rounded-md hover:bg-emerald-800 duration-300">Delete</button>
+                <div className="flex justify-center mb-0.5">
+                    <GearItemCard
+                    gearDetails={props.gearDetails}
+                    image={props.image}
+                    />
                 </div>
-            </div>
+
+                <div className="flex justify-around">
+                    {/* <div>
+                        <button onClick={() => setUpdate(prev => !prev)} className="bg-emerald-500 p-2 rounded-md hover:bg-emerald-700 duration-300">Update</button>
+                    </div> */}
+                    <div>
+                        <button onClick={() => deleteThisPost()} className=" bg-emerald-500 p-2 rounded-md hover:bg-emerald-700 duration-300">Delete</button>
+                    </div>
+                </div>
             </div>
 
         </div>
