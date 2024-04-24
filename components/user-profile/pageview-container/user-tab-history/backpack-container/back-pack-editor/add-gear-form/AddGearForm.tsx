@@ -48,7 +48,7 @@ const AddGearForm = () => {
                     alt=""
                     width={300}
                     height={300}
-                    className="w-[10rem] h-[10rem] rounded-md mx-auto"
+                    className="w-[6rem] h-[6rem] sm:w-[10rem] sm:h-[10rem] rounded-md mx-auto"
                 />
 
             </div>
@@ -89,7 +89,7 @@ const AddGearForm = () => {
             <div>
                 {
                     selectCategory ? 
-                        <div className="p-2 bg-gray-400 rounded-md grid sm:grid-cols-2 md:grid-cols-3 gap-2">
+                        <div className="p-2 bg-gray-400 rounded-md grid grid-cols-2 md:grid-cols-3 gap-2">
                             {quickSelectCategory}
                         </div>
                     :
