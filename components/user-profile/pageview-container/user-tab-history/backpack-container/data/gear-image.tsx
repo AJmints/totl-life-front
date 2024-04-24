@@ -47,13 +47,13 @@ export default  [
     {
         id: 7,
         category: 'Tent',
-        type: 'BackPacking',
+        type: 'BackPacking Tent',
         img: packTent
     }, 
     {
         id: 8,
         category: 'Tent',
-        type: 'Camping',
+        type: 'Camping Tent',
         img: campTent
     }, 
 

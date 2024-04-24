@@ -5,21 +5,36 @@ import campTent from '../../../../../../../../../public/icons/camptent.png'
 import tentBrands from '../../data/brands/tentBrands'
 import Image from "next/image"
 import { useState } from "react"
+import { useUserContext } from '@/app/context/UserContextProvider'
+
+const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
+
+export const token = async() => {
+    const getToken: Response = await fetch("/api/headers")
+    const status = await getToken.json().catch((err) => {
+        console.log(err)
+    })
+    return status
+}
 
 const TentForm = () => {
 
-    const [submitting, setSubmitting] = useState()
-    const [backpacking, setPackStraps] = useState()
-    const [camping, setNoStrap] = useState()
+    const [submitting, setSubmitting] = useState<boolean>(false)
+    const [ tentType, setTent ] = useState("")
+    const [ success, setSuccess ] = useState(false)
+    const [backpacking, setBackpacking] = useState<boolean>(false)
+    const [camping, setCamping] = useState<boolean>(false)
     const [ personQuantity, setPersonQuantity ] = useState<number>(2)
     const [ quantity, setQuantity ] = useState<number>(1)
+    const [error, setError] = useState(false)
     const [noteCount, setNoteCount] = useState({
         model: "",
         notes: ""
     })
+    const { userID, setUserGearList } = useUserContext()
     
-    const handleSubmit = (event: any) => {
-        event.preventDefault()
+    const handleSubmit = async(e: any) => {
+        e.preventDefault()
         //category
         //type
         //brand
@@ -33,6 +48,79 @@ const TentForm = () => {
 
         //quantity
 
+        setError(false)
+        setSubmitting(true)
+        setSuccess(false)
+
+        let tentType
+
+        if (backpacking) {
+            tentType = "BackPacking Tent"
+        }
+        if (camping) {
+            tentType = "Camping Tent"
+        }
+
+        if (tentType === undefined || e.target.brand.value === "null") {
+            setError(true)
+            return
+        }
+
+        const data = {
+            userId: userID,
+            category: "Tent",
+            type: tentType,
+            brand: e.target.brand.value,
+            size: personQuantity,
+            rating: e.target.rating.value,
+            model: e.target.model.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' '),
+            weight: e.target.lbs.value + "." + e.target.oz.value,
+            width: e.target.width.value,
+            length: e.target.length.value,
+            itemCondition: e.target.condition.value,
+            lendable: e.target.lendable.value,
+            quantity: quantity,
+            additionalDetails: e.target.notes.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' ')
+        }
+
+        const createPack = await fetch(URL + "/gear/create-item", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "Bearer " + await token()
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await createPack.json().catch((err) => {
+            console.log(err)
+        })
+        
+        if (response.status === "success") {
+            setUserGearList((prev:any) => [...prev, response.newGear])
+            setSubmitting(false)
+
+            e.target.model.value = ""
+            e.target.width.value = ""
+            e.target.length.value = ""
+            e.target.lendable.value = "false"
+            e.target.lbs.value = 0
+            e.target.oz.value = 0
+            e.target.notes.value = ""
+            e.target.condition.value = ""
+            setQuantity(1)
+            setPersonQuantity(2)
+            setBackpacking(false)
+            setCamping(false)
+
+            setSuccess(true)
+        } else {
+            setError(true)
+            setSubmitting(false)
+        }
+        
+
+
+        
 
     }
 
@@ -41,6 +129,20 @@ const TentForm = () => {
             <option key={option} value={option}>{option}</option>
         )
     })
+
+    const setTentSelect = (pack:string) => {
+
+        setBackpacking(false)
+        setCamping(false)
+
+        if (pack === "backpack") {
+            setBackpacking(true)
+        }
+        if (pack === "camp") {
+            setCamping(true)
+        }
+ 
+    }
 
     const personCount = (person: any) => {
         if (personQuantity >= 8 && person === "plus" || person === "minus" && personQuantity <= 1) {
@@ -88,7 +190,7 @@ const TentForm = () => {
     const widthOptions = () => {
         const maxWidth = 240
         let width = []
-        for (let i = 0; i <= maxWidth; i++) {
+        for (let i = 24; i <= maxWidth; i++) {
           width.push(<option key={i} value={i}>{i} in</option>)
         }
         return width
@@ -97,7 +199,7 @@ const TentForm = () => {
     const lengthOptions = () => {
         const maxLength = 240
         let length = []
-        for (let i = 0; i <= maxLength; i++) {
+        for (let i = 24; i <= maxLength; i++) {
           length.push(<option key={i} value={i}>{i} in</option>)
         }
         return length
@@ -126,12 +228,14 @@ const TentForm = () => {
 
                 <div className="pt-2">
                     <h1 className="text-gray-200 text-medium font-light">Select Tent Type:</h1>
+                    <p className="text-gray-200 text-xs font-light">Did you get this tent to put in a backpack?</p>
                 </div>
                 <div className="flex items-center gap-2 text-lg text-center font-normal p-2 hover:bg-gray-600 duration-200 rounded-md">
                     
                     <div className={ backpacking ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div 
                         className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
+                        onClick={() => setTentSelect("backpack")}
                         >
                         <Image
                         src={packTent}
@@ -144,6 +248,7 @@ const TentForm = () => {
 
                     <div className={ camping ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
+                        onClick={() => setTentSelect("camp")}
                         >
                         <Image
                         src={campTent}
@@ -235,14 +340,14 @@ const TentForm = () => {
                         <div className="flex mr-2">
                         <h1 className="text-gray-200 font-light mr-2">Width:</h1>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={0} id="width">
-                            <option value={0} disabled>Width</option>
+                            <option value={"0"}>0 in</option>
                             {widthOptions()}
                         </select>
                         </div>
                         <div className="flex">
                         <h1 className="text-gray-200 font-light mr-2">Length:</h1>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={0} id="height">
-                            <option value={0} disabled>Length</option>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={0} id="length">
+                            <option value={"0"}>0 in</option>
                             {lengthOptions()}
                         </select>
                         </div>
@@ -294,12 +399,13 @@ const TentForm = () => {
                     placeholder="Anything about this item you wish to note?"
                     name='notes'
                     minLength={3} maxLength={100}
-                    // onChange={handleCount}
+                    onChange={handleCount}
                 />
-                {/* <p className="text-gray-200">{noteCount.notes.length}/100</p> */}
+                <p className="text-gray-200">{noteCount.notes.length}/100</p>
                 </div>
 
-                {/* {error && <p className="mb-2 text-red-500/90 font-normal text-lg">Make sure you have selected all required information.</p>} */}
+                {error && <p className="mb-2 text-red-500/90 font-normal text-lg">Make sure you have selected all required information.</p>}
+                {success && <p className="mb-2 text-emerald-500 font-normal text-lg">Item successfully added!</p>}
 
                 { submitting ?
                     <div className='flex'>
