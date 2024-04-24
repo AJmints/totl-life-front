@@ -76,6 +76,7 @@ const TentForm = () => {
             model: e.target.model.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' '),
             weight: e.target.lbs.value + "." + e.target.oz.value,
             width: e.target.width.value,
+            extraInfo: e.target.extraInfo.value,
             length: e.target.length.value,
             itemCondition: e.target.condition.value,
             lendable: e.target.lendable.value,
@@ -258,7 +259,6 @@ const TentForm = () => {
                         </div>
                         <p>Camping</p>
                     </div>
-
                 </div>
 
                 <div className="items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
@@ -292,6 +292,16 @@ const TentForm = () => {
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' id="rating">
                             <option value="3-Season">3-Season</option>
                             <option value="4-Season">4-Season</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
+                    <h1 className="text-gray-200 font-light">Rainfly:</h1>
+                    <div className='text-gray-800 mt-1'>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' id="extraInfo">
+                            <option value="Includes Rainfly">Included</option>
+                            <option value="Excludes Rainfly">Excludes</option>
                         </select>
                     </div>
                 </div>

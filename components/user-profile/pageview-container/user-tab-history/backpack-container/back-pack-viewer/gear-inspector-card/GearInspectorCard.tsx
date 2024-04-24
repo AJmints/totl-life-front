@@ -1,6 +1,7 @@
 import BackPackInspector from "./gear-specific-components/BackPackInspector"
 import Image from "next/image"
 import DryBagInspector from "./gear-specific-components/DryBagInspector"
+import TentInspector from "./gear-specific-components/TentInspector"
 
 const GearInspectorCard = (props: any) => {
 
@@ -34,6 +35,8 @@ const GearInspectorCard = (props: any) => {
 
                 {props.viewSpecificGear.gearItem.gearItem.category === "Back Pack" && <BackPackInspector gearItem={props.viewSpecificGear.gearItem.gearItem}/>}
                 {props.viewSpecificGear.gearItem.gearItem.category === "Dry Bag" && <DryBagInspector gearItem={props.viewSpecificGear.gearItem.gearItem}/>}
+                {props.viewSpecificGear.gearItem.gearItem.category === "Tent" && <TentInspector gearItem={props.viewSpecificGear.gearItem.gearItem}/>}
+
 
                 {/* This will be a bunch of optoinal forms to view all specific details in the correct context
                 Ex: props.viewSpecificGear.gearItem.category === "Back Pack" && <BackPackInspectorCard /> */}

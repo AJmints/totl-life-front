@@ -53,7 +53,7 @@ const AddGearForm = () => {
 
             </div>
             )   
-}
+    }
     )
 
     const categoryOptions = categoryDropDown.map(categoryName => (
