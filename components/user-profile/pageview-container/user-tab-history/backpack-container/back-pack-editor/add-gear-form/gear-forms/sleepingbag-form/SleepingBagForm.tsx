@@ -1,15 +1,33 @@
 'use client'
 
+import sleepBagPic from '../../../../../../../../../public/icons/sleepingbag.png'
+import sleepPadPic from '../../../../../../../../../public/icons/sleepingpad.png'
 import { useState, useEffect } from "react"
 import Image from "next/image"
 
 const SleepingBagForm = () => {
 
     const [ submitting, setSubmitting ] = useState<boolean>(false)
+    const [ sleepBag, setSleepBag ] = useState(false)
+    const [ sleepPad, setSleepPad] = useState(false)
 
 
     const handleSubmit = () => {
 
+    }
+
+    const setSleepItemSelect = (pack:string) => {
+
+        setSleepBag(false)
+        setSleepPad(false)
+
+        if (pack === "sleepBag") {
+            setSleepBag(true)
+        }
+        if (pack === "sleepPad") {
+            setSleepPad(true)
+        }
+ 
     }
 
     const handleCount = () => {
@@ -34,53 +52,37 @@ const SleepingBagForm = () => {
                 </div>
 
                 <div className="pt-2">
-                    <h1 className="text-gray-200 text-medium font-light">Select Tent Type:</h1>
-                    <p className="text-gray-200 text-xs font-light">Did you get this tent to put in a backpack?</p>
+                    <h1 className="text-gray-200 text-medium font-light">Select Sleeping Gear Type:</h1>
                 </div>
-                {/* <div className="flex items-center gap-2 text-lg text-center font-normal p-2 hover:bg-gray-600 duration-200 rounded-md">
+                <div className="flex items-center gap-2 text-lg text-center font-normal p-2 hover:bg-gray-600 duration-200 rounded-md">
                     
-                    <div className={ backpacking ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
+                    <div className={ sleepBag ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div 
                         className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setTentSelect("backpack")}
+                        onClick={() => setSleepItemSelect("sleepBag")}
                         >
                         <Image
-                        src={packTent}
-                        alt="Back Packing Tent"
+                        src={sleepBagPic}
+                        alt="Sleeping Bag"
                         className="w-auto h-20 mx-auto rounded-md"
                         />
                         </div>
-                        <p>BackPaking</p>
+                        <p>Sleeping Bag</p>
                     </div>
 
-                    <div className={ camping ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
+                    <div className={ sleepPad ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setTentSelect("camp")}
+                        onClick={() => setSleepItemSelect("sleepPad")}
                         >
                         <Image
-                        src={campTent}
-                        alt="Camping Tent"
+                        src={sleepPadPic}
+                        alt="Sleeping Pad"
                         className="w-auto h-20 mx-auto rounded-md"
                         />
                         </div>
-                        <p>Camping</p>
+                        <p>Sleep Pad</p>
                     </div>
-                </div> */}
-
-                {/* <div className="items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">{personQuantity} Person Tent:</h1>
-                    <div className='text-gray-800 mt-1 flex gap-2 font-normal'>
-                        <div>
-                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => personCount("minus")}>-</p>
-                        </div>
-                        <div className='p-1 bg-gray-200 rounded-md px-2'>
-                            <p id='quantity'>{String(personQuantity)}</p>
-                        </div>
-                        <div >
-                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => personCount("plus")}>+</p>
-                        </div>
-                    </div>
-                </div> */}
+                </div>
 
                 <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
                     <h1 className="text-gray-200 font-light">Brand:</h1>
@@ -92,25 +94,30 @@ const SleepingBagForm = () => {
                     </div>
                 </div>
 
-                <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">Tent Rating:</h1>
+                { sleepBag ? <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
+                    <h1 className="text-gray-200 font-light">Sleeping Bag Rating:</h1>
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' id="rating">
-                            <option value="3-Season">3-Season</option>
-                            <option value="4-Season">4-Season</option>
+                            <option value="liner">Liner</option>
+                            <option value="50">50 degrees</option>
+                            <option value="20">20 degrees</option>
                         </select>
                     </div>
                 </div>
-
+                :
                 <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">Rainfly:</h1>
+                    <h1 className="text-gray-200 font-light">Pad Type:</h1>
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' id="extraInfo">
-                            <option value="Includes Rainfly">Included</option>
-                            <option value="Excludes Rainfly">Excludes</option>
+                            <option value="Foam">Foam Pad</option>
+                            <option value="Air">Air Pad</option>
+                            <option value="Hybrid">Hybrid</option>
                         </select>
                     </div>
                 </div>
+                }
+
+                
 
                 <div className="pt-8 pb-2 flex">
                     <h1 className="text-gray-200 text-xl font-medium border-b-[1px]">Optional Info:</h1>
