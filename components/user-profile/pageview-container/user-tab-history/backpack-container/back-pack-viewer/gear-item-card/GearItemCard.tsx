@@ -24,7 +24,7 @@ const GearItemCard = (props : any) => {
                     <p>Brand: {props.gearDetails.gearItem.brand}</p>
                     { props.gearDetails.gearItem.category === "Back Pack" || props.gearDetails.gearItem.category === "Dry Bag" ?<p>Capacity: {props.gearDetails.gearItem.storage}</p> : <></>}
                     { props.gearDetails.gearItem.category === "Tent" ?<p>{props.gearDetails.gearItem.size}-Person Tent</p> : <></>}
-                    <p>{props.gearItem.type === "Sleeping Bag" ? "Rating: " : "Pad: "} {props.gearItem.rating}</p>
+                    <p>{props.gearDetails.gearItem.type === "Sleeping Bag" ? "Rating: " : "Pad: "} {props.gearDetails.gearItem.rating}</p>
                     <p>Lendable: {props.gearDetails.lendable ? "Yes" : "No"}</p>
                 </div>
             </div>
