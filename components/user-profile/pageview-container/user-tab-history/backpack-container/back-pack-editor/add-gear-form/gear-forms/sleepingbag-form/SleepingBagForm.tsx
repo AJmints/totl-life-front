@@ -36,7 +36,7 @@ const SleepingBagForm = () => {
         e.preventDefault()
 
         setError(false)
-        // setSubmitting(true)
+        setSubmitting(true)
         setSuccess(false)
 
         let sleepGearType
@@ -80,7 +80,27 @@ const SleepingBagForm = () => {
             console.log(err)
         })
 
-        console.log(response)
+        if (response.status === "success") {
+            setUserGearList((prev:any) => [...prev, response.newGear])
+            setSubmitting(false)
+
+            e.target.model.value = ""
+            // e.target.width.value = ""
+            // e.target.length.value = ""
+            e.target.lendable.value = "false"
+            e.target.lbs.value = 0
+            e.target.oz.value = 0
+            e.target.notes.value = ""
+            e.target.condition.value = ""
+            setQuantity(1)
+            setSleepBag(false)
+            setSleepPad(false)
+
+            setSuccess(true)
+        } else {
+            setError(true)
+            setSubmitting(false)
+        }
     }
 
     const sleepGearBrandOptions = sleepGearBrands.map(option => {
