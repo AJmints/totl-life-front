@@ -6,6 +6,8 @@ import dryBag from '../../../../../../public/icons/drysack.png'
 import dryDuffle from '../../../../../../public/icons/packsack.png'
 import packTent from '../../../../../../public/icons/packtent.png'
 import campTent from '../../../../../../public/icons/camptent.png'
+import sleepBag from '../../../../../../public/icons/sleepingbag.png'
+import sleepPad from '../../../../../../public/icons/sleepingpad.png'
 
 export default  [
     {
@@ -55,6 +57,18 @@ export default  [
         category: 'Tent',
         type: 'Camping Tent',
         img: campTent
+    }, 
+    {
+        id: 9,
+        category: 'Sleep Gear',
+        type: 'Sleeping Bag',
+        img: sleepBag
+    }, 
+    {
+        id: 10,
+        category: 'Sleep Gear',
+        type: 'Sleep Pad',
+        img: sleepPad
     }, 
 
 ]

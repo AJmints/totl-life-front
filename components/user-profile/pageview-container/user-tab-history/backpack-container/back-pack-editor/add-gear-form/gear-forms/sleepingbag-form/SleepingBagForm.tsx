@@ -68,7 +68,19 @@ const SleepingBagForm = () => {
             additionalDetails: e.target.notes.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' ')
         }
 
-        console.log(data)
+        const createPack = await fetch(URL + "/gear/create-item", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "Bearer " + await token()
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await createPack.json().catch((err) => {
+            console.log(err)
+        })
+
+        console.log(response)
     }
 
     const sleepGearBrandOptions = sleepGearBrands.map(option => {

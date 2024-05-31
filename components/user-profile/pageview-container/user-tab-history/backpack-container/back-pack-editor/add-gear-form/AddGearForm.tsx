@@ -37,12 +37,12 @@ const AddGearForm = () => {
         if (select === "Tent") {
             setTent(true)
         }
-        if (select === "SleepingGear") {
+        if (select === "SleepGear") {
             setSleepGear(true)
         }
     }
 
-    const quickSelectCategory = [packImages[0], packImages[4], packImages[6]].map((img: any) => {
+    const quickSelectCategory = [packImages[0], packImages[4], packImages[6], packImages[8]].map((img: any) => {
             return (
             <div key={img.id} className="p-2 hover:bg-emerald-600 bg-gray-500/60 cursor-pointer duration-300 rounded-md" onClick={() => handleSelect(img.category.split(" ").join(""))}>
 
