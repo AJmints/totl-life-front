@@ -172,7 +172,7 @@ const AboutAll = () => {
                     <p className='text-sm font-serif mt-1'>Lead Developer / Project Designer</p>
                     </div>
                     <p>Alex is the lead developer of this project, and aspiring programmer. He graduated from the LaunchCode bootcamp 
-                      in 2022 from the Web Developer class. He continues his learning thorugh projects and his current employment. He
+                      in 2022 from the Web Developer class. He continues his learning through projects and his current employment. He
                       was made from star dust to become a human with aspirations to become a turtle forever floating on a river. On a 
                       trip in the year of 2022, he was floating with his friends on the Current river when the idea of Totl was hatched.
                       Iley and Alex came up with this idea to start a project that shared their love of nature and the river. Totl is a 
@@ -193,7 +193,7 @@ const AboutAll = () => {
                     <p className='text-sm font-serif mt-1'>Project Coordinator</p>
                     </div>
                     <p>Matt is a Missouri native. He grew up exploring rivers and creeks as a child and loved when he experienced interactions 
-                      with the wildlife. He&#39;s the navigator group and takes charge organizing events and planning.</p>
+                      with the wildlife. He&#39;s the navigator of the group and takes charge organizing events and planning.</p>
                       <div>
                     <p className="text-2xl font-serif border-b-[1px]">Alex, Archbishop of the Sandbar (he/him):</p>
                     <p className='text-sm font-serif mt-1'>Project Coordinator</p>

@@ -2,6 +2,7 @@
 
 import sleepBagPic from '../../../../../../../../../public/icons/sleepingbag.png'
 import sleepPadPic from '../../../../../../../../../public/icons/sleepingpad.png'
+import sleepGearBrands from '../../data/brands/sleepGearBrands'
 import { useState, useEffect } from "react"
 import { useUserContext } from '@/app/context/UserContextProvider'
 import Image from "next/image"
@@ -35,7 +36,7 @@ const SleepingBagForm = () => {
         e.preventDefault()
 
         setError(false)
-        setSubmitting(true)
+        // setSubmitting(true)
         setSuccess(false)
 
         let sleepGearType
@@ -47,22 +48,20 @@ const SleepingBagForm = () => {
             sleepGearType = "Sleep Pad"
         }
 
-        if (sleepGearType === undefined || e.target.brand.value === "null") {
+        if (sleepGearType === undefined || e.target.brand.value === "null" || e.target.rating.value === "null") {
             setError(true)
             return
         }
 
         const data = {
             userId: userID,
-            category: "Tent",
+            category: "Sleep Gear",
             type: sleepGearType,
             brand: e.target.brand.value,
             rating: e.target.rating.value,
             model: e.target.model.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' '),
             weight: e.target.lbs.value + "." + e.target.oz.value,
-            width: e.target.width.value,
             extraInfo: e.target.extraInfo.value,
-            length: e.target.length.value,
             itemCondition: e.target.condition.value,
             lendable: e.target.lendable.value,
             quantity: quantity,
@@ -71,6 +70,12 @@ const SleepingBagForm = () => {
 
         console.log(data)
     }
+
+    const sleepGearBrandOptions = sleepGearBrands.map(option => {
+        return (
+            <option key={option} value={option}>{option}</option>
+        )
+    })
 
     const setSleepItemSelect = (pack:string) => {
 
@@ -117,6 +122,17 @@ const SleepingBagForm = () => {
         return oz;
     }
 
+    const sleepBagRating = () => {
+        const maxTemp = 8
+        let tempAdjust = 60
+        let tempOption = [];
+        for (let i = 0; i <= maxTemp; i++) {
+            tempAdjust = tempAdjust - 10
+            tempOption.push(<option key={i} value={tempAdjust + " degrees"}>{tempAdjust + " degrees"}</option>);
+        }
+        return tempOption;
+    }
+
     const handleCount = (event: any) => {
         const {name, value} = event.target
 
@@ -129,13 +145,6 @@ const SleepingBagForm = () => {
     }
 
     return (
-        <>
-        <p>Set up Sleeping Bag form
-            update java api
-            update gear display card
-            update gear inspector
-        </p>
-
         <>
             <form onSubmit={handleSubmit}>
             {/* Title for post */}
@@ -165,7 +174,8 @@ const SleepingBagForm = () => {
                     </div>
 
                     <div className={ sleepPad ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
-                        <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
+                        <div 
+                        className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
                         onClick={() => setSleepItemSelect("sleepPad")}
                         >
                         <Image
@@ -183,18 +193,19 @@ const SleepingBagForm = () => {
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="brand">
                             <option value="null" disabled>select a brand</option>
-                            {/* {tentBrandOptions} */}
+                            {sleepGearBrandOptions}
                         </select>
                     </div>
                 </div>
 
-                { sleepBag ? <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
+                { sleepBag ? 
+                <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
                     <h1 className="text-gray-200 font-light">Sleeping Bag Rating:</h1>
                     <div className='text-gray-800 mt-1'>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' id="rating">
-                            <option value="liner">Liner</option>
-                            <option value="50">50 degrees</option>
-                            <option value="20">20 degrees</option>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="rating">
+                            <option value="null" disabled>select bag rating</option>
+                            <option value="Liner">Liner</option>
+                            {sleepBagRating()}
                         </select>
                     </div>
                 </div>
@@ -202,16 +213,14 @@ const SleepingBagForm = () => {
                 <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
                     <h1 className="text-gray-200 font-light">Pad Type:</h1>
                     <div className='text-gray-800 mt-1'>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' id="extraInfo">
-                            <option value="Foam">Foam Pad</option>
-                            <option value="Air">Air Pad</option>
-                            <option value="Hybrid">Hybrid</option>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="rating">
+                            <option value="null" disabled>select a pad type</option>
+                            <option value="Foam Pad">Foam Pad</option>
+                            <option value="Air Pad">Air Pad</option>
                         </select>
                     </div>
                 </div>
                 }
-
-                
 
                 <div className="pt-8 pb-2 flex">
                     <h1 className="text-gray-200 text-xl font-medium border-b-[1px]">Optional Info:</h1>
@@ -228,7 +237,7 @@ const SleepingBagForm = () => {
                         onChange={handleCount}
                         minLength={3} maxLength={20} 
                     />
-                    {/* <p className="text-gray-200">{noteCount.model.length}/20</p> */}
+                    <p className="text-gray-200">{noteCount.model.length}/20</p>
                 </div>
 
                 <div className="items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
@@ -250,6 +259,29 @@ const SleepingBagForm = () => {
                         </div>
                     </div>
                 </div>
+
+                { sleepBag ? 
+                <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
+                    <h1 className="text-gray-200 font-light">Has Compression Bag:</h1>
+                    <div className='text-gray-800 mt-1'>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' id="extraInfo">
+                            <option value="With Compression Bag">No</option>
+                            <option value="No Compression Bag">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                :
+                <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
+                    <h1 className="text-gray-200 font-light">Self Inflating:</h1>
+                    <div className='text-gray-800 mt-1'>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="extraInfo">
+                            <option value="null" disabled>Self Inflating?</option>
+                            <option value="Not Self Inflating">No</option>
+                            <option value="Self Inflating">Yes</option>
+                        </select>
+                    </div>
+                </div>
+                }
 
                 <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
                     <h1 className="text-gray-200 font-light">{sleepBag ? "Sleeping Bag Condition:" : "Sleep Pad Condition:"}</h1>
@@ -313,7 +345,6 @@ const SleepingBagForm = () => {
                 }
             </div>
         </form>
-        </>
         </>
     )
 }
