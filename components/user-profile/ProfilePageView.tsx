@@ -65,7 +65,9 @@ const ProfilePageView = () => {
                 } else {
                     setUserInformation({name: response.userName, id: response.userId, verified: response.accountVerified, userPfp: 'data:image/jpeg;base64,' + response.pfp.image})
                 }
-                setUserGearList([...response.gearItems])
+                if (response.gearItems > 0) {
+                    setUserGearList([...response.gearItems])
+                }
                 setRelatedLogs({userFollows: response.logFollowList, userCreated: response.createdLogs})
                 setPackImages(gearImage)
                 setVerify(true)

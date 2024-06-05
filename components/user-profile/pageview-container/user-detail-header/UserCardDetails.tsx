@@ -11,9 +11,9 @@ const UserCardDetails = (props: any) => {
     const pathname = usePathname()
     const { userName, userPFP, verified, userID } = useUserContext()
 
-    useEffect(() => {
+    // useEffect(() => {
         
-    }, [])
+    // }, [])
 
     
 

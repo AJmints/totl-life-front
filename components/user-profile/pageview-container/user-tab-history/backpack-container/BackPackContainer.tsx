@@ -17,12 +17,9 @@ const BackPackContainer = (props: any) => {
     const { userName, userGearList } = useUserContext()
 
     useEffect(() => {
-        
-        if (userGearList.length > 0) {
+        if (userGearList.length >= 0) {
             setPackContents(true)
         }
-        
-        
     }, [])
 
     return (

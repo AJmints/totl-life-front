@@ -49,7 +49,7 @@ const BaleDisplay = () => {
         const response: any  = await request.json().catch((err: Error) => {
             console.log(err)
         })
-        if (response.total > 0) {
+        if (response.total >= 0) {
             if (baleNav !== response.total) {
                 setBaleNav(response.total)
             }
