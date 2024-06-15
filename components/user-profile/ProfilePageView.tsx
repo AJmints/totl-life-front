@@ -80,7 +80,7 @@ const ProfilePageView = () => {
         }
         
         check()
-    }, [userGearList])
+    }, [])
 
 
 

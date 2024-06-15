@@ -102,15 +102,13 @@ const TentForm = () => {
             setCamping(false)
 
             setSuccess(true)
+            return
         } else {
             setError(true)
             setSubmitting(false)
+            return
         }
         
-
-
-        
-
     }
 
     const tentBrandOptions = tentBrands.map(option => {

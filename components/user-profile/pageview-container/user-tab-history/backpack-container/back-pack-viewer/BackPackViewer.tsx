@@ -1,37 +1,18 @@
 'use client'
 
 import { useState } from "react"
-import { useUserContext } from "@/app/context/UserContextProvider"
-import GearItemCard from "./gear-item-card/GearItemCard"
+
 import GearInspectorCard from "./gear-inspector-card/GearInspectorCard"
+import GearViewer from "./pack-or-gear-viewer/GearViewer"
+import PackConfigViewer from "./pack-or-gear-viewer/PackConfigViewer"
+import PackInspectorCard from "./pack-inspector-card/PackInspectorCard"
 
 const BackPackViewer = (props: any) => {
 
     const [ viewSpecificGear, setViewSpecificGear ] = useState<any>()
     const [ viewToggle, setViewToggle ] = useState<boolean>(false)
-    const { userGearList, packImages } = useUserContext()
-
-    const gearListDisplay = userGearList.map((item:any) => {
-
-        const img = packImages.filter(gearVisuals => gearVisuals.category === item.gearItem.category && gearVisuals.type === item.gearItem.type).pop()
-        
-        return (
-            <div className=" cursor-pointer" onClick={() => handleGearInspection(item, img)} key={item.id}> 
-                <GearItemCard 
-                gearDetails={item}
-                image={img}
-                />
-            </div>
-        )
-    })
-
-    const handleGearInspection = (item:any, img:any) => {
-        setViewSpecificGear({
-            gearItem: item,
-            image: img
-        })
-        setViewToggle(true)
-    }
+    const [ packViewToggle, setPackViewToggle ] = useState<boolean>(false)
+    
 
     return (
         <>
@@ -39,34 +20,44 @@ const BackPackViewer = (props: any) => {
             <>
             
             <div>
-                <div className="flex flex-wrap gap-2 font-light">
-                    <button className="bg-gray-500 text-gray-200 hover:text-gray-900 hover:bg-emerald-500 duration-200 rounded-md p-2">All Gear</button>
-                    <button className="bg-gray-500 text-gray-200 hover:text-gray-900 hover:bg-emerald-500 duration-200 rounded-md p-1">Floating Pack Config</button>
-                    <button className="bg-gray-500 text-gray-200 hover:text-gray-900 hover:bg-emerald-500 duration-200 rounded-md p-1">Hiking Pack Config</button>
+
+                <div className="mt-2 flex">
+                    {/* Button to select viewing of all user gear or the packs the user has configured */}
+                    <h1 className="text-2xl font-normal">Viewing</h1> 
+                    <div className="ml-2 space-x-2 flex bg-gray-600 p-1 rounded-md">
+                        <button onClick={() => setPackViewToggle(true)} className={packViewToggle ? "bg-emerald-500 p-1 rounded-md" : "bg-gray-500 p-1 rounded-md"}>All User Gear</button>
+                        <button onClick={() => setPackViewToggle(false)} className={packViewToggle ? "bg-gray-500 p-1 rounded-md" : "bg-emerald-500 p-1 rounded-md"}>User Packs</button>
+                    </div>
                 </div>
                 
                 { viewToggle ?
-                    <GearInspectorCard
-                    viewSpecificGear={viewSpecificGear}
-                    setViewToggle={setViewToggle}
-                    />
+                    <>
+                    {/* Selected gear item/pack config and view it's details */}
+                    { packViewToggle ? 
+                        <GearInspectorCard
+                        viewSpecificGear={viewSpecificGear}
+                        setViewToggle={setViewToggle}
+                        />
+                        :
+                        <PackInspectorCard
+                        />
+                    }
+                    </>
+                    
                     :
-                    <div className="mt-3">
-                        <div className="flex justify-between">
-                            <div>
-                        <h1 className="text-2xl font-normal">Viewing All Gear</h1> {/* Title that changes */}
-                        <p>Gear Display:</p>
-                        </div>
-                        <div>
-                            <button className="bg-gray-500 text-gray-200 hover:text-gray-900 hover:bg-emerald-500 duration-200 rounded-md p-1">Filter</button>
-                        </div>
-                        </div>
-
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2">
-                            {gearListDisplay}
-                        </div>
-                        
-                    </div>
+                    <>
+                    {/* Display all the users gear/pack configs */}
+                    { packViewToggle ? 
+                        <GearViewer
+                        setViewSpecificGear={setViewSpecificGear}
+                        setViewToggle={setViewToggle}
+                        />
+                        :
+                        <PackConfigViewer
+                        />
+                    }
+                    </>
+                    
                 }
 
             </div>
