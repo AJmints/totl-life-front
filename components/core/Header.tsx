@@ -164,7 +164,7 @@ export default function Header() {
             {/* False: Login or Register */}
             { userLogged ?
             <div className="flex items-center pt-3 pb-2 mr-2 sm:mx-5 space-x-5">
-                <div>
+                <div className="group flex ">
                     <Image 
                     src={ userPFP === null ? picDefault : userPFP}
                     alt=""
@@ -173,7 +173,7 @@ export default function Header() {
                     className="cursor-pointer h-12 w-12 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
                     onClick={() => setUserDetailsToggle(prev => !prev)}
                     />
-                </div>
+                    <div className="hidden group-hover:flex transition-opacity ease-in duration-400 opacity-0 hover:opacity-100 absolute">
                 {/* Open user sidebard from Profile Icon */}
                     <UserOptionsConst
                     logout={logout}
@@ -181,7 +181,10 @@ export default function Header() {
                     userDetailsToggle={userDetailsToggle}
                     setUserDetailsToggle={setUserDetailsToggle}
                     setUserLogged={setUserLogged}
-                    />   
+                    />  
+                </div> 
+                </div>
+                
                 <div>
                 </div>
             </div>

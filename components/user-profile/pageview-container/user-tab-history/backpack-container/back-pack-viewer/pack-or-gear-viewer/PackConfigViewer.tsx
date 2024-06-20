@@ -4,7 +4,7 @@ const PackConfigViewer = () => {
 
     return (
         <>
-        Hello pack config world
+        User Packs needs to be made
         </>
     )
 }

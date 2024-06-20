@@ -5,19 +5,55 @@ import addSign from '../../../../../../public/icons/add-white.png'
 import { useState, useEffect } from 'react'
 import AddGearForm from "./add-gear-form/AddGearForm"
 import ModifyGearDisplay from "./modify-gear-display/ModifyGearDisplay"
+import CreatePackForm from "./create-pack-form/CreatePackForm"
+import EditPackForm from "./edit-gear-form/EditPackForm"
 
 const BackPackEditorContainer = () => {
 
+    const [ standard, setStandard ] = useState(true)
     const [ add, setAdd ] = useState(false)
-    const [ packToggle, setPackToggle ] = useState(false)
+    const [ packCreate, setPackCreate ] = useState(false)
+    const [ packEdit, setPackEdit ] = useState(false)
+
+    const handleOptionsToggle = (toggle: string) => {
+
+        switch (toggle) {
+            case "add":
+                setStandard(false)
+                setPackCreate(false)
+                setPackEdit(false)
+                setAdd(true)
+                break
+            case "packEdit":
+                setStandard(false)
+                setAdd(false)
+                setPackCreate(false)
+                setPackEdit(true)
+                break
+            case "packCreate":
+                setPackCreate(true)
+                setPackEdit(false)
+                setStandard(false)
+                setAdd(false)
+                break
+            default:
+                setStandard(true)
+                setAdd(false)
+                setPackCreate(false)
+                setPackEdit(false)
+                break
+        }
+
+    }
 
     return (
         <div className=" font-light">
 
-            <div className="mb-2 flex gap-2 items-center">
-                
-                
-                    <div className="flex items-center p-1 bg-slate-400 rounded-md cursor-pointer hover:bg-yellow-500 duration-500" onClick={() => setAdd(prev => !prev)}>
+            <div className="bg-gray-400 p-1 rounded-md my-2 sm:flex items-center">
+                    
+                <div className="flex mb-2 sm:mb-0">
+                    <div className="flex items-center p-1 bg-slate-300 mr-2 rounded-md cursor-pointer hover:bg-yellow-500 duration-500" 
+                    onClick={ !add ? () => handleOptionsToggle("add") : () => handleOptionsToggle("default")}>
                         <div>
                         <h1 className="mr-2">{add ? "Cancel: " : "Add Gear: "}</h1>
                         </div>
@@ -30,22 +66,20 @@ const BackPackEditorContainer = () => {
                         />
                         </div>
                     </div>
+                </div>
 
-            </div>
-
-            <div className="bg-gray-400 p-1 rounded-md my-2">
-                { !packToggle ? 
+                { !packCreate ? 
                 <div className="flex gap-2 text-gray-200">
                     <div>
-                    <button onClick={() => setPackToggle(true)} className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Edit Pack Configurations</button>
+                    <button onClick={() => handleOptionsToggle("packEdit")} className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Edit Packs</button>
                     </div>
                     <div>
-                    <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Add New Pack Configuration</button>
+                    <button onClick={() => handleOptionsToggle("packCreate")} className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Create Packs</button>
                     </div>
                 </div>
                 :
                 <div className="md:flex grid grid-cols-2 gap-2 text-gray-100">
-                    <button onClick={() => setPackToggle(false)} className="p-1 bg-slate-600 text-gray-200 rounded-md">Go Back</button>
+                    <button onClick={() => handleOptionsToggle("default")} className="p-1 bg-slate-600 text-gray-200 rounded-md">Go Back</button>
                     <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Hiking Config Example</button>
                     <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Floating Config Example</button>
                 </div>
@@ -55,10 +89,14 @@ const BackPackEditorContainer = () => {
             
 
             <>
-            { add ?
-                <AddGearForm />
-                :
+            { standard ?
                 <ModifyGearDisplay />
+                :
+                <>
+                    { add && <AddGearForm /> }
+                    { packCreate && <CreatePackForm />}
+                    { packEdit && <EditPackForm />}
+                </>
             }
             </>
 

@@ -2,7 +2,7 @@ const FavoriteSaveLogic = () => {
 
     return (
         <>
-        Fav and Save
+        Fav / Save need to be built
         </>
     )
 }

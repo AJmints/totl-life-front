@@ -21,7 +21,12 @@ const ShareButtonLogic = (props: ShareButtonLogicProps) => {
             if (props.shareFromPreview === undefined) {
                 await navigator.clipboard.writeText(currentUrl)
             } else {
-                await navigator.clipboard.writeText(currentUrl + "/" + props.shareFromPreview)
+                if (currentUrl.split("/").includes(String(props.shareFromPreview).split("/")[0])) {
+                    await navigator.clipboard.writeText(currentUrl + "/" + props.shareFromPreview.split("/").pop())                    
+                } else {
+                    await navigator.clipboard.writeText(currentUrl + "/" + props.shareFromPreview)
+                }
+                
             }
             setCopyNotification(true)
             setInterval(() => {

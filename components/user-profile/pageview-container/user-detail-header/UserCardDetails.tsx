@@ -48,8 +48,11 @@ const UserCardDetails = (props: any) => {
                 }
 
             
-                <div className="flex items-end">
+                <div className="flex group items-end">
                     <p className="bg-gray-500 p-2 rounded-full">DM</p>
+                    <div className="hidden group-hover:flex absolute">
+                        <p className="bg-gray-600 p-2 rounded-md -mb-10 -ml-10 shadow-md shadow-gray-800/40">Direct Messages need to be built</p>
+                    </div>
                 </div>
             </div>
 

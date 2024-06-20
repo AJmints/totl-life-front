@@ -68,7 +68,7 @@ const AddGearForm = () => {
         <div className='bg-gray-600/90 p-2 rounded-md mt-2'>
 
             <div className="">
-                <h1 className="text-gray-200 text-2xl mb-2 border-b-[1px]">Add Item to Pack:</h1>
+                <h1 className="text-gray-200 text-2xl mb-2 border-b-[1px]">Add Item to Gear List:</h1>
             
 
             <div className="sm:flex sm:justify-between sm:space-x-2 items-center mb-2">

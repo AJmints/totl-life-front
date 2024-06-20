@@ -54,10 +54,19 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
     useEffect(() => {
         setCurrentUrl(window.location.href)
     }, [])
+    
+    const test = () => {
+        console.log(String(props.optionReact.pageRedirect).split("/").pop())
+    }
 
     const handleEditReroute = (pushOrToggle: boolean) => {
 
         if (pushOrToggle) {
+            // In case of duplicate log name in URL, adjust URL to be routed to correct page.
+            if (currentUrl.split("/").includes(String(props.optionReact.pageRedirect).split("/")[0])) {
+                router.push(currentUrl + "/" + String(props.optionReact.pageRedirect).split("/").pop() + "&1edit=true")
+                return
+            }
             router.push(currentUrl + "/" + props.optionReact.pageRedirect + "&1edit=true")
         } else {
             props.optionReact.setBaleEditToggle(prev => !prev)
@@ -106,7 +115,7 @@ const EditOptionsLogic = (props: EditOptionsLogicProps) => {
                                                     : "absolute p-1 bg-gradient-to-b from-gray-500 to-gray-400 rounded-md -mb-20 -ml-5 sm:ml-0"}>
             {
                 props.optionReact.isActive ? 
-                <div className='space-y-2'>
+                <div className='space-y-2' onClick={() => test()}>
                 <div className="p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-emerald-500 duration-200" onClick={() => handleEditReroute(props.optionReact.redirect)}>
                     <p>Edit</p>
                 </div>

@@ -35,7 +35,10 @@ const GearViewer = (props: any) => {
                         {/* Turn this into a component to view the items, and nest it in another turnary for the pack configs. */}
                         <p>Gear Display:</p>
                         </div>
-                        <div>
+                        <div className="group">
+                            <div className="hidden absolute mt-7 -ml-10 sm:-ml-6 shadow-md shadow-gray-800/40 group-hover:flex">
+                                <p className="bg-gray-200 p-2 rounded-md">Filter needs to be made</p>
+                            </div>
                             <button className="bg-gray-500 text-gray-200 hover:text-gray-900 hover:bg-emerald-500 duration-200 rounded-md p-1">Filter</button>
                         </div>
                         </div>
