@@ -68,7 +68,6 @@ const BackPackEditorContainer = () => {
                     </div>
                 </div>
 
-                { !packCreate ? 
                 <div className="flex gap-2 text-gray-200">
                     <div>
                     <button onClick={() => handleOptionsToggle("packEdit")} className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Edit Packs</button>
@@ -77,13 +76,6 @@ const BackPackEditorContainer = () => {
                     <button onClick={() => handleOptionsToggle("packCreate")} className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Create Packs</button>
                     </div>
                 </div>
-                :
-                <div className="md:flex grid grid-cols-2 gap-2 text-gray-100">
-                    <button onClick={() => handleOptionsToggle("default")} className="p-1 bg-slate-600 text-gray-200 rounded-md">Go Back</button>
-                    <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Hiking Config Example</button>
-                    <button className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1">Floating Config Example</button>
-                </div>
-                }
             </div>
            
             
