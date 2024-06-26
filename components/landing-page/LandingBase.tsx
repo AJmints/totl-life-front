@@ -1,9 +1,14 @@
+'use client'
+
+import { useRouter } from 'next/navigation'
 import river from '../../public/images/tutlelog.jpg'
 import Image from 'next/image'
 import Link from 'next/link'
 import git from '../../public/icons/github-mark.png'
 
 const LandingBase = (props: any) => {
+
+    const router = useRouter()
 
     return (
         <div className='mt-10'>
@@ -70,7 +75,16 @@ const LandingBase = (props: any) => {
                     <p className='md:text-2xl text-center text-gray-300'>You are a turtle and you are floating down a river. <br/><br/></p>
                     <p className='md:text-2xl text-gray-300'>
                     While you are floating down the river, you see a log. This log looks easy to climb on and the sun is hitting it just right. There are some other turtles on this log, and they look friendly. You have joined this bale of turtles on a log and enjoy a little conversation before you decide to go on your way.</p><br/>
-                    <p className='text-center md:text-2xl text-gray-300'>
+                    <div className='flex justify-center'>
+                        <div>
+                        <p className='md:text-2xl text-gray-300'>For more information</p>
+                        <div className='flex justify-center'>
+                        <button className="bg-emerald-500 hover:bg-emerald-700/80 duration-300 shadow-lg shadow-gray-800 text-gray-300 p-2 rounded-md" onClick={() => router.push("/support")}>Visit Support</button>
+                        </div>
+                        </div>
+                    </div>
+                    
+                    <p className='text-center mt-2 md:text-2xl text-gray-300'>
                     Totl = Turtle on the log</p>
                 </div>
             </div>
