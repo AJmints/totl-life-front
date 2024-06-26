@@ -1,6 +1,6 @@
 import Image from "next/image"
-import pfpDefault from '../../../public/icons/profile-pic.png'
-import MakeReport from "../MakeReport/MakeReport"
+import pfpDefault from '../../../../public/icons/profile-pic.png'
+import MakeReport from "../MakeReport"
 
 const ReportBale = (props: any) => {
 

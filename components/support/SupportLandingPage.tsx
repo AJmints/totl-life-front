@@ -6,16 +6,20 @@ import pfpDefault from "../../public/icons/profile-pic.png"
 import { useRouter, useSearchParams, usePathname } from "next/navigation"
 import MakeReport from "./MakeReport/MakeReport"
 import LoadingMainBale from "../river-forums/containers/bale-pageviewcontainer/bale-main/LoadingMainBale"
-import ReportBale from "./report-bale/ReportBale"
+import ReportBale from "./MakeReport/report-bale/ReportBale"
 import TotlLingoSupport from "./totl-lingo/TotlLingoSupport"
+import Terms from "./terms-conditions/Terms"
+import Conditions from "./terms-conditions/Conditions"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const SupportLandingPageComponent = (props: any) => {
 
-    const [ reportType, setReportType ] = useState<"post" | "general" | null | undefined>() 
+    const [ reportType, setReportType ] = useState<"post" | "general" | "terms" | "conditions" | null | undefined>() 
     const [ content, setContent ] = useState<any>()
-
+    const [ conditions, setConditions ] = useState()
+    const [ terms, setTerms ] = useState()
+ 
     const router = useRouter()
     const searchParams = useSearchParams()
     const pathname = usePathname()
@@ -58,10 +62,10 @@ const SupportLandingPageComponent = (props: any) => {
                 <div className="bg-gray-500 rounded-md p-2 hover:bg-yellow-500 duration-300 cursor-pointer" onClick={() => setReportType(null)}>
                     <p>Totl Lingo</p>
                 </div>
-                <div className="bg-gray-500 rounded-md p-2 hover:bg-yellow-500 duration-300 cursor-pointer" onClick={() => router.push("/support/terms-and-tides")}>
+                <div className="bg-gray-500 rounded-md p-2 hover:bg-yellow-500 duration-300 cursor-pointer" onClick={() => setReportType("conditions")}>
                     <p>Terms/Tides</p>
                 </div>
-                <div className="bg-gray-500 rounded-md p-2 hover:bg-yellow-500 duration-300 cursor-pointer" onClick={() => router.push("/support/user-agreement")}>
+                <div className="bg-gray-500 rounded-md p-2 hover:bg-yellow-500 duration-300 cursor-pointer" onClick={() => setReportType("terms")}>
                     <p>User Agreement</p>
                 </div>
                 <div className="bg-gray-500 rounded-md p-2 hover:bg-yellow-500 duration-300 cursor-pointer" onClick={() => setReportType("general")}>
@@ -102,6 +106,9 @@ const SupportLandingPageComponent = (props: any) => {
                     :
                     <></>
                 }
+
+                { reportType === "terms" && <Terms /> }
+                { reportType === "conditions" && <Conditions />}
 
                 {/* General Reporting - Pending */}
                 {
