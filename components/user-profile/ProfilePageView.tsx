@@ -12,14 +12,12 @@ import InfoEditorContainer from "./pageview-container/social-option-container/So
 import { useUserContext } from "@/app/context/UserContextProvider"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
-let userID: string | undefined = ""
 
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
     const status = await infoCall.json().catch((err) => {
         console.log(err)
     })
-    userID = status.id
     return status.loggedIn
 }
 
@@ -56,13 +54,7 @@ const ProfilePageView = () => {
 
         const userDetail = async() => {
             const userName = pathname?.split("/user/").pop()
-            //Temp
-            const createUsersPacks = await fetch( URL + "/backpack/get-users-gear-list/" + userID)
-            const createPack = await createUsersPacks.json().catch((err) => {
-                console.log(err)
-            })
-            console.log(createPack)
-            //Temp
+            
             const getOtherUserDetails = await fetch( URL + "/profile/userInfo/" + userName)
             const response = await getOtherUserDetails.json().catch((err) => {
                 console.log(err)

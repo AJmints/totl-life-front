@@ -8,6 +8,7 @@ import DryBagForm from "./gear-forms/dry-bag-form/DryBagForm"
 import TentForm from "./gear-forms/tent-form/TentForm"
 import Image from "next/image"
 import SleepingBagForm from "./gear-forms/sleepingbag-form/SleepingBagForm"
+import HammockForm from "./gear-forms/hammock-form/HammockForm"
 
 const AddGearForm = () => {
 
@@ -15,6 +16,7 @@ const AddGearForm = () => {
     const [ backPack, setBackPack] = useState(false)
     const [ dryBag, setDryBag ] = useState(false)
     const [tent, setTent] = useState(false)
+    const [ hammock, setHammock ] = useState(false)
     const [ sleepGear, setSleepGear ] = useState(false)
     const { packImages } = useUserContext()
 
@@ -23,6 +25,7 @@ const AddGearForm = () => {
         setSelectCategory(false)
         setBackPack(false)
         setDryBag(false)
+        setHammock(false)
         setTent(false)
 
         if (select == "menu") {
@@ -33,6 +36,9 @@ const AddGearForm = () => {
         }
         if (select === "DryBag") {
             setDryBag(true)
+        }
+        if (select === "Hammock") {
+            setHammock(true)
         }
         if (select === "Tent") {
             setTent(true)
@@ -101,6 +107,7 @@ const AddGearForm = () => {
                         { backPack && <BackPackForm /> }
                         { dryBag && <DryBagForm />}
                         { tent && <TentForm />}
+                        { hammock && <HammockForm />}
                         { sleepGear && <SleepingBagForm />}
                     </>
                 }
