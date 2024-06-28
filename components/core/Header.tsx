@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import totlhome from '../../public/logo/totl-home.png'
+import totlhome from '../../public/logo/logo-no-background.png'
 import picDefault from '../../public/icons/profile-pic.png'
 import arrow from '../../public/icons/Arrow.png'
 import menuCompressed from '../../public/icons/menu-burger.png'
@@ -115,17 +115,23 @@ export default function Header() {
             </div>
             
             {/* Logo */}
+            
             <div className="sm:ml-10 flex items-center">
-            <Link href="/">
+            <Link className="group shadow-md cursor-pointer hover:bg-gray-800 flex items-center bg-gray-600 rounded-md hover:shadow-md hover:shadow-emerald-400 duration-200" href="/">
+            <div>
+                <p className="text-gray-200 text-3xl mx-1 font-mono">TOTL</p>
+            </div>
+            
             <Image
             src={totlhome}
             alt=""
-            className="cursor-pointer w-auto h-14 sm:h-14 hover:bg-gray-600 hover:shadow-lg px-1 rounded-md duration-300"
+            className="cursor-pointer group-hover:bg-gray-900 bg-gray-800/80 w-auto h-12 sm:h-12 border-[1px] pb-0.5 px-0.5 rounded-md"
             priority={true}
             />
             </Link>
             </div>
-
+            
+            
             {/* Select Log drop-down menu when screen not in phone view*/}
             <div className="hidden sm:flex">
                 <LogSelect 
