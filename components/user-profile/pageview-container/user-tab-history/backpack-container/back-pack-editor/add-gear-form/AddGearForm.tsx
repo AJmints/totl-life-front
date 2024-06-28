@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react"
 import { useUserContext } from "@/app/context/UserContextProvider"
-import categoryDropDown from "./data/categoryDropDown"
-import BackPackForm from "./gear-forms/back-pack-form/BackPackForm"
-import DryBagForm from "./gear-forms/dry-bag-form/DryBagForm"
-import TentForm from "./gear-forms/tent-form/TentForm"
 import Image from "next/image"
-import SleepingBagForm from "./gear-forms/sleepingbag-form/SleepingBagForm"
-import HammockForm from "./gear-forms/hammock-form/HammockForm"
+import categoryDropDown from "./data/categoryDropDown"
+import BackPackForm from "./gear-forms/BackPackForm"
+import DryBagForm from "./gear-forms/DryBagForm"
+import TentForm from "./gear-forms/TentForm"
+import HammockForm from "./gear-forms/HammockForm"
+import SleepingBagForm from "./gear-forms/SleepingBagForm"
 
 const AddGearForm = () => {
 
@@ -26,6 +26,7 @@ const AddGearForm = () => {
         setBackPack(false)
         setDryBag(false)
         setHammock(false)
+        setSleepGear(false)
         setTent(false)
 
         if (select == "menu") {

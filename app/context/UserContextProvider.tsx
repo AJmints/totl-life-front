@@ -18,7 +18,9 @@ type ContextProps = {
     userGearList: any[],
     setUserGearList: Dispatch<SetStateAction<any>>,
     packImages: any[],
-    setPackImages: Dispatch<SetStateAction<any>>
+    setPackImages: Dispatch<SetStateAction<any>>,
+    userPackConfigs: any[],
+    setUserPackConfigs: Dispatch<SetStateAction<any>>
 }
 
 const UserContext = createContext<ContextProps>({
@@ -37,7 +39,9 @@ const UserContext = createContext<ContextProps>({
     userGearList: [],
     setUserGearList: () => [],
     packImages: [],
-    setPackImages: () => []
+    setPackImages: () => [],
+    userPackConfigs: [],
+    setUserPackConfigs: () => []
 })
 
 export const UserContextProvider = ({ children }: any) => {
@@ -49,9 +53,10 @@ export const UserContextProvider = ({ children }: any) => {
     const [ createdLogs, setCreatedLogs ] = useState([])
     const [ userGearList, setUserGearList ] = useState<any[]>([])
     const [ packImages, setPackImages ] = useState<any[]>([])
+    const [ userPackConfigs, setUserPackConfigs] = useState<any[]>([])
 
     return (
-        <UserContext.Provider value={{ userName: userName, setUserName: setUserName, userID: userID, setUserID: setUserID, verified: verified, setVerified: setVerified, userPFP: userPFP, setUserPFP: setUserPFP, logFollowList: logFollowList, setLogFollowList: setLogFollowList, createdLogs: createdLogs, setCreatedLogs: setCreatedLogs, userGearList: userGearList, setUserGearList: setUserGearList, packImages: packImages, setPackImages: setPackImages }}>
+        <UserContext.Provider value={{ userName: userName, setUserName: setUserName, userID: userID, setUserID: setUserID, verified: verified, setVerified: setVerified, userPFP: userPFP, setUserPFP: setUserPFP, logFollowList: logFollowList, setLogFollowList: setLogFollowList, createdLogs: createdLogs, setCreatedLogs: setCreatedLogs, userGearList: userGearList, setUserGearList: setUserGearList, packImages: packImages, setPackImages: setPackImages, userPackConfigs: userPackConfigs, setUserPackConfigs: setUserPackConfigs }}>
             {children}
         </UserContext.Provider>
     )

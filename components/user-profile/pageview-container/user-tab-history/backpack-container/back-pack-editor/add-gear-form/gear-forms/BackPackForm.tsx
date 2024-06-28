@@ -1,11 +1,12 @@
 'use client'
 
-import sleepBagPic from '../../../../../../../../../public/icons/sleepingbag.png'
-import sleepPadPic from '../../../../../../../../../public/icons/sleepingpad.png'
-import sleepGearBrands from '../../data/brands/sleepGearBrands'
-import { useState, useEffect } from "react"
-import { useUserContext } from '@/app/context/UserContextProvider'
+import { useState } from "react"
+import backpackImg from '../../../../../../../../public/icons/backpack.png'
+import daypackImg from '../../../../../../../../public/icons/daypack.png'
+import hydropackImg from '../../../../../../../../public/icons/hydrationpack.png'
 import Image from "next/image"
+import backPackBrands from "../data/brands/backPackBrands"
+import { useUserContext } from "@/app/context/UserContextProvider"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -17,20 +18,20 @@ export const token = async() => {
     return status
 }
 
-const SleepingBagForm = () => {
+const BackPackForm = () => {
 
-    const [ submitting, setSubmitting ] = useState<boolean>(false)
-    const [ sleepBag, setSleepBag ] = useState(false)
-    const [ sleepPad, setSleepPad] = useState(false)
-    const [ quantity, setQuantity ] = useState<number>(1)
+    const [submitting, setSubmitting] = useState(false)
+    const [ success, setSuccess ] = useState(false)
+    const [back, setBack] = useState(false)
+    const [day, setDay] = useState(false)
+    const [hydro, setHydro] = useState(false)
+    const [error, setError] = useState(false)
     const [noteCount, setNoteCount] = useState({
         model: "",
         notes: ""
     })
-    const [error, setError] = useState(false)
-    const [ success, setSuccess ] = useState(false)
+    const [ quantity, setQuantity ] = useState<number>(1)
     const { userID, setUserGearList } = useUserContext()
-
 
     const handleSubmit = async(e: any) => {
         e.preventDefault()
@@ -39,35 +40,39 @@ const SleepingBagForm = () => {
         setSubmitting(true)
         setSuccess(false)
 
-        let sleepGearType
+        let packType
 
-        if (sleepBag) {
-            sleepGearType = "Sleeping Bag"
+        if (back) {
+            packType = "Hiking"
         }
-        if (sleepPad) {
-            sleepGearType = "Sleep Pad"
+        if (day) {
+            packType = "Day"
+        }
+        if (hydro) {
+            packType = "Hydration"
         }
 
-        if (sleepGearType === undefined || e.target.brand.value === "null" || e.target.rating.value === "null") {
+        if (packType === undefined || e.target.brand.value === "null" || e.target.storage.value === "null") {
             setError(true)
             return
         }
 
         const data = {
             userId: userID,
-            category: "Sleep Gear",
-            type: sleepGearType,
+            category: "Back Pack",
+            type: packType,
             brand: e.target.brand.value,
-            rating: e.target.rating.value,
+            storage: String(e.target.storage.value) + "L", 
             model: e.target.model.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' '),
-            weight: e.target.lbs.value + "." + e.target.oz.value,
-            extraInfo: e.target.extraInfo.value,
-            itemCondition: e.target.condition.value,
-            lendable: e.target.lendable.value,
+            size: e.target.size.value,
             quantity: quantity,
-            additionalDetails: e.target.notes.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' ')
+            extraInfo: e.target.reservoir.value,
+            lendable: e.target.lendable.value,
+            weight: e.target.lbs.value + "." + e.target.oz.value,
+            additionalDetails: e.target.notes.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' '),
+            itemCondition: e.target.condition.value
         }
-
+        
         const createPack = await fetch(URL + "/gear/create-item", {
             method: 'POST',
             headers: {
@@ -79,48 +84,94 @@ const SleepingBagForm = () => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-
         if (response.status === "success") {
             setUserGearList((prev:any) => [...prev, response.newGear])
             setSubmitting(false)
 
-            e.target.model.value = ""
-            // e.target.width.value = ""
-            // e.target.length.value = ""
-            e.target.lendable.value = "false"
-            e.target.lbs.value = 0
-            e.target.oz.value = 0
-            e.target.notes.value = ""
-            e.target.condition.value = ""
-            setQuantity(1)
-            setSleepBag(false)
-            setSleepPad(false)
-
-            setSuccess(true)
+                e.target.brand.value = ""
+                e.target.storage.value = 0
+                e.target.model.value = ""
+                e.target.size.value = 0
+                e.target.reservoir.value = ""
+                e.target.lendable.value = ""
+                e.target.lbs.value = 0
+                e.target.oz.value = 0
+                e.target.notes.value = ""
+                e.target.condition.value = ""
+                setQuantity(1)
+                setBack(false)
+                setDay(false)
+                setHydro(false)
+                setSuccess(true)
+            
         } else {
             setError(true)
             setSubmitting(false)
         }
+        
+
     }
 
-    const sleepGearBrandOptions = sleepGearBrands.map(option => {
+    const setPackSelect = (pack:string) => {
+
+        setBack(false)
+        setDay(false)
+        setHydro(false)
+
+        if (pack === "back") {
+            setBack(true)
+        }
+        if (pack === "day") {
+            setDay(true)
+        }
+        if (pack === "hydro") {
+            setHydro(true)
+        }
+ 
+    }
+
+    const packBrandOptions = backPackBrands.map(option => {
         return (
             <option key={option} value={option}>{option}</option>
         )
     })
 
-    const setSleepItemSelect = (pack:string) => {
-
-        setSleepBag(false)
-        setSleepPad(false)
-
-        if (pack === "sleepBag") {
-            setSleepBag(true)
+    const maxLiter = 80
+    const capacityOptions = () => {
+        let capacity = [];
+        for (let i = 10; i <= maxLiter; i++) {
+          capacity.push(<option key={i} value={i}>{i}</option>);
         }
-        if (pack === "sleepPad") {
-            setSleepPad(true)
+        return capacity;
+    }
+
+    const maxLbs = 10
+    const lbsOptions = () => {
+        let lbs = [];
+        for (let i = 0; i <= maxLbs; i++) {
+          lbs.push(<option key={i} value={i}>{i}</option>);
         }
- 
+        return lbs;
+    }
+
+    const maxOz = 16
+    const ozOptions = () => {
+        let oz = [];
+        for (let i = 0; i <= maxOz; i++) {
+          oz.push(<option key={i} value={i}>{i}</option>);
+        }
+        return oz;
+    }
+
+    const handleCount = (event: any) => {
+        const {name, value} = event.target
+
+        setNoteCount(prevTitleBody => {
+            return {
+                ...prevTitleBody,
+                [name]: value
+            }
+        })
     }
 
     const itemCount = (operator: string) => {
@@ -135,50 +186,12 @@ const SleepingBagForm = () => {
             setQuantity(quantity - 1)
         }
     }
-
-    const lbsOptions = () => {
-        const maxLbs = 5
-        let lbs = [];
-        for (let i = 0; i <= maxLbs; i++) {
-          lbs.push(<option key={i} value={i}>{i}</option>);
-        }
-        return lbs;
-    }
     
-    const ozOptions = () => {
-        const maxOz = 16
-        let oz = [];
-        for (let i = 0; i <= maxOz; i++) {
-          oz.push(<option key={i} value={i}>{i}</option>);
-        }
-        return oz;
-    }
-
-    const sleepBagRating = () => {
-        const maxTemp = 8
-        let tempAdjust = 60
-        let tempOption = [];
-        for (let i = 0; i <= maxTemp; i++) {
-            tempAdjust = tempAdjust - 10
-            tempOption.push(<option key={i} value={tempAdjust + " degrees"}>{tempAdjust + " degrees"}</option>);
-        }
-        return tempOption;
-    }
-
-    const handleCount = (event: any) => {
-        const {name, value} = event.target
-
-        setNoteCount(prevTitleBody => {
-            return {
-                ...prevTitleBody,
-                [name]: value
-            }
-        })
-    }
 
     return (
         <>
-            <form onSubmit={handleSubmit}>
+        
+        <form onSubmit={handleSubmit}>
             {/* Title for post */}
             <div className="">
 
@@ -187,36 +200,47 @@ const SleepingBagForm = () => {
                 </div>
 
                 <div className="pt-2">
-                    <h1 className="text-gray-200 text-medium font-light">Select Sleeping Gear Type:</h1>
+                    <h1 className="text-gray-200 text-medium font-light">Select Pack Type:</h1>
                 </div>
                 <div className="flex items-center gap-2 text-lg text-center font-normal p-2 hover:bg-gray-600 duration-200 rounded-md">
                     
-                    <div className={ sleepBag ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
+                    <div className={ back ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div 
                         className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setSleepItemSelect("sleepBag")}
-                        >
+                        onClick={() => setPackSelect("back")}>
                         <Image
-                        src={sleepBagPic}
-                        alt="Sleeping Bag"
+                        src={backpackImg}
+                        alt="back pack"
                         className="w-auto h-20 mx-auto rounded-md"
                         />
                         </div>
-                        <p>Sleeping Bag</p>
+                        <p>Hiking</p>
                     </div>
 
-                    <div className={ sleepPad ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
-                        <div 
-                        className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setSleepItemSelect("sleepPad")}
+                    <div className={ day ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
+                        <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
+                        onClick={() => setPackSelect("day")}
                         >
                         <Image
-                        src={sleepPadPic}
-                        alt="Sleeping Pad"
+                        src={daypackImg}
+                        alt="day pack"
                         className="w-auto h-20 mx-auto rounded-md"
                         />
                         </div>
-                        <p>Sleep Pad</p>
+                        <p>Day</p>
+                    </div>
+
+                    <div className={ hydro ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
+                        <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
+                        onClick={() => setPackSelect("hydro")}
+                        >
+                        <Image
+                        src={hydropackImg}
+                        alt="hydro pack"
+                        className="w-auto h-20 mx-auto rounded-md"
+                        />
+                        </div>
+                        <p>Hydro</p>
                     </div>
                 </div>
 
@@ -225,34 +249,20 @@ const SleepingBagForm = () => {
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="brand">
                             <option value="null" disabled>select a brand</option>
-                            {sleepGearBrandOptions}
+                            {packBrandOptions}
                         </select>
                     </div>
                 </div>
 
-                { sleepBag ? 
                 <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">Sleeping Bag Rating:</h1>
+                    <h1 className="text-gray-200 font-light">Pack Capacity(L):</h1>
                     <div className='text-gray-800 mt-1'>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="rating">
-                            <option value="null" disabled>select bag rating</option>
-                            <option value="Liner">Liner</option>
-                            {sleepBagRating()}
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="storage">
+                            <option value="null" disabled>Liters</option>
+                            {capacityOptions()}
                         </select>
                     </div>
                 </div>
-                :
-                <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">Pad Type:</h1>
-                    <div className='text-gray-800 mt-1'>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="rating">
-                            <option value="null" disabled>select a pad type</option>
-                            <option value="Foam Pad">Foam Pad</option>
-                            <option value="Air Pad">Air Pad</option>
-                        </select>
-                    </div>
-                </div>
-                }
 
                 <div className="pt-8 pb-2 flex">
                     <h1 className="text-gray-200 text-xl font-medium border-b-[1px]">Optional Info:</h1>
@@ -264,7 +274,7 @@ const SleepingBagForm = () => {
                         className="rounded-md font-normal pl-2 w-36" 
                         type='text' 
                         autoComplete='off' 
-                        placeholder={sleepBag ? "Bag Model" : "Pad Model"}
+                        placeholder="Pack Model"
                         name='model' 
                         onChange={handleCount}
                         minLength={3} maxLength={20} 
@@ -273,7 +283,34 @@ const SleepingBagForm = () => {
                 </div>
 
                 <div className="items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">{sleepBag ? "Sleeping Bag Weight:" : "Sleep Pad Weight:"}</h1>
+                    <h1 className="text-gray-200 font-light">How many do you have?</h1>
+                    <div className='text-gray-800 mt-1 flex gap-2 font-normal'>
+                        <div>
+                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("minus")}>-</p>
+                        </div>
+                        <div className='p-1 bg-gray-200 rounded-md px-2'>
+                            <p id='quantity'>{String(quantity)}</p>
+                        </div>
+                        <div >
+                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("plus")}>+</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
+                    <h1 className="text-gray-200 font-light">Pack Size:</h1>
+                    <div className='text-gray-800 '>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"Multi-size"} id="size">
+                            <option value="Multi-size">Multi-Size</option>
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div className="items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
+                    <h1 className="text-gray-200 font-light">Empty Pack Weight:</h1>
                     <div className='text-gray-800 mt-1 flex'>
                         <div className="flex mr-2">
                         <h1 className="text-gray-200 font-light mr-2">Lbs:</h1>
@@ -292,37 +329,24 @@ const SleepingBagForm = () => {
                     </div>
                 </div>
 
-                { sleepBag ? 
-                <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">Has Compression Bag:</h1>
-                    <div className='text-gray-800 mt-1'>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' id="extraInfo">
-                            <option value="With Compression Bag">No</option>
-                            <option value="No Compression Bag">Yes</option>
+                <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
+                    <h1 className="text-gray-200 font-light">Reservoir Compatible:</h1>
+                    <div className='text-gray-800 '>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"false"} id="reservoir">
+                            <option value="Reservoir Compatible">Yes</option>
+                            <option value="false">No</option>
                         </select>
                     </div>
                 </div>
-                :
-                <div className="sm:flex sm:space-x-2 items-center  p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">Self Inflating:</h1>
-                    <div className='text-gray-800 mt-1'>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="extraInfo">
-                            <option value="null" disabled>Self Inflating?</option>
-                            <option value="Not Self Inflating">No</option>
-                            <option value="Self Inflating">Yes</option>
-                        </select>
-                    </div>
-                </div>
-                }
 
                 <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">{sleepBag ? "Sleeping Bag Condition:" : "Sleep Pad Condition:"}</h1>
+                    <h1 className="text-gray-200 font-light">Pack Condition:</h1>
                     <div className='text-gray-800 '>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"used"} id="condition">
-                            <option value="used">Used-Good</option>
+                            <option value="used">Used</option>
                             <option value="new">New</option>
-                            <option value="poor">Used-Poor</option>
-                            <option value="bad">Used-Last Legs</option>
+                            <option value="poor">Poor</option>
+                            <option value="bad">Last Legs</option>
                         </select>
                     </div>
                 </div>
@@ -331,24 +355,9 @@ const SleepingBagForm = () => {
                     <h1 className="text-gray-200 font-light">Would you lend this to a friend if they need?</h1>
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"false"} id="lendable">
-                            <option value="false">No</option>
                             <option value="true">Yes</option>
+                            <option value="false">No</option>
                         </select>
-                    </div>
-                </div>
-
-                <div className="items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">How many do you have?</h1>
-                    <div className='text-gray-800 mt-1 flex gap-2 font-normal'>
-                        <div>
-                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("minus")}>-</p>
-                        </div>
-                        <div className='p-1 bg-gray-200 rounded-md px-2'>
-                            <p id='quantity'>{String(quantity)}</p>
-                        </div>
-                        <div >
-                            <p className='p-1 bg-gray-400 rounded-md px-2 hover:bg-emerald-500 duration-300 cursor-pointer' onClick={() => itemCount("plus")}>+</p>
-                        </div>
                     </div>
                 </div>
 
@@ -381,4 +390,4 @@ const SleepingBagForm = () => {
     )
 }
 
-export default SleepingBagForm
+export default BackPackForm

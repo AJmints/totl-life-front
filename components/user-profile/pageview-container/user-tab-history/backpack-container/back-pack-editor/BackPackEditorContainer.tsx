@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react'
 import AddGearForm from "./add-gear-form/AddGearForm"
 import ModifyGearDisplay from "./modify-gear-display/ModifyGearDisplay"
 import CreatePackForm from "./create-pack-form/CreatePackForm"
-import EditPackForm from "./edit-gear-form/EditPackForm"
+import EditPackForm from "./edit-pack-form/EditPackForm"
 
 const BackPackEditorContainer = () => {
 

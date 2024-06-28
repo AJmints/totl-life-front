@@ -1,12 +1,12 @@
 'use client'
 
-import { useState } from "react"
-import backpackImg from '../../../../../../../../../public/icons/backpack.png'
-import daypackImg from '../../../../../../../../../public/icons/daypack.png'
-import hydropackImg from '../../../../../../../../../public/icons/hydrationpack.png'
-import Image from "next/image"
-import backPackBrands from "../../data/brands/backPackBrands"
-import { useUserContext } from "@/app/context/UserContextProvider"
+import dryBag from '../../../../../../../../public/icons/drybag.png'
+import drySack from '../../../../../../../../public/icons/drysack.png'
+import duffleSack from '../../../../../../../../public/icons/packsack.png'
+import dryBagBrands from "../data/brands/dryBagBrands"
+import { useState } from 'react'
+import { useUserContext } from '@/app/context/UserContextProvider'
+import Image from 'next/image'
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -18,20 +18,21 @@ export const token = async() => {
     return status
 }
 
-const BackPackForm = () => {
+const DryBagForm = () => {
 
-    const [submitting, setSubmitting] = useState(false)
+    const [ submitting, setSubmitting ] = useState(false)
+    const [ packStraps, setPackStraps ] = useState(false)
+    const [ packSack, setPackSack] = useState(false)
+    const [ noStrap, setNoStrap ] = useState(false)
+    const [ error, setError ] = useState(false)
     const [ success, setSuccess ] = useState(false)
-    const [back, setBack] = useState(false)
-    const [day, setDay] = useState(false)
-    const [hydro, setHydro] = useState(false)
-    const [error, setError] = useState(false)
+    const [ quantity, setQuantity ] = useState<number>(1)
     const [noteCount, setNoteCount] = useState({
         model: "",
         notes: ""
     })
-    const [ quantity, setQuantity ] = useState<number>(1)
-    const { userID, setUserGearList } = useUserContext()
+
+    const { userID, setUserGearList} = useUserContext()
 
     const handleSubmit = async(e: any) => {
         e.preventDefault()
@@ -41,34 +42,34 @@ const BackPackForm = () => {
         setSuccess(false)
 
         let packType
+        let hasStraps = "No Straps"
 
-        if (back) {
-            packType = "Hiking"
+        if (packStraps) {
+            packType = "Dry Pack"
+            hasStraps = "BackPack Straps"
         }
-        if (day) {
-            packType = "Day"
+        if (noStrap) {
+            packType = "Dry Bag"
         }
-        if (hydro) {
-            packType = "Hydration"
+        if (packSack) {
+            packType = "Dry Duffle"
         }
 
         if (packType === undefined || e.target.brand.value === "null" || e.target.storage.value === "null") {
             setError(true)
             return
         }
+        // return console.log(packType)
 
         const data = {
             userId: userID,
-            category: "Back Pack",
+            category: "Dry Bag",
             type: packType,
             brand: e.target.brand.value,
             storage: String(e.target.storage.value) + "L", 
-            model: e.target.model.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' '),
-            size: e.target.size.value,
             quantity: quantity,
-            extraInfo: e.target.reservoir.value,
+            extraInfo: hasStraps,
             lendable: e.target.lendable.value,
-            weight: e.target.lbs.value + "." + e.target.oz.value,
             additionalDetails: e.target.notes.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' '),
             itemCondition: e.target.condition.value
         }
@@ -88,90 +89,55 @@ const BackPackForm = () => {
             setUserGearList((prev:any) => [...prev, response.newGear])
             setSubmitting(false)
 
-                e.target.brand.value = ""
-                e.target.storage.value = 0
-                e.target.model.value = ""
-                e.target.size.value = 0
-                e.target.reservoir.value = ""
-                e.target.lendable.value = ""
-                e.target.lbs.value = 0
-                e.target.oz.value = 0
-                e.target.notes.value = ""
-                e.target.condition.value = ""
-                setQuantity(1)
-                setBack(false)
-                setDay(false)
-                setHydro(false)
+                e.target.brand.value = <option value="null" disabled>Liters</option>
+                e.target.storage.value = "Liters"
+                e.target.lendable.value = "No"
+                e.target.condition.value = "Used"
+                e.target.notes.value=""
+                setPackStraps(false)
+                setPackSack(false)
+                setNoStrap(false)
                 setSuccess(true)
             
         } else {
-            setError(true)
             setSubmitting(false)
         }
-        
-
     }
 
-    const setPackSelect = (pack:string) => {
+    const setPackSelect = (dryBag:string) => {
 
-        setBack(false)
-        setDay(false)
-        setHydro(false)
+        setPackStraps(false)
+        setNoStrap(false)
+        setPackSack(false)
 
-        if (pack === "back") {
-            setBack(true)
+        if (dryBag === "strap") {
+            setPackStraps(true)
         }
-        if (pack === "day") {
-            setDay(true)
+        if (dryBag === "sack") {
+            setPackSack(true)
         }
-        if (pack === "hydro") {
-            setHydro(true)
+        if (dryBag === "none") {
+            setNoStrap(true)
         }
  
     }
 
-    const packBrandOptions = backPackBrands.map(option => {
+    const packBrandOptions = dryBagBrands.map(option => {
         return (
             <option key={option} value={option}>{option}</option>
         )
     })
-
-    const maxLiter = 80
+    
     const capacityOptions = () => {
         let capacity = [];
-        for (let i = 10; i <= maxLiter; i++) {
-          capacity.push(<option key={i} value={i}>{i}</option>);
+        const maxLiter = 23
+        let liter = 0
+
+        for (let i = 0; i <= maxLiter; i++) {
+            liter = liter + 5
+            capacity.push(<option key={i} value={liter}>{liter}</option>);
         }
         return capacity;
-    }
-
-    const maxLbs = 10
-    const lbsOptions = () => {
-        let lbs = [];
-        for (let i = 0; i <= maxLbs; i++) {
-          lbs.push(<option key={i} value={i}>{i}</option>);
-        }
-        return lbs;
-    }
-
-    const maxOz = 16
-    const ozOptions = () => {
-        let oz = [];
-        for (let i = 0; i <= maxOz; i++) {
-          oz.push(<option key={i} value={i}>{i}</option>);
-        }
-        return oz;
-    }
-
-    const handleCount = (event: any) => {
-        const {name, value} = event.target
-
-        setNoteCount(prevTitleBody => {
-            return {
-                ...prevTitleBody,
-                [name]: value
-            }
-        })
     }
 
     const itemCount = (operator: string) => {
@@ -186,12 +152,21 @@ const BackPackForm = () => {
             setQuantity(quantity - 1)
         }
     }
-    
+
+    const handleCount = (event: any) => {
+        const {name, value} = event.target
+
+        setNoteCount(prevTitleBody => {
+            return {
+                ...prevTitleBody,
+                [name]: value
+            }
+        })
+    }
 
     return (
         <>
-        
-        <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit}>
             {/* Title for post */}
             <div className="">
 
@@ -202,45 +177,49 @@ const BackPackForm = () => {
                 <div className="pt-2">
                     <h1 className="text-gray-200 text-medium font-light">Select Pack Type:</h1>
                 </div>
+                <div>
+                    <p className='text-gray-200 text-xs'>*DryPack = Has BackPack Straps, DryBag = No Straps</p>
+                </div>
                 <div className="flex items-center gap-2 text-lg text-center font-normal p-2 hover:bg-gray-600 duration-200 rounded-md">
                     
-                    <div className={ back ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
+                    <div className={ packStraps ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div 
                         className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setPackSelect("back")}>
+                        onClick={() => setPackSelect("strap")}>
                         <Image
-                        src={backpackImg}
+                        src={dryBag}
                         alt="back pack"
                         className="w-auto h-20 mx-auto rounded-md"
                         />
                         </div>
-                        <p>Hiking</p>
+                        <p>DryPack</p>
                     </div>
 
-                    <div className={ day ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
+                    <div className={ noStrap ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
                         <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setPackSelect("day")}
+                        onClick={() => setPackSelect("none")}
                         >
                         <Image
-                        src={daypackImg}
-                        alt="day pack"
-                        className="w-auto h-20 mx-auto rounded-md"
-                        />
-                        </div>
-                        <p>Day</p>
-                    </div>
-
-                    <div className={ hydro ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
-                        <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
-                        onClick={() => setPackSelect("hydro")}
-                        >
-                        <Image
-                        src={hydropackImg}
+                        src={drySack}
                         alt="hydro pack"
                         className="w-auto h-20 mx-auto rounded-md"
                         />
                         </div>
-                        <p>Hydro</p>
+                        <p>DryBag</p>
+                    </div>
+
+                    <div className={ packSack ? "p-1 bg-gray-400 rounded-md text-gray-900" :"p-1 text-gray-200"}>
+                        <div className="hover:bg-emerald-500 p-1 rounded-md duration-200 cursor-pointer"
+                        onClick={() => setPackSelect("sack")}
+                        >
+                        <Image
+                        src={duffleSack}
+                        alt="hydro pack"
+                        className="w-auto h-20 mx-auto rounded-md"
+                        />
+                        </div>
+                        <p>DryDuffle</p>
+                        {/* Make each state hold type and if its a bag or duffle. Store duffle or bag in model */}
                     </div>
                 </div>
 
@@ -264,24 +243,6 @@ const BackPackForm = () => {
                     </div>
                 </div>
 
-                <div className="pt-8 pb-2 flex">
-                    <h1 className="text-gray-200 text-xl font-medium border-b-[1px]">Optional Info:</h1>
-                </div>
-
-                <div className=' p-2 hover:bg-gray-600 duration-200 rounded-md'>
-                    <label className="text-gray-200 font-light mr-2" htmlFor='model'>Model:</label>
-                    <input 
-                        className="rounded-md font-normal pl-2 w-36" 
-                        type='text' 
-                        autoComplete='off' 
-                        placeholder="Pack Model"
-                        name='model' 
-                        onChange={handleCount}
-                        minLength={3} maxLength={20} 
-                    />
-                    <p className="text-gray-200">{noteCount.model.length}/20</p>
-                </div>
-
                 <div className="items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
                     <h1 className="text-gray-200 font-light">How many do you have?</h1>
                     <div className='text-gray-800 mt-1 flex gap-2 font-normal'>
@@ -297,46 +258,8 @@ const BackPackForm = () => {
                     </div>
                 </div>
 
-                <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">Pack Size:</h1>
-                    <div className='text-gray-800 '>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"Multi-size"} id="size">
-                            <option value="Multi-size">Multi-Size</option>
-                            <option value="small">Small</option>
-                            <option value="medium">Medium</option>
-                            <option value="large">Large</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div className="items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">Empty Pack Weight:</h1>
-                    <div className='text-gray-800 mt-1 flex'>
-                        <div className="flex mr-2">
-                        <h1 className="text-gray-200 font-light mr-2">Lbs:</h1>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={0} id="lbs">
-                            <option value={0} disabled>Lbs</option>
-                            {lbsOptions()}
-                        </select>
-                        </div>
-                        <div className="flex">
-                        <h1 className="text-gray-200 font-light mr-2">Oz:</h1>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={0} id="oz">
-                            <option value={0} disabled>Ounces</option>
-                            {ozOptions()}
-                        </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
-                    <h1 className="text-gray-200 font-light">Reservoir Compatible:</h1>
-                    <div className='text-gray-800 '>
-                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"false"} id="reservoir">
-                            <option value="Reservoir Compatible">Yes</option>
-                            <option value="false">No</option>
-                        </select>
-                    </div>
+                <div className="pt-8 pb-2 flex">
+                    <h1 className="text-gray-200 text-xl font-medium border-b-[1px]">Optional Info:</h1>
                 </div>
 
                 <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
@@ -355,8 +278,8 @@ const BackPackForm = () => {
                     <h1 className="text-gray-200 font-light">Would you lend this to a friend if they need?</h1>
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"false"} id="lendable">
-                            <option value="true">Yes</option>
                             <option value="false">No</option>
+                            <option value="true">Yes</option>
                         </select>
                     </div>
                 </div>
@@ -390,4 +313,4 @@ const BackPackForm = () => {
     )
 }
 
-export default BackPackForm
+export default DryBagForm

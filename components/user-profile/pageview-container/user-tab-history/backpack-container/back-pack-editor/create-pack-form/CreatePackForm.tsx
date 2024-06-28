@@ -1,4 +1,3 @@
-
 import { useUserContext } from "@/app/context/UserContextProvider"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -59,9 +58,12 @@ const CreatePackForm = () => {
 
             <div>
                 <p className="text-gray-200">Pack Configuration under construction</p>
-                {/* <button onClick={() => handleSubmit()}>Testing</button>
-                <button onClick={() => getPackConfigData()}>GetDetails</button> */}
+                {/* <button onClick={() => handleSubmit()}>Testing</button> */}
+                <button onClick={() => getPackConfigData()}>GetDetails</button>
             </div>
+
+
+
         </div>
     )
 }

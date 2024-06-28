@@ -2,9 +2,9 @@
 const Conditions = () => {
 
     return (
-        <div className="mx-24 pt-100 bg-gray-700/80 p-3 rounded-md shadow-lg shadow-gray-900/70">
+        <div className="md:mx-20 pt-100 bg-gray-700/80 p-3 rounded-md shadow-lg shadow-gray-900/70">
         
-        <p className="text-lg text-gray-200 text-center">
+        <div className="text-lg text-gray-200 text-center">
         Terms and Tides: Navigating the River
         <br></br>
         <br></br>
@@ -33,7 +33,7 @@ const Conditions = () => {
         <p>Tidal tickling sessions may occur unexpectedly. Prepare to be tickled by invisible water nymphs or ticklish trout. Resistance is futile.</p>
         <br></br>
         <p>These terms are as fluid as the river itself and may change course without notice. Please feel free to express any complaints by writing them down, placing the note in a bottle, and tossing it in the river.</p>
-        </p>
+        </div>
 
         </div>
     )

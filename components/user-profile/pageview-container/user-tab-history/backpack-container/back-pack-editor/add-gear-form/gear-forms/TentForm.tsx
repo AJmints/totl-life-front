@@ -1,8 +1,8 @@
 'use client'
 
-import packTent from '../../../../../../../../../public/icons/packtent.png'
-import campTent from '../../../../../../../../../public/icons/camptent.png'
-import tentBrands from '../../data/brands/tentBrands'
+import packTent from '../../../../../../../../public/icons/packtent.png'
+import campTent from '../../../../../../../../public/icons/camptent.png'
+import tentBrands from '../data/brands/tentBrands'
 import Image from "next/image"
 import { useState } from "react"
 import { useUserContext } from '@/app/context/UserContextProvider'
