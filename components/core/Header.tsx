@@ -117,7 +117,7 @@ export default function Header() {
             {/* Logo */}
             
             <div className="sm:ml-10 flex items-center">
-            <Link className="group shadow-md cursor-pointer hover:bg-gray-800 flex items-center bg-gray-600 rounded-md hover:shadow-md hover:shadow-emerald-400 duration-200" href="/">
+            <Link className="group shadow-md cursor-pointer hover:bg-gray-800/50 flex items-center bg-gray-600 rounded-md hover:shadow-md hover:shadow-emerald-400 duration-200" href="/">
             <div>
                 <p className="text-gray-200 text-3xl mx-1 font-mono">TOTL</p>
             </div>
@@ -125,7 +125,7 @@ export default function Header() {
             <Image
             src={totlhome}
             alt=""
-            className="cursor-pointer group-hover:bg-gray-900 bg-gray-800/80 w-auto h-12 sm:h-12 border-[1px] pb-0.5 px-0.5 rounded-md"
+            className="cursor-pointer group-hover:bg-gray-900/60 bg-gray-800/80 w-auto h-12 sm:h-12 border-[1px] pb-0.5 px-0.5 rounded-md"
             priority={true}
             />
             </Link>
