@@ -9,43 +9,47 @@ import DryBagForm from "./gear-forms/DryBagForm"
 import TentForm from "./gear-forms/TentForm"
 import HammockForm from "./gear-forms/HammockForm"
 import SleepingBagForm from "./gear-forms/SleepingBagForm"
+import ShelterTarpForm from "./gear-forms/ShelterTarpForm"
+import CoolerFridgeForm from "./gear-forms/CoolerFridgeForm"
+import CampKitchenForm from "./gear-forms/CampKitchenForm"
+import CampFurnitureForm from "./gear-forms/CampFurnitureForm"
+import CampClothingForm from "./gear-forms/CampClothingForm"
+import ToolsForm from "./gear-forms/ToolsForm"
+import ElectornicsForm from "./gear-forms/ElectronicsForm"
+import HydrationForm from "./gear-forms/HydrationForm"
+import ConsumablesForm from "./gear-forms/ConsumablesForm"
+import CampGamesForm from "./gear-forms/CampGamesForm"
 
 const AddGearForm = () => {
 
-    const [ selectCategory, setSelectCategory ] = useState(true)
-    const [ backPack, setBackPack] = useState(false)
-    const [ dryBag, setDryBag ] = useState(false)
-    const [tent, setTent] = useState(false)
-    const [ hammock, setHammock ] = useState(false)
-    const [ sleepGear, setSleepGear ] = useState(false)
+    const [ category, setCategory ] = useState<"menu" | "BackPack" | "DryBag" | "Hammock" | "SleepGear" | "Tent" | "Shelter/Tarp" | "Cooler/Fridge" | "CampKitchen" | "CampFurniture" | "CampClothing" | "Tools" | "Electronic" | "Hydration" | "Consumables" | "CampGames">("menu")
+
     const { packImages } = useUserContext()
 
     const handleSelect = (select:any) => {
 
-        setSelectCategory(false)
-        setBackPack(false)
-        setDryBag(false)
-        setHammock(false)
-        setSleepGear(false)
-        setTent(false)
-
-        if (select == "menu") {
-            setSelectCategory(true)
-        }
-        if (select === "BackPack") {
-            setBackPack(true)
-        }
-        if (select === "DryBag") {
-            setDryBag(true)
-        }
-        if (select === "Hammock") {
-            setHammock(true)
-        }
-        if (select === "Tent") {
-            setTent(true)
-        }
-        if (select === "SleepGear") {
-            setSleepGear(true)
+        switch(select) {
+            case "menu":
+                setCategory("menu")
+                break
+            case "BackPack":
+                setCategory("BackPack")
+                break
+            case "DryBag":
+                setCategory("DryBag")
+                break
+            case "Hammock":
+                setCategory("Hammock")
+                break
+            case "SleepGear":
+                setCategory("SleepGear")
+                break
+            case "Tent":
+                setCategory("Tent")
+                break
+            case "Shelter/Tarp":
+                setCategory("Shelter/Tarp")
+                break
         }
     }
 
@@ -75,41 +79,51 @@ const AddGearForm = () => {
         <div className='bg-gray-600/90 p-2 rounded-md mt-2'>
 
             <div className="">
+                <div className="mb-2">
+                    { category !== "menu" && <button onClick={() => handleSelect("menu")} className="p-2 bg-gray-400 rounded-md hover:bg-emerald-500 duration-300">Back</button> } 
+                </div>
+
                 <h1 className="text-gray-200 text-2xl mb-2 border-b-[1px]">Add Item to Gear List:</h1>
             
-
-            <div className="sm:flex sm:justify-between sm:space-x-2 items-center mb-2">
+                <div className="sm:flex sm:justify-between sm:space-x-2 items-center mb-2">
                 
-                <div className='text-gray-800 mt-1 flex items-center gap-2'>
-                    <h1 className="text-gray-200 font-light">Category:</h1>
-                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"select a category"} onChange={(event) => handleSelect(event.target.value)} id="defaultlog">
-                        <option value="select a category" disabled>select a category</option>
-                        {categoryOptions}
-                    </select>
-                </div>
+                    <div className='text-gray-800 mt-1 flex items-center gap-2'>
+                        <h1 className="text-gray-200 font-light">Category:</h1>
+                        <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"select a category"} onChange={(event) => handleSelect(event.target.value)} id="defaultlog">
+                            <option value="select a category" disabled>select a category</option>
+                            {categoryOptions}
+                        </select>
+                    </div>
 
-                <div>
-                    { !selectCategory && <button onClick={() => handleSelect("menu")} className="p-2 bg-gray-400 rounded-md hover:bg-emerald-500 duration-300">Go Back</button> } 
                 </div>
-            
-            </div>
 
             
             </div>
 
             <div>
                 {
-                    selectCategory ? 
+                    category === "menu" ? 
                         <div className="p-2 bg-gray-400 rounded-md grid grid-cols-2 md:grid-cols-3 gap-2">
                             {quickSelectCategory}
                         </div>
                     :
                     <>
-                        { backPack && <BackPackForm /> }
-                        { dryBag && <DryBagForm />}
-                        { tent && <TentForm />}
-                        { hammock && <HammockForm />}
-                        { sleepGear && <SleepingBagForm />}
+                        { category === "BackPack" && <BackPackForm /> }
+                        { category === "DryBag" && <DryBagForm /> }
+                        { category === "Tent" && <TentForm /> }
+                        { category === "Hammock" && <HammockForm /> }
+                        { category === "SleepGear" && <SleepingBagForm /> }
+                        { category === "Shelter/Tarp" && <ShelterTarpForm /> }
+                        { category === "Cooler/Fridge" && <CoolerFridgeForm /> }
+                        { category === "CampKitchen" && <CampKitchenForm /> }
+                        { category === "CampFurniture" && <CampFurnitureForm /> }
+                        { category === "CampClothing" && <CampClothingForm /> } 
+                        { category === "Tools" && <ToolsForm /> }
+                        { category === "Electronic" && <ElectornicsForm /> }
+                        { category === "Hydration" && <HydrationForm /> }
+                        { category === "Consumables" && <ConsumablesForm/> }
+                        { category === "CampGames" && <CampGamesForm /> }
+
                     </>
                 }
             </div>
