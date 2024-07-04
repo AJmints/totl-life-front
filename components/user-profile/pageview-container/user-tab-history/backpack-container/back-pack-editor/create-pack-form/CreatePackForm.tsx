@@ -52,7 +52,6 @@ const CreatePackForm = () => {
             hiddenPack: false
         }
 
-        console.log(data)
         setError(true)
 
         const createPack = await fetch(URL + "/backpack/create-pack-config", {
@@ -67,6 +66,8 @@ const CreatePackForm = () => {
             console.log(err)
         })
         console.log(response)
+        setSubmitting(false)
+        setError(false)
     }
 
     const gearListDisplay = userGearList.map((item:any) => {
@@ -91,14 +92,6 @@ const CreatePackForm = () => {
         } else {
             setSelectedItems(prev => [...prev, id])
         }
-    }
-
-    const getPackConfigData = async() => {
-        const createPack = await fetch(URL + "/backpack/get-user-pack-configs/" + userID)
-        const response = await createPack.json().catch((err) => {
-            console.log(err)
-        })
-        console.log(response)
     }
 
     const packTypeOptions = ["Car Camping", "Day Hike", "Back Packing", "Float Trip"]
