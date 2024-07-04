@@ -20,8 +20,8 @@ const GearItemCard = (props : any) => {
         }} className={selected ? "p-1 bg-yellow-500 hover:bg-red-600 duration-300 rounded-md" : "p-1 hover:bg-emerald-500 duration-300 rounded-md"}>
         <div className="bg-gray-400 rounded-md p-2 sm:w-[12rem]">
 
-            <div className={props.checked ? "flex justify-around" : "flex justify-center"}>
-                { props.checked ? 
+            <div className={selected ? "sm:flex block justify-around text-center" : "flex justify-center"}>
+                { selected ? 
                 <>
                 { enter ? 
                 <p className="text-xs text-gray-200">Remove</p>
@@ -33,7 +33,9 @@ const GearItemCard = (props : any) => {
                 :
                 <p className="text-xs text-gray-200"></p>
                 }
-                <h1 className="bg-gray-300 rounded-md px-2 py-1 text-lg font-normal">{props.gearDetails.gearItem.category}</h1>
+                <div className="flex justify-center">
+                    <h1 className="bg-gray-300 rounded-md px-2 py-1 text-lg font-normal">{props.gearDetails.gearItem.category}</h1>
+                </div>
             </div>
 
             <div className="rounded-md p-1 flex mb-2">

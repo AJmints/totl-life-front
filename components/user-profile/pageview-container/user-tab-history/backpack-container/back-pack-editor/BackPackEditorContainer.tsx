@@ -68,21 +68,50 @@ const BackPackEditorContainer = () => {
                     </div>
                 </div>
 
-                <div className="flex gap-2 text-gray-200">
-                    <div>
-                    <button onClick={() => handleOptionsToggle("packEdit")} className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Edit Packs</button>
-                    </div>
-                    <div>
-                    <button onClick={() => handleOptionsToggle("packCreate")} className="bg-gray-500 hover:bg-emerald-500 duration-200 rounded-md p-1 hover:text-gray-900">Create Packs</button>
+                <div className="flex mb-2 sm:mb-0">
+                    <div className="flex items-center p-1 bg-slate-300 mr-2 rounded-md cursor-pointer hover:bg-yellow-500 duration-500" 
+                    onClick={ packEdit ? () => handleOptionsToggle("default") : () => handleOptionsToggle("packEdit") }>
+                        <div>
+                        <h1 className="mr-2">{packEdit ? "Cancel: " : "Edit Pack: "}</h1>
+                        </div>
+                        <div>
+                        <Image
+                            src={addSign}
+                            alt=""
+                            className={packEdit ? "w-8 h-auto rounded-full rotate-45 p-1 bg-red-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer" 
+                            : "w-8 h-auto rounded-full p-1 bg-emerald-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer"}
+                        />
+                        </div>
                     </div>
                 </div>
+
+                <div className="flex mb-2 sm:mb-0">
+                    <div className="flex items-center p-1 bg-slate-300 mr-2 rounded-md cursor-pointer hover:bg-yellow-500 duration-500" 
+                    onClick={ packCreate ? () => handleOptionsToggle("default") : () => handleOptionsToggle("packCreate")}>
+                        <div>
+                        <h1 className="mr-2">{packCreate ? "Cancel: " : "Create Pack: "}</h1>
+                        </div>
+                        <div>
+                        <Image
+                            src={addSign}
+                            alt=""
+                            className={packCreate ? "w-8 h-auto rounded-full rotate-45 p-1 bg-red-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer" 
+                            : "w-8 h-auto rounded-full p-1 bg-emerald-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer"}
+                        />
+                        </div>
+                    </div>
+                </div>
+
             </div>
            
             
 
             <>
             { standard ?
+                <>
+                <h1 className="text-lg font-light text-gray-700 border-gray-700 border-b-[1px] mb-2">Your Gear Items</h1>
                 <ModifyGearDisplay />
+                </>
                 :
                 <>
                     { add && <AddGearForm /> }

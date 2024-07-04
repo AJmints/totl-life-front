@@ -42,7 +42,7 @@ const BackPackContainer = (props: any) => {
                             {
                                 props.userInformation.name === userName ? 
                                 <div className="">
-                                    <button onClick={() => setUpdate(prev => !prev)} className="bg-gray-400 rounded-md p-2 hover:bg-emerald-500 duration-300">{update ? "Go Back" : "Update Pack"}</button>
+                                    <button onClick={() => setUpdate(prev => !prev)} className="bg-gray-400 rounded-md p-2 hover:bg-emerald-500 duration-300">{update ? "View Your Items" : "Update Pack"}</button>
                                 </div>
                                 :
                                 <></>
