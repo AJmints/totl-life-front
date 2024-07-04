@@ -51,6 +51,7 @@ const TentForm = () => {
 
         if (tentType === undefined || e.target.brand.value === "null") {
             setError(true)
+            setSubmitting(false)
             return
         }
 

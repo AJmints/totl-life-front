@@ -12,6 +12,7 @@ const BackPackViewer = (props: any) => {
     const [ viewSpecificGear, setViewSpecificGear ] = useState<any>()
     const [ viewToggle, setViewToggle ] = useState<boolean>(false)
     const [ packViewToggle, setPackViewToggle ] = useState<boolean>(true) //Change on page load based on users pack/gear contents
+    const [ userPacks, setUserPacks ] = useState<any[]>([])
     
 
     return (
@@ -54,6 +55,8 @@ const BackPackViewer = (props: any) => {
                         />
                         :
                         <PackConfigViewer
+                        userPacks={userPacks} 
+                        setUserPacks={setUserPacks}
                         />
                     }
                     </>

@@ -49,10 +49,8 @@ const BackPackEditorContainer = () => {
     return (
         <div className=" font-light">
 
-            
-            <div className="bg-gray-400 p-1 rounded-md my-2 sm:flex items-center">
-             <div className="flex justify-center">       
-                <div className="mb-2 sm:mb-0">
+            <div className="bg-gray-400 p-1 rounded-md my-2 sm:flex mx-auto items-center">
+                <div className="flex justify-center mb-2 sm:mb-0">
                     <div className="flex items-center p-1 bg-slate-300 mr-2 rounded-md cursor-pointer hover:bg-yellow-500 duration-500" 
                     onClick={ !add ? () => handleOptionsToggle("add") : () => handleOptionsToggle("default")}>
                         <div>
@@ -69,41 +67,41 @@ const BackPackEditorContainer = () => {
                     </div>
                 </div>
 
-                <div className="mb-2 sm:mb-0">
-                    <div className="flex items-center p-1 bg-slate-300 mr-2 rounded-md cursor-pointer hover:bg-yellow-500 duration-500" 
-                    onClick={ packEdit ? () => handleOptionsToggle("default") : () => handleOptionsToggle("packEdit") }>
-                        <div>
-                        <h1 className="mr-2">{packEdit ? "Cancel: " : "Edit Pack: "}</h1>
+                <div className="flex justify-around sm:justify-center items-center"> 
+                    <div className="">
+                        <div className="flex items-center p-1 bg-slate-300 mr-2 rounded-md cursor-pointer hover:bg-yellow-500 duration-500" 
+                        onClick={ packCreate ? () => handleOptionsToggle("default") : () => handleOptionsToggle("packCreate")}>
+                            <div>
+                            <h1 className="mr-2">{packCreate ? "Cancel: " : "Create Pack: "}</h1>
+                            </div>
+                            <div>
+                            <Image
+                                src={addSign}
+                                alt=""
+                                className={packCreate ? "w-8 h-auto rounded-full rotate-45 p-1 bg-red-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer" 
+                                : "w-8 h-auto rounded-full p-1 bg-emerald-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer"}
+                            />
+                            </div>
                         </div>
-                        <div>
-                        <Image
-                            src={addSign}
-                            alt=""
-                            className={packEdit ? "w-8 h-auto rounded-full rotate-45 p-1 bg-red-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer" 
-                            : "w-8 h-auto rounded-full p-1 bg-emerald-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer"}
-                        />
+                    </div>
+
+                    <div className="">
+                        <div className="flex items-center p-1 bg-slate-300 mr-2 rounded-md cursor-pointer hover:bg-yellow-500 duration-500" 
+                        onClick={ packEdit ? () => handleOptionsToggle("default") : () => handleOptionsToggle("packEdit") }>
+                            <div>
+                            <h1 className="mr-2">{packEdit ? "Cancel: " : "Edit Pack: "}</h1>
+                            </div>
+                            <div>
+                            <Image
+                                src={addSign}
+                                alt=""
+                                className={packEdit ? "w-8 h-auto rounded-full rotate-45 p-1 bg-red-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer" 
+                                : "w-8 h-auto rounded-full p-1 bg-emerald-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer"}
+                            />
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div className="mb-2 sm:mb-0">
-                    <div className="flex items-center p-1 bg-slate-300 mr-2 rounded-md cursor-pointer hover:bg-yellow-500 duration-500" 
-                    onClick={ packCreate ? () => handleOptionsToggle("default") : () => handleOptionsToggle("packCreate")}>
-                        <div>
-                        <h1 className="mr-2">{packCreate ? "Cancel: " : "Create Pack: "}</h1>
-                        </div>
-                        <div>
-                        <Image
-                            src={addSign}
-                            alt=""
-                            className={packCreate ? "w-8 h-auto rounded-full rotate-45 p-1 bg-red-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer" 
-                            : "w-8 h-auto rounded-full p-1 bg-emerald-600 mx-auto hover:bg-yellow-700 duration-300 cursor-pointer"}
-                        />
-                        </div>
-                    </div>
-                </div>
-
-            </div>
             </div>
            
             

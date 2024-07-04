@@ -50,6 +50,7 @@ const SleepingBagForm = () => {
 
         if (sleepGearType === undefined || e.target.brand.value === "null" || e.target.rating.value === "null") {
             setError(true)
+            setSubmitting(false)
             return
         }
 

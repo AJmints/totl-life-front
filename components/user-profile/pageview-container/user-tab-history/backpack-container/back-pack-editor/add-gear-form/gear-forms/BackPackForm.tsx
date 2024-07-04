@@ -54,6 +54,7 @@ const BackPackForm = () => {
 
         if (packType === undefined || e.target.brand.value === "null" || e.target.storage.value === "null") {
             setError(true)
+            setSubmitting(false)
             return
         }
 
