@@ -1,12 +1,30 @@
+'use state'
+
 import Image from "next/image"
+import { useState } from "react"
 
 const GearItemCard = (props : any) => {
 
+    const [ checked, setChecked ] = useState(false)
+    const [ enter, setEnter ] = useState(false)
+
     return (
-        <div className="p-1 hover:bg-emerald-400 duration-300 rounded-md">
+        <div onMouseEnter={() => setEnter(true)} onMouseLeave={() => setEnter(false) } onClick={() => setChecked(prev => !prev)} className={checked ? "p-1 bg-yellow-500 hover:bg-red-600 duration-300 rounded-md" : "p-1 hover:bg-emerald-500 duration-300 rounded-md"}>
         <div className="bg-gray-400 rounded-md p-2 sm:w-[12rem]">
 
-            <div className="flex justify-center mb-2">
+            <div className={checked ? "flex justify-around" : "flex justify-center"}>
+                { checked ? 
+                <>
+                { enter ? 
+                <p className="text-xs text-gray-200">Remove</p>
+                :
+                <p className="text-xs text-gray-200">Added</p>
+                }
+                </>
+                
+                :
+                <p className="text-xs text-gray-200"></p>
+                }
                 <h1 className="bg-gray-300 rounded-md px-2 py-1 text-lg font-normal">{props.gearDetails.gearItem.category}</h1>
             </div>
 
