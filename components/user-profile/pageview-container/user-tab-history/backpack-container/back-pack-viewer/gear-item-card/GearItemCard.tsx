@@ -5,15 +5,23 @@ import { useState } from "react"
 
 const GearItemCard = (props : any) => {
 
-    const [ checked, setChecked ] = useState(false)
+    const [ selected, setSelected ] = useState(false)
     const [ enter, setEnter ] = useState(false)
 
+    // if (props.setChecked !== undefined) {
+    //     props.setChecked((prev:any) => !prev)
+    // }
+
     return (
-        <div onMouseEnter={() => setEnter(true)} onMouseLeave={() => setEnter(false) } onClick={() => setChecked(prev => !prev)} className={checked ? "p-1 bg-yellow-500 hover:bg-red-600 duration-300 rounded-md" : "p-1 hover:bg-emerald-500 duration-300 rounded-md"}>
+        <div onMouseEnter={() => setEnter(true)} onMouseLeave={() => setEnter(false) } onClick={() => {
+            if (props.setChecked !== undefined) {
+                setSelected((prev:any) => !prev)
+            }
+        }} className={selected ? "p-1 bg-yellow-500 hover:bg-red-600 duration-300 rounded-md" : "p-1 hover:bg-emerald-500 duration-300 rounded-md"}>
         <div className="bg-gray-400 rounded-md p-2 sm:w-[12rem]">
 
-            <div className={checked ? "flex justify-around" : "flex justify-center"}>
-                { checked ? 
+            <div className={props.checked ? "flex justify-around" : "flex justify-center"}>
+                { props.checked ? 
                 <>
                 { enter ? 
                 <p className="text-xs text-gray-200">Remove</p>

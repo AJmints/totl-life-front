@@ -17,6 +17,7 @@ export const token = async() => {
 const CreatePackForm = () => {
 
     const [ submitting, setSubmitting ] = useState(false)
+    const [ checked, setChecked ] = useState(false)
     const [ selectedItems, setSelectedItems ] = useState<any[]>([])
     const [ error, setError ] = useState(false)
     const [noteCount, setNoteCount] = useState({
@@ -77,6 +78,8 @@ const CreatePackForm = () => {
                 <GearItemCard 
                 gearDetails={item}
                 image={img}
+                checked={checked}
+                setChecked={setChecked}
                 />
             </div>
         )
