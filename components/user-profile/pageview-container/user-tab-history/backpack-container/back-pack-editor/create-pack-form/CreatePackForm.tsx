@@ -200,6 +200,10 @@ const CreatePackForm = () => {
                         <p>Hiking</p>
                     </div> */}
 
+                    <div className="mb-2 flex">
+                        <h1 className="text-gray-200 font-light text-xl border-b-[1px]">Select the gear for this pack configuration:</h1>
+                    </div>
+
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2 mb-2">
                         {gearListDisplay}
                     </div>
@@ -211,16 +215,18 @@ const CreatePackForm = () => {
                 {/* {error && <p className="mb-2 text-red-500/90 font-normal text-lg">Make sure you have selected all required information.</p>}
                 {success && <p className="mb-2 text-emerald-500 font-normal text-lg">Item successfully added!</p>} */}
 
+                <div className="my-4">
                 { submitting ?
                     <div className='flex'>
-                        <p className="px-2 font-normal text-left text-gray-800 bg-emerald-700 duration-300 rounded-md">Creating...</p>
+                        <p className="px-4 py-2 font-normal text-left text-gray-800 bg-emerald-700 duration-300 rounded-md">Creating...</p>
                     </div>
                     :
                     <>
                         {/* <p onClick={() => console.log(selectedItems)}>check</p> */}
-                        <button className="px-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 bg-gray-400 rounded-md">Create Pack</button>
+                        <button className="px-4 py-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 bg-gray-400 rounded-md">Create Pack</button>
                     </>
                 }
+                </div>
             </div>
         </form>
 
