@@ -204,7 +204,7 @@ const CreatePackForm = () => {
                 {/* </div> */}
 
                 
-                {error && <p className="mb-2 text-emerald-500/90 font-normal text-lg">Thank you for testing "Create New Pack" section. Check your console to see what you selected.</p>}
+                {error && <p className="mb-2 text-emerald-500/90 font-normal text-lg">Thank you for testing Create New Pack section. Check your console to see what you selected.</p>}
                 {/* {error && <p className="mb-2 text-red-500/90 font-normal text-lg">Make sure you have selected all required information.</p>}
                 {success && <p className="mb-2 text-emerald-500 font-normal text-lg">Item successfully added!</p>} */}
 
