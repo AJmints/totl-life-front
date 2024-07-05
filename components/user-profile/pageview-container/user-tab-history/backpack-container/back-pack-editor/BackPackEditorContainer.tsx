@@ -115,7 +115,11 @@ const BackPackEditorContainer = () => {
                 :
                 <>
                     { add && <AddGearForm /> }
-                    { packCreate && <CreatePackForm />}
+                    { packCreate && 
+                    <CreatePackForm 
+                    setStandard={setStandard}
+                    setPackCreate={setPackCreate}
+                    />}
                     { packEdit && <EditPackForm />}
                 </>
             }

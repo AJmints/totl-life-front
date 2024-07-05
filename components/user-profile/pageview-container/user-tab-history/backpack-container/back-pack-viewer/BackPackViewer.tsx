@@ -6,14 +6,14 @@ import GearInspectorCard from "./gear-inspector-card/GearInspectorCard"
 import GearViewer from "./pack-or-gear-viewer/GearViewer"
 import PackConfigViewer from "./pack-or-gear-viewer/PackConfigViewer"
 import PackInspectorCard from "./pack-inspector-card/PackInspectorCard"
+import { useUserContext } from "@/app/context/UserContextProvider"
 
 const BackPackViewer = (props: any) => {
 
     const [ viewSpecificGear, setViewSpecificGear ] = useState<any>()
     const [ viewToggle, setViewToggle ] = useState<boolean>(false)
-    const [ packViewToggle, setPackViewToggle ] = useState<boolean>(true) //Change on page load based on users pack/gear contents
-    const [ userPacks, setUserPacks ] = useState<any[]>([])
-    
+    const [ packViewToggle, setPackViewToggle ] = useState<boolean>(true)
+    const { userPackConfigs } = useUserContext()
 
     return (
         <>
@@ -55,8 +55,7 @@ const BackPackViewer = (props: any) => {
                         />
                         :
                         <PackConfigViewer
-                        userPacks={userPacks} 
-                        setUserPacks={setUserPacks}
+                        userPackConfigs={userPackConfigs}
                         />
                     }
                     </>

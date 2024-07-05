@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
+import { useUserContext } from "@/app/context/UserContextProvider"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const PackConfigViewer = (props: any) => {
 
-    const [ userPacks, setUserPacks ] = useState<any[]>([])
+    const { setUserPackConfigs } = useUserContext()
 
     const pathname = usePathname()
 
@@ -19,16 +20,16 @@ const PackConfigViewer = (props: any) => {
             const response = await createPack.json().catch((err) => {
                 console.log(err)
             })
-            props.setUserPacks(response)
+            setUserPackConfigs(response)
         } 
         
-        if (props.userPacks.length <= 0) {
+        if (props.userPackConfigs.length <= 0) {
             getUserPacks()
         }
         
     }, [])
 
-    const allConfigs = props.userPacks.map((option:any) => {
+    const allConfigs = props.userPackConfigs.map((option:any) => {
         return (
             <div key={option.id} className="bg-gray-500 text-gray-100 p-2 rounded-md">
                 <p>{option.packName}</p>

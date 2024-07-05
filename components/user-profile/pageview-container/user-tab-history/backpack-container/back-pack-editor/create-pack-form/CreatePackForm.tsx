@@ -14,28 +14,25 @@ export const token = async() => {
     return status
 }
 
-const CreatePackForm = () => {
+const CreatePackForm = (props: any) => {
 
     const [ submitting, setSubmitting ] = useState(false)
     const [ checked, setChecked ] = useState(false)
     const [ selectedItems, setSelectedItems ] = useState<any[]>([])
     const [ error, setError ] = useState(false)
+    const [ success, setSuccess ] = useState(false)
     const [noteCount, setNoteCount] = useState({
         packName: "",
         notes: ""
     })
 
-    const { userGearList, packImages, userID } = useUserContext()
+    const { userGearList, packImages, userID, setUserPackConfigs } = useUserContext()
 
     const handleSubmit = async(e:any) => {
         e.preventDefault()
 
         setSubmitting(true)
         setError(false)
-
-        setTimeout(() => {
-            setSubmitting(false)
-        }, 2000)
 
         if (selectedItems.length <= 0 || e.target.packName.value === "" || e.target.type.value === "null") {
             setError(true)
@@ -52,8 +49,6 @@ const CreatePackForm = () => {
             hiddenPack: false
         }
 
-        setError(true)
-
         const createPack = await fetch(URL + "/backpack/create-pack-config", {
             method: 'POST',
             headers: {
@@ -65,9 +60,22 @@ const CreatePackForm = () => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
-        setSubmitting(false)
-        setError(false)
+        
+        if (response.status === "success") {
+            setSuccess(true)
+            setError(false)
+            setUserPackConfigs((prev: any) => [...prev, response.newPack])
+            e.target.notes.value = ""
+            e.target.packName.value = ""
+            setTimeout(() => {
+                props.setPackCreate(false)
+                props.setStandard(true)
+            }, 2500)
+        } else {
+            setError(true)
+            setSubmitting(false)
+        }
+        
     }
 
     const gearListDisplay = userGearList.map((item:any) => {
@@ -176,7 +184,7 @@ const CreatePackForm = () => {
                     
                     {/* {error && <p className="mb-2 text-emerald-500/90 font-normal text-lg">Thank you for testing Create New Pack section. Check your console to see what you selected.</p>} */}
                     {error && <p className="mb-2 text-red-500/90 font-normal text-lg">Make sure you have selected all required information.</p>}
-                    {/* {success && <p className="mb-2 text-emerald-500 font-normal text-lg">Item successfully added!</p>} */}
+                    {success && <p className="mb-2 text-emerald-500 font-normal text-lg">Pack successfully added! Redirecting...</p>}
 
                     <div className="my-4">
                     { submitting ?
@@ -185,7 +193,6 @@ const CreatePackForm = () => {
                         </div>
                         :
                         <>
-                            {/* <p onClick={() => console.log(selectedItems)}>check</p> */}
                             <button className="px-4 py-2 font-normal hover:text-gray-800 hover:bg-emerald-600 duration-300 bg-gray-400 rounded-md">Create Pack</button>
                         </>
                     }
