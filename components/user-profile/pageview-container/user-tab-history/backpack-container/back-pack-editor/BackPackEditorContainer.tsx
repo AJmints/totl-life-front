@@ -7,6 +7,7 @@ import AddGearForm from "./add-gear-form/AddGearForm"
 import ModifyGearDisplay from "./modify-gear-display/ModifyGearDisplay"
 import CreatePackForm from "./create-pack-form/CreatePackForm"
 import EditPackForm from "./edit-pack-form/EditPackForm"
+import { useUserContext } from "@/app/context/UserContextProvider"
 
 const BackPackEditorContainer = () => {
 
@@ -14,6 +15,8 @@ const BackPackEditorContainer = () => {
     const [ add, setAdd ] = useState(false)
     const [ packCreate, setPackCreate ] = useState(false)
     const [ packEdit, setPackEdit ] = useState(false)
+
+    const { userPackConfigs } = useUserContext()
 
     const handleOptionsToggle = (toggle: string) => {
 
@@ -120,7 +123,9 @@ const BackPackEditorContainer = () => {
                     setStandard={setStandard}
                     setPackCreate={setPackCreate}
                     />}
-                    { packEdit && <EditPackForm />}
+                    { packEdit && <EditPackForm 
+                    userPackConfigs={userPackConfigs}
+                    />}
                 </>
             }
             </>
