@@ -102,7 +102,7 @@ const CreatePackForm = (props: any) => {
         }
     }
 
-    const packTypeOptions = ["Car Camping", "Day Hike", "Back Packing", "Float Trip"]
+    const packTypeOptions = ["Car Camping", "Day Hike", "Back Packing", "Float Trip", "Bike Pack"]
     const typeOptions = packTypeOptions.map(option => {
         return (
             <option key={option} value={option}>{option}</option>

@@ -2,6 +2,47 @@
 
 import { createContext, useContext, Dispatch, SetStateAction, useState } from 'react'
 
+type PackConfiguration = {
+    configType: string,
+    dateCreated: string,
+    hidden: boolean,
+    id: number,
+    packName: string,
+    packNotes: string,
+    userGearList: PackConfigGearList[]
+}
+
+type PackConfigGearList = {
+    additionalDetails: string,
+    dateCreated: string,
+    forSale: boolean,
+    gearItem: GearItem,
+    hidden: boolean,
+    id: number,
+    itemCondition: string,
+    lendable: boolean,
+    price: number,
+    quantity: number
+}
+
+type GearItem = {
+    brand: string,
+    category: string,
+    extraInfo: string,
+    height: number,
+    id: number,
+    length: number,
+    model: string,
+    powerSource: string,
+    rating: string,
+    size: string,
+    storage: string,
+    type: string,
+    userScore: number,
+    weight: number,
+    width: number
+}
+
 type ContextProps = {
     userName: string,
     setUserName: Dispatch<SetStateAction<string>>, 
@@ -19,8 +60,8 @@ type ContextProps = {
     setUserGearList: Dispatch<SetStateAction<any>>,
     packImages: any[],
     setPackImages: Dispatch<SetStateAction<any>>,
-    userPackConfigs: any[],
-    setUserPackConfigs: Dispatch<SetStateAction<any>>
+    userPackConfigs: PackConfiguration[],
+    setUserPackConfigs: Dispatch<SetStateAction<PackConfiguration[]>>
 }
 
 const UserContext = createContext<ContextProps>({
@@ -53,7 +94,7 @@ export const UserContextProvider = ({ children }: any) => {
     const [ createdLogs, setCreatedLogs ] = useState([])
     const [ userGearList, setUserGearList ] = useState<any[]>([])
     const [ packImages, setPackImages ] = useState<any[]>([])
-    const [ userPackConfigs, setUserPackConfigs] = useState<any[]>([])
+    const [ userPackConfigs, setUserPackConfigs] = useState<PackConfiguration[]>([])
 
     return (
         <UserContext.Provider value={{ userName: userName, setUserName: setUserName, userID: userID, setUserID: setUserID, verified: verified, setVerified: setVerified, userPFP: userPFP, setUserPFP: setUserPFP, logFollowList: logFollowList, setLogFollowList: setLogFollowList, createdLogs: createdLogs, setCreatedLogs: setCreatedLogs, userGearList: userGearList, setUserGearList: setUserGearList, packImages: packImages, setPackImages: setPackImages, userPackConfigs: userPackConfigs, setUserPackConfigs: setUserPackConfigs }}>

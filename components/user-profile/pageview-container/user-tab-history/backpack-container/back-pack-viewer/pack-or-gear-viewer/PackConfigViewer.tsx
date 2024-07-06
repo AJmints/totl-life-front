@@ -1,8 +1,15 @@
 'use client'
 
+import carImg from "../../../../../../../public/icons/car-icon.png"
+import hikeImg from "../../../../../../../public/icons/hike-icon.png"
+import floatImg from "../../../../../../../public/icons/float-icon.png"
+import bikeImg from "../../../../../../../public/icons/bike-icon.png"
+import dayImg from "../../../../../../../public/icons/daypack.png"
+
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import { useUserContext } from "@/app/context/UserContextProvider"
+import PackConfigDisplayCard from "./pack-or-gear-viewer/PackConfigDisplayCard"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -31,9 +38,11 @@ const PackConfigViewer = (props: any) => {
 
     const allConfigs = props.userPackConfigs.map((option:any) => {
         return (
-            <div key={option.id} className="bg-gray-500 text-gray-100 p-2 rounded-md">
-                <p>{option.packName}</p>
-                <p>{option.configType}</p>
+            <div key={option.id} className="bg-gray-500 text-gray-100 p-0.5 rounded-md">
+                <PackConfigDisplayCard 
+                packConfig={option}
+                img={option.configType === "Car Camping" && carImg || option.configType === "Day Hike" && dayImg || option.configType === "Back Packing" && hikeImg ||option.configType === "Float Trip" && floatImg || option.configType === "Bike Pack" && bikeImg}
+                />
             </div>
             
         )
@@ -42,10 +51,10 @@ const PackConfigViewer = (props: any) => {
     return (
         <>
             <div className="my-2">
-                <p>Setting up pack config display</p>
+                <p>Pack Configurations:</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2 my-2">
-            {allConfigs}
+                {allConfigs}
             </div>
         </>
         
