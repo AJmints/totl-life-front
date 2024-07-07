@@ -1,4 +1,5 @@
 import { useUserContext } from "@/app/context/UserContextProvider"
+import { useState } from "react"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
@@ -23,15 +24,15 @@ const DeletePackConfig = (props: any) => {
 
     const { userPackConfigs, setUserPackConfigs } = useUserContext()
 
-    let submitToggle: boolean = false
+    const [ submitToggle, setSubmitToggle ] = useState(false)
 
     const deletePackConfig = async() => {
         if (confirm("Once deleted, you will not be able to recover this item. Is that okay?")) {
 
-                submitToggle = true
+                setSubmitToggle(true)
                 if (!await authCheck()) {
                     console.log("issue")
-                    submitToggle = false
+                    setSubmitToggle(false)
                     return
                 }
 
@@ -48,10 +49,10 @@ const DeletePackConfig = (props: any) => {
                 if (response.status === "success") {
                     const removeItem = userPackConfigs.filter(packConfig => packConfig.id !== props.packConfig)
                     setUserPackConfigs(removeItem)
-                    submitToggle = false
+                    setSubmitToggle(false)
                     return
                 } else if (response.status === "failed") {
-                    submitToggle = false
+                    setSubmitToggle(false)
                     return
                 }
                 
