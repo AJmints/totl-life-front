@@ -1,6 +1,5 @@
 import { useUserContext } from "@/app/context/UserContextProvider"
 
-
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export const authCheck = async() => {
@@ -24,13 +23,15 @@ const DeletePackConfig = (props: any) => {
 
     const { userPackConfigs, setUserPackConfigs } = useUserContext()
 
+    let submitToggle: boolean = false
 
     const deletePackConfig = async() => {
         if (confirm("Once deleted, you will not be able to recover this item. Is that okay?")) {
 
+                submitToggle = true
                 if (!await authCheck()) {
                     console.log("issue")
-                    // setSubmitting(false)
+                    submitToggle = false
                     return
                 }
 
@@ -47,8 +48,10 @@ const DeletePackConfig = (props: any) => {
                 if (response.status === "success") {
                     const removeItem = userPackConfigs.filter(packConfig => packConfig.id !== props.packConfig)
                     setUserPackConfigs(removeItem)
+                    submitToggle = false
                     return
                 } else if (response.status === "failed") {
+                    submitToggle = false
                     return
                 }
                 
@@ -60,7 +63,8 @@ const DeletePackConfig = (props: any) => {
 
     return (
         <>
-        <button className="bg-red-400 p-2 rounded-md" onClick={() => deletePackConfig()}>Delete</button>
+            { submitToggle ? <button className="bg-red-600 p-2 rounded-md" >Deleting...</button> : <button className="bg-red-400 p-2 rounded-md" onClick={() => deletePackConfig()}>Delete</button>}
+            
         </>
     )
 }
