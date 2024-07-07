@@ -10,11 +10,14 @@ import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
 import { useUserContext } from "@/app/context/UserContextProvider"
 import PackConfigDisplayCard from "./pack-or-gear-viewer/PackConfigDisplayCard"
+import PackConfigDetailCard from "./pack-or-gear-viewer/pack-config-detail-card/PackConfigDetailCard"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 const PackConfigViewer = (props: any) => {
 
+    const [ packView, setPackView ] = useState<boolean>(false)
+    const [ packConfig, setPackConfig ] = useState<null | any>(null)
     const { setUserPackConfigs } = useUserContext()
 
     const pathname = usePathname()
@@ -36,9 +39,33 @@ const PackConfigViewer = (props: any) => {
         
     }, [])
 
+    const togglePackView = (specificPack: any) => {
+        setPackView(true)
+        let img
+        if (specificPack.configType === "Car Camping") {
+            img = carImg
+        }
+        if (specificPack.configType === "Day Hike") {
+            img = dayImg
+        }
+        if (specificPack.configType === "Back Packing") {
+            img = hikeImg
+        }
+        if (specificPack.configType === "Float Trip") {
+            img = floatImg
+        }
+        if (specificPack.configType === "Bike Pack") {
+            img = bikeImg
+        }
+        setPackConfig({
+            specificPackConfig: specificPack, 
+            img: img
+        })
+    }
+
     const allConfigs = props.userPackConfigs.map((option:any) => {
         return (
-            <div key={option.id} className="bg-gray-500 text-gray-100 p-0.5 rounded-md">
+            <div key={option.id} onClick={() => togglePackView(option)} className="bg-gray-500 cursor-pointer text-gray-100 p-0.5 rounded-md">
                 <PackConfigDisplayCard 
                 packConfig={option}
                 img={option.configType === "Car Camping" && carImg || option.configType === "Day Hike" && dayImg || option.configType === "Back Packing" && hikeImg ||option.configType === "Float Trip" && floatImg || option.configType === "Bike Pack" && bikeImg}
@@ -50,12 +77,22 @@ const PackConfigViewer = (props: any) => {
 
     return (
         <>
-            <div className="my-2">
-                <p>Pack Configurations:</p>
+            { packView ? 
+            <>
+                <PackConfigDetailCard 
+                setPackView={setPackView}
+                specificPack={packConfig}/>
+            </>
+            :
+            <div>
+                <div className="my-2">
+                    <p>Pack Configurations:</p>
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2 my-2">
+                    {allConfigs}
+                </div>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2 my-2">
-                {allConfigs}
-            </div>
+            }
         </>
         
     )

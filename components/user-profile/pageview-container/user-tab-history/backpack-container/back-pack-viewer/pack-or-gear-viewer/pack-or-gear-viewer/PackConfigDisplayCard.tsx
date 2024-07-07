@@ -7,7 +7,7 @@ const PackConfigDisplayCard = (props: any) => {
     const packItem = props.packConfig
 
     return (
-        <div onClick={() => console.log(props)} className="bg-gray-400 rounded-md p-1">
+        <div className="bg-gray-400 rounded-md p-1">
 
             <div className="text-center">
                 <p>Type:</p>
