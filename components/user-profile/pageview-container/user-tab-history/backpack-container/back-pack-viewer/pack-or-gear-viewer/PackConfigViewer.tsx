@@ -91,6 +91,18 @@ const PackConfigViewer = (props: any) => {
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2 my-2">
                     {allConfigs}
                 </div>
+                <div>
+                    {allConfigs.length === 0 && <>
+                    
+                    <div className="bg-gray-400 p-2 rounded-md h-96 flex justify-center items-center">
+                        <div className="">
+                            <button className="bg-gray-500 text-gray-100 p-2 rounded-md flex ">Create a new pack configuration</button>
+                        </div>
+                    </div>
+                    
+                    </>    
+                    }
+                </div>
             </div>
             }
         </>
