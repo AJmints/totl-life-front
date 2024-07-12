@@ -39,10 +39,10 @@ const PackConfigDetailCard = (props: any) => {
             <button className="bg-gray-400 hover:bg-emerald-500 text-gray-800 duration-200 p-1 rounded-md" onClick={() => props.setPackView(false)}>Back</button>
         </div>
 
-        <div className="mt-4">
+        <div className="mt-4 text-gray-800">
             <div className="bg-gray-600 p-2 rounded-md text-center">
-                <p className="text-md">Pack Type</p>
-                <h1 className="text-xl font-medium bg-gray-500 p-2 rounded-md">{packDetails.configType}</h1>
+                <p className="text-md text-gray-100">Pack Type</p>
+                <h1 className="text-xl font-medium bg-gray-400 p-2 rounded-md">{packDetails.configType}</h1>
             </div>
             <div className="p-2 my-2 bg-gray-600 rounded-md flex justify-center">
                 <div className="bg-gray-500 rounded-md p-2">
