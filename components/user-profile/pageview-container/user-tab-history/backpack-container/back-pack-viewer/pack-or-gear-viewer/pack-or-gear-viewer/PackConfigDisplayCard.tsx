@@ -26,7 +26,6 @@ const PackConfigDisplayCard = (props: any) => {
                 <p className="text-xl font-medium">{packItem.packName}</p>
                 <p className="text-sm">Created:</p>
                 <p className="text-md font-medium">{packItem.dateCreated}</p>
-                {packItem.packNotes !== "" && <><p>Notes:</p><p className="text-sm font-medium">{packItem.packNotes}</p></>}  
             </div>
         </div>
     )
