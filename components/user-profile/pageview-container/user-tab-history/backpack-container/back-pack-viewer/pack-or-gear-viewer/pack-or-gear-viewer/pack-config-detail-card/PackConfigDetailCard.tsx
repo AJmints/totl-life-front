@@ -14,12 +14,13 @@ const PackConfigDetailCard = (props: any) => {
         const img = packImages.filter(gearVisuals => gearVisuals.category === item.gearItem.category && gearVisuals.type === item.gearItem.type).pop()
         
         return (
-            <div className="mx-auto"  key={item.id}> 
+            <div className="mx-auto group cursor-pointer"  key={item.id}> 
             {/* onClick={() => handleGearInspection(item, img)} -- Update to create a display of the gear items details*/}
                 <GearItemCard 
                 gearDetails={item}
                 image={img}
                 />
+                <p className="group-hover:flex absolute p-2 bg-yellow-400 rounded-md -mt-20 ml-2 font-light shadow-md hidden">Create Item Display</p>
             </div>
         )
     })

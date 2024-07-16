@@ -8,47 +8,34 @@ import UserCommentContainer from "./user-comment-container/UserCommentContainer"
 import UserLogContainer from "./user-log-container/UserLogContainer"
 import SavedPostContainer from "./saved-post-container/SavedPostContainer"
 import InfoEditorContainer from "../social-option-container/SocialOptionContainer"
+import RiverContentsContainer from "./river-contents-container/RiverContentsContainer"
 
 const TabOptionContainer = (props: any) => {
 
-    const [backPack, setBackPack] = useState(true)
-    const [bales, setBales] = useState(false)
-    const [comments, setComments] = useState(false)
-    const [saved, setSaved] = useState(false)
-    const [yourLogs, setYourLogs] = useState(false)
-    const [social, setSocial] = useState(false)
+    const [ tab, setTabs  ] = useState<"backpack" | "river" | "events" | "friends">("backpack")
+    const [backPack, setBackPack] = useState(true) 
     const [loadingTab, setLoadingTab] = useState(false)
 
     const handleTab = async(name:any) => {
 
-        setLoadingTab(true)
-        setBackPack(false)
-        setYourLogs(false)
-        setBales(false)
-        setComments(false)
-        setSaved(false)
-        setSocial(false)
-        
-        if (name === "backPack") {
-            setBackPack(true)
+        switch(name) {
+            case "backpack":
+                setTabs(name)
+                break
+            case "river":
+                setTabs(name)
+                break
+            case "events":
+                setTabs(name)
+                break
+            case "friends":
+                setTabs(name)
+                break
+            default:
+                setTabs("backpack")
+                break
         }
-        if (name === "yourLogs") {
-            setYourLogs(true)    
-        }
-        if (name === "bales") {
-            setBales(true)    
-        }
-        if (name === "comments") {
-            setComments(true)    
-        }
-        if (name === "saved") {
-            setSaved(true)    
-        }
-        if(name === "social") {
-            setSocial(true)
-        }
-
-        setLoadingTab(false)
+    
     }
 
     return (
@@ -56,65 +43,19 @@ const TabOptionContainer = (props: any) => {
             <div className="flex">
             <div className="grid grid-cols-3 gap-2 md:flex text-sm mt-3 md:space-x-2 bg-gray-400 p-2 rounded-md rounded-b-none">
                 <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("backPack")}>BackPack</button>
-                <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("yourLogs")}>Logs</button>
-                <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("bales")}>Bales</button>
-                <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("comments")}>Comments</button>
-                <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("saved")}>Saved</button>
-                <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md xl:hidden" onClick={() => handleTab("social")}>Social</button>
-
+                <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("river")}>River</button>
+                <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("events")}>Events</button>
+                <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("friends")}>Friends</button>
             </div>
             </div>
             <div className=" p-2 bg-gray-500 rounded-md rounded-tl-none">
 
-                {
-                    loadingTab ? 
-                    <LoadingTabOptions />
-                    :
-                    <></>
-                }
+                { loadingTab && <LoadingTabOptions /> }
                 
-                {
-                    backPack ? 
-                    <BackPackContainer 
-                    userInformation={props.userInformation}/>
-                    :
-                    <></>
-                }
+                { tab === "backpack" && <BackPackContainer 
+                    userInformation={props.userInformation}/> }
 
-                {
-                    yourLogs ?
-                    <UserLogContainer />
-                    :
-                    <></>
-                }
-
-                {
-                    bales ? 
-                    <UserBalesContainer />
-                    :
-                    <></>
-                }
-
-                {
-                    comments ?
-                    <UserCommentContainer />
-                    :
-                    <></>
-                }
-
-                {
-                    saved ? 
-                    <SavedPostContainer />
-                    :
-                    <></>
-                }
-
-                {
-                    social ? 
-                    <InfoEditorContainer />
-                    :
-                    <></>
-                }
+                { tab === "river" && <RiverContentsContainer />}
                 
                 
             </div>

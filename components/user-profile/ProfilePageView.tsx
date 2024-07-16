@@ -87,15 +87,13 @@ const ProfilePageView = () => {
 
 
     return (
-        <div>
+        <div className="">
         {
             verify ? 
-
-            <div className="flex justify-center">
-            <div className="bg-gray-700/80 p-2 sm:p-5 font-extralight text-white rounded-md flex justify-center gap-5">
+            <div className="bg-gray-700/80 p-2 sm:p-5 font-extralight text-white rounded-md mx-auto gap-5">
 
             <div className="">
-                <div>
+                <div className="sm:mx-10">
                 <UserCardDetails 
                 userInformation={userInformation}
                 noUser={noUser}
@@ -116,12 +114,6 @@ const ProfilePageView = () => {
 
                 }
                 
-            </div>
-
-            <div className="hidden xl:block bg-gray-500 p-2 rounded-md">
-                <InfoEditorContainer />
-            </div>
-
             </div>
             </div>
 
