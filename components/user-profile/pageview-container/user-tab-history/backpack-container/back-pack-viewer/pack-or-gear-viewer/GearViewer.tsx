@@ -11,7 +11,7 @@ const GearViewer = (props: any) => {
         const img = packImages.filter(gearVisuals => gearVisuals.category === item.gearItem.category && gearVisuals.type === item.gearItem.type).pop()
         
         return (
-            <div className=" cursor-pointer" onClick={() => handleGearInspection(item, img)} key={item.id}> 
+            <div className="flex cursor-pointer" onClick={() => handleGearInspection(item, img)} key={item.id}> 
                 <GearItemCard 
                 gearDetails={item}
                 image={img}
@@ -43,7 +43,7 @@ const GearViewer = (props: any) => {
                         </div>
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2">
+                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 sm:gap-2">
                             {gearListDisplay}
                         </div>
                         

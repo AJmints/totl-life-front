@@ -87,7 +87,7 @@ const ProfilePageView = () => {
 
 
     return (
-        <div className="">
+        <div className="sm:mx-10 md:mx-5 xl:mx-20">
         {
             verify ? 
             <div className="bg-gray-700/80 p-2 sm:p-5 font-extralight text-white rounded-md mx-auto gap-5">
