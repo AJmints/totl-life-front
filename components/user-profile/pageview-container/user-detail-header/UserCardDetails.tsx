@@ -5,7 +5,7 @@ import imgDefault from "../../../../public/icons/profile-pic.png"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { useUserContext } from "@/app/context/UserContextProvider"
-import FriendContainer from "./FriendContainer"
+import InteractionContainer from "./InteractionContainer"
 
 const UserCardDetails = (props: any) => {
 
@@ -54,7 +54,7 @@ const UserCardDetails = (props: any) => {
                     <div className="flex group items-end">
                         <p className="bg-gray-500 p-2 rounded-full">Add</p>
                         <div className="hidden group-hover:flex absolute">
-                            <FriendContainer />
+                            <InteractionContainer />
                         </div>
                     </div>
 
