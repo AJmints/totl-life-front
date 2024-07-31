@@ -1,3 +1,4 @@
+import AddTurtleButton from "./buttons/AddTurtleButton"
 
 
 const InteractionContainer = () => {
@@ -10,7 +11,7 @@ const InteractionContainer = () => {
 
                 <div className="">
                     <div className="mb-2 flex justify-center">
-                    <button onClick={() => console.log("launch add turtle function")} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Add Turtle</button>
+                        <AddTurtleButton />
                     </div>
                     <div>
                     <button onClick={() => console.log("launch follow turtle function")} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Follow Turtle</button>
@@ -19,13 +20,13 @@ const InteractionContainer = () => {
 
             </div>
 
-            <div className="flex group items-end">
+            {/* <div className="flex group items-end">
                         <p className="bg-gray-500 p-2 rounded-full">DM</p> 
                         {/* Turn this into A component and reoganize */}
-                        <div className="hidden group-hover:flex absolute">
+                        {/* <div className="hidden group-hover:flex absolute">
                             <p className="bg-gray-600 p-2 rounded-md -mb-10 -ml-10 shadow-md shadow-gray-800/40">Direct Messages need to be built</p>
                         </div>
-                    </div>
+                    </div> */}
             
             
         </div>
