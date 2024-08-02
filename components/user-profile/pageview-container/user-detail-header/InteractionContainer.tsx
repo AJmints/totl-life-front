@@ -5,7 +5,7 @@ const InteractionContainer = () => {
 
 
     return (
-        <div className="bg-gray-400 flex items-center rounded-md p-2 -mb-32 -ml-3">
+        <div className="bg-gray-400 flex items-center rounded-md p-2 -mb-32 -ml-6">
             
             <div className="">
 
@@ -14,7 +14,7 @@ const InteractionContainer = () => {
                         <AddTurtleButton />
                     </div>
                     <div>
-                    <button onClick={() => console.log("launch follow turtle function")} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Follow Turtle</button>
+                        <button onClick={() => console.log("launch follow turtle function")} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Follow Turtle</button>
                     </div>
                 </div>
 

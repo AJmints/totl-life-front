@@ -1,9 +1,10 @@
 import Image from "next/image"
 import arrow from '../../../../../../public/icons/Arrow.png'
 import { useState } from 'react'
+import { CommentType, CreateCommentProps } from "@/lib/types/river/baleTypes"
+import { URL } from '@/lib/constants'
 
 let USER_ID: string
-const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
 export const authCheck = async() => {
     const infoCall: Response = await fetch("/api/authCheck")
@@ -23,19 +24,7 @@ export const token = async() => {
     return status
 }
 
-type CommentType = {
-    comment: string,
-    id: number,
-    parentBaleId: number,
-    userName: string,
-    userPFP: any,
-}
 
-type CreateCommentProps = {
-    baleId: number,
-    fetchResponse: CommentType[],
-    setFetchResponse: Function,
-}
 
 export default function CreateComment(props: CreateCommentProps) {
 

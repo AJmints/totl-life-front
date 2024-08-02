@@ -52,7 +52,7 @@ const UserCardDetails = (props: any) => {
                 <div className="flex gap-4">
                     
                     <div className="flex group items-end">
-                        <p className="bg-gray-500 p-2 rounded-full">Add</p>
+                        <p className="bg-gray-500 p-2 rounded-full">Relation</p>
                         <div className="hidden group-hover:flex absolute">
                             <InteractionContainer />
                         </div>
