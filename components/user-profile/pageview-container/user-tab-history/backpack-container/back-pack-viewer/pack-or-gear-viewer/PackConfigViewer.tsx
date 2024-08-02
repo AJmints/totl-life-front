@@ -12,7 +12,7 @@ import { useUserContext } from "@/app/context/UserContextProvider"
 import PackConfigDisplayCard from "./pack-or-gear-viewer/PackConfigDisplayCard"
 import PackConfigDetailCard from "./pack-or-gear-viewer/pack-config-detail-card/PackConfigDetailCard"
 
-const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
+import { URL } from '@/lib/constants'
 
 const PackConfigViewer = (props: any) => {
 
@@ -36,6 +36,7 @@ const PackConfigViewer = (props: any) => {
         if (props.userPackConfigs.length <= 0) {
             getUserPacks()
         }
+        console.log(props)
         
     }, [])
 

@@ -3,37 +3,12 @@ import Image from "next/image"
 import ViewComments from "./ViewComments"
 import CreateComment from "./CreateComment"
 import userIcon from '../../../../../../public/icons/profile-pic.png'
-
-type CommentInfo = {
-    comment: string,
-    id: number,
-    parentBaleId: number,
-    userName: string,
-    userPFP: any,
-}
-
-type BaleInfo = {
-    body: string,
-    commentCount: number,
-    downVoteCount: number,
-    id: number,
-    parentLog: string,
-    saveCount: number,
-    title: string,
-    upVoteCount: number,
-    userName: string,
-    userPFP: any,
-}
-
-type ViewBaleCommentsProps = {
-    baleInfo: BaleInfo,
-    setDetailView: Function,
-}
+import { BaleInfo, CommentType, ViewBaleCommentsProps } from "@/lib/types/river/baleTypes"
 
 export default function ViewBaleComments (props: ViewBaleCommentsProps) {
     const viewBale: BaleInfo = props.baleInfo
     const [showComments, setShowComments] = useState(false)
-    const [fetchResponse, setFetchResponse] = useState<CommentInfo[]>([])
+    const [fetchResponse, setFetchResponse] = useState<CommentType[]>([])
 
     
     return (

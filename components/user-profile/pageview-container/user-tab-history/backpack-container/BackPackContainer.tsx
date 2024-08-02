@@ -23,7 +23,7 @@ const BackPackContainer = (props: any) => {
     }, [])
 
     return (
-        <div className="m-2 flex">
+        <div className="m-2 ">
 
             <div>
                 <div className="flex gap-2 justify-between">
@@ -37,7 +37,7 @@ const BackPackContainer = (props: any) => {
                         <h1 className="text-2xl sm:text-3xl ml-2 mt-2 sm:mt-0">{props.userInformation.name === userName ? "Your BackPack:" : props.userInformation.name + "'s BackPack"}</h1>
                     </div>
 
-                    <div className="flex items-end">
+                    <div className="">
                         <div>
                             {
                                 props.userInformation.name === userName ? 
@@ -63,7 +63,7 @@ const BackPackContainer = (props: any) => {
 
 
             <div>
-                <div className="p-2 text-gray-800 bg-gray-300 md:w-[40rem] rounded-md mt-2">
+                <div className="p-2 text-gray-800 bg-gray-300  rounded-md mt-2">
 
                 {
                     update ? 
