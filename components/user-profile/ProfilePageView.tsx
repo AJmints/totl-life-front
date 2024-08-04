@@ -48,7 +48,7 @@ const ProfilePageView = () => {
             if (!await authCheck()) {
                 router.push("/login")
             } else {
-                userDetail()
+                userDetail() 
             }
         }
 

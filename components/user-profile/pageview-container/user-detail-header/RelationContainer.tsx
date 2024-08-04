@@ -1,7 +1,7 @@
 import AddTurtleButton from "./buttons/AddTurtleButton"
 
 
-const InteractionContainer = () => {
+const RelationContainer = () => {
 
 
     return (
@@ -33,4 +33,4 @@ const InteractionContainer = () => {
     )
 }
 
-export default InteractionContainer
+export default RelationContainer
