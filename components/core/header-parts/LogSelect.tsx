@@ -1,8 +1,10 @@
 'use client'
 
+import Image from "next/image"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect} from 'react'
 import { useRiverContext } from "@/app/context/RiverContextProvider"
+import arrow from '../../../public/icons/Arrow.png'
 
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -11,7 +13,7 @@ const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 const LogSelect = (props: any) => {
 
     const { setLogList, activeLog, setActiveLog } = useRiverContext()
-    const [active, setActive] = useState<string>("Visit Log")
+    const [active, setActive] = useState<boolean>(true)
 
     const pathname = usePathname()
     const router = useRouter()
@@ -28,23 +30,37 @@ const LogSelect = (props: any) => {
                 setLogList(response.logNames)
             }
         }
-        const setActiveHeaderLog = async () => {
+        const setActiveHeaderLog = () => {
             const activeLogInRiver: any = pathname?.split("/river/").pop()
-            if (await !props.selectLog.includes(activeLogInRiver)) {
-                setActiveLog("Visit Log")
+            if(activeLogInRiver === "/river") {
+                setActiveLog("Home")
+                return
+            }
+            if (props.selectLog.includes(activeLogInRiver)) {
+                setActiveLog("Home")
             } else {
                 setActiveLog(activeLogInRiver)
             }
+            if(activeLog === "") {
+                setActive(false)
+                return
+            }
         }
-        setActiveHeaderLog()
+        
         getAllLogs()
-
+        setActiveHeaderLog()
     }, [])
 
     
 
     const logSelect = (event: any) => {
+        setActiveLog(event.target.value)
+        if (event.target.value !== "home") {
         router.push("/river/" + event.target.value)
+        } else {
+            router.push("/river")
+        }
+        setActive(prev => !prev)
     }
 
     const logDropDownOptions = props.selectLog.sort((a:any, b:any) => {
@@ -63,25 +79,67 @@ const LogSelect = (props: any) => {
 
     return (
         <>
-            <div className="items-center sm:flex hidden">
-                <form className='mx-auto text-gray-800 mt-1'>
-                    {/* <h1 className=''>Visit a new log</h1> */}
-                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={activeLog} onChange={(event) => logSelect(event)} id="defaultlog">
-                        <option value={activeLog} disabled>{activeLog}</option>
-                        {logDropDownOptions}
-                    </select>
-                </form>
+            <div className="items-center sm:flex hidden gap-4">
+                <div className=" bg-gray-500 rounded-md p-1 flex justify-around gap-4 items-center">
+                    {active ?
+                        <div className="bg-gray-400 p-1 rounded-md px-2">
+                            <p>Log/ {activeLog}</p>
+                        </div>
+                        :
+                        <div>
+                            <form className='mx-auto text-gray-800 my-1'>
+                                <select className='rounded-md mx-auto shadow-md p-1 text-sm bg-gray-200' defaultValue="default" onChange={(event) => logSelect(event)} id="webpage">
+                                    <option className="" value="default" disabled>Select Log</option>
+                                    <option value="home">Home</option>
+                                    {logDropDownOptions}
+                                </select>
+                            </form>
+                        </div>
+                    }
+                
+                <div className="flex items-center ">
+                    <button onClick={() => setActive(prev => !prev)}>
+                        <Image
+                        src={arrow}
+                        alt=""
+                        width={30}
+                        height={30}
+                        className= { active ? "rotate-90 bg-gray-300 p-1 rounded-md" :"-rotate-90 bg-gray-300 p-1 rounded-md"} 
+                        />
+                    </button>
+                </div>
+                </div>
             </div>
 
-            <div className="items-center flex sm:hidden bg-gray-400 rounded-md p-1 m-2">
-                        <form className='mx-auto text-gray-800 my-1'>
-                            <h1 className=''>Visit a new log</h1>
-                            <select className='rounded-md mx-auto shadow-md p-1 text-sm bg-gray-200' defaultValue="default" onChange={(event) => logSelect(event)} id="mobilelog">
-                                <option className="" value="default" disabled>Select Log</option>
-                                {logDropDownOptions}
-                            </select>
-                        </form>
-                    </div>
+            <div className="items-center flex justify-around sm:hidden bg-gray-500 rounded-md gap-2 p-1 m-2">
+                {active ?
+                <div className="bg-gray-400 p-1 rounded-md px-2">
+                    <p>Log/</p>
+                    <p>{activeLog}</p>
+                </div>
+                :
+                <div>
+                    <form className='mx-auto text-gray-800 my-1'>
+                        <select className='rounded-md mx-auto shadow-md p-1 text-sm bg-gray-200' defaultValue="default" onChange={(event) => logSelect(event)} id="mobilelog">
+                            <option className="" value="default" disabled>Select Log</option>
+                            <option value="home">Home</option>
+                            {logDropDownOptions}
+                        </select>
+                    </form>
+                </div>
+                }
+                <div className="flex items-center ">
+                    <button onClick={() => setActive(prev => !prev)}>
+                        <Image
+                        src={arrow}
+                        alt=""
+                        width={30}
+                        height={30}
+                        className= { active ? "rotate-90 bg-gray-300 p-1 rounded-md" :"-rotate-90 bg-gray-300 p-1 rounded-md"} 
+                        />
+                    </button>
+                </div>
+            </div>
         </>
     )
 }

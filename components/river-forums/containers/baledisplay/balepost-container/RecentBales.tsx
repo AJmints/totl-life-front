@@ -10,6 +10,7 @@ import DownCountButton from '../../buttons/bale-post-buttons/downvote/DownVoteBu
 import ShareLinkButton from '../../buttons/bale-post-buttons/share/ShareLinkButton'
 import FavoriteSaveButton from '../../buttons/bale-post-buttons/favorite-save/FavoriteSaveButton'
 import BaleEditOptionButton from '../../buttons/bale-post-buttons/edit-options/BaleEditOptionButton'
+import { useRiverContext } from '@/app/context/RiverContextProvider'
 
 let USER_ID: string
 const URL = process.env.NEXT_PUBLIC_BACKEND_URL
@@ -59,7 +60,13 @@ export default function RecentBales(props: RecentBalesProps) {
     const [downCount, setDownCount] = useState<number>(viewBale.downVoteCount)
 
     const { userName } = useUserContext()
+    const {setActiveLog} = useRiverContext()
     const router = useRouter()
+
+    const linkHandler = () => {
+        router.push("/river/" + viewBale.parentLog)
+        setActiveLog(viewBale.parentLog)
+    }
 
     return (
         <>
@@ -70,7 +77,7 @@ export default function RecentBales(props: RecentBalesProps) {
             <div className="bg-gray-700/70 sm:w-[70%] max-h-min p-0.5 rounded-t-md sm:rounded-t-none sm:rounded-tl-md sm:rounded-bl-md">
                 {/* Link to log where post lives */}
                 <div className='flex items-end space-x-2'>
-                    <p className='text-left font-normal text-sm cursor-pointer my-2 bg-gray-400 p-2 rounded-md hover:bg-emerald-500 duration-200' onClick={() => router.push("/river/" + viewBale.parentLog)}>log/{viewBale.parentLog}</p>
+                    <p className='text-left font-normal text-sm cursor-pointer my-2 bg-gray-400 p-2 rounded-md hover:bg-emerald-500 duration-200' onClick={() => linkHandler()}>log/{viewBale.parentLog}</p>
                     <p className={viewBale.edited ? " text-xs text-gray-400 mb-2" : "hidden"}>[Edited]</p>
                 </div>
                 {/* Bale text preview */}
