@@ -5,16 +5,17 @@ import imgDefault from "../../../../public/icons/profile-pic.png"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect } from "react"
 import { useUserContext } from "@/app/context/UserContextProvider"
-import InteractionContainer from "./InteractionContainer"
+import RelationContainer from "./RelationContainer"
 
 const UserCardDetails = (props: any) => {
 
     const pathname = usePathname()
     const { userName, userPFP, verified, userID } = useUserContext()
+    const friendName = pathname?.split("/user/").pop()
 
-    // useEffect(() => {
+    useEffect(() => {
         
-    // }, [])
+    }, [])
 
     
 
@@ -48,25 +49,29 @@ const UserCardDetails = (props: any) => {
                     <></>
                 }
 
-            
+                { !props.noUser && friendName !== userName &&
                 <div className="flex gap-4">
                     
-                    <div className="flex group items-end">
+                    <div className="items-end flex">
+                        <div className="group">
                         <p className="bg-gray-500 p-2 rounded-full">Relation</p>
                         <div className="hidden group-hover:flex absolute">
-                            <InteractionContainer />
+                            <RelationContainer />
+                        </div>
                         </div>
                     </div>
 
-                    <div className="flex group items-end">
+                    <div className="flex items-end">
+                        <div className="group">
                         <p className="bg-gray-500 p-2 rounded-full">DM</p> 
                         {/* Turn this into A component and reoganize */}
                         <div className="hidden group-hover:flex absolute">
                             <p className="bg-gray-600 p-2 rounded-md -mb-10 -ml-10 shadow-md shadow-gray-800/40">Direct Messages need to be built</p>
                         </div>
+                        </div>
                     </div>
 
-                </div>
+                </div>}
             </div>
 
         </div>

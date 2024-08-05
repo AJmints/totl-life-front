@@ -20,17 +20,17 @@ export const serverSideProps = async () => {
     await fetch("/api/logout")
 }
 
-export const authCheck = async() => {
-    const infoCall = await fetch("/api/authCheck")
-    const status = await infoCall.json().catch((err) => {
-        console.log(err)
+export const authCheck = () => {
+    // const infoCall = 
+    return fetch("/api/authCheck").then((response) => response.json()).then((status: any) => {
+        if (status.loggedIn === true) {
+                USER_ID = status.id
+                return true
+            } else {
+                return false
+            }
     })
-    if (status.loggedIn === true) {
-        USER_ID = status.id
-        return true
-    } else {
-        return false
-    }
+    
 }
 
 export default function Header() {
@@ -49,7 +49,7 @@ export default function Header() {
     
     
     useEffect(() => {
-        const checkLoginStatus = async () => {
+        const checkLoginStatus = async() => {
             const logged = await authCheck()
             if (logged === undefined) {
                 location.reload()
@@ -61,26 +61,28 @@ export default function Header() {
                 setLoadingHeader(false)
             }
         }
-        const setUserContext = async () => {
-            const getUserContext = await fetch( URL + "/profile/userInfo/" + USER_ID)
-            const response = await getUserContext.json().catch(err => {
-                console.log(err)
+        const setUserContext = () => {
+            fetch( URL + "/profile/userInfo/" + USER_ID).then((response) => response.json()).then((response: any) => {
+                if (response.userName) {
+                    setUserID(response.userId)
+                    setUserName(response.userName)
+                    setVerified(response.accountVerified)
+                    setCreatedLogs(response.createdLogs)
+                    setLogFollowList(response.logFollowList)
+                        if (response.pfp) {
+                            setUserPFP('data:image/jpeg;base64,' + response.pfp.image)
+                        } else {
+                            setUserPFP(null)
+                        }
+                    }
+                    setUserLogged(true)
+                    setLoadingHeader(false)
+                    return
             })
-            if (response.userName) {
-            setUserID(response.userId)
-            setUserName(response.userName)
-            setVerified(response.accountVerified)
-            setCreatedLogs(response.createdLogs)
-            setLogFollowList(response.logFollowList)
-                if (response.pfp) {
-                    setUserPFP('data:image/jpeg;base64,' + response.pfp.image)
-                } else {
-                    setUserPFP(null)
-                }
-            }
-            setUserLogged(true)
-            setLoadingHeader(false)
-            return
+            // const response = await getUserContext.json().catch(err => {
+            //     console.log(err)
+            // })
+            
         }
         setLoadingHeader(true)
         checkLoginStatus() 
@@ -207,7 +209,7 @@ export default function Header() {
                     setUserLogged={setUserLogged}
                     userLogged={userLogged}
                     setLoadingHeader={setLoadingHeader}
-                     />
+                    />
                 </div>
                 :
                 <>
@@ -249,7 +251,7 @@ export default function Header() {
                         <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/about#Initiative">-Current Initiative</Link>      
                         <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/about#Lifestyle">-TOTL Lifestyle</Link>
                         <Link className="m-2 mt-3  flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/about#MeetUs">-Meet the Team</Link>
- 
+
                     </div>
                     :
                     ""

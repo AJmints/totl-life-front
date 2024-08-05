@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from "react"
-import UserLogContainer from "../user-log-container/UserLogContainer"
-import UserBalesContainer from "../user-bale-container/UserBalesContainer"
-import UserCommentContainer from "../user-comment-container/UserCommentContainer"
-import SavedPostContainer from "../saved-post-container/SavedPostContainer"
+import UserLogContainer from "./user-log-container/UserLogContainer"
+import UserBalesContainer from "./user-bale-container/UserBalesContainer"
+import UserCommentContainer from "./user-comment-container/UserCommentContainer"
+import SavedPostContainer from "./saved-post-container/SavedPostContainer"
 
 const RiverContentsContainer = () => {
 
@@ -45,11 +45,8 @@ const RiverContentsContainer = () => {
                 <div className=" p-2 bg-gray-500 rounded-md rounded-tl-none">
 
                 { tab === "logs" && <UserLogContainer /> }
-
                 { tab === "bales" && <UserBalesContainer /> }
-
                 { tab === "comments" && <UserCommentContainer /> }
-
                 { tab === "saved" && <SavedPostContainer /> }
             </div>
         </>

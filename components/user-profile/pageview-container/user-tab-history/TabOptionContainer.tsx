@@ -1,14 +1,15 @@
 'use client'
 
 import { useState } from "react"
-import UserBalesContainer from "./user-bale-container/UserBalesContainer"
+import UserBalesContainer from "./river-contents-container/user-bale-container/UserBalesContainer"
 import BackPackContainer from "./backpack-container/BackPackContainer"
 import LoadingTabOptions from "./LoadingTabOptions"
-import UserCommentContainer from "./user-comment-container/UserCommentContainer"
-import UserLogContainer from "./user-log-container/UserLogContainer"
-import SavedPostContainer from "./saved-post-container/SavedPostContainer"
+import UserCommentContainer from "./river-contents-container/user-comment-container/UserCommentContainer"
+import UserLogContainer from "./river-contents-container/user-log-container/UserLogContainer"
+import SavedPostContainer from "./river-contents-container/saved-post-container/SavedPostContainer"
 import InfoEditorContainer from "../social-option-container/SocialOptionContainer"
 import RiverContentsContainer from "./river-contents-container/RiverContentsContainer"
+import UserFriendContainer from "./user-friend-container/UserFriendContainer"
 
 const TabOptionContainer = (props: any) => {
 
@@ -56,6 +57,8 @@ const TabOptionContainer = (props: any) => {
                     userInformation={props.userInformation}/> }
 
                 { tab === "river" && <RiverContentsContainer />}
+
+                { tab === "friends" && <UserFriendContainer />}
                 
                 
             </div>
