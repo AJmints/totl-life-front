@@ -20,6 +20,8 @@ const CollapsedMenu = (props: any) => {
                         />
                     </div>
 
+                    <Link className="m-2 mt-7 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/river">Forum Home</Link>
+
                     <div className="mt-5">
                     {/* <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/river">River</Link> */}
                     <div className="flex items-center">

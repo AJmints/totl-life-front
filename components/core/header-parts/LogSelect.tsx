@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link"
 import Image from "next/image"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect} from 'react'
@@ -96,7 +97,11 @@ const LogSelect = (props: any) => {
                             </form>
                         </div>
                     }
-                
+                { !active && 
+                <div>
+                    <Link className="flex bg-gray-400 hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/river">Home</Link>
+                </div>
+                }
                 <div className="flex items-center ">
                     <button onClick={() => setActive(prev => !prev)}>
                         <Image
