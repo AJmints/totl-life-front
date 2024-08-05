@@ -64,6 +64,12 @@ const LogSelect = (props: any) => {
         setActive(prev => !prev)
     }
 
+    const quickSelect = () => {
+        setActiveLog("home")
+        router.push("/river")
+        setActive(prev => !prev)
+    }
+
     const logDropDownOptions = props.selectLog.sort((a:any, b:any) => {
         if (a < b) {
             return -1
@@ -99,7 +105,7 @@ const LogSelect = (props: any) => {
                     }
                 { !active && 
                 <div>
-                    <Link className="flex bg-gray-400 hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/river">Home</Link>
+                    <button className="flex bg-gray-400 hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" onClick={() => quickSelect()}>Home</button>
                 </div>
                 }
                 <div className="flex items-center ">
