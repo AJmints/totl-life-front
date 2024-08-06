@@ -133,12 +133,12 @@ export default function Header() {
             {/* Links tablet/laptop display*/}
             <div className="hidden sm:flex items-center">
                 <nav className="flex  items-center">
-                    <div className="hidden sm:flex">
-                <LogSelect 
-                selectLog={selectLog}
-                setSelectLog={setSelectLog}
-                />
-            </div>
+                    { userLogged && <div className="hidden sm:flex">
+                        <LogSelect 
+                        selectLog={selectLog}
+                        setSelectLog={setSelectLog}
+                        />
+                    </div>}
                     {/* <Link className="items-center flex text-gray-100 ml-5" href="/river">River</Link> */}
                     {/* <Link className="items-center flex text-gray-100 ml-5" href="/logs">Logs</Link> */}
                     {/* <Link className="items-center flex text-gray-100 ml-5" href="/dapp">Dapp</Link> */}
@@ -164,13 +164,27 @@ export default function Header() {
 
             <div className="flex gap-4">
                 {/* Hamburger menu in phone view */}
-                    <div className="sm:hidden  flex items-center">
+                    <div className="sm:hidden group flex items-center -bottom-0">
                         <Image 
                             src={menuCompressed}
                             alt=""
                             className="w-10 h-auto ml-2 sm:mx-5 cursor-pointer bg-gray-500 p-1 shadow-lg rounded-lg hover:shadow-gray-800/90"
-                            onClick={() => setMenuToggle(prev => !prev)}
+                            onMouseOver={() => setMenuToggle(true)}
                         />
+
+                        <div onMouseLeave={() => setMenuToggle(false) }>
+                            {/* Open hamburger menu when in phone view */}
+                            <CollapsedMenu
+                            menuToggle={menuToggle}
+                            setMenuToggle={setMenuToggle}
+                            selectLog={selectLog}
+                            setSelectLog={setSelectLog}
+                            arrow={arrow}
+                            aboutTogglePhone={aboutTogglePhone}
+                            setAboutTogglePhone={setAboutTogglePhone}
+                            userLogged={userLogged}
+                            />
+                        </div>
                     </div>
                 {/* True: User Profile button option */}
                 {/* False: Login or Register */}
@@ -228,16 +242,7 @@ export default function Header() {
                     }
             </div>
 
-            {/* Open hamburger menu when in phone view */}
-            <CollapsedMenu
-            menuToggle={menuToggle}
-            setMenuToggle={setMenuToggle}
-            selectLog={selectLog}
-            setSelectLog={setSelectLog}
-            arrow={arrow}
-            aboutTogglePhone={aboutTogglePhone}
-            setAboutTogglePhone={setAboutTogglePhone}
-            />
+            
             
 
         </header>

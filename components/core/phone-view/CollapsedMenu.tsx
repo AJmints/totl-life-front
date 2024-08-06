@@ -2,26 +2,41 @@ import Link from "next/link"
 import Image from "next/image"
 import LogSelect from "../header-parts/LogSelect"
 
+import { useEffect } from "react"
+import { usePathname } from "next/navigation"
+
 
 const CollapsedMenu = (props: any) => {
 
+    const pathname = usePathname()
+
+    useEffect(() => {
+        if(props.menuToggle) {
+            props.setMenuToggle(false)
+        }
+
+    }, [pathname])
+
     return (
         <>
-        <div className={!props.menuToggle ? "hidden" : "sm:hidden fixed z-20 left-0"}>
+        <div className={!props.menuToggle ? "hidden" : "sm:hidden fixed z-20 right-0 bottom-0"}>
                 <div className="w-52 min-h-screen text-xl block bg-gray-300 rounded-md font-light">
                     <div className="items-center flex">
                         <button className="text-4xl ml-5 mt-3 font-light text-gray-700" onClick={() => props.setMenuToggle((prev: boolean) => !prev)}>X</button> 
                     </div>
 
+                    {props.userLogged &&
+                    <>
                     <div className="mt-[50%]">
                         <LogSelect
                         selectLog={props.selectLog}
                         setSelectLog={props.setSelectLog}
                         />
                     </div>
-
+                    
                     <Link className="m-2 mt-7 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/river">Forum Home</Link>
-
+                    </>
+                    }
                     <div className="mt-5">
                     {/* <Link className="m-2 mt-3 flex hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" href="/river">River</Link> */}
                     <div className="flex items-center">

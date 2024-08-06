@@ -6,10 +6,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect} from 'react'
 import { useRiverContext } from "@/app/context/RiverContextProvider"
 import arrow from '../../../public/icons/Arrow.png'
-
-
-const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
-
+import { URL } from "../../../lib/constants"
 
 const LogSelect = (props: any) => {
 
@@ -33,6 +30,10 @@ const LogSelect = (props: any) => {
         }
         const setActiveHeaderLog = () => {
             const activeLogInRiver: any = pathname?.split("/river/").pop()
+            if(activeLog === "" || activeLogInRiver === "/about") {
+                setActive(false)
+                return
+            }
             if(activeLogInRiver === "/river") {
                 setActiveLog("Home")
                 return
@@ -42,15 +43,12 @@ const LogSelect = (props: any) => {
             } else {
                 setActiveLog(activeLogInRiver)
             }
-            if(activeLog === "") {
-                setActive(false)
-                return
-            }
+            
         }
         
         getAllLogs()
         setActiveHeaderLog()
-    }, [])
+    }, [pathname])
 
     
 
