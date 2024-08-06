@@ -1,6 +1,5 @@
 'use client'
 
-import Link from "next/link"
 import Image from "next/image"
 import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect} from 'react'
@@ -30,7 +29,7 @@ const LogSelect = (props: any) => {
         }
         const setActiveHeaderLog = () => {
             const activeLogInRiver: any = pathname?.split("/river/").pop()
-            if(activeLog === "" || activeLogInRiver === "/about") {
+            if(activeLog === "" || activeLogInRiver === "/about" || activeLogInRiver === "/") {
                 setActive(false)
                 return
             }
@@ -38,7 +37,7 @@ const LogSelect = (props: any) => {
                 setActiveLog("Home")
                 return
             }
-            if (props.selectLog.includes(activeLogInRiver)) {
+            if (!props.selectLog.includes(activeLogInRiver)) {
                 setActiveLog("Home")
             } else {
                 setActiveLog(activeLogInRiver)
@@ -88,7 +87,7 @@ const LogSelect = (props: any) => {
                 <div className=" bg-gray-500 rounded-md p-1 flex justify-around gap-4 items-center">
                     {active ?
                         <div className="bg-gray-400 p-1 rounded-md px-2">
-                            <p>Log/ {activeLog}</p>
+                            <p>{!pathname!.includes("user") ? "Log/" + activeLog : "User/" + pathname!.split("/").pop()}</p>
                         </div>
                         :
                         <div>
