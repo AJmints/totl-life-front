@@ -51,6 +51,7 @@ export default function Header() {
     
     useEffect(() => {
         const checkLoginStatus = async() => {
+            setLoadingHeader(true)
             const logged = await authCheck()
             if (logged === undefined) {
                 location.reload()
@@ -80,12 +81,9 @@ export default function Header() {
                     setLoadingHeader(false)
                     return
             })
-            // const response = await getUserContext.json().catch(err => {
-            //     console.log(err)
-            // })
             
         }
-        setLoadingHeader(true)
+        
         checkLoginStatus() 
         
     }, [userLogged, userPFP])

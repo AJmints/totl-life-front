@@ -18,6 +18,7 @@ const LogSelect = (props: any) => {
 
     useEffect(() => {
         const getAllLogs = async () => {
+            setActiveLog("/welcome/totl.life")
             const request = await fetch( URL + "/logs/all-logs-for-drop-down")
             const response = await request.json().catch(err => {
                 console.log(err)
@@ -25,7 +26,9 @@ const LogSelect = (props: any) => {
             if(await response.status === "success") {
                 props.setSelectLog(response.logNames)
                 setLogList(response.logNames)
+                setActiveHeaderLog()
             }
+            
         }
         const setActiveHeaderLog = () => {
             const activeLogInRiver: any = pathname?.split("/river/").pop()
@@ -46,7 +49,7 @@ const LogSelect = (props: any) => {
         }
         
         getAllLogs()
-        setActiveHeaderLog()
+        
     }, [pathname])
 
     
@@ -87,8 +90,12 @@ const LogSelect = (props: any) => {
                 <div className=" bg-gray-500 rounded-md p-1 flex justify-around gap-4 items-center">
                     {active ?
                         <div className="bg-gray-400 p-1 rounded-md px-2">
-                            <p>{!pathname!.includes("user") ? "Log/" + activeLog : "User/" + pathname!.split("/").pop()}</p>
-                        </div>
+                        { activeLog.includes("/welcome/totl.life") ?
+                        <p>Totl.Life</p>
+                        :
+                        <p>{!pathname!.includes("/user/") ? "Log/" + activeLog : "User/" + pathname!.split("/").pop()}</p>
+                        }
+                    </div>
                         :
                         <div>
                             <form className='mx-auto text-gray-800 my-1'>
@@ -123,8 +130,12 @@ const LogSelect = (props: any) => {
                 {active ?
                 <div className="bg-gray-400 p-1 rounded-md px-2">
                     <p>Log/</p>
-                    <p>{activeLog}</p>
-                </div>
+                    { activeLog.includes("/welcome/totl.life") ?
+                    <p>Totl.Life</p>
+                    :
+                    <p>{!pathname!.includes("/user/") ? "Log/" + activeLog : "User/" + pathname!.split("/").pop()}</p>
+                    }
+                    </div>
                 :
                 <div>
                     <form className='mx-auto text-gray-800 my-1'>
