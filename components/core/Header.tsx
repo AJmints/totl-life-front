@@ -103,7 +103,7 @@ export default function Header() {
     }
 
     return (
-        <header id="top" className="flex bg-gray-700 justify-between xl:justify-around shadow-lg bg-shadow-900/90">
+        <header id="top" className="absolute top-0 flex w-screen mb-10 bg-gray-700 justify-between xl:justify-around shadow-lg bg-shadow-900/90">
             
             {/* Logo */}
             

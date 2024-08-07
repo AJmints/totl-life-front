@@ -36,7 +36,7 @@ export default function RootLayout({
         <UserContextProvider>
         <RiverContextProvider>
 
-          <div className='bg-gray-800/50'>
+          <div className='bg-gray-800/50 pt-16'>
           <Header />
             {children}
           <Analytics />
