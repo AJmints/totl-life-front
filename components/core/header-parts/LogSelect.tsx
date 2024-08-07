@@ -129,7 +129,6 @@ const LogSelect = (props: any) => {
             <div className="items-center flex justify-around sm:hidden bg-gray-500 rounded-md gap-2 p-1 m-2">
                 {active ?
                 <div className="bg-gray-400 p-1 rounded-md px-2">
-                    <p>Log/</p>
                     { activeLog.includes("/welcome/totl.life") ?
                     <p>Totl.Life</p>
                     :
