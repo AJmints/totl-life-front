@@ -4,6 +4,7 @@ import LogSelect from "../header-parts/LogSelect"
 
 import { useEffect } from "react"
 import { usePathname } from "next/navigation"
+import { swipeEvent } from "@/lib/constants/swipeInputs"
 
 
 const CollapsedMenu = (props: any) => {
@@ -13,6 +14,11 @@ const CollapsedMenu = (props: any) => {
     useEffect(() => {
         if(props.menuToggle) {
             props.setMenuToggle(false)
+        }
+        swipeEvent(props)
+
+        return () => {
+
         }
 
     }, [pathname])

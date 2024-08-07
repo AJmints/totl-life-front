@@ -52,8 +52,6 @@ const LogSelect = (props: any) => {
         
     }, [pathname])
 
-    
-
     const logSelect = (event: any) => {
         setActiveLog(event.target.value)
         if (event.target.value !== "home") {
@@ -109,6 +107,7 @@ const LogSelect = (props: any) => {
                     }
                 { !active && 
                 <div>
+                    {/* <button>Random - Dice Pic</button> */}
                     <button className="flex bg-gray-400 hover:bg-yellow-500 px-2 rounded-md duration-500 hover:shadow-lg shadow-gray-600" onClick={() => quickSelect()}>Home</button>
                 </div>
                 }
