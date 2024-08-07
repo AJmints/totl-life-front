@@ -25,7 +25,7 @@ const CollapsedMenu = (props: any) => {
 
     return (
         <>
-        <div className={!props.menuToggle ? "hidden" : "sm:hidden fixed z-20 right-0 h-screen"}>
+        <div className={!props.menuToggle ? "hidden" : "sm:hidden fixed z-20 right-0 -bottom-0 h-screen"}>
                 <div className="w-52 min-h-screen text-xl block bg-gray-300 rounded-md font-light">
                     <div className="items-center flex">
                         <button className="text-4xl ml-5 mt-3 font-light text-gray-700" onClick={() => props.setMenuToggle((prev: boolean) => !prev)}>X</button> 
