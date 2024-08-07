@@ -73,7 +73,7 @@ export default function UserOptions(props: any) {
 
     return (
 
-        <div className="flex justify-center">
+        <div className="flex justify-center pt-10">
             <div className="block">
             <div className="text-center">
                 { userPFP !== null ?

@@ -197,7 +197,7 @@ export default function Header() {
                                 className="cursor-pointer h-12 w-12 bg-emerald-300 p-1 hover:p-0 hover:bg-emerald-600 duration-500 rounded-full"
                                 onClick={() => setUserDetailsToggle(prev => !prev)}
                                 />
-                                <div className="hidden group-hover:flex transition-opacity ease-in duration-400 opacity-0 hover:opacity-100 absolute">
+                                <div className="hidden group-hover:flex transition-opacity ease-in duration-400 opacity-0 hover:opacity-100 top-0 absolute">
                             {/* Open user sidebard from Profile Icon */}
                                 <UserOptionsConst
                                 logout={logout}
