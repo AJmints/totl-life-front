@@ -27,7 +27,7 @@ const AddTurtleButton = () => { // (userID, friendName)
         status = added, denied, pending, canceled */ 
 
         console.log( userName + " wants to send a friend request to " + friendName)
-        
+        /* Setting up new comp */
 
         /* Make Events/Trips components. Presented on the River/Home as an option to view your current and future trips and have a group chat for that group along with the group stats. When making these objects on the backend, use this part to start using Stored Procs and bring those into work flow */
     }
