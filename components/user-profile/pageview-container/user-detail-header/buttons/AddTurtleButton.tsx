@@ -1,8 +1,9 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-
 import { useUserContext } from '@/app/context/UserContextProvider'
+
+import { useEffect, useState } from 'react'
 
 import { URL } from '@/lib/constants'
 
@@ -16,13 +17,19 @@ const AddTurtleButton = () => { // (userID, friendName)
 
     const friendName = pathname?.split("/user/").pop()
 
+    useEffect(() => {
+
+    }, [])
+
     const addFriend = () => {
 
         /* Create Time, User, Requested, Status <- What the friend request object has 
-        status = added, denied, pending, canceled */
+        status = added, denied, pending, canceled */ 
 
         console.log( userName + " wants to send a friend request to " + friendName)
         
+
+        /* Make Events/Trips components. Presented on the River/Home as an option to view your current and future trips and have a group chat for that group along with the group stats. When making these objects on the backend, use this part to start using Stored Procs and bring those into work flow */
     }
 
     const cancelRequest = () => {
@@ -34,6 +41,7 @@ const AddTurtleButton = () => { // (userID, friendName)
     return (
         <>
             {userName !== friendName && <button onClick={() => addFriend()} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Add Turtle</button>}
+            {/* Pending / Cancel || Accept / Decline */}
         </>
     )
 }
