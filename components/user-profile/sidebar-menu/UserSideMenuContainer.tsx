@@ -6,8 +6,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation"
 import { useUserContext } from "@/app/context/UserContextProvider"
 import LogsByUserContainer from "./logs-by-user/LogsByUserContainer"
-
-const URL = process.env.NEXT_PUBLIC_BACKEND_URL
+import { URL } from "@/lib/constants"
 
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")
