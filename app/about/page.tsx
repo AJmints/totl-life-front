@@ -7,7 +7,8 @@ import lifeStyle from '../../public/images/lifestyle.jpg';
 import viceroy from '../../public/images/viceroy.jpg';
 import secretary from '../../public/images/secretary-of-the-treasury.jpg';
 import duke from '../../public/images/kick-ass-duke.jpg'
-import bowler from '../../public/images/archbishop-of-the-sandbar.png'
+import archbishop from '../../public/images/archbishop-of-the-sandbar.png'
+import mAlchemist from '../../public/images/master-alchemist.jpg'
 
 const AboutAll = () => {
   useEffect(() => {
@@ -156,11 +157,17 @@ const AboutAll = () => {
                     <p className="text-sm font-serif text-gray-200 text-center">Kick Ass Duke</p>
                     </div>
                     <div>
-                    <Image src={bowler} alt="" className="w-52 mt-2 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
+                    <Image src={archbishop} alt="" className="w-52 mt-2 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
                     <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Alex</p>
                     <p className="text-sm font-serif text-gray-200 text-center">Archbishop of the Sandbar</p>
                     </div>
+                    <div>
+                    <Image src={mAlchemist} alt="" className="w-52 mt-2 h-auto mx-auto bg-gray-500 p-2 rounded-full shadow-lg shadow-gray-800 hover:p-0 duration-300"/>
+                    <p className="p-2 text-3xl text-gray-200 font-serif border-b-2 text-center mt-2">Cory</p>
+                    <p className="text-sm font-serif text-gray-200 text-center">Master Alchemist</p>
                     </div>
+                    </div>
+                    
                     
 
                     <div className="text-center text-gray-300 my-20 space-y-6 bg-gray-700/80 p-5 rounded-md">
@@ -171,10 +178,8 @@ const AboutAll = () => {
                     <p className="text-2xl font-serif border-b-[1px]">Alex, the Viceroy (he/him):</p>
                     <p className='text-sm font-serif mt-1'>Lead Developer / Project Designer</p>
                     </div>
-                    <p>Alex is the lead developer of this project, and aspiring programmer. He graduated from the LaunchCode bootcamp 
-                      in 2022 from the Web Developer class. He continues his learning through projects and his current employment. He
-                      was made from star dust to become a human with aspirations to become a turtle forever floating on a river. On a 
-                      trip in the year of 2022, he was floating with his friends on the Current river when the idea of Totl was hatched.
+                    <p>
+                      On a trip in the year of 2022, Alex was floating with his friends on the Current river when the idea of Totl was hatched.
                       Iley and Alex came up with this idea to start a project that shared their love of nature and the river. Totl is a 
                       project that aims to be a hub for outdoor people and nature lovers to organize and meet. 
                     </p>
