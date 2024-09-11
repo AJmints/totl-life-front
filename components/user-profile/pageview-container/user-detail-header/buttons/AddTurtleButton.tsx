@@ -6,7 +6,14 @@ import { useUserContext } from '@/app/context/UserContextProvider'
 import { useEffect, useState } from 'react'
 
 import { URL } from '@/lib/constants'
-import { get } from 'http'
+
+export const token = async() => {
+    const getToken: Response = await fetch("/api/headers")
+    const status = await getToken.json().catch((err) => {
+        console.log(err)
+    })
+    return status
+}
 
 /* UserContext is going to need to have an array with all friendIDs to compare to current profile to display either AddFriend, CancelRequest, or RemoveFriend */
 
@@ -24,7 +31,7 @@ const AddTurtleButton = () => { // (userID, friendName)
 
     }, [])
 
-    const addFriend = (e: any) => {
+    const addFriend = async(e: any) => {
 
         /* Create Time, User, Requested, Status <- What the friend request object has 
         status = added, denied, pending, canceled */ 
@@ -32,16 +39,31 @@ const AddTurtleButton = () => { // (userID, friendName)
         // URL + /social/request-friend
 
         const data = {
-            requester: e.requester,
-            requested: e.requested,
-            status: e.status,
-            lastActor: e.lastActor
+            requester: userName,
+            requested: friendName,
+            status: "pending",
+            lastActor: userName
         }
 
-        console.log( userName + " wants to send a friend request to " + friendName)
+        // const create = await fetch(URL + "/social/addSocial")
+        // console.log( data )
+        // return
         /* Setting up new comp */
 
         /* Make Events/Trips components. Presented on the River/Home as an option to view your current and future trips and have a group chat for that group along with the group stats. When making these objects on the backend, use this part to start using Stored Procs and bring those into work flow */
+    
+        const createPack = await fetch(URL + "/social/request-friend", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "Bearer " + await token()
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await createPack.json().catch((err) => {
+            console.log(err)
+        })
+        console.log(response)
     }
 
     const cancelRequest = () => {
