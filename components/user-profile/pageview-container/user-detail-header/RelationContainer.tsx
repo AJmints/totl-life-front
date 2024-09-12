@@ -3,12 +3,12 @@ import { URL } from "@/lib/constants"
 
 const RelationContainer = () => {
 
-    const createSocial = async () => {
-        const create = await fetch(URL + "/social/addSocial")
-        const response = await create.json()
-        console.log( response )
-        return
-    }
+    // const createSocial = async () => {
+    //     const create = await fetch(URL + "/social/addSocial")
+    //     const response = await create.json()
+    //     console.log( response )
+    //     return
+    // }
 
 
     return (
@@ -21,7 +21,7 @@ const RelationContainer = () => {
                         <AddTurtleButton />
                     </div>
                     <div>
-                        <button onClick={() => createSocial()} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Follow Turtle</button>
+                        <button onClick={() => console.log("Create follow button")} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Follow Turtle</button>
                     </div>
                 </div>
 
