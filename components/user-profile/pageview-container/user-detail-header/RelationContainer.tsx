@@ -1,14 +1,43 @@
+'use client'
+
 import AddTurtleButton from "./buttons/AddTurtleButton"
-import { URL } from "@/lib/constants"
+import { usePathname } from 'next/navigation'
+import { useUserContext } from '@/app/context/UserContextProvider'
+import { useEffect, useState, useRef, useContext } from 'react'
+import { URL } from '@/lib/constants'
+import CancelRequestButton from "./buttons/CancelRequestButton"
 
 const RelationContainer = () => {
 
-    // const createSocial = async () => {
-    //     const create = await fetch(URL + "/social/addSocial")
-    //     const response = await create.json()
-    //     console.log( response )
-    //     return
-    // }
+    const [loading, setLoading] = useState<boolean>(false)
+    const [statusDisplay, setStatusDisplay] = useState<string>("")
+    const [requester, setRequester] = useState<string>("")
+
+    const pathname = usePathname()
+
+    const { userID, userName } = useUserContext()
+
+    const friendName = pathname?.split("/user/").pop()
+
+    useEffect(() => {
+
+        const doesRequestExist = async() => {
+            const create = await fetch(URL + "/social/request-status/" + userID + "/" + friendName)
+            const response = await create.json().catch((err) => {
+                console.log(err.message)
+            })
+            if (response.status === "success") { // status = added, denied, pending, canceled, friend,  
+                setStatusDisplay(response.requestStatus)
+                setLoading(false)
+            }
+            console.log(response)
+        }
+        
+        if (userID != "") {
+            doesRequestExist()
+        }
+
+    }, [userID])
 
 
     return (
@@ -18,7 +47,9 @@ const RelationContainer = () => {
 
                 <div className="">
                     <div className="mb-2 flex justify-center">
-                        <AddTurtleButton />
+                        {statusDisplay === "empty" && <AddTurtleButton />}
+                        {statusDisplay === "pending" && userName !== friendName && <CancelRequestButton/>}
+                        {/* Pending / Cancel || Accept / Decline */}
                     </div>
                     <div>
                         <button onClick={() => console.log("Create follow button")} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Follow Turtle</button>

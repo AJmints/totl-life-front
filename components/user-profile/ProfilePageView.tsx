@@ -8,7 +8,6 @@ import { useRouter, usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import TabOptionContainer from "./pageview-container/user-tab-history/TabOptionContainer"
 import LoadingTabOptions from "./pageview-container/user-tab-history/LoadingTabOptions"
-import InfoEditorContainer from "./pageview-container/social-option-container/SocialOptionContainer"
 import { useUserContext } from "@/app/context/UserContextProvider"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL

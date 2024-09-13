@@ -94,7 +94,7 @@ export default function RecentBales(props: RecentBalesProps) {
             </div>
             
             {/* User information, upvote, downvote, comment, save, share, and menu option container. */}
-            <div className="bg-gray-700/70 rounded-b-md sm:rounded-r-md sm:rounded-bl-none text-sm   flex items-center sm:block sm:w-[30%] p-0.5">
+            <div className="bg-gray-700/70 rounded-b-md sm:rounded-r-md sm:rounded-bl-none text-sm text-center flex items-center sm:block sm:w-[30%] p-0.5">
                 {/* User Profile Picture container */}
                 <div className=" p-4 w-[40%] sm:w-[100%] flex h-[50%] items-center justify-center rounded-bl-md sm:rounded-bl-none sm:rounded-tr-md sm:h-[50%] "> 
                     <div className="">
