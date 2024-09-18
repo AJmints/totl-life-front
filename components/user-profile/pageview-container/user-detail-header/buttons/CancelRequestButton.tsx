@@ -1,8 +1,17 @@
 
 import { usePathname } from "next/navigation"
 import { useUserContext } from "@/app/context/UserContextProvider"
+import { URL } from "@/lib/constants"
 
-const CancelRequestButton = () => {
+export const token = async() => {
+    const getToken: Response = await fetch("/api/headers")
+    const status = await getToken.json().catch((err) => {
+        console.log(err)
+    })
+    return status
+}
+
+const CancelRequestButton = (props: any) => {
 
     const pathname = usePathname()
 
@@ -10,9 +19,37 @@ const CancelRequestButton = () => {
 
     const friendName = pathname?.split("/user/").pop()
 
+    const cancelRequest = async() => {
+
+        console.log("Cancel")
+
+        const data = {
+            requester: userName,
+            requested: friendName,
+            status: "cancel",
+            lastActor: userName
+        }
+        console.log(data)
+
+        const createPack = await fetch( URL + "/social/handle-friend-request-action", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "Bearer " + await token()
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await createPack.json().catch((err) => {
+            console.log(err)
+        })
+        console.log(response)
+        props.setStatusDisplay(data.status)
+
+    }
+
     return (
         <>
-        {userName !== friendName && <button onClick={() => console.log("Cancel")} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Cancel Request</button>}
+        {userName !== friendName && <button onClick={() => cancelRequest()} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Cancel Request</button>}
         </>
     )
 }

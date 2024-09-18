@@ -27,17 +27,26 @@ const RelationContainer = () => {
                 console.log(err.message)
             })
             if (response.status === "success") { // status = added, denied, pending, canceled, friend,  
-                setStatusDisplay(response.requestStatus)
+                
+                if ( response.response === undefined ) {
+                    setStatusDisplay(response.requestStatus)
+                } else if ( response.response === "empty"){
+                    console.log("set?")
+                    setStatusDisplay(response.response)
+                }
+                
+                
                 setLoading(false)
             }
             console.log(response)
+            
         }
         
         if (userID != "") {
             doesRequestExist()
         }
 
-    }, [userID])
+    }, [userID, statusDisplay])
 
 
     return (
@@ -47,8 +56,9 @@ const RelationContainer = () => {
 
                 <div className="">
                     <div className="mb-2 flex justify-center">
-                        {statusDisplay === "empty" && <AddTurtleButton />}
-                        {statusDisplay === "pending" && userName !== friendName && <CancelRequestButton/>}
+                        {statusDisplay === "empty" && <AddTurtleButton setStatusDisplay={setStatusDisplay}/>}
+                        {statusDisplay === "cancel" && <AddTurtleButton setStatusDisplay={setStatusDisplay} />}
+                        {statusDisplay === "pending" && <CancelRequestButton setStatusDisplay={setStatusDisplay}/>}
                         {/* Pending / Cancel || Accept / Decline */}
                     </div>
                     <div>

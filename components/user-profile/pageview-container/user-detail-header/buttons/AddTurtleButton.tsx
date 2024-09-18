@@ -12,7 +12,7 @@ export const token = async() => {
     return status
 }
 
-const AddTurtleButton = () => {
+const AddTurtleButton = (props: any) => {
 
     const pathname = usePathname()
 
@@ -28,6 +28,7 @@ const AddTurtleButton = () => {
             status: "pending",
             lastActor: userName
         }
+        console.log(data)
 
         const createPack = await fetch(URL + "/social/request-friend", {
             method: 'POST',
@@ -41,6 +42,7 @@ const AddTurtleButton = () => {
             console.log(err)
         })
         console.log(response)
+        props.setStatusDisplay(data.status)
     }
 
     return (
