@@ -2,7 +2,8 @@
 import React, { useEffect } from 'react';
 import Image from 'next/image';
 import aboutView from '../../public/images/about-view.jpg';
-import riverView from '../../public/images/river-view.jpg';
+import cleanActionShot from '../../public/images/action-shot-2024.jpg';
+import cleaners2024 from '../../public/images/clean-float-2024.jpg'
 import lifeStyle from '../../public/images/lifestyle.jpg';
 import viceroy from '../../public/images/viceroy.jpg';
 import secretary from '../../public/images/secretary-of-the-treasury.jpg';
@@ -95,15 +96,26 @@ const AboutAll = () => {
                     Join us as we roll up our sleeves and work together to protect and restore our local rivers. 
                     Together, we can make a significant impact on the environment and the communities that rely 
                     on these waterways<br/>
-                    The details for this event are 
-                    pending, but once Totl finds its footing, we will start releasing details about our first 
-                    ever group river clean up in 2024!
+                    The river clean 2024 was a success! We removed 4 full river trashbags worth of garbage from the river.
+                    The pictures you see are the clean up crew that did the work. We brought grabbers to reach difficult areas
+                    from our kayaks as we searched the river for any bit of trash we could find. We removed many beer cans 
+                    and plastic waterbottles along with a bluetooth speaker, various plastic pieces and clothes. We always aim
+                    to remove trash on any float, but this was the first float focused on finding as much trash to remove as 
+                    possible. We will be doing this again in 2025 in either July or August, we hope to see you there as this is an 
+                    open invitation! 
                   </p>
-                  <Image
-                      src={riverView}
-                      alt=""
-                      className="w-96 mt-5 p-2 rounded-md bg-gray-300 h-auto mx-auto"
-                  />
+                  <div className='block xl:flex'>
+                    <Image
+                        src={cleaners2024}
+                        alt=""
+                        className="w-64 mt-5 p-2 rounded-md bg-gray-300 h-auto mx-auto"
+                    />
+                    <Image
+                        src={cleanActionShot}
+                        alt=""
+                        className="w-64 mt-5 p-2 rounded-md bg-gray-300 h-auto mx-auto"
+                    />
+                  </div>
                 </div>
             </div>
           </div>
@@ -176,7 +188,7 @@ const AboutAll = () => {
                     shared commitment to Sustainable Stewardship.</p>
                     <div>
                     <p className="text-2xl font-serif border-b-[1px]">Alex, the Viceroy (he/him):</p>
-                    <p className='text-sm font-serif mt-1'>Lead Developer / Project Designer</p>
+                    <p className='text-sm font-serif mt-1'>Lead Project Application Developer and Designer</p>
                     </div>
                     <p>
                       On a trip in the year of 2022, Alex was floating with his friends on the Current river when the idea of Totl was hatched.
@@ -199,8 +211,12 @@ const AboutAll = () => {
                     </div>
                     <p>Matt is a Missouri native. He grew up exploring rivers and creeks as a child and loved when he experienced interactions 
                       with the wildlife. He&#39;s the navigator of the group and takes charge organizing events and planning.</p>
-                      <div>
+                    <div>
                     <p className="text-2xl font-serif border-b-[1px]">Alex, Archbishop of the Sandbar (he/him):</p>
+                    <p className='text-sm font-serif mt-1'>Project Coordinator</p>
+                    </div>
+                    <div>
+                    <p className="text-2xl font-serif border-b-[1px]">Cory, Master Alchemist (he/him):</p>
                     <p className='text-sm font-serif mt-1'>Project Coordinator</p>
                     </div>
         </div>

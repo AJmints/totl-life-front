@@ -6,6 +6,7 @@ import { useUserContext } from '@/app/context/UserContextProvider'
 import { useEffect, useState, useRef, useContext } from 'react'
 import { URL } from '@/lib/constants'
 import CancelRequestButton from "./buttons/CancelRequestButton"
+import AcceptDeclineButton from "./buttons/AcceptDeclineButton"
 
 const RelationContainer = () => {
 
@@ -30,6 +31,7 @@ const RelationContainer = () => {
                 
                 if ( response.response === undefined ) {
                     setStatusDisplay(response.requestStatus)
+                    setRequester(response.requester)
                 } else if ( response.response === "empty"){
                     console.log("set?")
                     setStatusDisplay(response.response)
@@ -58,8 +60,12 @@ const RelationContainer = () => {
                     <div className="mb-2 flex justify-center">
                         {statusDisplay === "empty" && <AddTurtleButton setStatusDisplay={setStatusDisplay}/>}
                         {statusDisplay === "cancel" && <AddTurtleButton setStatusDisplay={setStatusDisplay} />}
-                        {statusDisplay === "pending" && <CancelRequestButton setStatusDisplay={setStatusDisplay}/>}
+                        {statusDisplay === "pending" && requester !== friendName && <CancelRequestButton setStatusDisplay={setStatusDisplay}/>}
+                        {statusDisplay === "pending" && requester === friendName && <AcceptDeclineButton friendName={friendName} userName={userName} setStatusDisplay={setStatusDisplay}/>}
                         {/* Pending / Cancel || Accept / Decline */}
+
+                        
+                        {/* Create the response for the Requested side. Accept or Decline, then friend list */}
                     </div>
                     <div>
                         <button onClick={() => console.log("Create follow button")} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Follow Turtle</button>
