@@ -39,7 +39,7 @@ const RelationContainer = () => {
                 
                 setLoading(false)
             }
-            console.log(response)
+            // console.log(response)
             
         }
         

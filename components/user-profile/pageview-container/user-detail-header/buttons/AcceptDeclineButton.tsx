@@ -32,7 +32,7 @@ const AcceptDeclineButton = (props: any) => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
+        // console.log(response)
 
         // Try Catch for Relation Container when viewing friends page, not for list on user. setStatusDisplay is only meant to work on relation container
         try {

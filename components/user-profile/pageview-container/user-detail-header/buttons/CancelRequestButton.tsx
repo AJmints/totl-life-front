@@ -39,7 +39,7 @@ const CancelRequestButton = (props: any) => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        console.log(response)
+        // console.log(response)
         props.setStatusDisplay(data.status)
 
     }
