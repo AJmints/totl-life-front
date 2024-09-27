@@ -21,15 +21,12 @@ const CancelRequestButton = (props: any) => {
 
     const cancelRequest = async() => {
 
-        console.log("Cancel")
-
         const data = {
             requester: userName,
             requested: friendName,
             status: "cancel",
             lastActor: userName
         }
-        console.log(data)
 
         const createPack = await fetch( URL + "/social/handle-friend-request-action", {
             method: 'POST',

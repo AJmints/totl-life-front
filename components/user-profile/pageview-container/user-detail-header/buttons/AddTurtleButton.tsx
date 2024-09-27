@@ -28,7 +28,6 @@ const AddTurtleButton = (props: any) => {
             status: "pending",
             lastActor: userName
         }
-        console.log(data)
 
         const createPack = await fetch(URL + "/social/request-friend", {
             method: 'POST',

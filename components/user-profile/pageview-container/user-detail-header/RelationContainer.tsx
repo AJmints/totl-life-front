@@ -33,7 +33,6 @@ const RelationContainer = () => {
                     setStatusDisplay(response.requestStatus)
                     setRequester(response.requester)
                 } else if ( response.response === "empty"){
-                    console.log("set?")
                     setStatusDisplay(response.response)
                 }
                 
@@ -60,8 +59,10 @@ const RelationContainer = () => {
                     <div className="mb-2 flex justify-center">
                         {statusDisplay === "empty" && <AddTurtleButton setStatusDisplay={setStatusDisplay}/>}
                         {statusDisplay === "cancel" && <AddTurtleButton setStatusDisplay={setStatusDisplay} />}
+                        {statusDisplay === "decline" && <AddTurtleButton setStatusDisplay={setStatusDisplay} />}
                         {statusDisplay === "pending" && requester !== friendName && <CancelRequestButton setStatusDisplay={setStatusDisplay}/>}
                         {statusDisplay === "pending" && requester === friendName && <AcceptDeclineButton friendName={friendName} userName={userName} setStatusDisplay={setStatusDisplay}/>}
+                        {statusDisplay === "accept" && <div className="bg-emerald-500 p-2 rounded-md shadow-md shadow-gray-800/40">Frens</div>}
                         {/* Pending / Cancel || Accept / Decline */}
 
                         
