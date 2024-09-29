@@ -3,7 +3,9 @@ import AcceptDeclineButton from "../../../user-detail-header/buttons/AcceptDecli
 import Image from "next/image"
 import userIcon from "@/public/icons/profile-pic.png"
 import { useUserContext } from "@/app/context/UserContextProvider"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { token } from "@/lib/constants/getToken"
+import { URL } from "@/lib/globalConstants"
 
 
 const FriendRequestContainer = (props: any) => {
@@ -14,7 +16,39 @@ const FriendRequestContainer = (props: any) => {
     const pathname = usePathname()
 
     const friendName = pathname?.split("/user/").pop()
-    const {userName} = useUserContext();
+    const {userID, userName} = useUserContext()
+
+
+    useEffect(() => {
+
+        const getFriendsLists = async(string: string) => {
+
+            const list = await fetch(URL + "/social/user-friend-list/" + userID +"/" + string , {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "Bearer " + await token()
+                }
+            })
+            const response = await list.json().catch((err) => {
+                console.log(err.message)
+            })
+            if (response.turtleRequest !== null) {
+                props.setTurtleRequestList(response.turtleRequest)
+                // const removeItem = userPackConfigs.filter(packConfig => packConfig.id !== props.packConfig)
+                // setUserPackConfigs(removeItem)
+                console.log(response)    
+            }
+            
+        }
+        
+        if (userName === friendName) {
+            getFriendsLists("1")
+        } else {
+            getFriendsLists("2")
+        }
+
+    }, [statusDisplay])
 
 
     const requestList = props.turtleRequestList.map((item: any) => {
@@ -50,6 +84,7 @@ const FriendRequestContainer = (props: any) => {
                     </div>
                 </div>
                 <div className="text-gray-200">
+                    {/* Work on updating the Array by removing request and adding user to friend list on front end */}
                     <AcceptDeclineButton friendName={item.requester} userName={userName} setStatusDisplay={setStatusDisplay}/>
                 </div>
             
