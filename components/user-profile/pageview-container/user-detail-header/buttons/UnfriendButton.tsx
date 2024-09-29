@@ -1,16 +1,11 @@
-
 import { useUserContext } from "@/app/context/UserContextProvider"
 import { token } from "@/lib/constants/getToken"
 import { URL } from "@/lib/globalConstants"
 
-const AcceptDeclineButton = (props: any) => {
+const UnfriendButton = (props:any) => {
 
     const friendName = props.friendName
     const {userName} = useUserContext()
-
-    // props = friend name + user name
-    /* Drop these in as props to use so this component can be used as a button when viewing a profile and 
-    having independant buttons as a list on the users friend request list. */
 
     const handleRequest = async(string : string) => {
 
@@ -36,6 +31,7 @@ const AcceptDeclineButton = (props: any) => {
 
         // Try Catch for Relation Container when viewing friends page, not for list on user. setStatusDisplay is only meant to work on relation container
         try {
+            console.log(props.setStatusDisplay() === undefined)
             if (props.setStatusDisplay() === undefined) {
                 // Include response handling to setStatusDisplay
             }
@@ -54,21 +50,16 @@ const AcceptDeclineButton = (props: any) => {
     }
 
     return (
-        <div className="bg-gray-500 p-1 text-center rounded-md">
-
-            <p>Turtle Request:</p>
-
+        <>
+        
             <div className="flex gap-2 justify-around">
-                <button onClick={() => handleRequest("accept")} className="p-1 rounded-md bg-emerald-500 shadow-md hover:bg-emerald-600 duration-200">
-                    Accept
-                </button>
-                <button onClick={() => handleRequest("decline")} className="p-1 rounded-md bg-red-500 shadow-md hover:bg-red-600 duration-200">
-                    Decline
+                <div className="bg-emerald-500 p-2 rounded-md shadow-md shadow-gray-800/40">Frens</div>
+                <button onClick={() => handleRequest("unfriend")} className="p-1 rounded-md bg-gray-500 shadow-md hover:bg-red-600 duration-200">
+                    Unfren
                 </button>
             </div>
-
-        </div>
+        </>
     )
 }
 
-export default AcceptDeclineButton
+export default UnfriendButton

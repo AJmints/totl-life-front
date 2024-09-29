@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from "next/navigation"
 import { useUserContext } from "@/app/context/UserContextProvider"
 import LogsByUserContainer from "./logs-by-user/LogsByUserContainer"
-import { URL } from "@/lib/constants"
+import { URL } from "@/lib/globalConstants"
 
 export const authCheck = async() => {
     const infoCall = await fetch("/api/authCheck")

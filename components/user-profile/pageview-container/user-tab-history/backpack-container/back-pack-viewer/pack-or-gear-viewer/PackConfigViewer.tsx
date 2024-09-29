@@ -12,7 +12,7 @@ import { useUserContext } from "@/app/context/UserContextProvider"
 import PackConfigDisplayCard from "./pack-or-gear-viewer/PackConfigDisplayCard"
 import PackConfigDetailCard from "./pack-or-gear-viewer/pack-config-detail-card/PackConfigDetailCard"
 
-import { URL } from '@/lib/constants'
+import { URL } from '@/lib/globalConstants'
 
 const PackConfigViewer = (props: any) => {
 

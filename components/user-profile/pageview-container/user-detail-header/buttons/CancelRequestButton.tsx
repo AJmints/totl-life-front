@@ -1,7 +1,7 @@
 
 import { usePathname } from "next/navigation"
 import { useUserContext } from "@/app/context/UserContextProvider"
-import { URL } from "@/lib/constants"
+import { URL } from "@/lib/globalConstants"
 
 export const token = async() => {
     const getToken: Response = await fetch("/api/headers")

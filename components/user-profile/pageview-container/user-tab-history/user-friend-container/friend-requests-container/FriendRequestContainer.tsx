@@ -1,31 +1,65 @@
 import { usePathname } from "next/navigation"
 import AcceptDeclineButton from "../../../user-detail-header/buttons/AcceptDeclineButton"
+import Image from "next/image"
+import userIcon from "@/public/icons/profile-pic.png"
+import { useUserContext } from "@/app/context/UserContextProvider"
+import { useState } from "react"
 
 
 const FriendRequestContainer = (props: any) => {
 
+    //props.setTurtleRequestList
+
+    const [statusDisplay, setStatusDisplay] = useState<string>("")
     const pathname = usePathname()
 
     const friendName = pathname?.split("/user/").pop()
+    const {userName} = useUserContext();
 
-    const requestList = [1,2,3,4,5,6,7].map((item: any) => {
+
+    const requestList = props.turtleRequestList.map((item: any) => {
 
         return (
-            <div key={item} className="bg-gray-400 p-2 rounded-md xl:w-56 h-auto">
-                
-                <p>Name : {item}</p>
-                <div className="flex my-2 items-center justify-center">
-                    <div className="sm:px-20 sm:py-20 px-14 py-14  bg-gray-300 rounded-full">
-                        <p></p>
+            <div key={item.requester} className="bg-gray-400 p-2 rounded-md xl:w-56 h-auto">
+                <p className=" font-semibold text-xl">Name:</p>
+                <p className=" font-semibold text-xl">{item.requester}</p>
+                <div className="flex my-2 h-36 items-center justify-center">
+                    <div className="bg-gray-300 p-2 hover:p-0 hover:m-2 duration-200 rounded-full">
+                    { item.userPFP === null ?
+                        <div>
+                        <Image
+                            src={userIcon}
+                            alt=''
+                            width={90}
+                            height={90}
+                            className='w-32 rounded-full'
+                            onClick={() => console.log(item.userPFP)}
+                        /> 
+                        </div>
+
+                        :
+                        <Image
+                            src={'data:image/jpeg;base64,' + item.userPFP.image}
+                            alt=""
+                            width={30}
+                            height={30}
+                            className="w-32 rounded-full"
+                            onClick={() => console.log(item.userPFP)}
+                        />
+                    }
                     </div>
                 </div>
                 <div className="text-gray-200">
-                    <AcceptDeclineButton />
+                    <AcceptDeclineButton friendName={item.requester} userName={userName} setStatusDisplay={setStatusDisplay}/>
                 </div>
             
             </div>
         )
     })
+
+    const handleRemove = (userName: string) => {
+
+    }
 
     return (
 

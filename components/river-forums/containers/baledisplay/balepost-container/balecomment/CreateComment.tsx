@@ -2,7 +2,7 @@ import Image from "next/image"
 import arrow from '../../../../../../public/icons/Arrow.png'
 import { useState } from 'react'
 import { CommentType, CreateCommentProps } from "@/lib/types/river/baleTypes"
-import { URL } from '@/lib/constants'
+import { URL } from '@/lib/globalConstants'
 
 let USER_ID: string
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import userIcon from '@/public/icons/profile-pic.png'
 import { CommentType, ViewCommentsProps } from '@/lib/types/river/baleTypes'
-import { URL } from '@/lib/constants'
+import { URL } from '@/lib/globalConstants'
 
 export default function ViewComments(props: ViewCommentsProps) {
 

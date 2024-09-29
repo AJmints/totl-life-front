@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { useState, useEffect} from 'react'
 import { useRiverContext } from "@/app/context/RiverContextProvider"
 import arrow from '../../../public/icons/Arrow.png'
-import { URL } from "../../../lib/constants"
+import { URL } from "../../../lib/globalConstants"
 
 const LogSelect = (props: any) => {
 

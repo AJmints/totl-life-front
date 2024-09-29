@@ -4,9 +4,11 @@ import AddTurtleButton from "./buttons/AddTurtleButton"
 import { usePathname } from 'next/navigation'
 import { useUserContext } from '@/app/context/UserContextProvider'
 import { useEffect, useState, useRef, useContext } from 'react'
-import { URL } from '@/lib/constants'
+import { URL } from '@/lib/globalConstants'
 import CancelRequestButton from "./buttons/CancelRequestButton"
 import AcceptDeclineButton from "./buttons/AcceptDeclineButton"
+import { token } from "@/lib/constants/getToken"
+import UnfriendButton from "./buttons/UnfriendButton"
 
 const RelationContainer = () => {
 
@@ -42,6 +44,8 @@ const RelationContainer = () => {
             // console.log(response)
             
         }
+
+        
         
         if (userID != "") {
             doesRequestExist()
@@ -57,16 +61,15 @@ const RelationContainer = () => {
 
                 <div className="">
                     <div className="mb-2 flex justify-center">
+                        
                         {statusDisplay === "empty" && <AddTurtleButton setStatusDisplay={setStatusDisplay}/>}
                         {statusDisplay === "cancel" && <AddTurtleButton setStatusDisplay={setStatusDisplay} />}
                         {statusDisplay === "decline" && <AddTurtleButton setStatusDisplay={setStatusDisplay} />}
+                        {statusDisplay === "unfriend" && <AddTurtleButton setStatusDisplay={setStatusDisplay} />}
                         {statusDisplay === "pending" && requester !== friendName && <CancelRequestButton setStatusDisplay={setStatusDisplay}/>}
                         {statusDisplay === "pending" && requester === friendName && <AcceptDeclineButton friendName={friendName} userName={userName} setStatusDisplay={setStatusDisplay}/>}
-                        {statusDisplay === "accept" && <div className="bg-emerald-500 p-2 rounded-md shadow-md shadow-gray-800/40">Frens</div>}
-                        {/* Pending / Cancel || Accept / Decline */}
-
-                        
-                        {/* Create the response for the Requested side. Accept or Decline, then friend list */}
+                        {statusDisplay === "accept" && <UnfriendButton friendName={friendName} userName={userName} setStatusDisplay={setStatusDisplay}/>}
+   
                     </div>
                     <div>
                         <button onClick={() => console.log("Create follow button")} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Follow Turtle</button>
