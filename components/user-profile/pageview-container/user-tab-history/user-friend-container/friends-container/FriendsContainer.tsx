@@ -73,7 +73,7 @@ const FriendsContainer = (props: any) => {
     return (
         <>
             <div className="py-8 px-2 sm:px-4 bg-gray-300 rounded-md">
-                <p className="text-gray-700 text-center text-xl font-bold mb-4">{friendName}'s friends list</p>
+                <p className="text-gray-700 text-center text-xl font-bold mb-4">{friendName}&#39;s friends list</p>
                 <div className="flex flex-col items-center gap-2">
                     {requestList}
                 </div>
