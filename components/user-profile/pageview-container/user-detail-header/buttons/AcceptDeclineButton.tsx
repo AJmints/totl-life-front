@@ -8,10 +8,6 @@ const AcceptDeclineButton = (props: any) => {
     const friendName = props.friendName
     const {userName} = useUserContext()
 
-    // props = friend name + user name
-    /* Drop these in as props to use so this component can be used as a button when viewing a profile and 
-    having independant buttons as a list on the users friend request list. */
-
     const handleRequest = async(string : string) => {
 
         const data = {
@@ -32,23 +28,29 @@ const AcceptDeclineButton = (props: any) => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        
-        if (props.callComponent === "friendPage") {
-            props.setStatusDisplay(response.requestStatus)
+
+        if (response.response === "empty") {
+            console.log("failed successfully")
+            props.setStatusDisplay(friendName)
             return
-        } else if (props.callComponent === "userPage") {
-            try {
-                console.log(response.requester)
-                console.log(userName)
-                if (response.requester === userName) {
-                    props.setStatusDisplay(response.requested)
-                } else if (response.requested === userName) {
-                    props.setStatusDisplay(response.requester)
+        } else {
+            if (props.callComponent === "friendPage") {
+                props.setStatusDisplay(response.requestStatus)
+                return
+            } else if (props.callComponent === "userPage") {
+                try {
+                    if (response.requester === userName) {
+                        props.setStatusDisplay(response.requested)
+                    } else if (response.requested === userName) {
+                        props.setStatusDisplay(response.requester)
+                    }
+                } catch(error) {
+                    console.log(error)
                 }
-            } catch(error) {
-                console.log(error)
             }
         }
+        
+        
         
     }
 
