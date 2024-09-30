@@ -41,7 +41,10 @@ const AddTurtleButton = (props: any) => {
             console.log(err)
         })
         // console.log(response)
-        props.setStatusDisplay(data.status)
+        if (response.status === "added") {
+            props.setStatusDisplay(data.status)
+        }
+        
     }
 
     return (
