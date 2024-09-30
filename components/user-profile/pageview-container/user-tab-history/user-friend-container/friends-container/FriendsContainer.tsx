@@ -4,13 +4,14 @@ import Image from "next/image"
 import userIcon from "@/public/icons/profile-pic.png"
 import UnfriendButton from "../../../user-detail-header/buttons/UnfriendButton"
 import { useState, useEffect } from "react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useUserContext } from "@/app/context/UserContextProvider"
 
 const FriendsContainer = (props: any) => {
 
     const [statusDisplay, setStatusDisplay] = useState<string>("")
     const pathname = usePathname()
+    const router = useRouter()
 
     const friendName = pathname?.split("/user/").pop()
     const { userName, userFriendList, setUserFriendList } = useUserContext()
@@ -32,7 +33,7 @@ const FriendsContainer = (props: any) => {
             <div key={item.userName} className="bg-gray-400 p-2 rounded-md w-full lg:w-[50rem] xl:w-[60rem] h-auto lg:flex">
                 
                 <div className="flex my-2 h-24 w-full items-center justify-around">
-                    <div className="bg-gray-300 p-2 hover:p-0 hover:m-2 duration-200 rounded-full">
+                    <div className="bg-emerald-400 p-0 hover:p-2 hover:-m-2 duration-200 rounded-full cursor-pointer" onClick={() => router.push("/user/" + item.userName)}>
                     { item.pfp === null ?
                         <div>
                         <Image
@@ -52,16 +53,17 @@ const FriendsContainer = (props: any) => {
                             width={30}
                             height={30}
                             className="w-20 rounded-full"
+                            
                         />
                     }
                     </div>
 
                     <div>
                     <p className=" font-semibold text-xl">Name:</p>
-                    <p className=" font-semibold text-xl">{item.userName}</p>
+                    <p className=" font-semibold text-xl cursor-pointer hover:text-emerald-300 duration-200" onClick={() => router.push("/user/" + item.userName)}>{item.userName}</p>
                     </div>
                     <div className="text-gray-200">
-                    <UnfriendButton friendName={item.userName} userName={userName} setStatusDisplay={setStatusDisplay} callComponent={"userPage"}/>
+                    {friendName === userName ? <UnfriendButton friendName={item.userName} userName={userName} setStatusDisplay={setStatusDisplay} callComponent={"userPage"}/> : <></> }
                 </div>
                 </div>
                 

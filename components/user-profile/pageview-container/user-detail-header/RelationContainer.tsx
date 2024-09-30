@@ -29,7 +29,7 @@ const RelationContainer = () => {
             const response = await create.json().catch((err) => {
                 console.log(err.message)
             })
-            if (response.status === "success") { // status = added, denied, pending, canceled, friend,  
+            if (response.status === "success") { // status = accept, denied, pending, cancel, unfriend  
                 
                 if ( response.response === undefined ) {
                     setStatusDisplay(response.requestStatus)
@@ -41,13 +41,12 @@ const RelationContainer = () => {
                 
                 setLoading(false)
             }
-            // console.log(response)
             
         }
 
         
         
-        if (userID != "") {
+        if (userID !== "") {
             doesRequestExist()
         }
 

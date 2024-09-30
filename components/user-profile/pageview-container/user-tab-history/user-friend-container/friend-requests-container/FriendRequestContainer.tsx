@@ -3,11 +3,14 @@ import Image from "next/image"
 import userIcon from "@/public/icons/profile-pic.png"
 import { useUserContext } from "@/app/context/UserContextProvider"
 import { useState, useEffect } from "react"
+import { useRouter } from "next/navigation"
 
 
 const FriendRequestContainer = (props: any) => {
 
     const [statusDisplay, setStatusDisplay] = useState<string>("")
+
+    const router = useRouter()
 
     const { userName, userTurtleRequestList, setUserFriendList, setUserTurtleRequestList } = useUserContext()
 
@@ -33,9 +36,9 @@ const FriendRequestContainer = (props: any) => {
         return (
             <div key={item.requester} className="bg-gray-400 p-2 rounded-md xl:w-56 h-auto">
                 <p className=" font-semibold text-xl">Name:</p>
-                <p className=" font-semibold text-xl">{item.requester}</p>
+                <p className=" font-semibold text-xl cursor-pointer hover:text-emerald-300 duration-200" onClick={() => router.push("/user/" + item.requester)}>{item.requester}</p>
                 <div className="flex my-2 h-36 items-center justify-center">
-                    <div className="bg-gray-300 p-2 hover:p-0 hover:m-2 duration-200 rounded-full">
+                    <div className="bg-emerald-400 p-0 hover:p-2 hover:-m-2 duration-200 rounded-full cursor-pointer" onClick={() => router.push("/user/" + item.requester)}>
                     { item.userPFP === null ?
                         <div>
                         <Image
@@ -44,7 +47,6 @@ const FriendRequestContainer = (props: any) => {
                             width={90}
                             height={90}
                             className='w-32 rounded-full'
-                            onClick={() => console.log(item.userPFP)}
                         /> 
                         </div>
 
@@ -55,7 +57,6 @@ const FriendRequestContainer = (props: any) => {
                             width={30}
                             height={30}
                             className="w-32 rounded-full"
-                            onClick={() => console.log(item.userPFP)}
                         />
                     }
                     </div>
@@ -68,10 +69,6 @@ const FriendRequestContainer = (props: any) => {
         )
     })
 
-    const handleRemove = (userName: string) => {
-
-    }
-
     return (
 
         <>
@@ -83,8 +80,7 @@ const FriendRequestContainer = (props: any) => {
                 <p className="bg-gray-400 rounded-md p-2 mb-2">Search Container</p>
                 </div>
 
-                <div className="bg-gray-200 p-2 rounded-md grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-1 lg:gap-x-16 xl:gap-6 sm:gap-2">
-                    
+                <div className="bg-gray-200 p-2 rounded-md grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-1 lg:gap-x-16 xl:gap-6 sm:gap-2">    
                     {requestList}
                 </div>
             </div>

@@ -56,6 +56,7 @@ const UnfriendButton = (props:any) => {
                 <button onClick={() => handleRequest("unfriend")} className="p-1 rounded-md bg-gray-500 shadow-md hover:bg-red-600 duration-200">
                     Unfren
                 </button>
+
             </div>
         </>
     )

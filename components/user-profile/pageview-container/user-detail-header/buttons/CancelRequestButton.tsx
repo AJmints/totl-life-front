@@ -39,8 +39,11 @@ const CancelRequestButton = (props: any) => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        // console.log(response)
-        props.setStatusDisplay(data.status)
+
+        //console.log(response.requestStatus === undefined)
+        // when undefined is returned and setStatusDisplay runs it, it resets front properly, but why?
+        // happens when user tries to cancel request after friend has already accepted or denied the request
+        props.setStatusDisplay(response.requestStatus)
 
     }
 

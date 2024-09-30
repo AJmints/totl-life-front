@@ -25,7 +25,7 @@ const UserFriendContainer = () => {
 
         const getFriendsLists = async(string: string) => {
 
-            const list = await fetch(URL + "/social/user-friend-list/" + userID +"/" + string , {
+            const list = await fetch( URL + "/social/user-friend-list/" + friendName +"/" + string , {
                 method: 'GET',
                 headers: {
                     "Content-Type": "application/json",
@@ -35,11 +35,18 @@ const UserFriendContainer = () => {
             const response = await list.json().catch((err) => {
                 console.log(err.message)
             })
+
+            console.log(friendName)
+
             if (response.turtleRequest !== null) {
 
                 setUserTurtleRequestList(response.turtleRequest)
                 setUserFriendList(response.friendList)
-                console.log(response)
+
+            } else if (response.turtleRequest === null) {
+
+                setUserFriendList(response.friendList)
+            
             }
             
         }
@@ -47,6 +54,7 @@ const UserFriendContainer = () => {
         if (userName === friendName) {
             getFriendsLists("1")
         } else {
+            
             getFriendsLists("2")
         }
         
@@ -96,7 +104,7 @@ const UserFriendContainer = () => {
 
                 { tab === "friends" && <FriendsContainer friendList={userFriendList} setFriendList={setUserFriendList}/> }
                 { tab === "requests" && friendName === userName && <FriendRequestContainer setTurtleRequestList={setTurtleRequestList} turtleRequestList={turtleRequestList} /> }
-                { tab === "follow" && <FollowContainer /> }
+                {/* { tab === "follow" && <FollowContainer /> } */}
             </div>
 
         </>
