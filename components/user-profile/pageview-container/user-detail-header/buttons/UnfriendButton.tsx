@@ -27,32 +27,31 @@ const UnfriendButton = (props:any) => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        // console.log(response)
 
-        // Try Catch for Relation Container when viewing friends page, not for list on user. setStatusDisplay is only meant to work on relation container
-        try {
-            console.log(props.setStatusDisplay() === undefined)
-            if (props.setStatusDisplay() === undefined) {
-                // Include response handling to setStatusDisplay
-            }
-
-        }catch(error){
-            // This is on the user page and does not need to include/update setStatusDisplay
-
-            console.log(error)
+        if (props.callComponent === "friendPage") {
+            props.setStatusDisplay(response.requestStatus)
+            return
+        } else if (props.callComponent === "userPage") {
             try {
-                console.log("nest")
-            } catch (error) {
-                console.log("Double error")
+                console.log(response.requester)
+                console.log(userName)
+                if (response.requester === userName) {
+                    props.setStatusDisplay(response.requested)
+                } else if (response.requested === userName) {
+                    props.setStatusDisplay(response.requester)
+                }
+            } catch(error) {
+                console.log(error)
             }
         }
+        
         
     }
 
     return (
         <>
         
-            <div className="flex gap-2 justify-around">
+            <div className="flex gap-2 justify-around items-center">
                 <div className="bg-emerald-500 p-2 rounded-md shadow-md shadow-gray-800/40">Frens</div>
                 <button onClick={() => handleRequest("unfriend")} className="p-1 rounded-md bg-gray-500 shadow-md hover:bg-red-600 duration-200">
                     Unfren

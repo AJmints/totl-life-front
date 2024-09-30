@@ -12,20 +12,16 @@ import {URL} from "@/lib/globalConstants"
 const UserFriendContainer = () => {
 
     const [ tab, setTab ] = useState<"friends" | "requests" | "follow">("friends")
-    const testArr = [1,2,3,4,5,6,7]
-    const [friendList, setFriendList] = useState<any[]>([])
+
     const [turtleRequestList, setTurtleRequestList] = useState<any[]>([])
 
     const pathname = usePathname()
 
-    const { userID, userName } = useUserContext()
+    const { userID, userName, setUserFriendList, userFriendList, setUserTurtleRequestList, userTurtleRequestList } = useUserContext()
 
     const friendName = pathname?.split("/user/").pop()
 
     useEffect(() => {
-        // Make a call for friendlist and friend request related to user.
-        // Make api route that returns 2 lists and specific dtos. 
-        // 1st dto, friend request with username, friendname, userid, profilepic
 
         const getFriendsLists = async(string: string) => {
 
@@ -40,10 +36,10 @@ const UserFriendContainer = () => {
                 console.log(err.message)
             })
             if (response.turtleRequest !== null) {
-                setTurtleRequestList(response.turtleRequest)
-                // const removeItem = userPackConfigs.filter(packConfig => packConfig.id !== props.packConfig)
-                // setUserPackConfigs(removeItem)
-                console.log(response)    
+
+                setUserTurtleRequestList(response.turtleRequest)
+                setUserFriendList(response.friendList)
+                console.log(response)
             }
             
         }
@@ -80,23 +76,25 @@ const UserFriendContainer = () => {
         
         <div className="flex">
                     <div className="grid grid-cols-3 gap-2 md:flex text-sm md:space-x-2 bg-gray-400 p-1 rounded-md">
-                        { friendName === userName && 
+                        { friendName === userName &&  
                         <>
+                        { userTurtleRequestList.length !== 0 &&
                         <div className="p-1 absolute -mt-5 ml-14">
                             <div className="absolute p-0.5 px-2 rounded-full bg-emerald-400">
-                                <p className="text-gray-50 font-bold">{turtleRequestList.length}</p>
+                                <p className="text-gray-50 font-bold">{userTurtleRequestList.length}</p>
                             </div>
                         </div>
+                        }
                         <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("requests")}>Requests</button>
                         </>
                         }
                         <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("friends")}>Friends</button>
-                        <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("follow")}>Following</button>
+                        {/* <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("follow")}>Following</button> */}
                     </div>
                 </div>
                 <div className=" p-2 bg-gray-500 rounded-md rounded-tl-none">
 
-                { tab === "friends" && <FriendsContainer /> }
+                { tab === "friends" && <FriendsContainer friendList={userFriendList} setFriendList={setUserFriendList}/> }
                 { tab === "requests" && friendName === userName && <FriendRequestContainer setTurtleRequestList={setTurtleRequestList} turtleRequestList={turtleRequestList} /> }
                 { tab === "follow" && <FollowContainer /> }
             </div>

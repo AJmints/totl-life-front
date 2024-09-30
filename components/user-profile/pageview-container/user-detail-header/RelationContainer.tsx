@@ -67,8 +67,8 @@ const RelationContainer = () => {
                         {statusDisplay === "decline" && <AddTurtleButton setStatusDisplay={setStatusDisplay} />}
                         {statusDisplay === "unfriend" && <AddTurtleButton setStatusDisplay={setStatusDisplay} />}
                         {statusDisplay === "pending" && requester !== friendName && <CancelRequestButton setStatusDisplay={setStatusDisplay}/>}
-                        {statusDisplay === "pending" && requester === friendName && <AcceptDeclineButton friendName={friendName} userName={userName} setStatusDisplay={setStatusDisplay}/>}
-                        {statusDisplay === "accept" && <UnfriendButton friendName={friendName} userName={userName} setStatusDisplay={setStatusDisplay}/>}
+                        {statusDisplay === "pending" && requester === friendName && <AcceptDeclineButton friendName={friendName} userName={userName} setStatusDisplay={setStatusDisplay} callComponent={"friendPage"}/>}
+                        {statusDisplay === "accept" && <UnfriendButton friendName={friendName} userName={userName} setStatusDisplay={setStatusDisplay} callComponent={"friendPage"}/>}
    
                     </div>
                     <div>

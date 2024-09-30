@@ -1,57 +1,34 @@
-import { usePathname } from "next/navigation"
 import AcceptDeclineButton from "../../../user-detail-header/buttons/AcceptDeclineButton"
 import Image from "next/image"
 import userIcon from "@/public/icons/profile-pic.png"
 import { useUserContext } from "@/app/context/UserContextProvider"
 import { useState, useEffect } from "react"
-import { token } from "@/lib/constants/getToken"
-import { URL } from "@/lib/globalConstants"
 
 
 const FriendRequestContainer = (props: any) => {
 
-    //props.setTurtleRequestList
-
     const [statusDisplay, setStatusDisplay] = useState<string>("")
-    const pathname = usePathname()
 
-    const friendName = pathname?.split("/user/").pop()
-    const {userID, userName} = useUserContext()
+    const { userName, userTurtleRequestList, setUserFriendList, setUserTurtleRequestList } = useUserContext()
 
 
     useEffect(() => {
 
-        const getFriendsLists = async(string: string) => {
-
-            const list = await fetch(URL + "/social/user-friend-list/" + userID +"/" + string , {
-                method: 'GET',
-                headers: {
-                    "Content-Type": "application/json",
-                    "auth-token": "Bearer " + await token()
-                }
-            })
-            const response = await list.json().catch((err) => {
-                console.log(err.message)
-            })
-            if (response.turtleRequest !== null) {
-                props.setTurtleRequestList(response.turtleRequest)
-                // const removeItem = userPackConfigs.filter(packConfig => packConfig.id !== props.packConfig)
-                // setUserPackConfigs(removeItem)
-                console.log(response)    
+        if (statusDisplay !== "") {
+            const removeRequestFromList = userTurtleRequestList.filter(request => request.requester !== statusDisplay)
+            const addFriend = userTurtleRequestList.filter(request => request.requester === statusDisplay)
+            setUserTurtleRequestList(removeRequestFromList)
+            const user = {
+                pfp: addFriend[0].userPFP !== null ? addFriend[0].userPFP : null,
+                userName: statusDisplay
             }
-            
-        }
-        
-        if (userName === friendName) {
-            getFriendsLists("1")
-        } else {
-            getFriendsLists("2")
+            setUserFriendList((prev: any) => [...prev, user])
         }
 
     }, [statusDisplay])
 
 
-    const requestList = props.turtleRequestList.map((item: any) => {
+    const requestList = userTurtleRequestList.map((item: any) => {
 
         return (
             <div key={item.requester} className="bg-gray-400 p-2 rounded-md xl:w-56 h-auto">
@@ -84,8 +61,7 @@ const FriendRequestContainer = (props: any) => {
                     </div>
                 </div>
                 <div className="text-gray-200">
-                    {/* Work on updating the Array by removing request and adding user to friend list on front end */}
-                    <AcceptDeclineButton friendName={item.requester} userName={userName} setStatusDisplay={setStatusDisplay}/>
+                    <AcceptDeclineButton friendName={item.requester} userName={userName} setStatusDisplay={setStatusDisplay} callComponent={"userPage"}/>
                 </div>
             
             </div>
@@ -102,7 +78,7 @@ const FriendRequestContainer = (props: any) => {
             <div className="py-4 px-4 sm:px-10 text-gray-700 bg-gray-300 rounded-md">
                 <p className=" text-xl">User Friend Request</p>
                 <div className="flex justify-between mx-2 items-center">
-                <p>Build container for list of friend request</p>
+                <p>All friend requests</p>
                 
                 <p className="bg-gray-400 rounded-md p-2 mb-2">Search Container</p>
                 </div>

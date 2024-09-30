@@ -61,7 +61,11 @@ type ContextProps = {
     packImages: any[],
     setPackImages: Dispatch<SetStateAction<any>>,
     userPackConfigs: PackConfiguration[],
-    setUserPackConfigs: Dispatch<SetStateAction<PackConfiguration[]>>
+    setUserPackConfigs: Dispatch<SetStateAction<PackConfiguration[]>>, 
+    userFriendList: any[],
+    setUserFriendList: Dispatch<SetStateAction<any>>,
+    userTurtleRequestList: any[],
+    setUserTurtleRequestList: Dispatch<SetStateAction<any>>
 }
 
 const UserContext = createContext<ContextProps>({
@@ -82,7 +86,11 @@ const UserContext = createContext<ContextProps>({
     packImages: [],
     setPackImages: () => [],
     userPackConfigs: [],
-    setUserPackConfigs: () => []
+    setUserPackConfigs: () => [],
+    userFriendList: [],
+    setUserFriendList: () => [],
+    userTurtleRequestList: [], 
+    setUserTurtleRequestList: () => []
 })
 
 export const UserContextProvider = ({ children }: any) => {
@@ -95,9 +103,12 @@ export const UserContextProvider = ({ children }: any) => {
     const [ userGearList, setUserGearList ] = useState<any[]>([])
     const [ packImages, setPackImages ] = useState<any[]>([])
     const [ userPackConfigs, setUserPackConfigs] = useState<PackConfiguration[]>([])
+    const [ userFriendList, setUserFriendList ] = useState<any[]>([])
+    const [ userTurtleRequestList, setUserTurtleRequestList ] = useState<any[]>([])
+    
 
     return (
-        <UserContext.Provider value={{ userName: userName, setUserName: setUserName, userID: userID, setUserID: setUserID, verified: verified, setVerified: setVerified, userPFP: userPFP, setUserPFP: setUserPFP, logFollowList: logFollowList, setLogFollowList: setLogFollowList, createdLogs: createdLogs, setCreatedLogs: setCreatedLogs, userGearList: userGearList, setUserGearList: setUserGearList, packImages: packImages, setPackImages: setPackImages, userPackConfigs: userPackConfigs, setUserPackConfigs: setUserPackConfigs }}>
+        <UserContext.Provider value={{ userName: userName, setUserName: setUserName, userID: userID, setUserID: setUserID, verified: verified, setVerified: setVerified, userPFP: userPFP, setUserPFP: setUserPFP, logFollowList: logFollowList, setLogFollowList: setLogFollowList, createdLogs: createdLogs, setCreatedLogs: setCreatedLogs, userGearList: userGearList, setUserGearList: setUserGearList, packImages: packImages, setPackImages: setPackImages, userPackConfigs: userPackConfigs, setUserPackConfigs: setUserPackConfigs, userFriendList: userFriendList, setUserFriendList: setUserFriendList, userTurtleRequestList: userTurtleRequestList, setUserTurtleRequestList: setUserTurtleRequestList }}>
             {children}
         </UserContext.Provider>
     )
