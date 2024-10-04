@@ -46,11 +46,21 @@ const AcceptDeclineButton = (props: any) => {
                 return
             } else if (props.callComponent === "userPage") {
                 try {
-                    if (response.requester === userName) {
-                        props.setStatusDisplay(response.requested)
-                    } else if (response.requested === userName) {
-                        props.setStatusDisplay(response.requester)
+                    if (response.requestStatus === "accept"){
+                        if (response.requester === userName) {
+                            props.setStatusDisplay(response.requested)
+                        } else if (response.requested === userName) {
+                            props.setStatusDisplay(response.requester)
+                        }
+                    } else if (response.requestStatus === "decline"){
+                        // Change logic, but using it for the moment
+                        if (response.requester === userName) {
+                            props.setStatusDisplay(response.requested)
+                        } else if (response.requested === userName) {
+                            props.setStatusDisplay(response.requester)
+                        }
                     }
+                    
                     setLoading(false)
                 } catch(error) {
                     console.log(error)
