@@ -1,13 +1,20 @@
+'use client'
+
 import { useUserContext } from "@/app/context/UserContextProvider"
 import { token } from "@/lib/constants/getToken"
 import { URL } from "@/lib/globalConstants"
+import { useState } from "react"
 
 const UnfriendButton = (props:any) => {
+
+    const [loading, setLoading] = useState<boolean>(false)
 
     const friendName = props.friendName
     const {userName} = useUserContext()
 
     const handleRequest = async(string : string) => {
+
+        setLoading(true)
 
         const data = {
             requester: userName,
@@ -30,16 +37,16 @@ const UnfriendButton = (props:any) => {
 
         if (props.callComponent === "friendPage") {
             props.setStatusDisplay(response.requestStatus)
+            setLoading(false)
             return
         } else if (props.callComponent === "userPage") {
             try {
-                console.log(response.requester)
-                console.log(userName)
                 if (response.requester === userName) {
                     props.setStatusDisplay(response.requested)
                 } else if (response.requested === userName) {
                     props.setStatusDisplay(response.requester)
                 }
+                setLoading(false)
             } catch(error) {
                 console.log(error)
             }
@@ -53,10 +60,15 @@ const UnfriendButton = (props:any) => {
         
             <div className="flex gap-2 justify-around items-center">
                 <div className="bg-emerald-500 p-2 rounded-md shadow-md shadow-gray-800/40">Frens</div>
+                {loading ? 
+                <button className="p-1 rounded-md bg-gray-500 shadow-md hover:bg-red-600 duration-200">
+                    Loading
+                </button>
+                :
                 <button onClick={() => handleRequest("unfriend")} className="p-1 rounded-md bg-gray-500 shadow-md hover:bg-red-600 duration-200">
                     Unfren
                 </button>
-
+                }
             </div>
         </>
     )

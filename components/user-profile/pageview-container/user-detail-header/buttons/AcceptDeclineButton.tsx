@@ -1,14 +1,19 @@
+'use client'
 
 import { useUserContext } from "@/app/context/UserContextProvider"
 import { token } from "@/lib/constants/getToken"
 import { URL } from "@/lib/globalConstants"
+import { useState } from "react"
 
 const AcceptDeclineButton = (props: any) => {
+
+    const [loading, setLoading] = useState<boolean>(false)
 
     const friendName = props.friendName
     const {userName} = useUserContext()
 
     const handleRequest = async(string : string) => {
+        setLoading(true)
 
         const data = {
             requester: userName,
@@ -32,10 +37,12 @@ const AcceptDeclineButton = (props: any) => {
         if (response.response === "empty") {
             console.log("failed successfully")
             props.setStatusDisplay(friendName)
+            setLoading(false)
             return
         } else {
             if (props.callComponent === "friendPage") {
                 props.setStatusDisplay(response.requestStatus)
+                setLoading(false)
                 return
             } else if (props.callComponent === "userPage") {
                 try {
@@ -44,6 +51,7 @@ const AcceptDeclineButton = (props: any) => {
                     } else if (response.requested === userName) {
                         props.setStatusDisplay(response.requester)
                     }
+                    setLoading(false)
                 } catch(error) {
                     console.log(error)
                 }
@@ -58,7 +66,16 @@ const AcceptDeclineButton = (props: any) => {
         <div className="bg-gray-500 p-1 text-center rounded-md">
 
             <p>Turtle Request:</p>
-
+            {loading? 
+            <div className="flex gap-2 justify-around">
+                <button className="p-1 rounded-md bg-emerald-500 shadow-md hover:bg-emerald-600 duration-200">
+                    Loading
+                </button>
+                <button className="p-1 rounded-md bg-red-500 shadow-md hover:bg-red-600 duration-200">
+                    Loading
+                </button>
+            </div>
+            :
             <div className="flex gap-2 justify-around">
                 <button onClick={() => handleRequest("accept")} className="p-1 rounded-md bg-emerald-500 shadow-md hover:bg-emerald-600 duration-200">
                     Accept
@@ -67,7 +84,7 @@ const AcceptDeclineButton = (props: any) => {
                     Decline
                 </button>
             </div>
-
+            }
         </div>
     )
 }

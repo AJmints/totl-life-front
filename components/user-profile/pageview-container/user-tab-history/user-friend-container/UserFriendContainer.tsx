@@ -36,8 +36,6 @@ const UserFriendContainer = () => {
                 console.log(err.message)
             })
 
-            console.log(friendName)
-
             if (response.turtleRequest !== null) {
 
                 setUserTurtleRequestList(response.turtleRequest)

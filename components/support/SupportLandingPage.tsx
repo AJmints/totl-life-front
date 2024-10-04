@@ -53,6 +53,44 @@ const SupportLandingPageComponent = (props: any) => {
 
     }, [])
 
+    const handleSubmit = async(e: any) => {
+        e.preventDefault()
+    
+        const data = e.target.notes.value.replace(/[^a-z0-9 .]/gi, '').replace(/\s+/g, ' ')
+
+        const createMessage = await fetch("http://localhost:8082/producer/message", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await createMessage.json().catch((err) => {
+            console.log(err)
+        })
+        console.log(response)
+    
+    }
+
+    const addFriend = async() => {
+
+        const data = {
+        }
+
+        const createPack = await fetch( "http://localhost:8082/producer/location", {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data)
+        })
+        const response = await createPack.json().catch((err) => {
+            console.log(err)
+        })
+        console.log(response)
+        
+    }
+
     return (
 
         <div className="bg-gray-700/80 rounded-md m-3 sm:m-10 lg:flex">
@@ -71,6 +109,21 @@ const SupportLandingPageComponent = (props: any) => {
                 <div className="bg-gray-500 rounded-md p-2 hover:bg-yellow-500 duration-300 cursor-pointer" onClick={() => setReportType("general")}>
                     <p>Make A Report</p>
                 </div>
+                {/* <form onSubmit={handleSubmit}> // From testing Kafka setup, will be implementing in future version
+                    <div>
+                        <label className="text-gray-200 font-light" htmlFor='notes'>Additional Notes:</label>
+                        <textarea 
+                            className="rounded-md font-normal w-72"
+                            rows={2} 
+                            placeholder="Anything about this item you wish to note?"
+                            name='notes'
+                            minLength={3} maxLength={100}
+                        />
+                    </div>
+                    <button>Submit</button>
+                </form>
+
+                <button onClick={() => addFriend()}>Start random numbers</button> */}
 
             </div>
 

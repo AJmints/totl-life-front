@@ -3,16 +3,12 @@
 import { usePathname } from 'next/navigation'
 import { useUserContext } from '@/app/context/UserContextProvider'
 import { URL } from '@/lib/globalConstants'
-
-export const token = async() => {
-    const getToken: Response = await fetch("/api/headers")
-    const status = await getToken.json().catch((err) => {
-        console.log(err)
-    })
-    return status
-}
+import { token } from '@/lib/constants/getToken'
+import { useState } from 'react'
 
 const AddTurtleButton = (props: any) => {
+
+    const [loading, setLoading] = useState<boolean>(false)
 
     const pathname = usePathname()
 
@@ -21,6 +17,7 @@ const AddTurtleButton = (props: any) => {
     const friendName = pathname?.split("/user/").pop()
 
     const addFriend = async() => {
+        setLoading(true)
 
         const data = {
             requester: userName,
@@ -40,16 +37,21 @@ const AddTurtleButton = (props: any) => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        // console.log(response)
-        if (response.status === "added") {
+        if (response.requestStatus === "pending") {
             props.setStatusDisplay(data.status)
+            setLoading(false)
         }
         
     }
 
     return (
         <>
-            {userName !== friendName && <button onClick={() => addFriend()} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Add Turtle</button>}
+            {userName !== friendName && <>
+            {loading ? 
+            <button className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Loading</button>
+            :
+            <button onClick={() => addFriend()} className="bg-gray-600 p-2 rounded-md shadow-md shadow-gray-800/40">Add Turtle</button>}
+            </>}
         </>
     )
 }
