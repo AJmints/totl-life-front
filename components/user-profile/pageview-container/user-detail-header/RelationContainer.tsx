@@ -29,10 +29,10 @@ const RelationContainer = () => {
             const response = await create.json().catch((err) => {
                 console.log(err.message)
             })
-            if (response.status === "success") { // status = accept, denied, pending, cancel, unfriend  
+            if (response.status === "success") { // response === undefined || empty 
                 
                 if ( response.response === undefined ) {
-                    setStatusDisplay(response.requestStatus)
+                    setStatusDisplay(response.requestStatus) // requestStatus = accept, denied, pending, cancel, unfriend  
                     setRequester(response.requester)
                 } else if ( response.response === "empty"){
                     setStatusDisplay(response.response)

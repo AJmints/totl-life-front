@@ -35,7 +35,13 @@ const AcceptDeclineButton = (props: any) => {
         })
 
         if (response.response === "empty") {
-            console.log("failed successfully")
+            if (props.callComponent === "userPage") {
+                if (string === "accept"){
+                    props.setAcceptDecline("decline")
+                } else if (string === "decline"){
+                    props.setAcceptDecline("decline")
+                }
+            }
             props.setStatusDisplay(friendName)
             setLoading(false)
             return
@@ -58,8 +64,8 @@ const AcceptDeclineButton = (props: any) => {
                     } else if (response.requested === userName) {
                         props.setStatusDisplay(response.requester)
                     }
-                    
                     setLoading(false)
+                    return
                 } catch(error) {
                     console.log(error)
                 }
