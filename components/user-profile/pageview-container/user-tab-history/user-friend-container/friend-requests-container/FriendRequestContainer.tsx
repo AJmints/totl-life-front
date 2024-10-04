@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation"
 const FriendRequestContainer = (props: any) => {
 
     const [statusDisplay, setStatusDisplay] = useState<string>("")
+    const [accepDecline, setAcceptDecline] = useState<"accept" | "decline" | "">("")
 
     const router = useRouter()
 
@@ -17,7 +18,8 @@ const FriendRequestContainer = (props: any) => {
 
     useEffect(() => {
 
-        if (statusDisplay !== "") {
+        if (accepDecline === "accept") {
+            if (statusDisplay !== "") {
             const removeRequestFromList = userTurtleRequestList.filter(request => request.requester !== statusDisplay)
             const addFriend = userTurtleRequestList.filter(request => request.requester === statusDisplay)
             setUserTurtleRequestList(removeRequestFromList)
@@ -27,6 +29,11 @@ const FriendRequestContainer = (props: any) => {
             }
             setUserFriendList((prev: any) => [...prev, user])
         }
+        } else if (accepDecline === "decline") {
+            const removeRequestFromList = userTurtleRequestList.filter(request => request.requester !== statusDisplay)
+            setUserTurtleRequestList(removeRequestFromList)
+        }
+        
 
     }, [statusDisplay])
 
@@ -62,7 +69,7 @@ const FriendRequestContainer = (props: any) => {
                     </div>
                 </div>
                 <div className="text-gray-200">
-                    <AcceptDeclineButton friendName={item.requester} userName={userName} setStatusDisplay={setStatusDisplay} callComponent={"userPage"}/>
+                    <AcceptDeclineButton friendName={item.requester} userName={userName} setStatusDisplay={setStatusDisplay} callComponent={"userPage"} setAcceptDecline={setAcceptDecline}/>
                 </div>
             
             </div>

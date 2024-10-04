@@ -46,19 +46,17 @@ const AcceptDeclineButton = (props: any) => {
                 return
             } else if (props.callComponent === "userPage") {
                 try {
+                    // Change the request status to determine if user is being added or removed from friend list in FriendRequestContainter
                     if (response.requestStatus === "accept"){
-                        if (response.requester === userName) {
-                            props.setStatusDisplay(response.requested)
-                        } else if (response.requested === userName) {
-                            props.setStatusDisplay(response.requester)
-                        }
+                        props.setAcceptDecline(response.requestStatus)
                     } else if (response.requestStatus === "decline"){
-                        // Change logic, but using it for the moment
-                        if (response.requester === userName) {
-                            props.setStatusDisplay(response.requested)
-                        } else if (response.requested === userName) {
-                            props.setStatusDisplay(response.requester)
-                        }
+                        props.setAcceptDecline(response.requestStatus)
+                    }
+                    // When this changes, useEffect triggers and adds or removes friend from FriendRequestContainer request array
+                    if (response.requester === userName) {
+                        props.setStatusDisplay(response.requested)
+                    } else if (response.requested === userName) {
+                        props.setStatusDisplay(response.requester)
                     }
                     
                     setLoading(false)
