@@ -42,7 +42,7 @@ const TabOptionContainer = (props: any) => {
     return (
         <div className="">
             <div className="flex">
-            <div className="grid grid-cols-3 gap-2 md:flex text-sm mt-3 md:space-x-2 bg-gray-400 p-2 rounded-md rounded-b-none">
+            <div className="grid grid-cols-4 gap-2 md:flex text-sm mt-3 md:space-x-2 bg-gray-400 p-2 rounded-md rounded-b-none">
                 <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("backPack")}>BackPack</button>
                 <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("river")}>River</button>
                 <button className="bg-gray-500 p-1 rounded-md hover:bg-emerald-500 duration-300 shadow-md" onClick={() => handleTab("events")}>Events</button>
