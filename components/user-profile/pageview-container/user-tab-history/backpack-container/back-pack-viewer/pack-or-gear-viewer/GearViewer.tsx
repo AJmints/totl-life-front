@@ -1,10 +1,15 @@
 import GearItemCard from "../gear-item-card/GearItemCard"
 import { useUserContext } from "@/app/context/UserContextProvider"
+import { usePathname } from "next/navigation"
 
 
 const GearViewer = (props: any) => {
 
-    const { userGearList, packImages } = useUserContext()
+    const { userName ,userGearList, packImages } = useUserContext()
+
+    const pathname = usePathname()
+
+    const friendName = pathname?.split("/user/").pop()
 
     const gearListDisplay = userGearList.map((item:any) => {
 
@@ -43,8 +48,17 @@ const GearViewer = (props: any) => {
                         </div>
                         </div>
 
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 sm:gap-2">
-                            {gearListDisplay}
+                        <div className="bg-gray-400/50 rounded-md p-2 flex mt-2 ">
+                            { userGearList.length === 0 ? 
+                            <div className="mx-auto text-center py-10">
+                                {userName === friendName ? <p className=" text-4xl font-normal text-gray-200">Make your first item, select Update Pack!</p> : <p className=" text-4xl font-normal text-gray-200">{friendName} hasn't added any items to their pack yet.</p>}
+                            </div>
+
+                            :
+                            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1 sm:gap-2">
+                                {gearListDisplay}
+                            </div>
+                            }
                         </div>
                         
                     </div>

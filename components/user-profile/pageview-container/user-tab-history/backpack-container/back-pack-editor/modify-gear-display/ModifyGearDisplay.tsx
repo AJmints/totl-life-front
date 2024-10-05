@@ -34,11 +34,19 @@ const ModifyGearDisplay = () => {
 
 
     return (
-        <>
+        <div className="bg-slate-400/70 rounded-md">
+            {userGearList.length === 0 ?
+            <div className="flex justify-center text-center mt-5 py-5">
+                <p className=" text-4xl font-normal text-gray-200">Make your first item, select Add Gear</p>
+            </div>
+        
+            :   
             <div className="grid grid-cols-2 md:grid-cols-3 gap-1 sm:gap-2">
                 {gearListDisplay}
-            </div>
-        </>
+            </div>        
+        }
+            
+        </div>
     )
 }
 

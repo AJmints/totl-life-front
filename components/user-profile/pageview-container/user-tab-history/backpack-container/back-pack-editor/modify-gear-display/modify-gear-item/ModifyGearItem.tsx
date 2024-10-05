@@ -65,7 +65,7 @@ const ModifyGearItem = (props : any) => {
 
 
     return (
-        <div className="bg-slate-500 rounded-md p-2">
+        <div className="rounded-md p-2">
             
             <div>
                 <div className="flex justify-center mb-0.5">

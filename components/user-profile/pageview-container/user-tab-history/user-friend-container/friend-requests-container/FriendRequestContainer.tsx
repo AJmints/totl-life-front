@@ -41,7 +41,7 @@ const FriendRequestContainer = (props: any) => {
     const requestList = userTurtleRequestList.map((item: any) => {
 
         return (
-            <div key={item.requester} className="bg-gray-400 p-2 rounded-md xl:w-56 h-auto">
+            <div key={item.requester} className="bg-gray-300/60 p-2 rounded-md xl:w-56 h-auto">
                 <p className=" font-semibold text-xl">Name:</p>
                 <p className=" font-semibold text-xl cursor-pointer hover:text-emerald-300 duration-200" onClick={() => router.push("/user/" + item.requester)}>{item.requester}</p>
                 <div className="flex my-2 h-36 items-center justify-center">
@@ -87,9 +87,18 @@ const FriendRequestContainer = (props: any) => {
                 <p className="bg-gray-400 rounded-md p-2 mb-2">Search Container</p>
                 </div>
 
-                <div className="bg-gray-200 p-2 rounded-md grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-1 lg:gap-x-16 xl:gap-6 sm:gap-2">    
+                <div className=" mt-3 rounded-md py-10 bg-gray-400">
+                {userTurtleRequestList.length === 0 ?
+                <div className="flex justify-center text-center">
+                    <p className=" text-4xl font-normal text-gray-500">You have no friend request at this time</p>
+                </div>
+                :
+                <div className="p-2 rounded-md grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-1 lg:gap-x-16 xl:gap-6 sm:gap-2">    
                     {requestList}
                 </div>
+                }
+                </div>
+                
             </div>
         </>
     )

@@ -18,7 +18,7 @@ const GearItemCard = (props : any) => {
                 setSelected((prev:any) => !prev)
             }
         }} className={selected ? "p-1 bg-yellow-500 hover:bg-red-600 duration-300 rounded-md" : "p-1 hover:bg-emerald-500 duration-300 rounded-md"}>
-        <div className="bg-gray-400 rounded-md p-2 sm:w-[12rem]">
+        <div className="bg-gray-500/70 rounded-md p-2 sm:w-[12rem]">
 
             <div className={selected ? "sm:flex block justify-around text-center" : "flex justify-center"}>
                 { selected ? 

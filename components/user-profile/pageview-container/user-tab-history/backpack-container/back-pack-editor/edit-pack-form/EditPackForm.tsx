@@ -53,7 +53,7 @@ const EditPackForm = (props: any) => {
     })
 
     return (
-        <div className='bg-gray-600/90 p-2 rounded-md mt-2'> 
+        <div className='bg-gray-500/90 p-2 rounded-md mt-2'> 
 
         <div className="">
             <h1 className="text-gray-200 text-2xl mb-2 border-b-[1px]">Choose Pack to Edit:</h1>
