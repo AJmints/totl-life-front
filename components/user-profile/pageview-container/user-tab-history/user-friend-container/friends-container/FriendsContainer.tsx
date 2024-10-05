@@ -79,7 +79,7 @@ const FriendsContainer = (props: any) => {
                 <div className="bg-gray-500 rounded-md px-2 py-5">
                 {userFriendList.length === 0 ? 
                     <div className="mx-auto text-center py-10">
-                        {userName === friendName ? <p className=" text-4xl font-normal text-gray-200">Make your first item, select Update Pack!</p> : <p className=" text-4xl font-normal text-gray-200">{friendName} hasn&#39;t added any items to their pack yet.</p>}
+                        {userName === friendName ? <p className=" text-4xl font-normal text-gray-200">You dont&#39;t have any friends yet</p> : <p className=" text-4xl font-normal text-gray-200">{friendName} doesn&#39;t have any friends yet</p>}
                     </div>
                 :
                     <div className="flex flex-col items-center gap-2">
