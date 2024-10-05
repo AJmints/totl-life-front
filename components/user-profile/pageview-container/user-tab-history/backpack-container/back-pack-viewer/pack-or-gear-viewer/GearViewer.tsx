@@ -51,7 +51,7 @@ const GearViewer = (props: any) => {
                         <div className="bg-gray-400/50 rounded-md p-2 flex mt-2 ">
                             { userGearList.length === 0 ? 
                             <div className="mx-auto text-center py-10">
-                                {userName === friendName ? <p className=" text-4xl font-normal text-gray-200">Make your first item, select Update Pack!</p> : <p className=" text-4xl font-normal text-gray-200">{friendName} hasn't added any items to their pack yet.</p>}
+                                {userName === friendName ? <p className=" text-4xl font-normal text-gray-200">Make your first item, select Update Pack!</p> : <p className=" text-4xl font-normal text-gray-200">{friendName} hasn&#39;t added any items to their pack yet.</p>}
                             </div>
 
                             :
