@@ -10,6 +10,7 @@ import SavedPostContainer from "./river-contents-container/saved-post-container/
 import InfoEditorContainer from "../social-option-container/SocialOptionContainer"
 import RiverContentsContainer from "./river-contents-container/RiverContentsContainer"
 import UserFriendContainer from "./user-friend-container/UserFriendContainer"
+import EventsContainer from "./events-container/EventsContainer"
 
 const TabOptionContainer = (props: any) => {
 
@@ -59,6 +60,8 @@ const TabOptionContainer = (props: any) => {
                 { tab === "river" && <RiverContentsContainer />}
 
                 { tab === "friends" && <UserFriendContainer />}
+
+                { tab === "events" && <EventsContainer />}
                 
                 
             </div>
