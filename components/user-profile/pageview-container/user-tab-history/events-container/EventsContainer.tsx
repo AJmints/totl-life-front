@@ -10,7 +10,7 @@ const EventsContainer = () => {
         <div>
             <div className="p-2 bg-gray-400 rounded-md w-[30%] mb-2">
                 <p className=" font-medium text-4xl">Events Page</p>
-                <p>What needs to be stored at the top of the component tree and what needs it's own calls?</p>
+                <p>What needs to be stored at the top of the component tree and what needs its own calls?</p>
             </div>
             {/* What needs to be stored at the top of the component tree and what needs it's own calls? */}
             {/* What other components are gonna be needed? Events Create form, Events edit form, Events Invite, View Upcoming Events, View Past Events  */}
