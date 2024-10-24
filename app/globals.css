@@ -13,7 +13,26 @@
       -ms-overflow-style: none;  /* IE and Edge */
       scrollbar-width: none;  /* Firefox */
   }
+  /* width */
+  .scroll-w::-webkit-scrollbar {
+    width: 7px;
+  }
+  /* Track */
+  .scroll-track::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 5px;
+  }
+  /* Handle */
+  .scroll-handle::-webkit-scrollbar-thumb {
+    background: rgb(86, 232, 139);
+    box-shadow: inset 0 0 5px rgb(72, 156, 103);
+    border-radius: 5px;
+  }
 }
+
+
+
+
 
 .fade-in-section {
   opacity: 0;
