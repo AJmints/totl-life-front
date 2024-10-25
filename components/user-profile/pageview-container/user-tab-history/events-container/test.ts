@@ -31,7 +31,7 @@ export const checking = {
         recommendedGear: [],
         foodArrangements: [],
         userPacks: [userPack, userPack, userPack],
-        postComments: []
+        postComments: [comment, comment, comment]
     }
 
 }

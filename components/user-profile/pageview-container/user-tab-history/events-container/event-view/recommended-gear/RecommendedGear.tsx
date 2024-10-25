@@ -41,7 +41,7 @@ const RecommendedGearContainer = () => {
                 </div>
 
             </div>
-            <div className="h-[10%]">
+            <div className="h-[10%] flex items-center">
                 <button className="bg-gray-300 px-1 rounded-md">Add Gear</button>
             </div>
         </div>
