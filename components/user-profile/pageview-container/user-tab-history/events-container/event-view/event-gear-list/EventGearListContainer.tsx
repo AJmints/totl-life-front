@@ -12,13 +12,19 @@ const EventGearListContainer = () => {
 
     const pack = [1,2,3,4,5,6,7,8].map(item => {
         return (
-            <UserPackDetailsCard />
+            <div key={item}>
+                <UserPackDetailsCard />
+            </div>
+            
         )
     })
 
     const gear = [1,2,3,4,5,6,7,8].map(item => {
         return (
-            <GearTypeCard />
+            <div key={item}>
+                <GearTypeCard />
+            </div>
+            
         )
     })
 
