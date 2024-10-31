@@ -1,3 +1,4 @@
+import EventGearListContainer from "./event-gear-list/EventGearListContainer"
 import FoodArrangementsContainer from "./food-arrangements/FoodArrangementsContainer"
 import FriendListContainer from "./friend-list/FriendListContainer"
 import RecommendedGearContainer from "./recommended-gear/RecommendedGear"
@@ -67,81 +68,9 @@ const EventView = () => {
                         </div>
 
                         <div className=" bg-gray-300 space-y-2 lg:space-y-0 lg:flex lg:gap-2">
-                            <div className="p-2 bg-gray-200 rounded-md w-full">
-
-                                <div>
-                                    <h1 className="text-center font-medium text-lg">Event Gear List</h1>
-                                </div>
-
-                                <div className="bg-gray-300 rounded-md p-4">
-                                    Event Pack filter type dropdown / Quick Category Pick: Pack, Kitchen, Shelter, Sleep / List of usernames to view their pack contents
-                                </div>
-                                <div className="mt-2 p-1 bg-gray-300 rounded-md gap-2 grid grid-cols-1 lg:grid-cols-2">
-                                    
-                                    <div className="bg-gray-400 p-1 rounded-md">
-                                        <div className="bg-gray-300 rounded-md p-1 h-44 lg:h-full overflow-y-scroll scroll-track scroll-w scroll-handle">
-
-                                            <p>Sort by pack or sort by gear type</p>
-
-                                            <div className="bg-gray-400 p-1 rounded-md flex flex-col gap-2">
-                                                <div className="bg-gray-300 p-1 rounded-md flex justify-between">
-                                                    <div className="bg-gray-200 p-1 rounded-md w-[50%]">
-                                                        <p>User: Name</p>
-                                                        <p>Pack: Name</p>
-                                                    </div>
-                                                    <div className="bg-gray-200 p-1 rounded-md">
-                                                        <p>Pack Image</p>
-                                                    </div>
-                                                </div>
-
-                                                <div className="bg-gray-300 p-1 rounded-md">
-                                                    <p>Missing : 3 from rec list</p>
-                                                    <p>view contents</p>
-                                                </div>
-                                            </div>
-
-                                            <div className="bg-gray-400 p-1 rounded-md mt-5 gap-1 flex justify-around">
-                                                <div className="bg-gray-300 w-[30%] p-1 h-28 rounded-md">
-                                                    Gear Image
-                                                </div>
-
-                                                <div className="bg-gray-300 p-1 w-[70%] rounded-md flex gap-5 justify-between">
-                                                    <div className="w-[70%] bg-gray-200 p-2 rounded-md">
-                                                        <p className="h-[50%] xl:text-xl bg-gray-400 rounded-md p-2 text-gray-50">Gear Type</p>
-                                                        <p className="h-[50%] text-3xl mt-2">Tool</p>
-                                                    </div>
-                                                    <div className="flex flex-col w-[30%]">
-                                                        <div className="h-[50%]">
-                                                        </div>
-                                                        <div className="h-[50%] bg-gray-200 rounded-md">
-                                                            <p className="text-center mt-2 text-3xl">x12</p>
-                                                        </div>
-                                                    </div>
-                                                    
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="bg-gray-400 p-2 rounded-md space-y-2">
-                                        <div className="bg-gray-300 py-28 w-full rounded-md">
-                                            Detail Window:
-                                            <br/>
-                                            <p>Who is missing items from rec list? (Undecided still)</p>
-                                            <br/>
-                                            <p>details about selected item below</p>
-                                        </div>
-                                        <div className="bg-gray-300 p-2 py-28 w-full rounded-md">
-                                            <p>Can be a list of all that gear type</p>
-                                            <br/><br/>
-                                            <p>or :: (  based on selection from left panel  )</p>
-                                            <br/><br/>
-                                            <p>Can be a list of all pack contents</p>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
+                            
+                            <div>
+                                <EventGearListContainer />
                             </div>
 
                             <div className="bg-gray-200 rounded-md flex md:flex-row lg:flex-col flex-col w-full h-[100%] gap-1 lg:w-[30%] p-2">
