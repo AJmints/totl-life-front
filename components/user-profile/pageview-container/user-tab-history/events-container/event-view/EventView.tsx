@@ -69,11 +69,11 @@ const EventView = () => {
 
                         <div className=" bg-gray-300 space-y-2 lg:space-y-0 lg:flex lg:gap-2">
                             
-                            <div>
+                            <div className="lg:w-[75%] xl:w-[70%]">
                                 <EventGearListContainer />
                             </div>
 
-                            <div className="bg-gray-200 rounded-md flex md:flex-row lg:flex-col flex-col w-full h-[100%] gap-1 lg:w-[30%] p-2">
+                            <div className="bg-gray-200 rounded-md flex md:flex-row lg:flex-col flex-col w-full h-[100%] gap-1 lg:w-[25%] xl:w-[30%] p-2">
                                 
                                 <div className="rounded-md w-full md:w-[50%] lg:w-full h-[50%] flex flex-col">
                                     

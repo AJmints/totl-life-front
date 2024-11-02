@@ -11,7 +11,7 @@ const GearTypeCard = () => {
 
                 <div className="bg-gray-300 p-1 w-[70%] rounded-md flex gap-5 justify-between">
                     <div className="w-[70%] bg-gray-200 p-2 rounded-md">
-                        <p className="h-[50%] xl:text-xl bg-gray-400 rounded-md p-2 text-gray-50">Gear Type</p>
+                        <p className="h-[50%] xl:text-lg bg-gray-400 rounded-md p-1 flex items-center text-center text-gray-50">Gear Type</p>
                         <p className="h-[50%] text-3xl mt-2">Tool</p>
                     </div>
                     <div className="flex flex-col w-[30%]">
