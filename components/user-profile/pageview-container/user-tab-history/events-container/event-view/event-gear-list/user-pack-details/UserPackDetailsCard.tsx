@@ -1,7 +1,10 @@
+'use client'
 
+import { useState } from "react"
 
 const UserPackDetailsCard = () => {
 
+    const [toggle, setToggle] = useState(false)
 
     return (
         <div className="bg-gray-400 p-1 rounded-md flex flex-col gap-2">
@@ -15,9 +18,14 @@ const UserPackDetailsCard = () => {
                 </div>
             </div>
 
-            <div className="bg-gray-300 p-1 rounded-md">
+            <div className="bg-gray-300 p-1 rounded-md flex justify-between">
                 <p>Missing : 3 from rec list</p>
-                <p>view contents</p>
+                <div>
+                    <button onClick={() => setToggle((prev: any) => !prev)} className="px-2 py-1 bg-gray-400 rounded-md">{!toggle ? "view" : "hide"}</button>
+                </div>
+            </div>
+            <div className={"bg-gray-300 p1 rounded-md flex flex-col" + (!toggle ? " hidden" : " ")}>
+                <p>List</p>
             </div>
         </div>
     )
