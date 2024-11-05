@@ -7,11 +7,14 @@ import { increment } from "@/lib/helpers/users/events/eventHelpers"
 const EventGearListContainer = () => {
 
     const [toggle, setToggle] = useState<boolean>(false)
+    const [itemDetail, setItemDetail] = useState<any>()
 
     const pack = [1,2,3,4,5,6,7,8].map(item => {
         return (
             <div key={item}>
-                <UserPackDetailsCard />
+                <UserPackDetailsCard 
+                setItemDetail={setItemDetail}
+                />
             </div>
             
         )
@@ -20,7 +23,9 @@ const EventGearListContainer = () => {
     const gear = [1,2,3,4,5,6,7,8].map(item => {
         return (
             <div key={item}>
-                <GearTypeCard />
+                <GearTypeCard 
+                setItemDetail={setItemDetail}
+                />
             </div>
             
         )
@@ -67,7 +72,7 @@ const EventGearListContainer = () => {
                 </div>
 
                 <div className="bg-gray-400 p-1 h-[35rem] lg:h-[49rem] rounded-md">
-                    <div className="h-[17%]">
+                    <div className="h-[17%] lg:h-[13%]">
                         <div className="bg-gray-400 p-1 rounded-md flex flex-col gap-2">
                             <div className="text-center bg-gray-300 p-2 rounded-md text-xl font-medium">
                                 <p>Viewing {toggle ? "Pack" : "Gear"}</p>
@@ -78,7 +83,7 @@ const EventGearListContainer = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="bg-gray-300 rounded-md p-2 h-[83%] gap-2 flex flex-col overflow-y-scroll scroll-track scroll-w scroll-handle">
+                    <div className="bg-gray-300 rounded-md p-2 h-[83%] lg:h-[87%] gap-2 flex flex-col overflow-y-scroll scroll-track scroll-w scroll-handle">
 
                         {
                             toggle ? 
