@@ -2,7 +2,6 @@ import EventGearListContainer from "./event-gear-list/EventGearListContainer"
 import FoodArrangementsContainer from "./food-arrangements/FoodArrangementsContainer"
 import FriendListContainer from "./friend-list/FriendListContainer"
 import RecommendedGearContainer from "./recommended-gear/RecommendedGear"
-import RecommendedGear from "./recommended-gear/RecommendedGear"
 
 const EventView = () => {
 

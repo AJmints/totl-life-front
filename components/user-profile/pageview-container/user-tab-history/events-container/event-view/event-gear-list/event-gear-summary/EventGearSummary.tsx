@@ -74,7 +74,7 @@ const EventGearSummary = () => {
                     <p className="text-red-600">x10</p>
                 </div>
             </div>
-            <div className={"p-2 bg-gray-400 rounded-md" + (hideUsers ? " hidden" : "")}>
+            <div className={"p-2 bg-gray-400 rounded-md" + (!hideUsers ? " hidden" : "")}>
                 <FriendListContainer 
                     source={"gearSummary"}
                     setToggle={setToggle}
@@ -83,9 +83,9 @@ const EventGearSummary = () => {
             </div>
             <div className="flex items-center justify-around bg-gray-500 p-1 rounded-md">
                 <button className="bg-gray-400 p-0.5 rounded-md px-2" onClick={() => setQuickViewToggle((prev: boolean) => !prev)}>{quickViewToggle ? "View All Gear" : "View By Type"}</button>
-                <button className="bg-gray-400 p-0.5 rounded-md px-2" onClick={() => setHideUsers((prev: boolean) => !prev)}>{ !hideUsers ? "Hide Frens" : "Show Frens"}</button>
+                <button className="bg-gray-400 p-0.5 rounded-md px-2" onClick={() => setHideUsers((prev: boolean) => !prev)}>{ hideUsers ? "Hide Frens" : "Show Frens"}</button>
             </div>
-            <div className={"p-1 bg-gray-400 rounded-md h-[100%] flex flex-col overflow-y-scroll scroll-track scroll-w scroll-handle " + ( hideUsers ? "lg:h-72 " : "lg:h-48 ")}>
+            <div className={"p-1 bg-gray-400 rounded-md h-[100%] flex flex-col overflow-y-scroll scroll-track scroll-w scroll-handle " + ( !hideUsers ? "lg:h-72 " : "lg:h-48 ")}>
                 <div className="flex flex-col gap-1 ">
                     
                     { quickViewToggle ? 
