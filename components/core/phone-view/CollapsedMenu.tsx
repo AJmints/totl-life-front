@@ -15,7 +15,7 @@ const CollapsedMenu = (props: any) => {
         if(props.menuToggle) {
             props.setMenuToggle(false)
         }
-        swipeEvent(props)
+//        swipeEvent(props)
 
         return () => {
 
