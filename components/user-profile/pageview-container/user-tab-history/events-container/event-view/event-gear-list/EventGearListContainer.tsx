@@ -2,7 +2,6 @@ import { useState } from "react"
 import GearTypeCard from "./gear-type-card/GearTypeCard"
 import UserPackDetailsCard from "./user-pack-details/UserPackDetailsCard"
 import EventGearSummary from "./event-gear-summary/EventGearSummary"
-import { increment } from "@/lib/helpers/users/events/eventHelpers"
 
 const EventGearListContainer = () => {
 
