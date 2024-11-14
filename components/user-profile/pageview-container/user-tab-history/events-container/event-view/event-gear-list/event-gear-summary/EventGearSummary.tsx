@@ -2,7 +2,6 @@
 
 import { useState } from "react"
 import FriendListContainer from "../../friend-list/FriendListContainer"
-import { increment } from "@/lib/helpers/users/events/eventHelpers"
 
 
 const EventGearSummary = () => {
