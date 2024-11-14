@@ -1,5 +1,3 @@
-import { increment } from "@/lib/helpers/users/events/eventHelpers"
-
 
 const FriendListContainer = (props: any) => {
 
