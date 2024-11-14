@@ -92,6 +92,7 @@ const EventView = () => {
                 </div>
 
                 <div className="p-4 bg-gray-300 rounded-md mt-2">
+                    7. Event Description detail from user 1000 char limit
                     8. Coments
                 </div>
 

@@ -3,16 +3,9 @@
 import { useUserContext } from "@/app/context/UserContextProvider"
 import { useState } from "react"
 import GearItemCard from "../../back-pack-viewer/gear-item-card/GearItemCard"
+import { token } from "@/lib/constants/getToken"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
-
-export const token = async() => {
-    const getToken: Response = await fetch("/api/headers")
-    const status = await getToken.json().catch((err) => {
-        console.log(err)
-    })
-    return status
-}
 
 const CreatePackForm = (props: any) => {
 

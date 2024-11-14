@@ -3,20 +3,15 @@
 import { useState } from "react"
 import backpackImg from '../../../../../../../../public/icons/backpack.png'
 import daypackImg from '../../../../../../../../public/icons/daypack.png'
-import hydropackImg from '../../../../../../../../public/icons/hydrationpack.png'
+import hydropackImg from '@/public/icons/hydrationpack.png'
 import Image from "next/image"
 import backPackBrands from "../data/brands/backPackBrands"
 import { useUserContext } from "@/app/context/UserContextProvider"
+import { capacityOptions } from "@/lib/helpers/form-helpers/formFunctionHelpers"
+import { token } from "@/lib/constants/getToken"
 
 const URL: string | undefined = process.env.NEXT_PUBLIC_BACKEND_URL
 
-export const token = async() => {
-    const getToken: Response = await fetch("/api/headers")
-    const status = await getToken.json().catch((err) => {
-        console.log(err)
-    })
-    return status
-}
 
 const BackPackForm = () => {
 
@@ -31,6 +26,8 @@ const BackPackForm = () => {
         notes: ""
     })
     const [ quantity, setQuantity ] = useState<number>(1)
+    const [capacityNum, setCapacityNum] = useState({min:0, max:0})
+
     const { userID, setUserGearList } = useUserContext()
 
     const handleSubmit = async(e: any) => {
@@ -121,14 +118,17 @@ const BackPackForm = () => {
 
         if (pack === "back") {
             setBack(true)
+            setCapacityNum({min:30, max:80})
         }
         if (pack === "day") {
             setDay(true)
+            setCapacityNum({min:10, max:40})
         }
         if (pack === "hydro") {
             setHydro(true)
+            setCapacityNum({min:5, max:20})
         }
- 
+
     }
 
     const packBrandOptions = backPackBrands.map(option => {
@@ -137,20 +137,20 @@ const BackPackForm = () => {
         )
     })
 
-    const maxLiter = 80
-    const capacityOptions = () => {
-        let capacity = [];
-        for (let i = 10; i <= maxLiter; i++) {
-          capacity.push(<option key={i} value={i}>{i}</option>);
-        }
-        return capacity;
-    }
+    // const maxLiter = 80
+    // const capacityOptions = () => {
+    //     let capacity = [];
+    //     for (let i = 10; i <= maxLiter; i++) {
+    //         capacity.push(<option key={i} value={i}>{i}</option>);
+    //     }
+    //     return capacity;
+    // }
 
     const maxLbs = 10
     const lbsOptions = () => {
         let lbs = [];
         for (let i = 0; i <= maxLbs; i++) {
-          lbs.push(<option key={i} value={i}>{i}</option>);
+            lbs.push(<option key={i} value={i}>{i}</option>);
         }
         return lbs;
     }
@@ -159,7 +159,7 @@ const BackPackForm = () => {
     const ozOptions = () => {
         let oz = [];
         for (let i = 0; i <= maxOz; i++) {
-          oz.push(<option key={i} value={i}>{i}</option>);
+            oz.push(<option key={i} value={i}>{i}</option>);
         }
         return oz;
     }
@@ -260,7 +260,7 @@ const BackPackForm = () => {
                     <div className='text-gray-800 mt-1'>
                         <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' defaultValue={"null"} id="storage">
                             <option value="null" disabled>Liters</option>
-                            {capacityOptions()}
+                            {capacityOptions(capacityNum)}
                         </select>
                     </div>
                 </div>
