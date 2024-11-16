@@ -4,8 +4,6 @@ const FriendListContainer = (props: any) => {
     const source = props.source
     const total = props.gearTotal
 
-
-
     const t = (
         <div className={"flex flex-col gap-1 rounded-md p-1 " + ( source !== "gearSummary" ? " bg-gray-400 " : (true ? " border-emerald-500 border-2 bg-gray-500" : " border-red-800 border-2 bg-gray-500"))}>
             <div className="flex items-center">
