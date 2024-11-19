@@ -18,6 +18,7 @@ const CreateEventForm = () => {
         quickNotes: "",
         userDescritpion: ""
     })
+    const [ gearRecList, setGearRecList ] = useState([])
 
     useEffect(() => {
         const listCheck = async() => {
@@ -33,7 +34,6 @@ const CreateEventForm = () => {
             })
             console.log(response)
         }
-
         // listCheck()
         
     }, [])
@@ -46,20 +46,18 @@ const CreateEventForm = () => {
             <div className="p-2 rounded-md flex bg-gray-200">
                 <h1 className="font-light text-3xl">Create a new event</h1>
             </div>
-
-            { formNav === 1 && <EventDetailsForm setEventDetails={setEventDetails}/>}
-            { formNav === 2 && <EventGearRec />}
-
             <div className="bg-gray-400 rounded-md p-2 flex justify-around">
                 {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
                 {formNav !== 4 && <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button>}
             </div>
 
-            <p>Make Recommended Gear list?</p>
-            <p>A list with all gear images all selected</p>
-            <p>You can remove a highlighted item type</p>
-            <p>Finish when all items required are highlighted</p>
-            <br/><br/><br/>
+            { formNav === 1 && <EventDetailsForm setEventDetails={setEventDetails}/>}
+            { formNav === 2 && <EventGearRec gearRecList={gearRecList} setGearRecList={setGearRecList}/>}
+
+            <div className="bg-gray-400 rounded-md p-2 flex justify-around">
+                {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
+                {formNav !== 4 && <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button>}
+            </div>
 
             <p>Recommended Meals?</p>
             <br/><br/><br/>
