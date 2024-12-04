@@ -22,9 +22,9 @@ const CreateEventForm = () => {
         startTime: "",
         endDate: "",
         endTime: "",
-        parkState: "", // User input
+        parkState: "",
         campGround: {
-            address: "",
+            address: {},
             addressString: "",
             amenities: [],
             id: "",
@@ -33,7 +33,6 @@ const CreateEventForm = () => {
             name: "",
             url: ""
         }, // API only work s with NPS, looking for state park campground API
-        quickNotes: "",
         userDescription: ""
     })
     const [ gearRecList, setGearRecList ] = useState([]) /** <--  Set up in Data some premade list for quick creation **/
@@ -41,7 +40,6 @@ const CreateEventForm = () => {
     useEffect(() => {
 
         canAdvance()
-        // How to prevent a user from skipping eventDetails
         
     }, [eventDetails])
 
@@ -60,12 +58,22 @@ const CreateEventForm = () => {
     const canAdvance = () => {
         if (formNav === 1) {
             if (eventDetails.eventName !== "" && eventDetails.startDate !== "" && eventDetails.startTime !== "" && eventDetails.endDate !== "" && eventDetails.endTime !== "" && eventDetails.parkState !== "" && eventDetails.campGround.name !== "" && eventDetails.userDescription !== "") {
-                setFilledIn(prevTitleBody => {
-                    return {
-                        ...prevTitleBody,
-                        eventDetails: true
-                    }
-                })
+                if (eventDetails.campGround.address.manual === "manual" && eventDetails.campGround.address.name === "" && eventDetails.campGround.address.addressString === "") {
+                    setFilledIn(prevTitleBody => {
+                        return {
+                            ...prevTitleBody,
+                            eventDetails: false
+                        }
+                    })
+                } else {
+                    setFilledIn(prevTitleBody => {
+                        return {
+                            ...prevTitleBody,
+                            eventDetails: true
+                        }
+                    })
+                }
+                
             }
         }
     }
@@ -76,11 +84,11 @@ const CreateEventForm = () => {
             <p>Create a context and remember to declare it in layout.tsx</p>
 
             <div className="p-2 rounded-md flex bg-gray-200">
-                <h1 className="font-light text-3xl">Create a new event</h1>
+                <h1 onClick={() => console.log(eventDetails)} className="font-light text-3xl">Create a new event</h1>
             </div>
-            <div className="bg-gray-400 rounded-md p-2 flex justify-around">
+            <div className={ !filledIn.eventDetails ? "hidden" : "bg-gray-400 rounded-md p-2 flex justify-around"}>
                 {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
-                {formNav !== 5 && <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button>}
+                {formNav !== 5 && filledIn.eventDetails && <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button>}
             </div>
 
             { formNav === 1 && <EventDetailsForm eventDetails={eventDetails} setEventDetails={setEventDetails}/>}
@@ -89,11 +97,12 @@ const CreateEventForm = () => {
 
             <div className="bg-gray-400 rounded-md p-2 flex justify-around">
                 {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
-                {formNav !== 5 ? <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button> 
+                {formNav !== 5 && filledIn.eventDetails ? 
+                <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button> 
                 : // && filledIn.eventDetails
                 <div className="group">
                     <button className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button>
-                    <div className="right-[10%] sm:right-[30%] sm:left-[25%] fixed bottom-[10%] top-[60%] sm:top-[40%] md:right-[40%] md:left-[40%] hidden group-hover:flex flex-col gap-1 bg-gray-300 p-2 rounded-md shadow-md shadow-gray-800/40  overflow-y-scroll scroll-track scroll-w scroll-handle">
+                    <div className="right-[10%] sm:right-[30%] sm:left-[25%] fixed bottom-[10%] top-[60%] sm:top-[40%] md:right-[40%] md:left-[40%] hidden group-hover:flex flex-col gap-1 bg-gray-300 p-2 max-h-64 rounded-md shadow-md shadow-gray-800/40  overflow-y-scroll scroll-track scroll-w scroll-handle">
                         <p className="bg-red-400 p-1 rounded-md">The following are missing:</p>
                         {eventDetails.eventName.length < 3 && <p>Event Name</p>}
                         {eventDetails.startDate === "" && <p>Start Date</p>}
@@ -101,8 +110,17 @@ const CreateEventForm = () => {
                         {eventDetails.endDate === "" && <p>End Date</p>}
                         {eventDetails.endTime === "" && <p>End Time</p>}
                         {eventDetails.parkState === "" && <p>State</p>}
-                        {eventDetails.campGround.name === "" && <p>CampGround/Park Name</p>}
-                        {eventDetails.campGround.address === "" && <p>CampGround/Park Address</p>}
+                        {
+                            eventDetails.campGround.name === "manual" ?
+                            <>
+                            {eventDetails.manualParkName === "" ? <p>CampGround/Park Name</p> : <></>}
+                            </>
+                            :
+                            <>
+                            {eventDetails.campGround.name === "" ? <p>CampGround/Park Name</p> : <></>}
+                            </>
+                        }
+                        {eventDetails.campGround.addressString === "" && <p>CampGround/Park Address</p>}
                         {eventDetails.userDescription.length < 3 && <p>Event Details</p>}
                     </div>
                 </div>

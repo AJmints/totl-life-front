@@ -12,17 +12,32 @@ const EventDetailsForm = (props: any) => {
     const [noteCount, setNoteCount] = useState({
         eventName: "",
         userDescription: "",
-        address: "", 
+        addressNotFound: "", 
+        manualAddress: "",
+        manualParkName: ""
     })
     const [ parkList, setParkList] = useState<any>([])
     const [ manualAddress, setManualAddress] = useState<boolean>(false)
+    const [campGroundValue, setCampGroundValue] = useState<any>({
+        address: {},
+        addressString: "",
+        amenities: [],
+        id: "",
+        latitude: "",
+        longitude: "",
+        name: "",
+        url: ""
+    })
 
-    // useEffect(() => {
-    //     console.log(new Date().getFullYear())
-    // }, [])
+    useEffect(() => {
+        if (props.eventDetails.campGround.address.manual === "manual" && props.eventDetails.campGround.addressString !== "Park Address") {
+            setManualAddress(true)
+        } else {
+            setManualAddress(false)
+        }
+    }, [])
 
     const listCheck = async(state: string) => {
-        console.log(state)
         const getOtherUserDetails = await fetch("https://developer.nps.gov/api/v1/campgrounds?stateCode=" + state, { // https://www.nps.gov/subjects/developer/api-documentation.htm#/ 
             // 
             method: 'GET',
@@ -49,47 +64,60 @@ const EventDetailsForm = (props: any) => {
 
         if (name === "parkState") {
             listCheck(value)
-        } else if (name === "eventName" || name === "userDescription") {
+        } else if (name === "eventName" || name === "userDescription" || name === "manualAddress" || name === "manualParkName" || name === 'addressNotFound') {
             setNoteCount(prevTitleBody => {
                 return {
                     ...prevTitleBody,
                     [name]: value
                 }
             })
-        } else if (name === "campGround") {
+        }
+        
+        if (name === "campGround") {
 
-            if (value === "other") {
-                setManualAddress(true)
-                let campGroundValue = {
-                    address: {},
-                    addressString: value,
-                    amenities: {},
+            if (value === "manual") {
+                props.setEventDetails((prevDetails: any) => {
+                    return {
+                        ...prevDetails,
+                        campGround: {
+                        address: {manual: "manual"},
+                        addressString: "",
+                        amenities: [],
+                        id: "",
+                        latitude: "",
+                        longitude: "",
+                        name: "",
+                        url: ""
+                    }
+                    }
+                })
+                setCampGroundValue({
+                    address: {manual: "manual"},
+                    addressString: "",
+                    amenities: [],
                     id: "",
                     latitude: "",
                     longitude: "",
                     name: "",
                     url: ""
-                }
-    
-                props.setEventDetails((prevDetails: any) => {
-                    return {
-                        ...prevDetails,
-                        [name]: campGroundValue
-                    }
-                })
+                })        
+                setManualAddress(true)
                 return
+            } else {
+                setManualAddress(false)
             }
 
             const select = parkList.filter((park:any) => park.id === value).pop()
-            const address = select.addresses.filter((address: any) => "Physical" === address.type).pop()
+            let address = select.addresses.filter((address: any) => "Physical" === address.type).pop()
             let addressString = ""
             try {
                 addressString = address.line1 + ", " + address.city + ", " + address.stateCode + ", " + address.postalCode 
             } catch (e: any) {
-                addressString = "Try again later"
+                addressString = "Error: Please use Manual Entry"
+                address = {manual:"manualEntry"}
             }
 
-            let campGroundValue = {
+            let campGroundDetails = {
                 address: address,
                 addressString: addressString,
                 amenities: select.amenities,
@@ -100,10 +128,41 @@ const EventDetailsForm = (props: any) => {
                 url: select.url
             }
 
+            if (address.manual === "manualEntry") { // Clear address string = "" ; Empty for user input
+                campGroundDetails.addressString = ""
+                setCampGroundValue(campGroundDetails)
+            }
+
             props.setEventDetails((prevDetails: any) => {
                 return {
                     ...prevDetails,
-                    [name]: campGroundValue
+                    [name]: campGroundDetails
+                }
+            })
+            return
+        } 
+
+        if (name === "manualAddress") {
+            setCampGroundValue((prevDetails: any) => {
+                return {
+                    ...prevDetails,
+                    "addressString": value
+                }
+            })
+            return
+        } else if (name === 'manualParkName') {
+            setCampGroundValue((prevDetails: any) => {
+                return {
+                    ...prevDetails,
+                    "name": value
+                }
+            })
+            return
+        } else if (name === 'addressNotFound') {
+            setCampGroundValue((prevDetails: any) => {
+                return {
+                    ...prevDetails,
+                    "addressString": value
                 }
             })
             return
@@ -112,17 +171,6 @@ const EventDetailsForm = (props: any) => {
         props.setEventDetails((prevDetails: any) => {
             return {
                 ...prevDetails,
-                [name]: value
-            }
-        })
-    }
-
-    const handleCount = (event: any) => {
-        const {name, value} = event.target
-
-        setNoteCount(prevTitleBody => {
-            return {
-                ...prevTitleBody,
                 [name]: value
             }
         })
@@ -239,51 +287,112 @@ const EventDetailsForm = (props: any) => {
                     <h1 className="text-gray-100">Camp Ground / Park:</h1>
                     <select className='rounded-md shadow-md p-1 bg-gray-200' onChange={handleEventDetails} defaultValue={"null"} name="campGround">
                         <option disabled value={"null"}>{props.eventDetails.campGround.name !== "" ? props.eventDetails.campGround.name : "Park Name"}</option>
+                        <option value={"manual"}>Manual Entry</option>
                         {parkListOptions}
-                        <option value={"other"}>Other</option>
                     </select>
                 </div>}
                 {
                     manualAddress ? 
                     <div>
-                        <div className=' hover:bg-gray-600 duration-200 rounded-md flex flex-col'>
-                        <label className="text-gray-100" htmlFor='manualAddress'>Address:</label>
-                        <div className="flex gap-4">
-                            <input 
-                                className="rounded-md font-normal pl-2 w-80" 
-                                type='text' 
-                                autoComplete='off' 
-                                placeholder="Enter the Address"
-                                name='manualAddress' 
-                                defaultValue={props.eventDetails.campGround.addressString !== "" ? props.eventDetails.campGround.addressString : ""}
-                                onChange={handleEventDetails}
-                                onClick={() => console.log(props.eventDetails)}
-                                minLength={10} maxLength={100} 
-                            />
-                            <p className="text-gray-200">{noteCount.address.length}/100</p>
-                        </div>
+                        <div className=' hover:bg-gray-600 duration-200 rounded-md flex flex-col gap-2'>
+                            <div>
+                                <label className="text-gray-100" htmlFor='manualParkName'>Camp Ground / Park Name:</label>
+                                <div className="flex gap-4">
+                                    <input 
+                                        className="rounded-md font-normal pl-2 w-[22rem]" 
+                                        type='text' 
+                                        autoComplete='off' 
+                                        placeholder="Camp Ground or Park Name"
+                                        name='manualParkName' 
+                                        defaultValue={props.eventDetails.manualParkName !== "" ? props.eventDetails.manualParkName : ""}
+                                        onChange={handleEventDetails}
+                                        minLength={10} maxLength={100} 
+                                    />
+                                    <p className="text-gray-200">{noteCount.manualParkName.length}/100</p>
+                                </div>
+                            </div>
+                            <div>
+                                <label className="text-gray-100" htmlFor='manualAddress'>Address:</label>
+                                <div className="flex gap-4">
+                                    <input 
+                                        className="rounded-md font-normal pl-2 w-[22rem]" 
+                                        type='text' 
+                                        autoComplete='off' 
+                                        placeholder="Enter the Address"
+                                        name='manualAddress' 
+                                        defaultValue={props.eventDetails.campGround.addressString !== "" ? props.eventDetails.campGround.addressString : ""}
+                                        onChange={handleEventDetails}
+                                        minLength={10} maxLength={100} 
+                                    />
+                                    <p className="text-gray-200">{noteCount.manualAddress.length}/100</p>
+                                </div>
+                            </div>
+                            <div className="mt-1 flex gap-2">
+                                <button className="bg-emerald-400 p-1 rounded-md" onClick={() => props.setEventDetails((prevDetails: any) => {   
+                                    return {
+                                        ...prevDetails,
+                                        "campGround": campGroundValue
+                                    }
+                                })}>Apply Details</button>
+                                <p className={props.eventDetails.campGround.name.length > 4 && props.eventDetails.campGround.addressString.length > 10 ? "bg-emerald-400 p-1 rounded-md" : "hidden"}>Applied!</p> 
+                            </div>
                         </div>
                     </div>
                     :    
                     <div>
-                        {props.eventDetails.campGround.address !== "" &&
+                        {props.eventDetails.campGround.addressString !== "" && props.eventDetails.campGround.address.manual !== "manualEntry" ?
                         <div className=' hover:bg-gray-600 duration-200 rounded-md flex flex-col'>
-                        <label className="text-gray-100" htmlFor='address'>Address:</label>
-                        <div className="flex gap-4">
-                            <input 
-                                className="rounded-md font-normal pl-2 w-80" 
-                                type='text' 
-                                autoComplete='off' 
-                                placeholder="Name your event"
-                                name='address' 
-                                value={props.eventDetails.campGround.addressString !== "" ? props.eventDetails.campGround.addressString : ""}
-                                onChange={handleEventDetails}
-                                onClick={() => console.log(props.eventDetails)}
-                                minLength={10} maxLength={100} 
-                            />
-                            <p className="text-gray-200">{noteCount.address.length}/100</p>
+                            <label className="text-gray-100">Address:</label>
+                            <div className="flex gap-4">
+                                <input 
+                                    className="rounded-md font-normal pl-2 w-[22rem]" 
+                                    type='text' 
+                                    autoComplete='off' 
+                                    placeholder="Name your event"
+                                    value={props.eventDetails.campGround.addressString !== "" ? props.eventDetails.campGround.addressString : ""}
+                                    onChange={handleEventDetails}
+                                    minLength={10} maxLength={100} 
+                                />
+                            </div>
                         </div>
-                        </div>}
+                        :
+                        <>
+                        {props.eventDetails.campGround.address.manual === "manualEntry" &&
+                            <div className=' hover:bg-gray-600 duration-200 rounded-md flex flex-col'>
+                                <label className="text-gray-100">Manual Address:</label>
+                                <div className="flex gap-4">
+                                    <input 
+                                        className="rounded-md font-normal pl-2 w-[22rem]" 
+                                        type='text' 
+                                        autoComplete='off' 
+                                        name='addressNotFound'
+                                        placeholder={props.eventDetails.campGround.addressString !== "" ? props.eventDetails.campGround.addressString : "Address Not Found : Please Enter Address"}
+                                        onChange={handleEventDetails}
+                                        minLength={10} maxLength={100} 
+                                    />
+                                    <p className="text-gray-200">{noteCount.addressNotFound.length}/100</p>
+                                </div>
+                                <div className="mt-1 flex gap-2">
+                                    <button className="bg-emerald-400 p-1 rounded-md" onClick={() => props.setEventDetails((prevDetails: any) => {   
+                                        return {
+                                            ...prevDetails,
+                                            "campGround": campGroundValue
+                                        }
+                                    })}>Apply Address</button>    
+                                    <p className={props.eventDetails.campGround.name.length > 4 && props.eventDetails.campGround.addressString.length > 10 ? "bg-emerald-400 p-1 rounded-md" : "hidden"}>Applied!</p>  
+                                </div>
+                                <div className="flex">
+                                    <div className="bg-gray-500 mt-1 rounded-md py-1 px-2  text-gray-50">
+                                        <p className="">Current Details:</p>
+                                        <p>Park Name: {props.eventDetails.campGround.name}</p>
+                                        <p>Address: {props.eventDetails.campGround.addressString === "" ? "Please Enter Address" : props.eventDetails.campGround.addressString}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        </>
+                        
+                        }
                     </div>
                 }
             </div>
