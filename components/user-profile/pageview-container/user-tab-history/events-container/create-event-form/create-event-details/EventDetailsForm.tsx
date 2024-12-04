@@ -304,7 +304,7 @@ const EventDetailsForm = (props: any) => {
                                         autoComplete='off' 
                                         placeholder="Camp Ground or Park Name"
                                         name='manualParkName' 
-                                        defaultValue={props.eventDetails.manualParkName !== "" ? props.eventDetails.manualParkName : ""}
+                                        defaultValue={props.eventDetails.campGround.name !== "" ? props.eventDetails.campGround.name : ""}
                                         onChange={handleEventDetails}
                                         minLength={10} maxLength={100} 
                                     />

@@ -38,9 +38,7 @@ const CreateEventForm = () => {
     const [ gearRecList, setGearRecList ] = useState([]) /** <--  Set up in Data some premade list for quick creation **/
 
     useEffect(() => {
-
         canAdvance()
-        
     }, [eventDetails])
 
     /* Change images that use public to use upload thing, if file is larger than 4kbs, don't use public */
@@ -74,6 +72,13 @@ const CreateEventForm = () => {
                     })
                 }
                 
+            } else {
+                setFilledIn(prevTitleBody => {
+                    return {
+                        ...prevTitleBody,
+                        eventDetails: false
+                    }
+                })
             }
         }
     }
@@ -84,7 +89,7 @@ const CreateEventForm = () => {
             <p>Create a context and remember to declare it in layout.tsx</p>
 
             <div className="p-2 rounded-md flex bg-gray-200">
-                <h1 onClick={() => console.log(eventDetails)} className="font-light text-3xl">Create a new event</h1>
+                <h1 onClick={() => console.log(filledIn)} className="font-light text-3xl">Create a new event</h1>
             </div>
             <div className={ !filledIn.eventDetails ? "hidden" : "bg-gray-400 rounded-md p-2 flex justify-around"}>
                 {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
@@ -111,11 +116,7 @@ const CreateEventForm = () => {
                         {eventDetails.endTime === "" && <p>End Time</p>}
                         {eventDetails.parkState === "" && <p>State</p>}
                         {
-                            eventDetails.campGround.name === "manual" ?
-                            <>
-                            {eventDetails.manualParkName === "" ? <p>CampGround/Park Name</p> : <></>}
-                            </>
-                            :
+                            eventDetails.campGround.address.manual !== "manual" &&
                             <>
                             {eventDetails.campGround.name === "" ? <p>CampGround/Park Name</p> : <></>}
                             </>
