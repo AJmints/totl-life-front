@@ -22,7 +22,7 @@ const EventGearRec = (props: any) => {
     })
 
     const remove = (item: any) => {
-        props.setGearRecList((prevState: any) => [...prevState, ""])
+        // props.setGearRecList((prevState: any) => [...prevState, ""])
         props.setGearRecList(props.gearRecList.filter((removeTarget : any) => {
             return removeTarget !== item
         }))

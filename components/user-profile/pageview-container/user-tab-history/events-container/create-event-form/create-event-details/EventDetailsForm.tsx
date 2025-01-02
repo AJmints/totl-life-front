@@ -181,7 +181,7 @@ const EventDetailsForm = (props: any) => {
         <div className="p-1 w-full rounded-md flex flex-col gap-2 bg-gray-400">
 
             <div className=' p-2 hover:bg-gray-600 duration-200 rounded-md flex flex-col gap-4'>
-                <label className="text-gray-100 font-light text-xl" htmlFor='eventName'>Event Name:</label>
+                <label onClick={() => console.log(props.eventDetails)} className="text-gray-100 font-light text-xl" htmlFor='eventName'>Event Name:</label>
                 <div className="flex gap-4">
                     <input 
                         className="rounded-md font-normal pl-2 w-80" 
