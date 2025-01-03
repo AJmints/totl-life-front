@@ -160,7 +160,7 @@ const EventFoodRec = (props: any) => {
         <div className="bg-gray-400 p-2 rounded-md flex flex-col gap-2">
             <div className='bg-gray-300 p-2 rounded-md'>
                 <h1 className='text-2xl'>Food Recommendation List</h1>
-                <h1 className='text-sm'>How are meals handled for the following days? By the individual, or by someone in the group?</h1>
+                <h1 className='text-sm'>How are meals handled for the following days? By the individual, or is this a group meal?</h1>
             </div>
             <div className="bg-gray-300 p-2 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
                 {viewDays}

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import EventDetailsForm from "./create-event-details/EventDetailsForm"
 import EventGearRec from "./create-event-gear-rec/EventGearRec"
 import EventFoodRec from "./create-event-food-rec/EventFoodRec"
+import EventReview from "./create-event-review/EventReview"
 
 const NPS: string | undefined = process.env.NEXT_PUBLIC_NPS_API_KEY
 
@@ -14,7 +15,8 @@ const CreateEventForm = () => {
     const [filledIn, setFilledIn] = useState({
         eventDetails: false, // empty or full
         missingDetails: "",
-        gearRecList: false
+        gearRecList: false,
+        mealPlan: false
     })
     const [eventDetails, setEventDetails] = useState<any>({
         eventName: "",
@@ -75,7 +77,6 @@ const CreateEventForm = () => {
                 }
                 
             } else {
-                console.log("trigger?")
                 setFilledIn(prevTitleBody => {
                     return {
                         ...prevTitleBody,
@@ -84,7 +85,22 @@ const CreateEventForm = () => {
                 })
             }
         } else if (formNav === 2) {
-
+            if (eventDetails.gearRecList.length > 1) {
+                setFilledIn(prevTitleBody => {
+                    return {
+                        ...prevTitleBody,
+                        gearRecList: true
+                    }
+                })
+            } else if (eventDetails.gearRecList.length === 0) {
+                setFilledIn(prevTitleBody => {
+                    return {
+                        ...prevTitleBody,
+                        gearRecList: false
+                    }
+                })
+            }
+            
         }
     }
 
@@ -103,10 +119,11 @@ const CreateEventForm = () => {
             { formNav === 1 && <EventDetailsForm eventDetails={eventDetails} setEventDetails={setEventDetails}/>}
             { formNav === 2 && <EventGearRec gearRecList={gearRecList} setGearRecList={setGearRecList}/>}
             { formNav === 3 && <EventFoodRec eventDetails={eventDetails} mealPlan={mealPlan} setMealPlan={setMealPlan}/>}
+            { formNav === 4 && <EventReview eventDetails={eventDetails} gearRecList={gearRecList} mealPlan={mealPlan} />}
 
             <div className="bg-gray-400 rounded-md p-2 flex justify-around">
                 {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
-                {formNav !== 5 && filledIn.eventDetails ?  // Commented out while developing
+                {formNav !== 5 && (filledIn.eventDetails) ?
                 <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button> 
                 :
                 <div>
