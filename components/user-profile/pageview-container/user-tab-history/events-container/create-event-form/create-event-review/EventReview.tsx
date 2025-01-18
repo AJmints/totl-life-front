@@ -88,7 +88,7 @@ const EventReview = (props: any) => {
 
         const loop = userFriendList.map((item:any) => {
             return (
-            <div className={"flex flex-col gap-1 rounded-md p-1 " + ( item.userName !== "gearSummary" ? " bg-gray-400 " : (true ? " border-emerald-500 border-2 bg-gray-500" : " border-red-800 border-2 bg-gray-500"))}>
+            <div key={item.userName} className={"flex flex-col gap-1 rounded-md p-1 " + ( item.userName !== "gearSummary" ? " bg-gray-400 " : (true ? " border-emerald-500 border-2 bg-gray-500" : " border-red-800 border-2 bg-gray-500"))}>
             <div className="flex items-center">
                 <div className=" mx-auto text-center">
                 { item.pfp === null ?
