@@ -195,7 +195,7 @@ const EventReview = (props: any) => {
 
                     <div className="bg-gray-300 p-2 rounded-md">
                         <div>
-                            <p>If all looks good, select "Submit" to create your event</p>
+                            <p>If all looks good, select Submit to create your event</p>
                         </div>
                     </div>
                 </div>
