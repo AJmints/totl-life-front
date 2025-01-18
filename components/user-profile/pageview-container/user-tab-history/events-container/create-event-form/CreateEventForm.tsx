@@ -1,6 +1,9 @@
 'use client'
 
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
+import { token } from "@/lib/constants/getToken"
+import { useUserContext } from "@/app/context/UserContextProvider"
 import EventDetailsForm from "./create-event-details/EventDetailsForm"
 import EventGearRec from "./create-event-gear-rec/EventGearRec"
 import EventFoodRec from "./create-event-food-rec/EventFoodRec"
@@ -41,7 +44,26 @@ const CreateEventForm = () => {
     const [ gearRecList, setGearRecList ] = useState([]) /** <--  Set up in Data some premade list for quick creation **/
     const [ mealPlan, setMealPlan ] = useState([])
 
+    const pathname = usePathname()
+    const friendName = pathname?.split("/user/").pop()
+    const { setUserFriendList } = useUserContext()
+
     useEffect(() => {
+
+        const getFriendsLists = async(string: string) => {
+            const list = await fetch( URL + "/social/user-friend-list/" + friendName +"/" + string , {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "Bearer " + await token()
+                }
+            })
+            const response = await list.json().catch((err) => {
+                console.log(err.message)
+            })
+            setUserFriendList(response.friendList)
+        }
+
         canAdvance()
     }, [eventDetails])
 
@@ -123,11 +145,11 @@ const CreateEventForm = () => {
 
             <div className="bg-gray-400 rounded-md p-2 flex justify-around">
                 {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
-                {formNav !== 5 && (filledIn.eventDetails) ?
+                {formNav !== 5 ? //&& filledIn.eventDetails ?
                 <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button> 
                 :
                 <div>
-                    { formNav === 1 && <div className="group">
+                    <div className="group">
                         <button className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button>
                         <div className="right-[10%] sm:right-[30%] sm:left-[25%] fixed bottom-[10%] top-[60%] sm:top-[40%] md:right-[40%] md:left-[40%] hidden group-hover:flex flex-col gap-1 bg-gray-300 p-2 max-h-64 rounded-md shadow-md shadow-gray-800/40 overflow-y-scroll scroll-track scroll-w scroll-handle">
                             <p className="bg-red-400 p-1 rounded-md">The following are missing:</p>
@@ -147,11 +169,6 @@ const CreateEventForm = () => {
                             {eventDetails.userDescription.length < 3 && <p>Event Details</p>}
                         </div>
                     </div>
-                    }
-                    { formNav === 2 && <div>
-                        </div>}
-                    {}
-                    {}
                 </div>
                 }
             </div>
