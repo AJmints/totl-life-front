@@ -3,6 +3,7 @@
 import Image from "next/image"
 import userIcon from "@/public/icons/profile-pic.png"
 import { useUserContext } from "@/app/context/UserContextProvider" 
+import { useState } from "react"
 
 const EventReview = (props: any) => {
 
@@ -12,12 +13,15 @@ const EventReview = (props: any) => {
     const gearRecList = props.gearRecList
     const mealPlan = props.mealPlan
 
+    const [addedFriend, setAddedFriend] = useState<any[]>([])
+    const [searchToggle, setSearchToggle] = useState(true)
+
     const check = () => {
         let maybe = Date.parse(props.eventDetails.startDate)
         return new Date(maybe)
     }
 
-    const viewGear = props.gearRecList.map((item:any) => {
+    const viewGear = gearRecList.map((item:any) => {
             return (
                 <div key={item.id} className='bg-gray-400 rounded-md p-1 flex sm:flex-row flex-col justify-around gap-1 items-center'>
                     <div className=''>
@@ -43,7 +47,7 @@ const EventReview = (props: any) => {
                 </div>
             )
         })
-        const viewMeals = props.mealPlan.map((day:any) => { 
+        const viewMeals = mealPlan.map((day:any) => { 
             return (
                 <div key={day.ID} className="bg-gray-200 p-2 rounded-md"> 
                     <div className="bg-gray-300 p-1 rounded-md flex flex-col gap-1">
@@ -86,9 +90,9 @@ const EventReview = (props: any) => {
             )
         })
 
-        const loop = userFriendList.map((item:any) => {
+        const friends = userFriendList.map((item:any) => {
             return (
-            <div key={item.userName} className={"flex flex-col gap-1 rounded-md p-1 " + ( item.userName !== "gearSummary" ? " bg-gray-400 " : (true ? " border-emerald-500 border-2 bg-gray-500" : " border-red-800 border-2 bg-gray-500"))}>
+            <div key={item.userName} onClick={() => addFriend(item, "add")} className={"flex flex-col gap-1 cursor-pointer hover:bg-gray-400 duration-200 rounded-md p-1 " + ( !addedFriend.includes(item) ? " bg-gray-500 " : " border-emerald-500 border-2 bg-gray-500")}>
             <div className="flex items-center">
                 <div className=" mx-auto text-center">
                 { item.pfp === null ?
@@ -120,6 +124,53 @@ const EventReview = (props: any) => {
             </div>
         </div>)
         })
+
+        const addedToEvent = addedFriend.map((item:any) => {
+            return (
+            <div key={item.userName} onClick={() => addFriend(item, "remove")} className={"flex flex-col gap-1 hover:bg-emerald-500 cursor-pointer duration-200 rounded-md p-1 " + ( item.userName !== "gearSummary" ? " bg-emerald-500/60 " : (true ? " border-emerald-500 border-2 bg-gray-500" : " border-red-800 border-2 bg-gray-500"))}>
+            <div className="flex items-center">
+                <div className=" mx-auto text-center">
+                { item.pfp === null ?
+                        <div>
+                        <Image
+                            src={userIcon}
+                            alt=''
+                            width={90}
+                            height={90}
+                            className='w-20 rounded-full'
+                        /> 
+                        </div>
+
+                        :
+
+                        <Image
+                            src={'data:image/jpeg;base64,' + item.pfp.image}
+                            alt=""
+                            width={30}
+                            height={30}
+                            className="w-20 rounded-full"
+                            
+                        />
+                    }
+                </div>
+            </div>
+            <div className="bg-gray-300 w-32 p-1 rounded-md text-center">
+                <p>{item.userName}</p>
+            </div>
+        </div>)
+        })
+
+        const addFriend = (item: string, type: string) => {
+
+            if (type === "add" && !addedFriend.includes(item)) {
+                return setAddedFriend(prev => [...prev, item])
+            } else if (type === "remove") {
+                return setAddedFriend(addedFriend.filter((removeTarget: any) => {
+                    return removeTarget !== item
+                }))
+            }
+
+        }
 
     return (
         <div onClick={() => console.log(userFriendList)}>
@@ -161,7 +212,7 @@ const EventReview = (props: any) => {
                             <p>These are all items you are recommending participants to bring</p>
                             <div className='p-2 h-[30rem] bg-gray-500 rounded-md  overflow-y-scroll scroll-track scroll-w scroll-handle'>
                                 <div className='grid grid-cols-1 md:grid-cols-2 gap-2'>
-                                    {viewGear}
+                                    {viewGear.length > 0 ? viewGear : <div className="bg-gray-400 p-3 rounded-md mx-auto">You have no gear recommended.</div>}
                                 </div>
                             </div>
                         </div>
@@ -183,21 +234,56 @@ const EventReview = (props: any) => {
                             <p className="text-2xl">Friend List</p>
                             <p>Who would you like to invite to this event?</p>
                         </div>
-                        <div className="bg-gray-100 p-1 rounded-md">
-                            <div>
-                                <p>search</p>
+                        <div className="bg-gray-400 p-1 rounded-md">
+                            <div className="flex mb-2">
+                                <h1 className="bg-gray-200 px-2 py-1 text-lg rounded-md">Add Turtles From Your Friend List</h1>
                             </div>
-                            <div className="p-1 rounded-md text-xs mx-auto flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle">
-                                {loop}
+                            <div className="p-1 mx-2 rounded-md bg-gray-300 text-xs flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle">
+                                {friends}
+                            </div>
+                        </div>
+
+                        <div>
+                            <button className="bg-gray-400 p-1 rounded-md" onClick={() => setSearchToggle((prev) => !prev)}>{searchToggle ? "Search For Friends" : "Hide Search"}</button>
+                        </div>
+                        <div className={searchToggle ? "hidden" : ""}>
+                            <div className="bg-gray-200 p-1 flex flex-col gap-2 rounded-md mt-1">
+                                <div className="flex flex-row gap-2 bg-gray-400 p-2 rounded-md">
+                                    <p className="text-lg">Search: </p>
+                                    <input type="text" className="px-1 rounded-md" placeholder="Under Construction" />
+                                </div>
+
+                                <div className="grid grid-cols-5 p-2 rounded-md bg-gray-100">
+                                    <div className={"flex flex-col gap-1 w-40 rounded-md p-1 bg-gray-500"}>
+                                        <div className="flex items-center">
+                                            <div className=" mx-auto text-center">
+                                                <Image
+                                                    src={userIcon}
+                                                    alt=''
+                                                    width={90}
+                                                    height={90}
+                                                    className='w-20 rounded-full'
+                                                /> 
+                                            </div>
+                                        </div>
+                                        <div className="bg-gray-300 w-32 p-1 rounded-md mx-auto text-center">
+                                            <p>Your Search Results</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className="flex flex-col gap-2 bg-gray-400 p-1 rounded-md ">
+                            <div className="flex">
+                                <h1 className="bg-gray-200 px-2 py-1 text-lg rounded-md">Friends Added to Event</h1>
+                            </div>
+                            <div className="p-1 rounded-md bg-gray-300 text-xs flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle">
+                                {addedToEvent.length === 0 ? <div className="bg-gray-200 px-1 py-16 rounded-md">You haven't added any friends yet.</div> : addedToEvent }
                             </div>
                         </div>
                     </div>
 
-                    <div className="bg-gray-300 p-2 rounded-md">
-                        <div>
-                            <p>If all looks good, select Submit to create your event</p>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

@@ -8,6 +8,7 @@ import EventDetailsForm from "./create-event-details/EventDetailsForm"
 import EventGearRec from "./create-event-gear-rec/EventGearRec"
 import EventFoodRec from "./create-event-food-rec/EventFoodRec"
 import EventReview from "./create-event-review/EventReview"
+import {URL} from "@/lib/globalConstants"
 
 const NPS: string | undefined = process.env.NEXT_PUBLIC_NPS_API_KEY
 
@@ -46,7 +47,7 @@ const CreateEventForm = () => {
 
     const pathname = usePathname()
     const friendName = pathname?.split("/user/").pop()
-    const { setUserFriendList } = useUserContext()
+    const { userFriendList, setUserFriendList } = useUserContext()
 
     useEffect(() => {
 
@@ -63,7 +64,9 @@ const CreateEventForm = () => {
             })
             setUserFriendList(response.friendList)
         }
-
+        if (userFriendList.length === 0) {
+            getFriendsLists("1")
+        }
         canAdvance()
     }, [eventDetails])
 
@@ -135,7 +138,7 @@ const CreateEventForm = () => {
             </div>
             <div className={ !filledIn.eventDetails ? "hidden" : "bg-gray-400 rounded-md p-2 flex justify-around"}>
                 {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
-                {formNav !== 5 && filledIn.eventDetails && <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button>}
+                {formNav !== 4 && filledIn.eventDetails && <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button>}
             </div>
 
             { formNav === 1 && <EventDetailsForm eventDetails={eventDetails} setEventDetails={setEventDetails}/>}
@@ -145,7 +148,7 @@ const CreateEventForm = () => {
 
             <div className="bg-gray-400 rounded-md p-2 flex justify-around">
                 {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
-                {formNav !== 5 ? //&& filledIn.eventDetails ?
+                {formNav !== 4 ? //&& filledIn.eventDetails ?
                 <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button> 
                 :
                 <div>
