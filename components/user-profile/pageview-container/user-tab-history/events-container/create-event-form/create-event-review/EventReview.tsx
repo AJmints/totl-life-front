@@ -279,7 +279,7 @@ const EventReview = (props: any) => {
                                 <h1 className="bg-gray-200 px-2 py-1 text-lg rounded-md">Friends Added to Event</h1>
                             </div>
                             <div className="p-1 rounded-md bg-gray-300 text-xs flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle">
-                                {addedToEvent.length === 0 ? <div className="bg-gray-200 px-1 py-16 rounded-md">You haven't added any friends yet.</div> : addedToEvent }
+                                {addedToEvent.length === 0 ? <div className="bg-gray-200 px-1 py-16 rounded-md">You haven&#39;t added any friends yet.</div> : addedToEvent }
                             </div>
                         </div>
                     </div>
