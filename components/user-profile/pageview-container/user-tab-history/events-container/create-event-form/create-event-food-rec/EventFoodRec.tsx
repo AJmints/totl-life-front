@@ -31,7 +31,7 @@ const EventFoodRec = (props: any) => {
     }, [])
 
     const updateList = () => {
-        let totalDays = 5
+        let totalDays = 3
         let time = Number(testTime.substring(0,2))
         let arr = []
         for (let i = 1; i <= totalDays; i++) {

@@ -13,7 +13,7 @@ const EventReview = (props: any) => {
     const gearRecList = props.gearRecList
     const mealPlan = props.mealPlan
 
-    const [addedFriend, setAddedFriend] = useState<any[]>([])
+    const [friendsListToggle, setFriendsListToggle] = useState(false)
     const [searchToggle, setSearchToggle] = useState(true)
 
     const check = () => {
@@ -92,7 +92,7 @@ const EventReview = (props: any) => {
 
         const friends = userFriendList.map((item:any) => {
             return (
-            <div key={item.userName} onClick={() => addFriend(item, "add")} className={"flex flex-col gap-1 cursor-pointer hover:bg-gray-400 duration-200 rounded-md p-1 " + ( !addedFriend.includes(item) ? " bg-gray-500 " : " border-emerald-500 border-2 bg-gray-500")}>
+            <div key={item.userName} onClick={() => addFriend(item, "add")} className={"flex flex-col gap-1 cursor-pointer hover:bg-gray-400 duration-200 rounded-md p-1 " + ( !props.friends.includes(item) ? " bg-gray-500 " : " border-emerald-500 border-2 bg-gray-500")}>
             <div className="flex items-center">
                 <div className=" mx-auto text-center">
                 { item.pfp === null ?
@@ -125,7 +125,7 @@ const EventReview = (props: any) => {
         </div>)
         })
 
-        const addedToEvent = addedFriend.map((item:any) => {
+        const addedToEvent = props.friends.map((item:any) => {
             return (
             <div key={item.userName} onClick={() => addFriend(item, "remove")} className={"flex flex-col gap-1 hover:bg-emerald-500 cursor-pointer duration-200 rounded-md p-1 " + ( item.userName !== "gearSummary" ? " bg-emerald-500/60 " : (true ? " border-emerald-500 border-2 bg-gray-500" : " border-red-800 border-2 bg-gray-500"))}>
             <div className="flex items-center">
@@ -162,47 +162,59 @@ const EventReview = (props: any) => {
 
         const addFriend = (item: string, type: string) => {
 
-            if (type === "add" && !addedFriend.includes(item)) {
-                return setAddedFriend(prev => [...prev, item])
+            if (type === "add" && !props.friends.includes(item)) {
+                return props.setFriends((prev: any) => [...prev, item])
             } else if (type === "remove") {
-                return setAddedFriend(addedFriend.filter((removeTarget: any) => {
+                return props.setFriends(props.friends.filter((removeTarget: any) => {
                     return removeTarget !== item
                 }))
             }
 
         }
 
+        const voiceTest = () => {
+            const text = "That is some good looking sauce"
+
+            const utterance = new SpeechSynthesisUtterance(text)
+            utterance.pitch = 0.3
+
+            window.speechSynthesis.speak(utterance)
+        }
+
     return (
         <div onClick={() => console.log(userFriendList)}>
             <div className="bg-gray-600 rounded-md p-1">
-                <div className="bg-gray-400 rounded-md p-2 flex flex-col gap-1">
-                    <div className="bg-gray-300 rounded-md p-1 text-center">
-                        <h1 className="font-light text-xl">Your Event Details</h1>
-                        <p>Please check that all information entered is correct</p>
-                    </div>
+                <div className="bg-gray-400 rounded-md p-2 flex flex-col gap-4">
+                    
 
-                    <div className="bg-gray-300 rounded-md flex flex-col gap-1 p-1">
-                        <div className="flex-col md:flex-row gap-1 flex justify-around">
-                            <div className="bg-gray-200 rounded-md p-2">
-                                <h1>Event Name: {eventDetails.eventName}</h1>
-                                <p>Event is {eventDetails.isPrivate ? "Private" : "Public"}</p>
-                                <h1>Address: {eventDetails.campGround.addressString}</h1>
+                    <div className="bg-gray-500 rounded-md flex flex-col gap-1 px-2 py-10 sm:p-10">
+                        <div className="bg-gray-300 rounded-md p-1 flex flex-col gap-2 ">
+                            <div className="bg-gray-400 rounded-md p-1 text-center">
+                                <h1 className="font-light text-gray-100 text-4xl">Event Detail Review</h1>
+                                <p>Please check that all information entered is correct</p>
                             </div>
 
-                            <div className="bg-gray-200 rounded-md p-2">
-                                <h1>Park Name: {eventDetails.campGround.name}</h1>
-                                <p>Event Starts: {eventDetails.startDate}</p>
-                                <p>Event End: {eventDetails.endDate}</p>
+                            <div className="flex-col md:flex-row gap-1 flex justify-around">
+                                <div className="bg-gray-100 rounded-md p-2">
+                                    <h1>Event Name: {eventDetails.eventName}</h1>
+                                    <p>Event is {eventDetails.isPrivate ? "Private" : "Public"}</p>
+                                    <h1>Address: {eventDetails.campGround.addressString}</h1>
+                                </div>
+
+                                <div className="bg-gray-100 rounded-md p-2">
+                                    <h1>Park Name: {eventDetails.campGround.name}</h1>
+                                    <p>Event Starts: {eventDetails.startDate}</p>
+                                    <p>Event End: {eventDetails.endDate}</p>
+                                </div>
+                            </div>
+
+                            <div className="flex justify-center">
+                                <div className=" rounded-md bg-gray-100 p-2">
+                                    <p>Event Detail Notes:</p>
+                                    <p> {eventDetails.userDescription}</p>
+                                </div>
                             </div>
                         </div>
-
-                        <div className="flex justify-center">
-                            <div className=" rounded-md bg-gray-100 p-2">
-                                <p>Event Detail Notes:</p>
-                                <p> {eventDetails.userDescription}</p>
-                            </div>
-                        </div>
-
                     </div>
 
                     <div className="bg-gray-300 p-2 gap-2 rounded-md flex-col w-[100%] lg:flex-row flex justify-around">
@@ -229,31 +241,38 @@ const EventReview = (props: any) => {
                         
                     </div>
 
-                    <div className="bg-gray-300 p-2 rounded-md flex flex-col gap-1">
+                    <div className="bg-gray-300 p-2 rounded-md flex flex-col gap-4">
                         <div className="bg-gray-100 p-1 rounded-md">
-                            <p className="text-2xl">Friend List</p>
+                            <p className="text-2xl">Invite Friends</p>
                             <p>Who would you like to invite to this event?</p>
                         </div>
                         <div className="bg-gray-400 p-1 rounded-md">
-                            <div className="flex mb-2">
+                            <div className="flex items-center flex-row gap-2 mb-2">
                                 <h1 className="bg-gray-200 px-2 py-1 text-lg rounded-md">Add Turtles From Your Friend List</h1>
+                                <div>
+                                <button className="hover:bg-yellow-500 bg-cyan-900/70 duration-200 p-1 rounded-md" onClick={() => setFriendsListToggle((prev) => !prev)}>{friendsListToggle ? "Select From Your Friends List" : "Hide Friends"}</button>
                             </div>
-                            <div className="p-1 mx-2 rounded-md bg-gray-300 text-xs flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle">
+                            </div>
+                            
+                            <div className={"p-1 mx-2 rounded-md bg-gray-300 text-xs flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle " + (friendsListToggle ? "hidden" : "")}>
                                 {friends}
                             </div>
                         </div>
 
+                        
                         <div>
-                            <button className="bg-gray-400 p-1 rounded-md" onClick={() => setSearchToggle((prev) => !prev)}>{searchToggle ? "Search For Friends" : "Hide Search"}</button>
-                        </div>
-                        <div className={searchToggle ? "hidden" : ""}>
-                            <div className="bg-gray-200 p-1 flex flex-col gap-2 rounded-md mt-1">
-                                <div className="flex flex-row gap-2 bg-gray-400 p-2 rounded-md">
+                            <div className="bg-gray-200 p-1 flex flex-col gap-2 rounded-md">
+                                <div className="flex flex-col md:flex-row gap-2 bg-gray-400 p-2 rounded-md">
                                     <p className="text-lg">Search: </p>
                                     <input type="text" className="px-1 rounded-md" placeholder="Under Construction" />
+                                    <div className="flex flex-row gap-2 items-center">
+                                        <button className="bg-gray-500 p-1 rounded-md" onClick={() => setSearchToggle((prev) => !prev)}>Search</button>
+
+                                        <button className="bg-gray-500 p-1 rounded-md" onClick={() => setSearchToggle((prev) => !prev)}>{searchToggle ? "View Results" : "Hide Search"}</button>
+                                    </div>
                                 </div>
 
-                                <div className="grid grid-cols-5 p-2 rounded-md bg-gray-100">
+                                <div className={"grid grid-cols-5 p-2 rounded-md bg-gray-100 " + (searchToggle ? "hidden" : "")}>
                                     <div className={"flex flex-col gap-1 w-40 rounded-md p-1 bg-gray-500"}>
                                         <div className="flex items-center">
                                             <div className=" mx-auto text-center">
@@ -278,6 +297,7 @@ const EventReview = (props: any) => {
                             <div className="flex">
                                 <h1 className="bg-gray-200 px-2 py-1 text-lg rounded-md">Friends Added to Event</h1>
                             </div>
+                            {/* <button onClick={() => voiceTest()}>Voice?</button> */}
                             <div className="p-1 rounded-md bg-gray-300 text-xs flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle">
                                 {addedToEvent.length === 0 ? <div className="bg-gray-200 px-1 py-16 rounded-md">You haven&#39;t added any friends yet.</div> : addedToEvent }
                             </div>
