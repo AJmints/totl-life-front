@@ -84,19 +84,19 @@ const CreateEventForm = () => {
             friends
         }
         
-        const createPack = await fetch(URL + "/campevent/createEvent", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "Bearer " + await token()
-            },
-            body: JSON.stringify(eventForm)
-        })
-        const response = await createPack.json().catch((err) => {
-            console.log(err)
-        })
-        console.log("Submit data, all data and checks look to be good.")
-        console.log(response)
+        // const createPack = await fetch(URL + "/campevent/createEvent", {
+        //     method: 'POST',
+        //     headers: {
+        //         "Content-Type": "application/json",
+        //         "auth-token": "Bearer " + await token()
+        //     },
+        //     body: JSON.stringify(eventForm)
+        // })
+        // const response = await createPack.json().catch((err) => {
+        //     console.log(err)
+        // })
+        // console.log("Submit data, all data and checks look to be good.")
+        console.log(eventForm)
     }
 
     /* Change images that use public to use upload thing, if file is larger than 4kbs, don't use public */
