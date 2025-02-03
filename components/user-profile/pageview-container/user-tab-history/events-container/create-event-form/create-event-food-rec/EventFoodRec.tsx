@@ -4,53 +4,37 @@ import { useEffect, useState } from "react"
 
 const EventFoodRec = (props: any) => {
 
-    const startTime = {
-        date: props.eventDetails.startDate,
-        time: props.eventDetails.startTime
-    }
-    const endTime = {
-        date: props.eventDetails.endDate,
-        time: props.eventDetails.endTime
-    }
-    const testTime = '12:12'
-
-
-    const [note, setNote] = useState<any>({
-        ID: 0,
-        bfast: "",
-        lunch: "",
-        dinner: "",
-        snacks: "",
-        notes: ""
-    })
+    let difference = props.eventDetails.eventEnd.getTime() - props.eventDetails.eventStart.getTime()
+    let totalDays = Math.round(difference / (1000 * 3600 * 24))
 
     useEffect(() => {
-        if (props.mealPlan.length === 0) {
-            updateList()
-        }
+        updateList()
     }, [])
 
     const updateList = () => {
-        let totalDays = 3
-        let time = Number(testTime.substring(0,2))
+        let difference = props.eventDetails.eventEnd.getTime() - props.eventDetails.eventStart.getTime()
+        let totalDays = Math.round(difference / (1000 * 3600 * 24))
+        let timeStart = Number(props.eventDetails.startTime.substring(0,2))
+        let timeEnd = Number(props.eventDetails.endTime.substring(0,2))
+
         let arr = []
         for (let i = 1; i <= totalDays; i++) {
             let day = {}
             if (i === 1) {
                 day = {
                     ID: i,
-                    bfast: (time < 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
-                    lunch: (time < 14 ? "person" : "empty"),
-                    dinner: (time < 20 ? "person" : "empty"),
+                    bfast: (timeStart < 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
+                    lunch: (timeStart < 14 ? "person" : "empty"),
+                    dinner: (timeStart < 20 ? "person" : "empty"),
                     snacks: "person",
                     notes: ""
                 }
             } else if (i === totalDays) {
                 day = {
                     ID: i,
-                    bfast: (time > 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
-                    lunch: (time > 14 ? "person" : "empty"),
-                    dinner: (time > 20 ? "person" : "empty"),
+                    bfast: (timeEnd > 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
+                    lunch: (timeEnd > 14 ? "person" : "empty"),
+                    dinner: (timeEnd > 20 ? "person" : "empty"),
                     snacks: "person",
                     notes: ""
                 }
@@ -142,8 +126,6 @@ const EventFoodRec = (props: any) => {
 
     const handleNote = (event: any, day: any) => {
         event.preventDefault()
-        console.log(event.target.value)
-        console.log(day)
         let arr = props.mealPlan
         let update = props.mealPlan.filter((updateTarget: any) => {
             return updateTarget.ID === day.ID
@@ -162,11 +144,19 @@ const EventFoodRec = (props: any) => {
                 <h1 className='text-2xl'>Food Recommendation List</h1>
                 <h1 className='text-sm'>How are meals handled for the following days? By the individual, or is this a group meal?</h1>
             </div>
+            <div className="flex justify-center">
+                <div className="bg-gray-300 p-2 rounded-md flex flex-col justify-center">
+                    <p className="text-center font-bold">Event from:</p>
+                    <p>Start: {props.eventDetails.eventStart.toDateString()} - End: {props.eventDetails.eventEnd.toDateString()}</p>
+                    <p className="text-center">For: {totalDays} days</p>
+                </div>
+
+            </div>
             <div className="bg-gray-300 p-2 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2">
                 {viewDays}
             </div>
             <div className="bg-gray-300 p-2 rounded-md">
-                <p onClick={() => console.log(props.mealPlan)}>When your meal schedule looks correct, select next.</p>
+                <p>When your meal schedule looks correct, select next.</p>
             </div>
         </div>
         </>

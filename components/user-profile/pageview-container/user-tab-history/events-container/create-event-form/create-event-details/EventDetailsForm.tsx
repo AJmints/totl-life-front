@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { stateCodeList } from "@/lib/helpers/form-helpers/formFunctionHelpers"
+import { moList } from "@/lib/data/user-event-form/eventFormMOList"
 
 const NPS: string | undefined = process.env.NEXT_PUBLIC_NPS_API_KEY
 
@@ -38,22 +39,24 @@ const EventDetailsForm = (props: any) => {
     }, [])
 
     const listCheck = async(state: string) => {
-        const getOtherUserDetails = await fetch("https://developer.nps.gov/api/v1/campgrounds?stateCode=" + state, { // https://www.nps.gov/subjects/developer/api-documentation.htm#/ 
-            // 
-            method: 'GET',
-            headers: {
-                "X-Api-Key": NPS!
-            }
-        })
-        const response = await getOtherUserDetails.json().catch((err) => {
-            console.log(err)
-        })
-        if (response.data.length > 0) {
-            setParkList(response.data)
-        }
+        // const getOtherUserDetails = await fetch("https://developer.nps.gov/api/v1/campgrounds?stateCode=" + state, { // https://www.nps.gov/subjects/developer/api-documentation.htm#/ 
+        //     // 
+        //     method: 'GET',
+        //     headers: {
+        //         "X-Api-Key": NPS!
+        //     }
+        // })
+        // const response = await getOtherUserDetails.json().catch((err) => {
+        //     console.log(err)
+        // })
+        // if (response.data.length > 0) {
+        //     setParkList(response.data)
+        //     console.log(response.data)
+        // }
+        setParkList(moList)
     }
 
-    const parkListOptions = parkList.map((option:any) => {
+    const parkListOptions = moList.map((option:any) => {
         return (
             <option key={option.id} value={option.id}>{option.name}</option>
         )
@@ -181,7 +184,7 @@ const EventDetailsForm = (props: any) => {
         <div className="p-1 w-full rounded-md flex flex-col gap-2 bg-gray-400">
 
             <div className=' p-2 hover:bg-gray-600 duration-200 rounded-md flex flex-col gap-4'>
-                <label onClick={() => console.log(props.eventDetails)} className="text-gray-100 font-light text-xl" htmlFor='eventName'>Event Name:</label>
+                <label className="text-gray-100 font-light text-xl" htmlFor='eventName'>Event Name:</label>
                 <div className="flex gap-4">
                     <input 
                         className="rounded-md font-normal pl-2 w-80" 

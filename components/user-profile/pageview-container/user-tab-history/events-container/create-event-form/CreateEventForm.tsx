@@ -9,6 +9,7 @@ import EventGearRec from "./create-event-gear-rec/EventGearRec"
 import EventFoodRec from "./create-event-food-rec/EventFoodRec"
 import EventReview from "./create-event-review/EventReview"
 import {URL} from "@/lib/globalConstants"
+import { moList } from "@/lib/data/user-event-form/eventFormMOList"
 
 const NPS: string | undefined = process.env.NEXT_PUBLIC_NPS_API_KEY
 
@@ -27,8 +28,10 @@ const CreateEventForm = () => {
         isPrivate: "false",
         startDate: "",
         startTime: "",
+        eventStart: undefined,
         endDate: "",
         endTime: "",
+        eventEnd: undefined,
         parkState: "",
         campGround: {
             address: {},
@@ -46,6 +49,7 @@ const CreateEventForm = () => {
     const [ mealPlan, setMealPlan ] = useState([])
     const [ friends, setFriends] = useState([]) 
     const [ submit, setSubmit ] = useState<boolean>(false)
+    const [ validTime, setValidTime ] = useState<boolean>(false)
 
     const pathname = usePathname()
     const friendName = pathname?.split("/user/").pop()
@@ -91,7 +95,7 @@ const CreateEventForm = () => {
         const response = await createPack.json().catch((err) => {
             console.log(err)
         })
-        console.log("It's this one amazing.")
+        console.log("Submit data, all data and checks look to be good.")
         console.log(response)
     }
 
@@ -108,8 +112,45 @@ const CreateEventForm = () => {
     /* In user profile, Make river tab a feed relevant to the user. Then when someone clicks on a bale post, it sends user to URL and to River route */
 
     const canAdvance = () => {
+
+        if (eventDetails.startDate !== "" && eventDetails.startTime !== "" && eventDetails.endDate !== "" && eventDetails.endTime !== "") {
+
+            let start = new Date(eventDetails.startDate + "T" + eventDetails.startTime)
+            let end = new Date(eventDetails.endDate + "T" + eventDetails.endTime)
+
+            if (eventDetails.eventStart === undefined && eventDetails.eventEnd === undefined) {
+                setEventDetails((prevDetails: any) => {
+                    return {
+                        ...prevDetails,
+                        eventStart: start,
+                        eventEnd: end
+                    }
+                })
+            } else if (start.toString() !== eventDetails.eventStart.toString()) {
+                setEventDetails((prevDetails: any) => {
+                    return {
+                        ...prevDetails,
+                        eventStart: start
+                    }
+                })
+            } else if (end.toString() !== eventDetails.eventEnd.toString()) {
+                setEventDetails((prevDetails: any) => {
+                    return {
+                        ...prevDetails,
+                        eventEnd: end
+                    }
+                })
+            }
+            
+            if (end > start) {
+                setValidTime(true)
+            } else {
+                setValidTime(false)
+            }
+        }
+
         if (formNav === 1) {
-            if (eventDetails.eventName !== "" && eventDetails.startDate !== "" && eventDetails.startTime !== "" && eventDetails.endDate !== "" && eventDetails.endTime !== "" && eventDetails.parkState !== "" && eventDetails.campGround.name !== "" && eventDetails.userDescription !== "") {
+            if (eventDetails.eventName !== "" && eventDetails.startDate !== "" && eventDetails.startTime !== "" && eventDetails.endDate !== "" && eventDetails.endTime !== "" && eventDetails.parkState !== "" && eventDetails.campGround.name !== "" && eventDetails.userDescription !== "" && validTime) {
                 if (eventDetails.campGround.address.manual === "manual" && eventDetails.campGround.address.name === "" && eventDetails.campGround.address.addressString === "") {
                     setFilledIn(prevTitleBody => {
                         return {
@@ -159,7 +200,7 @@ const CreateEventForm = () => {
             {/* Change images that use public to use upload thing, if file is larger than 4kbs, don't use public */}
 
             <div className="p-2 rounded-md flex bg-gray-100">
-                <h1 onClick={() => console.log(eventDetails)} className="font-light text-3xl">Create a new event</h1>
+                <h1 className="font-light text-3xl">Create a new event</h1>
             </div>
             <div className={ !filledIn.eventDetails ? "hidden" : "bg-gray-400 rounded-md p-2 flex justify-around"}>
                 {formNav !== 1 && <button onClick={() => setFormNav(prev => prev - 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Back</button>}
@@ -190,6 +231,7 @@ const CreateEventForm = () => {
                                 {eventDetails.startTime === "" && <p>Start Time</p>}
                                 {eventDetails.endDate === "" && <p>End Date</p>}
                                 {eventDetails.endTime === "" && <p>End Time</p>}
+                                {!validTime && <p>Valid Start/End Time</p>}
                                 {eventDetails.parkState === "" && <p>State</p>}
                                 {
                                     eventDetails.campGround.address.manual !== "manual" &&

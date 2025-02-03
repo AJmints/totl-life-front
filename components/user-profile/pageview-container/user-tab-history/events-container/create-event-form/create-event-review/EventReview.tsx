@@ -16,11 +16,6 @@ const EventReview = (props: any) => {
     const [friendsListToggle, setFriendsListToggle] = useState(false)
     const [searchToggle, setSearchToggle] = useState(true)
 
-    const check = () => {
-        let maybe = Date.parse(props.eventDetails.startDate)
-        return new Date(maybe)
-    }
-
     const viewGear = gearRecList.map((item:any) => {
             return (
                 <div key={item.id} className='bg-gray-400 rounded-md p-1 flex sm:flex-row flex-col justify-around gap-1 items-center'>
@@ -182,7 +177,7 @@ const EventReview = (props: any) => {
         }
 
     return (
-        <div onClick={() => console.log(userFriendList)}>
+        <div>
             <div className="bg-gray-600 rounded-md p-1">
                 <div className="bg-gray-400 rounded-md p-2 flex flex-col gap-4">
                     
@@ -194,11 +189,12 @@ const EventReview = (props: any) => {
                                 <p>Please check that all information entered is correct</p>
                             </div>
 
-                            <div className="flex-col md:flex-row gap-1 flex justify-around">
+                            <div className="flex-col lg:grid lg:grid-cols-3 gap-1 flex ">
                                 <div className="bg-gray-100 rounded-md p-2">
                                     <h1>Event Name: {eventDetails.eventName}</h1>
                                     <p>Event is {eventDetails.isPrivate ? "Private" : "Public"}</p>
-                                    <h1>Address: {eventDetails.campGround.addressString}</h1>
+                                    <h1>Address: </h1>
+                                    <p>{eventDetails.campGround.addressString}</p>
                                 </div>
 
                                 <div className="bg-gray-100 rounded-md p-2">
@@ -206,14 +202,15 @@ const EventReview = (props: any) => {
                                     <p>Event Starts: {eventDetails.startDate}</p>
                                     <p>Event End: {eventDetails.endDate}</p>
                                 </div>
-                            </div>
-
-                            <div className="flex justify-center">
-                                <div className=" rounded-md bg-gray-100 p-2">
-                                    <p>Event Detail Notes:</p>
-                                    <p> {eventDetails.userDescription}</p>
+                                <div className="rounded-md bg-gray-100 p-2">
+                                    <div className=" ">
+                                        <p>Event Detail Notes:</p>
+                                        <p> {eventDetails.userDescription}</p>
+                                    </div>
                                 </div>
                             </div>
+
+                            
                         </div>
                     </div>
 
@@ -246,20 +243,6 @@ const EventReview = (props: any) => {
                             <p className="text-2xl">Invite Friends</p>
                             <p>Who would you like to invite to this event?</p>
                         </div>
-                        <div className="bg-gray-400 p-1 rounded-md">
-                            <div className="flex items-center flex-row gap-2 mb-2">
-                                <h1 className="bg-gray-200 px-2 py-1 text-lg rounded-md">Add Turtles From Your Friend List</h1>
-                                <div>
-                                <button className="hover:bg-yellow-500 bg-cyan-900/70 duration-200 p-1 rounded-md" onClick={() => setFriendsListToggle((prev) => !prev)}>{friendsListToggle ? "Select From Your Friends List" : "Hide Friends"}</button>
-                            </div>
-                            </div>
-                            
-                            <div className={"p-1 mx-2 rounded-md bg-gray-300 text-xs flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle " + (friendsListToggle ? "hidden" : "")}>
-                                {friends}
-                            </div>
-                        </div>
-
-                        
                         <div>
                             <div className="bg-gray-200 p-1 flex flex-col gap-2 rounded-md">
                                 <div className="flex flex-col md:flex-row gap-2 bg-gray-400 p-2 rounded-md">
@@ -267,7 +250,6 @@ const EventReview = (props: any) => {
                                     <input type="text" className="px-1 rounded-md" placeholder="Under Construction" />
                                     <div className="flex flex-row gap-2 items-center">
                                         <button className="bg-gray-500 p-1 rounded-md" onClick={() => setSearchToggle((prev) => !prev)}>Search</button>
-
                                         <button className="bg-gray-500 p-1 rounded-md" onClick={() => setSearchToggle((prev) => !prev)}>{searchToggle ? "View Results" : "Hide Search"}</button>
                                     </div>
                                 </div>
@@ -290,16 +272,27 @@ const EventReview = (props: any) => {
                                         </div>
                                     </div>
                                 </div>
-
+                            </div>
+                        </div>
+                        
+                        <div className="bg-gray-400 p-1 rounded-md">
+                            <div className="flex items-center flex-row gap-2 mb-2">
+                                <h1 className="bg-gray-200 px-2 py-1 text-lg rounded-md">Add Turtles From Your Friend List</h1>
+                                <div>
+                                <button className="hover:bg-yellow-500 bg-cyan-900/70 duration-200 p-1 rounded-md" onClick={() => setFriendsListToggle((prev) => !prev)}>{friendsListToggle ? "Select From Your Friends List" : "Hide Friends"}</button>
+                            </div>
+                            </div>
+                            <div className={"p-1 mx-2 rounded-md bg-gray-300 text-xs flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle " + (friendsListToggle ? "hidden" : "")}>
+                                {friends}
                             </div>
                         </div>
                         <div className="flex flex-col gap-2 bg-gray-400 p-1 rounded-md ">
                             <div className="flex">
-                                <h1 className="bg-gray-200 px-2 py-1 text-lg rounded-md">Friends Added to Event</h1>
+                                <h1 className="bg-gray-200 px-2 py-1 text-lg rounded-md">Friends Invited to Event</h1>
                             </div>
                             {/* <button onClick={() => voiceTest()}>Voice?</button> */}
                             <div className="p-1 rounded-md bg-gray-300 text-xs flex gap-2 overflow-x-scroll scroll-track scroll-w scroll-handle">
-                                {addedToEvent.length === 0 ? <div className="bg-gray-200 px-1 py-16 rounded-md">You haven&#39;t added any friends yet.</div> : addedToEvent }
+                                {addedToEvent.length === 0 ? <div className="bg-gray-200 px-1 py-16 rounded-md">You haven&#39;t invited any friends yet.</div> : addedToEvent }
                             </div>
                         </div>
                     </div>
