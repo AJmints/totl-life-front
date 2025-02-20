@@ -22,7 +22,7 @@ const EventFoodRec = (props: any) => {
             let day = {}
             if (i === 1) {
                 day = {
-                    ID: i,
+                    id: i,
                     bfast: (timeStart < 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
                     lunch: (timeStart < 14 ? "person" : "empty"),
                     dinner: (timeStart < 20 ? "person" : "empty"),
@@ -31,7 +31,7 @@ const EventFoodRec = (props: any) => {
                 }
             } else if (i === totalDays) {
                 day = {
-                    ID: i,
+                    id: i,
                     bfast: (timeEnd > 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
                     lunch: (timeEnd > 14 ? "person" : "empty"),
                     dinner: (timeEnd > 20 ? "person" : "empty"),
@@ -40,7 +40,7 @@ const EventFoodRec = (props: any) => {
                 }
             } else {
                 day = {
-                    ID: i,
+                    id: i,
                     bfast: "person", // make logic to determine if meal is needed based on start/end time
                     lunch: "person",
                     dinner: "person",

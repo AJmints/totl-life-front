@@ -53,7 +53,7 @@ const CreateEventForm = () => {
 
     const pathname = usePathname()
     const friendName = pathname?.split("/user/").pop()
-    const { userFriendList, setUserFriendList } = useUserContext()
+    const { userFriendList, setUserFriendList, userName } = useUserContext()
 
     useEffect(() => {
 
@@ -77,11 +77,29 @@ const CreateEventForm = () => {
     }, [eventDetails])
 
     const createEvent = async() => {
+
+        let gearRecDTO: any[] = []
+        let friendListString: string[] =[]
+
+        gearRecList.forEach((element:any) => {
+            gearRecDTO.push({
+                category: element.category,
+                groupType: element.groupType,
+                count: element.count,
+                gearType: element.gearType
+            })
+        })
+
+        friends.forEach((element: any) => {
+            friendListString.push(element.userName)
+        })
+
         const eventForm = {
             eventDetails,
-            gearRecList,
+            gearRecDTO,
             mealPlan,
-            friends
+            friendListString,
+            userName
         }
         
         // const createPack = await fetch(URL + "/campevent/createEvent", {
@@ -95,7 +113,7 @@ const CreateEventForm = () => {
         // const response = await createPack.json().catch((err) => {
         //     console.log(err)
         // })
-        // console.log("Submit data, all data and checks look to be good.")
+        console.log("Submit data, all data and checks look to be good.")
         console.log(eventForm)
     }
 
