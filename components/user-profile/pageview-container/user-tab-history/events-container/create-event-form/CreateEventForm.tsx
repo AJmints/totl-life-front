@@ -133,8 +133,8 @@ const CreateEventForm = () => {
 
         if (eventDetails.startDate !== "" && eventDetails.startTime !== "" && eventDetails.endDate !== "" && eventDetails.endTime !== "") {
 
-            let start = new Date(eventDetails.startDate + "T" + eventDetails.startTime)
-            let end = new Date(eventDetails.endDate + "T" + eventDetails.endTime)
+            let start = new Date(eventDetails.startDate + " " + eventDetails.startTime)
+            let end = new Date(eventDetails.endDate + " " + eventDetails.endTime)
 
             if (eventDetails.eventStart === undefined && eventDetails.eventEnd === undefined) {
                 setEventDetails((prevDetails: any) => {
