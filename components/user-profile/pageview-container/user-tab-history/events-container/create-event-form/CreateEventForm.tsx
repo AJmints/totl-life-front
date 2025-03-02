@@ -50,6 +50,7 @@ const CreateEventForm = () => {
     const [ friends, setFriends] = useState([]) 
     const [ submit, setSubmit ] = useState<boolean>(false)
     const [ validTime, setValidTime ] = useState<boolean>(false)
+    const [ friendCall, setFriendCall ] = useState<boolean>(false)
 
     const pathname = usePathname()
     const friendName = pathname?.split("/user/").pop()
@@ -70,8 +71,13 @@ const CreateEventForm = () => {
             })
             setUserFriendList(response.friendList)
         }
-        if (userFriendList.length === 0) {
+        if (userFriendList === undefined) {
+            setTimeout(() => {
+                getFriendsLists("1")
+            },1000)
+        } else if (userFriendList.length === 0 && !friendCall) {
             getFriendsLists("1")
+            setFriendCall(true)
         }
         canAdvance()
     }, [eventDetails])
@@ -102,17 +108,17 @@ const CreateEventForm = () => {
             userName
         }
         
-        // const createPack = await fetch(URL + "/campevent/createEvent", {
-        //     method: 'POST',
-        //     headers: {
-        //         "Content-Type": "application/json",
-        //         "auth-token": "Bearer " + await token()
-        //     },
-        //     body: JSON.stringify(eventForm)
-        // })
-        // const response = await createPack.json().catch((err) => {
-        //     console.log(err)
-        // })
+        const createPack = await fetch(URL + "/campevent/createEvent", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "auth-token": "Bearer " + await token()
+            },
+            body: JSON.stringify(eventForm)
+        })
+        const response = await createPack.json().catch((err) => {
+            console.log(err)
+        })
         console.log("Submit data, all data and checks look to be good.")
         console.log(eventForm)
     }
@@ -148,14 +154,14 @@ const CreateEventForm = () => {
                 setEventDetails((prevDetails: any) => {
                     return {
                         ...prevDetails,
-                        eventStart: start
+                        eventStart: start.toString()
                     }
                 })
             } else if (end.toString() !== eventDetails.eventEnd.toString()) {
                 setEventDetails((prevDetails: any) => {
                     return {
                         ...prevDetails,
-                        eventEnd: end
+                        eventEnd: end.toString()
                     }
                 })
             }
