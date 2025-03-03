@@ -63,6 +63,7 @@ const EventDetailsForm = (props: any) => {
     })
 
     const handleEventDetails = (event: any) => {
+        props.canAdvance()
         const {name, value} = event.target
 
         if (name === "parkState") {
@@ -211,7 +212,10 @@ const EventDetailsForm = (props: any) => {
             </div>
 
             <div className=' p-2 hover:bg-gray-600 duration-200 rounded-md flex flex-col gap-4'>
-                <label className="text-gray-100 font-light text-xl" htmlFor='eventName'>Date Range:</label>
+                <div>
+                    <label className="text-gray-100 font-light text-xl" htmlFor='eventName'>Date Range:</label>
+                    <p className="text-sm text-gray-100">* Trip cannot be longer than 30 days</p>
+                </div>
                 <div className="flex flex-col gap-2">
                     <div className="flex gap-4 sm:items-center flex-col sm:flex-row bg-gray-500 p-1 rounded-md">
                         <div className="flex flex-col gap-1">

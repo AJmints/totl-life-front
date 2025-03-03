@@ -110,7 +110,7 @@ const EventsContainer = () => {
                             <div className="p-1">
                                 <button  onClick={() => setCreateToggle((prev) => !prev) } className="bg-yellow-400 p-1 px-2 rounded-md">Back</button>
                             </div>
-                                <CreateEventForm />
+                                <CreateEventForm setCreateToggle={setCreateToggle}/>
                             </>
                             :
                             <div className="bg-gray-500 rounded-md h-[30rem] p-2 md:p-4 flex flex-col gap-2 overflow-y-scroll scroll-track scroll-w scroll-handle">

@@ -13,7 +13,7 @@ import { moList } from "@/lib/data/user-event-form/eventFormMOList"
 
 const NPS: string | undefined = process.env.NEXT_PUBLIC_NPS_API_KEY
 
-const CreateEventForm = () => {
+const CreateEventForm = (props: any) => {
 
     const [formNav, setFormNav] = useState<number>(1)
 
@@ -47,6 +47,7 @@ const CreateEventForm = () => {
     })
     const [ gearRecList, setGearRecList ] = useState([]) /** <--  Set up in Data some premade list for quick creation **/
     const [ mealPlan, setMealPlan ] = useState([])
+    const [ mealToggle, setMealToggle ] = useState<boolean>(false)
     const [ friends, setFriends] = useState([]) 
     const [ submit, setSubmit ] = useState<boolean>(false)
     const [ validTime, setValidTime ] = useState<boolean>(false)
@@ -72,15 +73,16 @@ const CreateEventForm = () => {
             setUserFriendList(response.friendList)
         }
         if (userFriendList === undefined) {
+            console.log("undefined issue")
             setTimeout(() => {
                 getFriendsLists("1")
-            },1000)
+            }, 1000)
         } else if (userFriendList.length === 0 && !friendCall) {
+            console.log("why won't it stop running?")
             getFriendsLists("1")
             setFriendCall(true)
         }
-        canAdvance()
-    }, [eventDetails])
+    }, [])
 
     const createEvent = async() => {
 
@@ -101,26 +103,34 @@ const CreateEventForm = () => {
         })
 
         const eventForm = {
-            eventDetails,
-            gearRecDTO,
-            mealPlan,
-            friendListString,
-            userName
+            eventDetails: eventDetails,
+            gearRecDTO: gearRecDTO,
+            mealPlan: mealPlan,
+            friendListString: friendListString,
+            userName: userName
+        }
+
+        if (confirm("Would you like to submit this event? You will be sent to your events page after confirming.")) {
+
+            const createPack = await fetch(URL + "/campevent/createEvent", {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "Bearer " + await token()
+                },
+                body: JSON.stringify(eventForm)
+            })
+            const response = await createPack.json().catch((err) => {
+                console.log(err)
+            })
+            console.log(response)
+            props.setCreateToggle((prev:boolean) => !prev)
+
+        } else {
+            return
         }
         
-        const createPack = await fetch(URL + "/campevent/createEvent", {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "Bearer " + await token()
-            },
-            body: JSON.stringify(eventForm)
-        })
-        const response = await createPack.json().catch((err) => {
-            console.log(err)
-        })
-        console.log("Submit data, all data and checks look to be good.")
-        console.log(eventForm)
+        
     }
 
     /* Change images that use public to use upload thing, if file is larger than 4kbs, don't use public */
@@ -146,27 +156,27 @@ const CreateEventForm = () => {
                 setEventDetails((prevDetails: any) => {
                     return {
                         ...prevDetails,
-                        eventStart: start,
-                        eventEnd: end
+                        eventStart: start.toISOString().split("T").join(" "),
+                        eventEnd: end.toISOString().split("T").join(" ")
                     }
                 })
-            } else if (start.toString() !== eventDetails.eventStart.toString()) {
+            } else if (start.toISOString() !== eventDetails.eventStart) {
                 setEventDetails((prevDetails: any) => {
                     return {
                         ...prevDetails,
-                        eventStart: start.toString()
+                        eventStart: start.toISOString().split("T").join(" ")
                     }
                 })
-            } else if (end.toString() !== eventDetails.eventEnd.toString()) {
+            } else if (end.toISOString() !== eventDetails.eventEnd) {
                 setEventDetails((prevDetails: any) => {
                     return {
                         ...prevDetails,
-                        eventEnd: end.toString()
+                        eventEnd: end.toISOString().split("T").join(" ")
                     }
                 })
             }
             
-            if (end > start) {
+            if ( end.getTime() - start.getTime() < 2447460000 && end > start && start > new Date()) {
                 setValidTime(true)
             } else {
                 setValidTime(false)
@@ -200,14 +210,14 @@ const CreateEventForm = () => {
                 })
             }
         } else if (formNav === 2) {
-            if (eventDetails.gearRecList.length > 1) {
+            if (gearRecList.length > 1) {
                 setFilledIn(prevTitleBody => {
                     return {
                         ...prevTitleBody,
                         gearRecList: true
                     }
                 })
-            } else if (eventDetails.gearRecList.length === 0) {
+            } else if (gearRecList.length === 0) {
                 setFilledIn(prevTitleBody => {
                     return {
                         ...prevTitleBody,
@@ -231,9 +241,9 @@ const CreateEventForm = () => {
                 {formNav !== 4 && filledIn.eventDetails && <button onClick={() => setFormNav(prev => prev + 1)} className="border-gray-800 border-2 rounded-md shadow-md py-1 px-2">Next</button>}
             </div>
 
-            { formNav === 1 && <EventDetailsForm eventDetails={eventDetails} setEventDetails={setEventDetails}/>}
+            { formNav === 1 && <EventDetailsForm eventDetails={eventDetails} setEventDetails={setEventDetails} canAdvance={canAdvance}/>}
             { formNav === 2 && <EventGearRec gearRecList={gearRecList} setGearRecList={setGearRecList}/>}
-            { formNav === 3 && <EventFoodRec eventDetails={eventDetails} mealPlan={mealPlan} setMealPlan={setMealPlan}/>}
+            { formNav === 3 && <EventFoodRec eventDetails={eventDetails} mealPlan={mealPlan} setMealPlan={setMealPlan} mealToggle={mealToggle} setMealToggle={setMealToggle}/>}
             { formNav === 4 && <EventReview eventDetails={eventDetails} gearRecList={gearRecList} mealPlan={mealPlan} friends={friends} setFriends={setFriends} submit={submit}/>}
 
             <div className="bg-gray-400 rounded-md p-2 flex justify-around">

@@ -44,9 +44,9 @@ const EventReview = (props: any) => {
         })
         const viewMeals = mealPlan.map((day:any) => { 
             return (
-                <div key={day.ID} className="bg-gray-200 p-2 rounded-md"> 
+                <div key={day.id} className="bg-gray-200 p-2 rounded-md"> 
                     <div className="bg-gray-300 p-1 rounded-md flex flex-col gap-1">
-                        <p className="bg-gray-100 rounded-md p-1">Day {day.ID}</p>
+                        <p className="bg-gray-100 rounded-md p-1">Day {day.id}</p>
                         {day.bfast === "empty" ? 
                         <p className="p-1">Bfast: N/A</p> 
                         :                    

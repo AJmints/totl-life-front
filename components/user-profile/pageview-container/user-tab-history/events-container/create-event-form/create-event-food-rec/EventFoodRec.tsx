@@ -4,18 +4,25 @@ import { useEffect, useState } from "react"
 
 const EventFoodRec = (props: any) => {
 
-    let difference = props.eventDetails.eventEnd.getTime() - props.eventDetails.eventStart.getTime()
+    let startTime = new Date(props.eventDetails.eventStart)
+    let endTime = new Date(props.eventDetails.eventEnd)
+
+    let difference = endTime.getTime() - startTime.getTime()
     let totalDays = Math.round(difference / (1000 * 3600 * 24))
 
     useEffect(() => {
-        updateList()
+        if (!props.mealToggle) {
+            updateList()
+        }
+        
     }, [])
 
     const updateList = () => {
-        let difference = props.eventDetails.eventEnd.getTime() - props.eventDetails.eventStart.getTime()
+        props.setMealToggle(true)
+        let difference = endTime.getTime() - startTime.getTime()
         let totalDays = Math.round(difference / (1000 * 3600 * 24))
-        let timeStart = Number(props.eventDetails.startTime.substring(0,2))
-        let timeEnd = Number(props.eventDetails.endTime.substring(0,2))
+        let timeStart = startTime.toString().substring(16,18)
+        let timeEnd = endTime.toString().substring(16,18)
 
         let arr = []
         for (let i = 1; i <= totalDays; i++) {
@@ -23,18 +30,18 @@ const EventFoodRec = (props: any) => {
             if (i === 1) {
                 day = {
                     id: i,
-                    bfast: (timeStart < 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
-                    lunch: (timeStart < 14 ? "person" : "empty"),
-                    dinner: (timeStart < 20 ? "person" : "empty"),
+                    bfast: (Number(timeStart) < 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
+                    lunch: (Number(timeStart) < 14 ? "person" : "empty"),
+                    dinner: (Number(timeStart) < 20 ? "person" : "empty"),
                     snacks: "person",
                     notes: ""
                 }
             } else if (i === totalDays) {
                 day = {
                     id: i,
-                    bfast: (timeEnd > 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
-                    lunch: (timeEnd > 14 ? "person" : "empty"),
-                    dinner: (timeEnd > 20 ? "person" : "empty"),
+                    bfast: (Number(timeEnd) > 10 ? "person" : "empty"), // make logic to determine if meal is needed based on start/end time
+                    lunch: (Number(timeEnd) > 14 ? "person" : "empty"),
+                    dinner: (Number(timeEnd) > 20 ? "person" : "empty"),
                     snacks: "person",
                     notes: ""
                 }
@@ -56,9 +63,9 @@ const EventFoodRec = (props: any) => {
 
     const viewDays = props.mealPlan.map((day:any) => { 
         return (
-            <div key={day.ID} className="bg-gray-200 p-2 rounded-md"> 
+            <div key={day.id} className="bg-gray-200 p-2 rounded-md"> 
                 <div className="bg-gray-300 p-1 rounded-md flex flex-col gap-1">
-                    <p className="bg-gray-100 rounded-md p-1">Day {day.ID}</p>
+                    <p className="bg-gray-100 rounded-md p-1">Day {day.id}</p>
                     {day.bfast === "empty" ? 
                     <p className="p-1">Bfast: N/A</p> 
                     :                    
@@ -112,7 +119,7 @@ const EventFoodRec = (props: any) => {
 
         let arr = props.mealPlan
         let update = props.mealPlan.filter((updateTarget: any) => {
-            return updateTarget.ID === day.ID
+            return updateTarget === day
         }).pop()
 
         if(update[name] === "person") {
@@ -120,7 +127,7 @@ const EventFoodRec = (props: any) => {
         } else {
             update[name] = "person"
         }
-        arr[update.ID - 1] = update
+        arr[update.ID] = update
         props.setMealPlan([...arr])
     }
 
@@ -128,10 +135,10 @@ const EventFoodRec = (props: any) => {
         event.preventDefault()
         let arr = props.mealPlan
         let update = props.mealPlan.filter((updateTarget: any) => {
-            return updateTarget.ID === day.ID
+            return updateTarget.id === day.id
         }).pop()
         update.notes = event.target.value
-        arr[update.ID - 1] = update
+        arr[update.id - 1] = update
         props.setMealPlan([...arr])
     }
 
@@ -147,7 +154,7 @@ const EventFoodRec = (props: any) => {
             <div className="flex justify-center">
                 <div className="bg-gray-300 p-2 rounded-md flex flex-col justify-center">
                     <p className="text-center font-bold">Event from:</p>
-                    <p>Start: {props.eventDetails.eventStart.toDateString()} - End: {props.eventDetails.eventEnd.toDateString()}</p>
+                    <p>Start: {startTime.toDateString()} - End: {endTime.toDateString()}</p>
                     <p className="text-center">For: {totalDays} days</p>
                 </div>
 
