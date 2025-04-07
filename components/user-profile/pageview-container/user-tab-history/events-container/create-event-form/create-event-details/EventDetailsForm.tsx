@@ -202,6 +202,18 @@ const EventDetailsForm = (props: any) => {
             </div>
 
             <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
+                <h1 className="text-gray-100 font-light">Event Type:</h1>
+                <div className='text-gray-800 '>
+                    <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' onChange={handleEventDetails} defaultValue={"car"} name="eventType">
+                        <option value="car">Car</option>
+                        <option value="float">Float</option>
+                        <option value="hike">Hike</option>
+                        <option value="bike">Bike</option>
+                    </select>
+                </div>
+            </div>
+
+            <div className="sm:flex sm:space-x-2 items-center p-2 hover:bg-gray-600 duration-200 rounded-md">
                 <h1 className="text-gray-100 font-light">Public or Private Event:</h1>
                 <div className='text-gray-800 '>
                     <select className='rounded-md mx-auto shadow-md p-1 bg-gray-200' onChange={handleEventDetails} defaultValue={"true"} name="isPrivate">

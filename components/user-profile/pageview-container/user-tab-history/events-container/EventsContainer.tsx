@@ -1,13 +1,18 @@
 'use client'
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import EventView from "./event-view/EventView"
 import CreateEventForm from "./create-event-form/CreateEventForm"
+import {URL} from "@/lib/globalConstants"
+import { useUserContext } from "@/app/context/UserContextProvider"
+import { usePathname } from "next/navigation"
 
 const EventsContainer = () => {
 
     const [eventToggle, setEventToggle] = useState<boolean>(false)
     const [createToggle, setCreateToggle] = useState<boolean>(false)
+    const pathname = usePathname()
+    const userName = pathname?.split("/user/").pop()
 
     const test = () => {
         console.time("Timer")
@@ -18,6 +23,19 @@ const EventsContainer = () => {
         console.timeEnd("Timer")
     
     }
+
+    useEffect(() => {
+        const listCheck = async() => {
+            const getOtherUserDetails = await fetch(URL + "/campevent/getAllRelevantEvents/" + userName, {
+                method: 'GET'
+            })
+            const response = await getOtherUserDetails.json().catch((err) => {
+                console.log(err)
+            })
+            console.log(response)
+        }
+        listCheck()
+    }, [])
 
     const t = (
         <div className={"bg-gray-300 hover:border-emerald-500 border-gray-300 border-4 duration-200 " + "cursor-pointer p-1 flex justify-between px-4 rounded-md text-sm"}>

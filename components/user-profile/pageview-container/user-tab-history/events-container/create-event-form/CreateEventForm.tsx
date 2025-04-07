@@ -25,6 +25,7 @@ const CreateEventForm = (props: any) => {
     })
     const [eventDetails, setEventDetails] = useState<any>({
         eventName: "",
+        eventType: "",
         isPrivate: "false",
         startDate: "",
         startTime: "",
@@ -109,6 +110,7 @@ const CreateEventForm = (props: any) => {
             friendListString: friendListString,
             userName: userName
         }
+        console.log(eventForm)
 
         if (confirm("Would you like to submit this event? You will be sent to your events page after confirming.")) {
 
@@ -148,6 +150,8 @@ const CreateEventForm = (props: any) => {
     const canAdvance = () => {
 
         if (eventDetails.startDate !== "" && eventDetails.startTime !== "" && eventDetails.endDate !== "" && eventDetails.endTime !== "") {
+            
+            /** UPDATE THIS METHOD, IT LAGS BECAUSE IT'S BEING CALLED ON EVENTDETAILSFORM.TSX / CALL ON CREATEEVENTFORM.TSX SOMEHOW **/
 
             let start = new Date(eventDetails.startDate + " " + eventDetails.startTime)
             let end = new Date(eventDetails.endDate + " " + eventDetails.endTime)
@@ -184,7 +188,7 @@ const CreateEventForm = (props: any) => {
         }
 
         if (formNav === 1) {
-            if (eventDetails.eventName !== "" && eventDetails.startDate !== "" && eventDetails.startTime !== "" && eventDetails.endDate !== "" && eventDetails.endTime !== "" && eventDetails.parkState !== "" && eventDetails.campGround.name !== "" && eventDetails.userDescription !== "" && validTime) {
+            if (eventDetails.eventName !== "" && eventDetails.eventType !== "" && eventDetails.startDate !== "" && eventDetails.startTime !== "" && eventDetails.endDate !== "" && eventDetails.endTime !== "" && eventDetails.parkState !== "" && eventDetails.campGround.name !== "" && eventDetails.userDescription !== "" && validTime) {
                 if (eventDetails.campGround.address.manual === "manual" && eventDetails.campGround.address.name === "" && eventDetails.campGround.address.addressString === "") {
                     setFilledIn(prevTitleBody => {
                         return {
@@ -261,6 +265,7 @@ const CreateEventForm = (props: any) => {
                             <div className="right-[10%] sm:right-[30%] sm:left-[25%] fixed bottom-[10%] top-[60%] sm:top-[70%] md:right-[40%] md:left-[40%] hidden group-hover:flex flex-col gap-1 bg-gray-300 p-2 max-h-64 rounded-md shadow-md shadow-gray-800/40 overflow-y-scroll scroll-track scroll-w scroll-handle">
                                 <p className="bg-red-400 p-1 rounded-md">The following are missing:</p>
                                 {eventDetails.eventName.length < 3 && <p>Event Name</p>}
+                                {eventDetails.eventType === "" && <p>Event Type</p>}
                                 {eventDetails.startDate === "" && <p>Start Date</p>}
                                 {eventDetails.startTime === "" && <p>Start Time</p>}
                                 {eventDetails.endDate === "" && <p>End Date</p>}
