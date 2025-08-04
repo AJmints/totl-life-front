@@ -1,9 +1,18 @@
+"use client"
+
+import { useState, useEffect } from "react"
 import EventGearListContainer from "./event-gear-list/EventGearListContainer"
 import FoodArrangementsContainer from "./food-arrangements/FoodArrangementsContainer"
 import FriendListContainer from "./friend-list/FriendListContainer"
 import RecommendedGearContainer from "./recommended-gear/RecommendedGear"
 
-const EventView = () => {
+const EventView = (props: any) => {
+
+    const eventID = props
+
+    useEffect(() => {
+
+    }, [])
 
     return (
         <div>
@@ -12,7 +21,7 @@ const EventView = () => {
 
             <div className="p-2 bg-gray-400 rounded-md text-gray-900">
 
-                <div className="p-2 bg-gray-300 rounded-md gap-2 flex">                    
+                <div className="p-2 bg-gray-300 rounded-md gap-2 flex">
 
                     <div className="bg-gray-300 rounded-md w-full space-y-2">
 

@@ -6,6 +6,7 @@ import current from '../public/images/spring-current.jpg'
 import { Analytics } from '@vercel/analytics/react'
 import { RiverContextProvider } from './context/RiverContextProvider'
 import { UserContextProvider } from './context/UserContextProvider'
+import { CreateEventContextProvider } from '@/components/context/CreateEventContext' 
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -35,13 +36,15 @@ export default function RootLayout({
       >
         <UserContextProvider>
         <RiverContextProvider>
+        <CreateEventContextProvider>
 
           <div className='bg-gray-800/50 pt-16'>
           <Header />
             {children}
           <Analytics />
           </div>
-          
+        
+        </CreateEventContextProvider>
         </RiverContextProvider>
         </UserContextProvider>
       </body>

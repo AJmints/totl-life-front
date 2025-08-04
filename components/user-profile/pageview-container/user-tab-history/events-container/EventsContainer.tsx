@@ -5,14 +5,18 @@ import EventView from "./event-view/EventView"
 import CreateEventForm from "./create-event-form/CreateEventForm"
 import {URL} from "@/lib/globalConstants"
 import { useUserContext } from "@/app/context/UserContextProvider"
+import { useCreateEventContext } from "@/components/context/CreateEventContext"
 import { usePathname } from "next/navigation"
 
 const EventsContainer = () => {
 
     const [eventToggle, setEventToggle] = useState<boolean>(false)
     const [createToggle, setCreateToggle] = useState<boolean>(false)
+    const [viewEvent, setViewEvent] = useState<any>("")
     const pathname = usePathname()
     const userName = pathname?.split("/user/").pop()
+
+    const { relatedEvents, setRelatedEvents } = useCreateEventContext()
 
     const test = () => {
         console.time("Timer")
@@ -32,24 +36,65 @@ const EventsContainer = () => {
             const response = await getOtherUserDetails.json().catch((err) => {
                 console.log(err)
             })
-            console.log(response)
+            setRelatedEvents(response)
         }
         listCheck()
     }, [])
 
-    const t = (
-        <div className={"bg-gray-300 hover:border-emerald-500 border-gray-300 border-4 duration-200 " + "cursor-pointer p-1 flex justify-between px-4 rounded-md text-sm"}>
+    // const t = (
+    //     <div className={"bg-gray-300 hover:border-emerald-500 border-gray-300 border-4 duration-200 " + "cursor-pointer p-1 flex justify-between px-4 rounded-md text-sm"}>
+    //         <div>
+    //             <div className="flex justify-center">
+    //                 <p className="py-10 bg-gray-200 rounded-md">Type Image</p>
+    //             </div>
+    //             <p>Type: Car Camp</p> {/* Car Camping / Overlanding / Floating / BackPacking / MTB / Climbing */}
+    //         </div>
+    //         <div className="text-right flex flex-col justify-center">
+    //             <p>Event Name</p>
+    //             <p>Hosted By</p>
+    //             <p>Date Range</p>
+    //             <p>5 Invited</p>
+    //         </div>
+    //         <div className="flex gap-2 flex-col md:flex-row justify-center">
+    //             { true ? 
+    //                 <>
+    //                     <button>Accept</button>
+    //                     <button>Decline</button>
+    //                     <button>Maybe</button> {/* Maybe has limited functionality in Events and can't contribute to food nor will thier gear be accounted for, but they can lend gear still */}
+    //                 </>
+    //             :
+    //                 <>
+    //                     <p>Status: Accepted</p>
+    //                     <button>Delete/Edit</button> {/* If creator display these */}
+    //                     <button>Leave</button> {/* If user, provide this option */}
+    //                 </>
+    //             }
+    //         </div>
+            
+    //     </div>
+    // )
+
+    const viewSpecificEvent = (id:string) => {
+
+        setViewEvent(id)
+
+        setEventToggle((prev) => !prev)
+    }
+
+    const eventCards = relatedEvents.map((events: any) => {
+        return (
+            <div key={events.eventID} onClick={() => viewSpecificEvent(events.eventID)} className={"bg-gray-300 hover:border-emerald-500 border-gray-300 border-4 duration-200 " + "cursor-pointer p-1 flex justify-between px-4 rounded-md text-sm"}>
             <div>
                 <div className="flex justify-center">
                     <p className="py-10 bg-gray-200 rounded-md">Type Image</p>
                 </div>
-                <p>Type: Car Camp</p> {/* Car Camping / Overlanding / Floating / BackPacking / MTB / Climbing */}
+                <p>Type: {events.typeEvent}</p> {/* Car Camping / Overlanding / Floating / BackPacking / MTB / Climbing */}
             </div>
             <div className="text-right flex flex-col justify-center">
-                <p>Event Name</p>
-                <p>Hosted By</p>
-                <p>Date Range</p>
-                <p>5 Invited</p>
+                <p>{events.eventName}</p>
+                <p>Hosted By: {events.host}</p>
+                <p>{events.dateRange}</p>
+                <p>{events.goingNum} Invited</p>
             </div>
             <div className="flex gap-2 flex-col md:flex-row justify-center">
                 { true ? 
@@ -68,19 +113,20 @@ const EventsContainer = () => {
             </div>
             
         </div>
-    )
-
-    const arr = [t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t]
-
-    let num = arr.length
-    const loop = arr.map((item) => {
-        num--
-        return (
-            <div key={num} onClick={() => setEventToggle((prev: any) => !prev)}>
-                {item}
-            </div>   
         )
-    })
+    } )
+
+    // const arr = [t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t]
+
+    // let num = arr.length
+    // const loop = arr.map((item) => {
+    //     num--
+    //     return (
+    //         <div key={num} onClick={() => setEventToggle((prev: any) => !prev)}>
+    //             {item}
+    //         </div>   
+    //     )
+    // })
     
     return (
         <div>
@@ -92,8 +138,8 @@ const EventsContainer = () => {
                     {eventToggle && <button  onClick={() => setEventToggle((prev) => !prev) } className="bg-yellow-400 p-1 px-2 rounded-md">Back</button>}
                 </div>
                 <div >
-                    {eventToggle && <EventView />}
-                    { !eventToggle && 
+                    {eventToggle && <EventView viewEvent={viewEvent} />}
+                    { !eventToggle ?
                     
                     <div className="flex flex-col gap-2">
                         { createToggle ?
@@ -115,7 +161,7 @@ const EventsContainer = () => {
                                 </div>
                             </div>
 
-                            <div className="flex gap-2 justify-between p-1 rounded-md bg-gray-500">
+                            <div className="flex gap-2 justify-around p-1 rounded-md bg-gray-500">
                                 <button className="bg-emerald-400 p-1 px-2 rounded-md">Events you created</button>
                                 <button className="bg-emerald-400 p-1 px-2 rounded-md">Events Invited to</button>
                                 <button className="bg-emerald-400 p-1 px-2 rounded-md">Drafts</button>
@@ -133,18 +179,20 @@ const EventsContainer = () => {
                             :
                             <div className="bg-gray-500 rounded-md h-[30rem] p-2 md:p-4 flex flex-col gap-2 overflow-y-scroll scroll-track scroll-w scroll-handle">
                             
-                                { arr.length === 0 ? 
+                                { relatedEvents.length === 0 ? 
                                 <div className="bg-gray-400 p-10 text-center rounded-md">
                                     <p className="text-2xl">You Have no events yet</p>
                                 </div>
                                 :
                                 <>
-                                    {loop}
+                                    {eventCards}
                                 </>
                                 }
                             </div>
                         }
                     </div>
+                    :
+                    <></>
                     }
                 </div>
                 
