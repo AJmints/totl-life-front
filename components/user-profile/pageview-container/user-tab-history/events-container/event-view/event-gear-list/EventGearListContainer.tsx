@@ -1,9 +1,11 @@
+'use client'
+
 import { useState } from "react"
 import GearTypeCard from "./gear-type-card/GearTypeCard"
 import UserPackDetailsCard from "./user-pack-details/UserPackDetailsCard"
 import EventGearSummary from "./event-gear-summary/EventGearSummary"
 
-const EventGearListContainer = () => {
+const EventGearListContainer = (props: any) => {
 
     const [toggle, setToggle] = useState<boolean>(false)
     const [itemDetail, setItemDetail] = useState<any>()
@@ -34,7 +36,7 @@ const EventGearListContainer = () => {
         <div className="p-2 bg-gray-400 rounded-md w-full">
 
             <div>
-                <h1 className="text-center font-medium text-lg">Event Gear List</h1>
+                <h1 className="text-center font-medium text-lg" >Event Gear List</h1>
             </div>
 
             {/* <div className="bg-gray-300 rounded-md p-4">
@@ -45,7 +47,8 @@ const EventGearListContainer = () => {
                 
                 <div className="bg-gray-400 p-1 h-[48rem] sm:h-[42rem] md:h-[23rem] lg:h-full flex gap-2 flex-col md:flex-row lg:flex-col rounded-md">
                     <div className="bg-gray-200 p-2 md:w-[50%] lg:w-full h-[50%] md:h-[100%] lg:h-[50%] w-full rounded-md">
-                        <EventGearSummary />
+                        <EventGearSummary 
+                        list={props.list}/>
                     </div>
                     
                     <div className="bg-gray-300 p-2 h-[50%] md:h-[100%] lg:h-[50%] md:w-[50%] lg:w-full w-full rounded-md">

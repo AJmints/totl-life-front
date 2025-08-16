@@ -4,10 +4,9 @@ import { useState } from "react"
 import FriendListContainer from "../../friend-list/FriendListContainer"
 
 
-const EventGearSummary = () => {
+const EventGearSummary = (props:any) => {
 
     const [quickViewToggle, setQuickViewToggle] = useState(true)
-    const [toggle, setToggle] = useState<any>()
     const [hideUsers, setHideUsers] = useState<any>()
 
     const t = (
@@ -76,8 +75,8 @@ const EventGearSummary = () => {
             <div className={"p-2 bg-gray-400 rounded-md" + (!hideUsers ? " hidden" : "")}>
                 <FriendListContainer 
                     source={"gearSummary"}
-                    setToggle={setToggle}
                     gearTotal={"9"}
+                    list={props.list}
                 />
             </div>
             <div className="flex items-center justify-around bg-gray-500 p-1 rounded-md">

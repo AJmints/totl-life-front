@@ -1,5 +1,6 @@
 'use client'
 
+import Image from "next/image"
 import { useState, useEffect } from "react"
 import EventView from "./event-view/EventView"
 import CreateEventForm from "./create-event-form/CreateEventForm"
@@ -7,6 +8,7 @@ import {URL} from "@/lib/globalConstants"
 import { useUserContext } from "@/app/context/UserContextProvider"
 import { useCreateEventContext } from "@/components/context/CreateEventContext"
 import { usePathname } from "next/navigation"
+import EventTypeImage from "./event-view/EventTypeImage"
 
 const EventsContainer = () => {
 
@@ -86,7 +88,7 @@ const EventsContainer = () => {
             <div key={events.eventID} onClick={() => viewSpecificEvent(events.eventID)} className={"bg-gray-300 hover:border-emerald-500 border-gray-300 border-4 duration-200 " + "cursor-pointer p-1 flex justify-between px-4 rounded-md text-sm"}>
             <div>
                 <div className="flex justify-center">
-                    <p className="py-10 bg-gray-200 rounded-md">Type Image</p>
+                    <EventTypeImage type={events.typeEvent} />
                 </div>
                 <p>Type: {events.typeEvent}</p> {/* Car Camping / Overlanding / Floating / BackPacking / MTB / Climbing */}
             </div>
