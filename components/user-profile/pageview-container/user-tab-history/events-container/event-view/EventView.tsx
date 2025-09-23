@@ -71,7 +71,7 @@ const EventView = (props: any) => {
                                         <p className="text-lg font-light">{event.startDate} @ {event.startTime}</p>
                                         <p className="text-sm font-light bg-gray-200 p-1 rounded-md">Ends:</p>
                                         <p className="text-lg font-light">{event.endDate} @ {event.endTime}</p>
-                                        <p>// a Days b Nights</p>
+                                        <p>TODO: a Days b Nights</p>
                                     </div>
                                 </div>
                                 <div className=" md:w-[100%] md:block p-2 space-y-2 bg-gray-300 rounded-md">
