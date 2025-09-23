@@ -2,34 +2,24 @@
 
 import { useState } from "react"
 
-const RecommendedGearContainer = () => {
+const RecommendedGearContainer = (props: any) => {
 
     const [toggle, setToggle] = useState(true)
+    let list = props?.gearRecItems
 
-    const fixed = 1
-    const t = (
-        <div className="bg-gray-300 p-1 flex justify-around rounded-md text-xs">
+    const loop = list?.map((item: any) => {
+        return (
+            <div key={item.id} onClick={() => console.log(list)} className="bg-gray-300 p-1 flex justify-around rounded-md text-xs">
             <div>
-                <p>Name: BackPack</p>
-                <p>Type: Pack</p>
+                <p>Item: {item.itemDetails.category}</p>
+                <p>Type: {item.itemDetails.type}</p>
             </div>
             <div className="text-right">
                 <p>Quantity:</p>
-                <p>x2 Group/Per Person</p>
+                <p>x{item.count} Per {item.perGroupOrPerson.charAt(0).toUpperCase() + item.perGroupOrPerson.slice(1)}</p>
             </div>
             
         </div>
-    )
-
-    const arr = [t,t,t,t,t,t,t,t,t,t,t,t,t,t,t]
-
-    let num = arr.length
-    const loop = arr.map((item) => {
-        num--
-        return (
-            <div key={num}>
-                {item}
-            </div>   
         )
     })
 

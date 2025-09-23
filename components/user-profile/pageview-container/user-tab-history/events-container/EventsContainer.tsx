@@ -5,16 +5,19 @@ import { useState, useEffect } from "react"
 import EventView from "./event-view/EventView"
 import CreateEventForm from "./create-event-form/CreateEventForm"
 import {URL} from "@/lib/globalConstants"
-import { useUserContext } from "@/app/context/UserContextProvider"
 import { useCreateEventContext } from "@/components/context/CreateEventContext"
 import { usePathname } from "next/navigation"
-import EventTypeImage from "./event-view/EventTypeImage"
+import car from "@/public/icons/car-icon.png"
+import float from "@/public/icons/float-icon.png"
+import backPack from "@/public/icons/backpack.png"
+import bike from "@/public/icons/bike-icon.png"
 
 const EventsContainer = () => {
 
     const [eventToggle, setEventToggle] = useState<boolean>(false)
     const [createToggle, setCreateToggle] = useState<boolean>(false)
     const [viewEvent, setViewEvent] = useState<any>("")
+    const [type, setType] = useState<any>({})
     const pathname = usePathname()
     const userName = pathname?.split("/user/").pop()
 
@@ -40,41 +43,21 @@ const EventsContainer = () => {
             })
             setRelatedEvents(response)
         }
+
         listCheck()
     }, [])
 
-    // const t = (
-    //     <div className={"bg-gray-300 hover:border-emerald-500 border-gray-300 border-4 duration-200 " + "cursor-pointer p-1 flex justify-between px-4 rounded-md text-sm"}>
-    //         <div>
-    //             <div className="flex justify-center">
-    //                 <p className="py-10 bg-gray-200 rounded-md">Type Image</p>
-    //             </div>
-    //             <p>Type: Car Camp</p> {/* Car Camping / Overlanding / Floating / BackPacking / MTB / Climbing */}
-    //         </div>
-    //         <div className="text-right flex flex-col justify-center">
-    //             <p>Event Name</p>
-    //             <p>Hosted By</p>
-    //             <p>Date Range</p>
-    //             <p>5 Invited</p>
-    //         </div>
-    //         <div className="flex gap-2 flex-col md:flex-row justify-center">
-    //             { true ? 
-    //                 <>
-    //                     <button>Accept</button>
-    //                     <button>Decline</button>
-    //                     <button>Maybe</button> {/* Maybe has limited functionality in Events and can't contribute to food nor will thier gear be accounted for, but they can lend gear still */}
-    //                 </>
-    //             :
-    //                 <>
-    //                     <p>Status: Accepted</p>
-    //                     <button>Delete/Edit</button> {/* If creator display these */}
-    //                     <button>Leave</button> {/* If user, provide this option */}
-    //                 </>
-    //             }
-    //         </div>
-            
-    //     </div>
-    // )
+    const whatType = (input: any) => {
+        if (input === "car") {
+            return car
+        } else if (input === "float") {
+            return float
+        } else if (input === "backPack") {
+            return backPack
+        } else  {
+            return bike
+        }
+    }
 
     const viewSpecificEvent = (id:string) => {
 
@@ -84,11 +67,23 @@ const EventsContainer = () => {
     }
 
     const eventCards = relatedEvents.map((events: any) => {
+
         return (
             <div key={events.eventID} onClick={() => viewSpecificEvent(events.eventID)} className={"bg-gray-300 hover:border-emerald-500 border-gray-300 border-4 duration-200 " + "cursor-pointer p-1 flex justify-between px-4 rounded-md text-sm"}>
             <div>
                 <div className="flex justify-center">
-                    <EventTypeImage type={events.typeEvent} />
+                    <div className="p-2">
+                        <div className="bg-gray-500 text-xs rounded-md p-2 space-y-2">
+                            <div className="font-light text-lg bg-gray-200 px-2 py-1 rounded-md">
+                                <p>{events.typeEvent?.charAt(0).toUpperCase() + events.typeEvent?.slice(1)} Adventure</p>
+                            </div>
+                            <Image 
+                            src={whatType(events.typeEvent)}
+                            alt="auto"
+                            className="w-auto rounded-md mx-auto"
+                            />
+                        </div>
+                    </div>
                 </div>
                 <p>Type: {events.typeEvent}</p> {/* Car Camping / Overlanding / Floating / BackPacking / MTB / Climbing */}
             </div>
@@ -117,18 +112,6 @@ const EventsContainer = () => {
         </div>
         )
     } )
-
-    // const arr = [t,t,t,t,t,t,t,t,t,t,t,t,t,t,t,t]
-
-    // let num = arr.length
-    // const loop = arr.map((item) => {
-    //     num--
-    //     return (
-    //         <div key={num} onClick={() => setEventToggle((prev: any) => !prev)}>
-    //             {item}
-    //         </div>   
-    //     )
-    // })
     
     return (
         <div>

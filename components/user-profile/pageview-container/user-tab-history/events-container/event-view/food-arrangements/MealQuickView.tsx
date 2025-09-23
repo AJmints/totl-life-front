@@ -10,11 +10,7 @@ const MealQuickView = (props: any) => {
                     <div className="flex my-auto gap-2 text-sm font-medium bg-gray-300 p-2 rounded-md h-[100%] items-center">
                         <div className="bg-gray-200 p-2 rounded-md flex flex-col gap-1 w-[50%] h-[100%]">
                             <p>Food Recs</p>
-                            <p>5 Days</p>
-                            <p>Bfast: x3</p>
-                            <p>Lunch: x4</p>
-                            <p>Dinner: x3</p>
-                            <p>And Snacks</p>
+                            <p>Alter this page to be an update page to update notes and mark who was the last person to make an update</p>
                         </div>
                         <div className="bg-gray-200 p-2 text-center rounded-md flex flex-col gap-1 w-[50%] h-[100%]">
                             <div className="">

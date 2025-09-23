@@ -2,11 +2,15 @@
 
 import { useState, useEffect } from "react"
 import {URL} from "@/lib/globalConstants"
+import Image from "next/image"
 import EventGearListContainer from "./event-gear-list/EventGearListContainer"
 import FoodArrangementsContainer from "./food-arrangements/FoodArrangementsContainer"
 import FriendListContainer from "./friend-list/FriendListContainer"
 import RecommendedGearContainer from "./recommended-gear/RecommendedGear"
-import EventTypeImage from "./EventTypeImage"
+import car from "@/public/icons/car-icon.png"
+import float from "@/public/icons/float-icon.png"
+import backPack from "@/public/icons/backpack.png"
+import bike from "@/public/icons/bike-icon.png"
 
 const EventView = (props: any) => {
 
@@ -16,18 +20,30 @@ const EventView = (props: any) => {
 
     useEffect(() => {
         const listCheck = async() => {
-                    const getOtherUserDetails = await fetch(URL + "/campevent/getSpecificEvent/" + eventID, { // Use eventID 68 for testing
-                        method: 'GET'
-                    })
-                    const response = await getOtherUserDetails.json().catch((err) => {
-                        console.log(err)
-                    })
-                    console.log(response)
-                    setEvent(response)
-                }
-                
-                listCheck()
+            const getOtherUserDetails = await fetch(URL + "/campevent/getSpecificEvent/" + eventID, { // Use eventID 68 for testing
+                method: 'GET'
+            })
+            const response = await getOtherUserDetails.json().catch((err) => {
+                console.log(err)
+            })
+            console.log(response)
+            setEvent(response)
+        }
+    listCheck()
+
     }, [])
+
+    const whatType = (input: any) => {
+        if (input === "car") {
+            return car
+        } else if (input === "float") {
+            return float
+        } else if (input === "backPack") {
+            return backPack
+        } else  {
+            return bike
+        }
+    }
 
     return (
         <div>
@@ -73,7 +89,16 @@ const EventView = (props: any) => {
                                 <div className="bg-gray-400 rounded-md p-2 space-y-2">
                                     <div className="bg-gray-300 rounded-md">
                                         <div className="p-2">
-                                            <EventTypeImage type={event.eventType} />
+                                            <div className="bg-gray-500 text-xs rounded-md p-2 space-y-2">
+                                                <div className="font-light text-lg bg-gray-200 px-2 py-1 rounded-md">
+                                                    <p>{event.eventType?.charAt(0).toUpperCase() + event.eventType?.slice(1)} Adventure</p>
+                                                </div>
+                                                <Image 
+                                                src={whatType(event.eventType)}
+                                                alt="auto"
+                                                className="w-auto rounded-md mx-auto"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -111,13 +136,15 @@ const EventView = (props: any) => {
                                 
                                 <div className="rounded-md w-full md:w-[50%] lg:w-full h-[50%] flex flex-col">
                                     
-                                    <FoodArrangementsContainer />
+                                    <FoodArrangementsContainer 
+                                    eventMeals={event.eventMeals}/>
                                     
                                 </div>
                                 
                                 <div className="rounded-md w-full md:w-[50%] lg:w-full h-[50%] flex flex-col">
                                     
-                                    <RecommendedGearContainer />
+                                    <RecommendedGearContainer 
+                                    gearRecItems={event.gearRecItems}/>
                                     
                                 </div>
                             </div>
